@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>填写订单学员界面</title>
+<link rel="shortcut icon" href="logo.png">
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap/bootstrap.min.js"></script>
+
+<script>
+	$(function() {
+		getOrderList();		//初始化加载订单列表
+		
+		$("#addT").click(function() {		//添加学员信息
+			var of = new FormData(document.getElementById("otForm"));
+
+			$.ajax({
+				type : "post",
+				url : "addTrainee", 
+				data : of,
+				async : false,
+				cache : false,
+				contentType : false,
+				processData : false,
+				success : function(data) {
+					if (data.code == 1) {
+						alert(data.msg);
+						//location.reload();
+					} else {
+						alert(data.msg);
+					}
+				},
+				error : function(data) {
+					alert("服务器连接异常");
+				}
+			});
+		});
+		
+		$("#addO").click(function(){		//添加订单
+			$.ajax({
+				type : "post",
+				url : "addOrder", 
+				data : {
+					"preparer" : $("#preparer").val()
+				},
+				async : false,
+				cache : false,
+				success : function(data) {
+					if (data.code == -999) {
+						alert(data.msg);
+						location.href = "login.html";
+					} else if (data.code == 1) {
+						getOrderList();
+						$("#orderId").val(data.data);
+					} else {
+						alert(data.msg);
+					}
+				},
+				error : function(data) {
+					alert("服务器连接异常");
+				}
+			});		
+		});
+		
+	});
+	
+	function getOrderList(){		//获取订单列表，并显示到表格上
+			$.ajax({
+				type : "post",
+				url : "getOrderList",
+				async : false,
+				cache : false,
+				success : function(data) {
+					if (data.code == -999) {
+						alert(data.msg);
+						//location.href = "login.html";
+					} else if (data.code == 1) {
+						var ol = "";
+						var d = data.data.result;
+						for ( var i = 0; i < d.length; i++) {
+							ol += "<tr>" 
+									+ "<td>" + d[i].id + "</td>" 
+									+ "<td>"+ d[i].preparer + "</td>" 
+									+ "<td>" + d[i].time+ "</td>" 
+									+"<td>"+"<input type='button' value='删除' onclick='delO("+d[i].id+")' />"+"</td>"
+									+"<td>"+"<input type='button' value='查看' onclick='getOT("+d[i].id+")' />"+"</td>"
+									+ "<td>"+ d[i].status + "</td>" 
+									+ "<td>"+ d[i].description + "</td>"
+									+ "<td>"+"<input type='button' value='提交订单' onclick='submitO("+d[i].id+")' /></td>"  
+								+ "</tr>";
+						}
+						$("#oList tbody").html(ol);
+					}
+				},
+				error : function(data) {
+					alert("getOrderList error");
+				}
+			});
+		}
+	
+	function delO(o){				//删除订单
+		$.ajax({
+			type : "post",
+			url : "deleteOrder", 
+			data : {
+				"id" : o
+			},
+			async : false,
+			cache : false,
+			success : function(data) {
+				if (data.code == 1) {
+					location.reload();
+				} else {
+					alert(data.msg);
+				}
+			},
+			error : function(data) {
+				alert("服务器连接异常");
+			}
+		});	
+	}
+	
+	function getOT(o){			//根据订单id，获取学员列表
+		$.ajax({
+			type : "post",
+			url : "getOrderTraineeList", 
+			data : {
+				"orderId" : o
+			},
+			async : false,
+			cache : false,
+			success : function(data) {
+				var l="";
+				var d = data.data.result;
+				for(var i=0;i<d.length;i++){
+					l+="<tr>"
+							+"<td>"+d[i].id+"</td>"
+							+"<td>"+d[i].name+"</td>"
+							+"<td>"+d[i].sex+"</td>"
+							+"<td>"+d[i].birthday+"</td>"
+							+"<td>"+d[i].address+"</td>"
+							+"<td>"+d[i].idnumber+"</td>"
+							+"<td><img width='40px' height='30px' src='"+d[i].idcardurl1+"' /></td>"
+							+"<td><img width='40px' height='30px' src='"+d[i].idcardurl2+"' /></td>"
+							+"<td><img width='40px' height='30px' src='"+d[i].photourl+"' /></td>"
+							+"<td><img width='40px' height='30px' src='"+d[i].infourl+"' /></td>"
+						+"</tr>";
+				}
+				$("#otList tbody").html(l);
+				$("#otModal").modal('toggle');
+			},
+			error : function(data) {
+				alert("服务器连接异常");
+			}
+		});	
+	}
+	
+	function submitO(o){
+		$.ajax({
+			type : "post",
+			url : "commitOrder", 
+			data : {
+				"id" : o
+			},
+			async : false,
+			cache : false,
+			success : function(data) {
+				if(data.code==1){
+					alert(data.msg);
+					location.reload();
+				}else{
+					alert(data.msg);	
+				}
+			},
+			error : function(data) {
+				alert("服务器连接异常");
+			}
+		});	
+	}
+</script>
+</head>
+<body>
+	<h3>订单列表</h3>
+	<p>提交过的订单，不能再提交，（按钮应该禁用、或者有提示）</p>
+	<table id="oList" border="1px">
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>填表人</th>
+				<th>时间</th>
+				<th>操作</th>
+				<th>学员</th>
+				<th>状态</th>
+				<th>备注</th>
+				<th>提交</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+	<h3>创建订单</h3>
+	填表人：
+	<input type="text" id="preparer" />s
+	<input type="button" id="addO" value="" />
+	<h3>添加学员</h3>
+	<form id="otForm">
+		姓名：<input type="text" name="name" /><br> 
+		性别：<input type="text" name="sex" /><br> 
+		生日：<input type="text" name="birthday" /><br>
+		地址：<input type="text" name="address" /><br> 
+		身份证：<input type="text" name="idnumber" /><br> 
+		缴费情况：<input type="text" name="pay" /><br>
+		身份证正：<input type="file" name="file1" /> 
+		身份证反：<input type="file" name="file2" /> 
+		照片：<input type="file" name="file3" /> 
+		学员信息：<input type="file" name="file4" />
+	</form>
+	<input type="button" id="addT" value="添加学员" />
+	
+	<!-- 查看添加学员 modal -->
+		<div class="modal fade" id="otModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabel">学员信息</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<table id="otList" border="1px">
+								<thead>
+									<tr>
+										<th>id</th>
+										<th>名字</th>
+										<th>性别</th>
+										<th>生日</th>
+										<th>地址</th>
+										<th>身份证号</th>
+										<th>身份证正</th>
+										<th>身份证反</th>
+										<th>照片</th>
+										<th>学员信息</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="addButton">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 查看添加学员 modal -->
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>管理员审核用户界面</title>
+		<link rel="shortcut icon" href="logo.png">
+		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+		<meta http-equiv="description" content="this is my page">
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+		<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap/bootstrap.min.js"></script>
+		<style type="text/css">
+			body {
+				
+				text-align: center;
+			}
+			 table{
+			 	width: 95%;
+			 	margin-left: 35px;
+			 }
+			.lie1 {
+				width: auto;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				text-align: center;
+			}
+			
+			.lie2 {
+				width: auto;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				text-align: center;
+			}
+			.lie3 {
+				min-width: auto;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				text-align: center;
+			}
+			.lie4 {
+				min-width: auto;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				text-align: center;
+			}
+			.lie5 {
+				min-width: auto;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				text-align: center;
+			}
+			.lie6 {
+				min-width: auto;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				text-align: center;
+			}
+			.lie7 {
+				min-width: auto;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				text-align: center;
+			}
+			.lie8 {
+				min-width: auto;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				text-align: center;
+			}
+			.lie9 {
+				min-width: auto;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				text-align: center;
+			}
+			.lie10 {
+				min-width: auto;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				text-align: center;
+			}
+			.lie11 {
+				min-width: auto;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				text-align: center;
+			}
+			.lie12 {
+				min-width: auto;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				text-align: center;
+			}
+			.lie13 {
+				min-width: auto;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				text-align: center;
+			}
+			.lie14 {
+				min-width: auto;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				text-align: center;
+			}
+		</style>
+		<script>
+			$(function() {
+				$.ajax({
+					type: "post",
+					url: "getUnAckUserList", //页面一加载，就初始化未审核的用户信息列表
+					//data : {},
+					async: false,
+					cache: false,
+					success: function(data) {
+						if(data.code == 1) {
+							var u = "";
+							for(var i = 0; i < data.data.result.length; i++) {
+								u += "<tr>" +
+									"<td>" + data.data.result[i].id + "</td>" +
+									"<td>" + data.data.result[i].phone + "</td>" +
+									"<td>" + data.data.result[i].time + "</td>" +
+									"<td>" + data.data.result[i].username + "</td>" +
+									"<td>" + data.data.result[i].company + "</td>" +
+									"<td>" + data.data.result[i].contact + "</td>" +
+									"<td>" + data.data.result[i].telephone + "</td>" +
+									"<td>" + data.data.result[i].dphone + "</td>" +
+									"<td>" + data.data.result[i].address + "</td>";
+
+								if(data.data.result[i].charterurl != "")
+									u += "<td><img width='40px' height='30px' src='" + data.data.result[i].charterurl + "' /></td>";
+								else
+									u += "<td>无</td>";
+
+								if(data.data.result[i].idcardurl != "")
+									u += "<td><img width='40px' height='30px' src='" + data.data.result[i].idcardurl + "' /></td>";
+								else
+									u += "<td>无</td>";
+
+								switch(data.data.result[i].status) {
+									case -1:
+										u += "<td>未审核</td>";
+										break;
+									case 0:
+										u += "<td>已审不过</td>";
+										break;
+									case 1:
+										u += "<td>审核通过</td>";
+										break;
+								}
+
+								u += "<td>" + data.data.result[i].description + "</td>";
+
+								u += "<td><input type='button' value='通过' onclick='sh(" + data.data.result[i].id + ")' />" +
+									"<input type='button' value='不通过' onclick='unsh(" + data.data.result[i].id + ")' /></td>";
+								u += "</tr>";
+							}
+							$("#uTable tbody").html(u);
+						} else {
+							alert("请先登录");
+						}
+					},
+					error: function(data) {
+						alert("服务器连接异常");
+					}
+				});
+			});
+
+			function sh(o) {
+				$("#uid").val(o);
+
+				$.ajax({
+					type: "post",
+					url: "getAckUserList", //获取已确认用户列表
+					async: false,
+					cache: false,
+					success: function(data) {
+						if(data.code == 1) { //加载已确认用户列表，用于生成父级节点下拉框
+							var v = "";
+							for(var i = 0; i < data.data.result.length; i++) {
+								switch(data.data.result[i].rank) {
+									case 1:
+										v += "<option value='" + data.data.result[i].id + "'>总部";
+										break;
+									case 2:
+										v += "<option value='" + data.data.result[i].id + "'>省级代理";
+										break;
+									case 3:
+										v += "<option value='" + data.data.result[i].id + "'>市级代理";
+										break;
+									case 4:
+										v += "<option value='" + data.data.result[i].id + "'>区域加盟商";
+										break;
+								}
+								v += "-" + data.data.result[i].username + "-" + data.data.result[i].company + "</option>";
+							}
+
+							$("#pidList").html(v);
+						} else {
+							alert("请先登录");
+							location.href = "login.html";
+						}
+					},
+					error: function(data) {
+						alert("getAckUserList error");
+					}
+				});
+
+				$("#ackUserModal").modal('toggle');
+
+				$("#linkButton").click(function() { //提交分配的用户等级
+					//alert($("#uid").val()+" "+$("#rankList").val()+" "+$("#pidList").val());
+					//return;
+					$.ajax({
+						type: "post",
+						url: "ackUser", //获取已确认用户列表
+						async: false,
+						cache: false,
+						data: {
+							"id": $("#uid").val(),
+							"rank": $("#rankList").val(),
+							"pid": $("#pidList").val()
+						},
+						success: function(data) {
+							alert(data.msg);
+							location.reload();
+						},
+						error: function(data) {
+							alert("ackUser error");
+						}
+					});
+				});
+			}
+
+			function unsh(o) {
+				$("#ucid").val(o);
+				$("#userStatusModal").modal('toggle');
+
+				$("#checkBtn").click(function() { //提交审核不通过的信息
+					$.ajax({
+						type: "post",
+						url: "updateUserCheck", //获取已确认用户列表
+						async: false,
+						cache: false,
+						data: {
+							"userId": $("#ucid").val(),
+							"status": $("#status").val(),
+							"description": $("#description").val()
+						},
+						success: function(data) {
+							alert(data.msg);
+							location.reload();
+						},
+						error: function(data) {
+							alert("getAckUserList error");
+						}
+					});
+				});
+			}
+		</script>
+	</head>
+
+	<body>
+		<h1>审核用户</h1>
+		<table border='1px' id="uTable">
+			<thead>
+				<tr>
+					<th class="lie1">id</th>
+					<th class="lie2">注册电话</th>
+					<th class="lie3">注册时间</th>
+					<th class="lie4">用户名</th>
+					<th class="lie5">公司</th>
+					<th class="lie6">联系人</th>
+					<th class="lie7">联系电话</th>
+					<th class="lie8">座机</th>
+					<th class="lie9">联系地址</th>
+					<th class="lie10">营业执照</th>
+					<th class="lie11">身份证照</th>
+					<th class="lie12">审核情况</th>
+					<th class="lie13">审核结果</th>
+					<th class="lie14">审核</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+
+		<!-- 分配用户级别 modal -->
+		<div class="modal fade" id="ackUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabel">审核通过后，分配用户级别</h4>
+					</div>
+					<div class="modal-body">
+						<form role="form" id="udForm">
+							<div class="form-group">
+								<label for="uid">ID</label>
+								<input type="text" class="form-control" name="userId" id="uid" disabled="true " />
+							</div>
+							<div class="form-group">
+								<label for="rank">等级</label>
+								<select class="form-control" name="rank" id="rankList">
+									<option value="1" disabled>总部</option>
+									<option value="2">省级代理</option>
+									<option value="3">市级代理</option>
+									<option value="4">区域加盟商</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="pid">所属父级代理</label>
+								<select class="form-control" name="pid" id="pidList">
+								</select>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    <button type="button" class="btn btn-primary" id="linkButton">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 审核用户信息 modal -->
+
+		<!-- 审核不通过信息 modal -->
+		<div class="modal fade" id="userStatusModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabel">填写审核结果</h4>
+					</div>
+					<div class="modal-body">
+						<form role="form" id="ucForm">
+							<div class="form-group">
+								<label for="ucid">ID</label>
+								<input type="text" class="form-control" name="userId" id="ucid" disabled="true " />
+							</div>
+							<input type="hidden" name="status" id="status" value="0" />
+							<div class="form-group">
+								<label for="description">原因</label>
+								<textarea type="text" class="form-control" name="description" id="description"></textarea>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    <button type="button" class="btn btn-primary" id="checkBtn">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 审核不通过信息 modal -->
+	</body>
+
+</html>

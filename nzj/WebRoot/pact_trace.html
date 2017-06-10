@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="icon" href="logo.ico" />
+		<!--jquery库-->
+		<script src="js/jquery.min.js"></script>
+		<!--bootstrap库-->
+		<link href="css/bootstrap.min.css" rel="stylesheet" />
+		<script src="js/bootstrap/bootstrap.min.js"></script>
+		<!--[if lt IE 9]>
+      <script src="js/bootstrap/html5shiv.min.js"></script>
+      <script src="js/bootstrap/respond.min.js"></script>
+    <![endif]-->
+		<!--font-awesome字体库-->
+		<link href="css/font-awesome.min.css" rel="stylesheet" />
+		<!--平滑滚动到顶部库-->
+		<!--<script src="js/jquery.scrolltopcontrol/scrolltopcontrol.js" type="text/javascript"></script>-->
+		<!--主要写的jquery拓展方法-->
+		<script src="js/jquery.extend.js" type="text/javascript"></script>
+		<!--主要写的css代码-->
+		<link href="css/default.css" rel="stylesheet" type="text/css" />
+		<!--主要写的js代码-->
+		<script src="js/default.js" type="text/javascript"></script>
+		<script src="js/main.js" type="text/javascript"></script>
+	</head>
+
+	<body>
+		<!--------------------------------合同列表（开始）---------------------------------------->
+		<div style="width: 100%; height: 100%;">
+			<div class="search_options">
+				<span onclick="PactListByStatus(1)">全部</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<span onclick="PactListByStatus(0)">正常</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<span onclick="PactListByStatus(-1)">暂停</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<span onclick="PactListByStatus(-2)">退单</span>
+				<button type="button" style="margin: 0 25px 0 0; float: right;" onclick="addJoin_trace()" class="btn btn-info" data-toggle='modal' data-target='#addjoinTrace'>添加合同</button>
+			</div>
+			<!--			<div style="background: #FFE69F; width: 80%; height: 80%; margin: 0 auto;">a</div>-->
+			<!--<div class="add_employer"></div>-->
+			<div id="browser" class="tbtree" style="text-align: center; padding: 0 30px 30px 30px;">
+
+				<div id="mainTbtable" class='uqt_detail'>
+					<table id="UQT_detailTable" class="">
+					</table>
+				</div>
+
+				<div id="joinTrace_pager" class="page_con">
+
+				</div>
+			</div>
+		</div>
+		<!--------------------------------合同列表（结束）---------------------------------------->
+
+		<!--------------------------------添加合同(开始)---------------------------------------->
+		<div class="modal fade" id="addjoinTrace" tabindex="-1" role="dialog" aria-labelledby="addjoinTraceLabel" aria-hidden="true">
+			<div class="modal-dialog" style="width: 900px;">
+				<div class="modal-content">
+					<div class="modal-header" style="text-align: center; font-weight:bold;">
+						<h4 class="modal-title" id="addjoinTraceLabel">添加合同信息</h4>
+					</div>
+					<div class="modal-body">
+						<form role="form" id="addjoinTraceForm">
+							<table>
+								<th colspan="2">
+									<h4>合同签约信息</h4>
+								</th>
+								<tr>
+									<td>
+										<label>合同编号:</label>
+										<input type="text" name="code" id="code" />
+									</td>
+									<td>
+										<label>签约时间:</label>
+										<input type="date" name="eTime" id="eTime" />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label>雇主名字:</label>
+										<input type="text" name="ename" id="ename" />
+									</td>
+									<td>
+										<label>雇主电话:</label>
+										<input type="text" name="ephone" id="ephone" />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label>雇主地址:</label>
+										<input type="text" name="eaddress" id="eaddress" />
+									</td>
+									<td>
+										<label>雇主需求:</label>
+										<input type="text" name="econtent" id="econtent" />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label>签约时长:</label>
+										<input type="text" name="duration" id="duration" />
+									</td>
+									<td>
+										<label>服&nbsp;&nbsp;务&nbsp;&nbsp;费:</label>
+										<input type="text" name="cost" id="cost" />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label>阿姨名字:</label>
+										<input type="text" name="aname" id="aname" />
+									</td>
+									<td>
+										<label>阿姨电话:</label>
+										<input type="text" name="aphone" id="aphone" />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label>上班时间:</label>
+										<input type="text" name="time" id="cost" />
+									</td>
+									<td>
+										<label>薪资标准:</label>
+										<input type="text" name="salary" id="salary" />
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<label>备注(可为空)</label>
+										<textarea class="form-control" rows="4" cols="20" name="remark" id="remark"></textarea>
+									</td>
+								</tr>
+							</table>
+							<input type="reset" name="reset" style="display: none;" />
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+						<button type="button" id="btn_join_trace_add" class="btn btn-info" style="border: none;outline: none;">
+					添加
+				</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--------------------------------添加合同(结束)---------------------------------------->
+
+		<!--------------------------------修改合同(开始)---------------------------------------->
+		<div class="modal fade" id="modjoinTrace" tabindex="-1" role="dialog" aria-labelledby="modjoinTraceLabel" aria-hidden="true">
+			<div class="modal-dialog" style="width: 900px;">
+				<div class="modal-content">
+					<div class="modal-header" style="text-align: center; font-weight:bold;">
+						<h4 class="modal-title" id="modjoinTraceLabel">修改合同信息</h4>
+					</div>
+					<div class="modal-body">
+						<form role="form" id="modjoinTraceForm">
+							<input type="text" name="id" id="id" style="display: none;">
+							<input type="text" name="userId" id="userId" style="display: none;">
+							<table>
+								<th colspan="2">
+									<h4>合同签约信息</h4>
+									<!--<button type="button" id="modTrace">编辑</button>-->
+								</th>
+								<tr>
+									<td>
+										<label>合同编号:</label>
+										<input type="text" name="code" class="code" />
+									</td>
+									<td>
+										<label>签约时间:</label>
+										<input type="date" name="eTime" class="eTime" />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label>雇主名字:</label>
+										<input type="text" name="ename" class="ename" />
+									</td>
+									<td>
+										<label>雇主电话:</label>
+										<input type="text" name="ephone" class="ephone" />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label>雇主地址:</label>
+										<input type="text" name="eaddress" class="eaddress" />
+									</td>
+									<td>
+										<label>雇主需求:</label>
+										<input type="text" name="econtent" class="econtent" />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label>签约时长:</label>
+										<input type="text" name="duration" class="duration" />
+									</td>
+									<td>
+										<label>服&nbsp;&nbsp;务&nbsp;&nbsp;费:</label>
+										<input type="text" name="cost" class="cost" />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label>阿姨名字:</label>
+										<input type="text" name="aname" class="aname" />
+									</td>
+									<td>
+										<label>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话:</label>
+										<input type="text" name="aphone" class="aphone" />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label>上班时间:</label>
+										<input type="text" name="time" class="time" />
+									</td>
+									<td>
+										<label>薪资标准:</label>
+										<input type="text" name="salary" class="salary" />
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<label>备注</label>
+										<textarea class="form-control" rows="4" cols="20" name="remark" class="remark"></textarea>
+									</td>
+								</tr>
+							</table>
+							<input type="reset" name="reset" style="display: none;" />
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+						<button type="button" id="btn_pact_trace_mod" class="btn btn-info" style="border: none;outline: none;">
+					提交更改
+				</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--------------------------------修改合同(结束)---------------------------------------->
+		<link href="css/employer_info.css" rel="stylesheet" />
+		<script src="js/pact_trace.js" type="text/javascript"></script>
+		<!--<script type="text/javascript" src="js/modelBuilder.js"></script>-->
+		<link href="css/query_startic_pro.css" type="text/css" rel="Stylesheet" />
+		<link href="css/main.css" type="text/css" rel="Stylesheet" />
+		<link href="css/pact_trace.css" type="text/css" rel="Stylesheet" />
+	</body>
+
+</html>

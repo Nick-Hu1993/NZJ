@@ -1,0 +1,676 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>娘子军家政共享平台</title>
+		<!--<link rel="icon" href="logo.ico" />-->
+		<link rel="shortcut icon" href="logo.png">
+		<!--jquery库-->
+		<script src="js/jquery.min.js"></script>
+		<!--bootstrap库-->
+		<link href="css/bootstrap.min.css" rel="stylesheet" />
+		<script src="js/bootstrap/bootstrap.min.js"></script>
+		<!--[if lt IE 9]>
+      <script src="js/bootstrap/html5shiv.min.js"></script>
+      <script src="js/bootstrap/respond.min.js"></script>
+    <![endif]-->
+		<!--font-awesome字体库-->
+		<link href="css/font-awesome.min.css" rel="stylesheet" />
+		<!--页面加载进度条-->
+		<link href="css/pace/dataurl.css" rel="stylesheet" />
+		<script src="js/pace/pace.min.js"></script>
+		<!--jquery.hammer手势插件-->
+		<!--<script src="js/jquery.hammer/hammer.min.js"></script>
+		<script src="js/jquery.hammer/jquery.hammer.js"></script>-->
+		<!--平滑滚动到顶部库-->
+		<script src="js/jquery.scrolltopcontrol/scrolltopcontrol.js" type="text/javascript"></script>
+		<!--主要写的jquery拓展方法-->
+		<script src="js/jquery.extend.js" type="text/javascript"></script>
+		<!--主要写的css代码-->
+		<link href="css/default.css" rel="stylesheet" type="text/css" />
+		<!--修改用户信息写的css代码-->
+		<link href="css/user_info.css" rel="stylesheet" type="text/css" />
+		<!--修改用户信息写的js代码-->
+		<script src="js/user_info.js" type="text/javascript"></script>
+		<!--主要写的js代码-->
+		<script src="js/default.js" type="text/javascript"></script>
+		<script src="js/main.js" type="text/javascript"></script>
+		<!--引用添加共享客户和共享保姆-->
+		<link href="css/help_cntral.css" rel="stylesheet" />
+		<!--<script src="js/help_cntral.js" type="text/javascript"></script>-->
+		<script type="text/javascript">
+			setInterval(check_login, 900000);
+			$(document).ready(function() {
+				check_login();
+				//				$("#liModUser a").text('wwww'); 
+				//				$(".content").css("width", w-70 + "px");
+				$('.sidebar li').click(function() {
+					$('.sidebar li').removeClass('addLiba');
+					$(this).addClass('addLiba');
+				});
+				//				var h = $(window).height();
+				//				var w = $(window).width();
+				//				$(window).resize(function() {
+				//					alert('宽：'+w+'高：'+h);
+				//				});
+				$(".dropdown").mouseover(function() {
+					$(this).addClass("open");
+				});
+
+				$(".dropdown").mouseleave(function() {
+					$(this).removeClass("open");
+				});
+				//权限控制左侧菜单栏
+//				$('#menuList li').click(function() {
+//					if($(this).index()==1&&getCookie('permission')){
+//						alert('员工不能查看雇主');
+//						return;
+//					}
+//				});
+			});
+			//添加共享保姆
+			$('#add_share_aunt_btn').click(function() {
+				var formData = new FormData(document.getElementById("add_aunt_form"));
+				$.ajax({
+					type: "post",
+					url: mainUrl + "addShareAunt",
+					data: formData,
+					async: false,
+					cache: false,
+					contentType: false,
+					processData: false,
+					success: function(data) {
+						//							main_code(data.code,data.msg);
+						if(data.code == -999) {
+							if(confirm("用户登录已失效，是否重新登录？")) {
+								window.location.href = "login.html";
+							}
+						} else if(data.code == 1) {
+							$('#add_share_aunt').modal('hide');
+							location.reload();
+							alert('添加共享阿姨成功');
+						} else {
+							alert(data.msg);
+						}
+					},
+					error: function(data) {
+						alert("error");
+					}
+				});
+			});
+
+			//添加共享客户
+			$('#add_share_clientele_btn').click(function() {
+				var formData = new FormData(document.getElementById("add_clientele_form"));
+				$.ajax({
+					type: "post",
+					url: mainUrl + "addShareEmployer",
+					data: formData,
+					async: false,
+					cache: false,
+					contentType: false,
+					processData: false,
+					success: function(data) {
+						//							main_code(data.code,data.msg);
+						if(data.code == -999) {
+							if(confirm("用户登录已失效，是否重新登录？")) {
+								window.location.href = "login.html";
+							}
+						} else if(data.code == 1) {
+							$('#add_share_clientele').modal('hide');
+							location.reload();
+							alert('添加共享客户成功');
+						} else {
+							alert(data.msg);
+						}
+					},
+					error: function(data) {
+						alert("error");
+					}
+				});
+			});
+		</script>
+		<style type="text/css">
+			.addLiba {
+				background: #03A9F3;
+			}
+			
+			.navbar-nav>li>a {
+				padding-top: 10px;
+				padding-bottom: 10px;
+			}
+			
+			.navbar-brand {
+				height: 50px;
+				padding-top: 10px;
+			}
+			
+			.navbar {
+				min-height: 50px;
+			}
+			
+			.navbar-toggle {
+				margin-top: 4px;
+				margin-bottom: 4px;
+			}
+			/*.info select {
+				border: 1px #993300 solid;
+				background: #FFFFFF;
+			}
+			
+			.info {
+				margin: 5px;
+				text-align: center;
+			}*/
+		</style>
+	</head>
+
+	<body>
+
+		<nav class="navbar navbar-inverse navbar-fixed-top" style="height: 50px; font-size: 18px; color: #666;">
+			<div class="container-fluid">
+				<!--左侧导航栏收缩功能-->
+				<!--<div class="navbar-header">
+                <button type="button" class="navbar-toggle show pull-left" data-target="sidebar">
+                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                </button>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                </button>
+            </div>-->
+
+				<div id="navbar" class="collapse navbar-collapse">
+					<span><img style="height: 50px;" src="image/logo.png"/></span>
+					<span class="xmmSpan">娘子军家政共享平台</span>
+					<div class="topMenu">
+						<ul style="float: right; padding-left: 15px;">
+							<li class="dropdown" style="list-style-type:none;">
+								<div id="dropdownMenu1" data-toggle="dropdown"><img style="margin-top: -8px;" src="image/yh.png" /><label>用户</label></div>
+								<ul id="head_menu" class="dropdown-menu" role="menu" style="margin: 0 0 0 -40px; ">
+									<li id="liModUser">
+										<a href="" data-toggle='modal' data-target='#ModUser'><i class="fa fa-user"></i>&nbsp;修改用户信息</a>
+									</li>
+									<li id="liModYg">
+										<a href="" data-toggle='modal' data-target='#ModYg'><i class="fa fa-user"></i>&nbsp;修改员工信息</a>
+									</li>
+									<li class="divider"></li>
+									<li id="liModUserPassword">
+										<a href="" data-toggle='modal' data-target='#modUserPassword'><i class="fa fa-key"></i>&nbsp;修改用户密码</a>
+									</li>
+									<li id="liModYgPassword">
+										<a href="" data-toggle='modal' data-target='#modYgPassword'><i class="fa fa-key"></i>&nbsp;修改员工密码</a>
+									</li>
+									<li class="divider"></li>
+									<li>
+										<a href="login.html"><i class="fa fa-power-off"></i>&nbsp;退出登录</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<ul style="float: right; padding-left: 15px; ">
+							<li class="dropdown" style="list-style-type:none;">
+								<div id="dropdownMenu1" data-toggle="dropdown"><img src="image/sz.png" /><label>设置</label></div>
+								<!--<ul class="dropdown-menu" role="menu" >
+									<li>
+										<a href=""><i class="fa fa-user"></i>&nbsp;设置1</a>
+									</li>
+									<li class="divider"></li>
+									<li>
+										<a href=""><i class="fa fa-key"></i>&nbsp;设置2</a>
+									</li>
+									<li class="divider"></li>
+									<li>
+										<a href=""><i class="fa fa-power-off"></i>&nbsp;设置3</a>
+									</li>
+								</ul>-->
+							</li>
+						</ul>
+						<ul style="float: right; padding-left: 15px;">
+							<li class="dropdown" style="list-style-type:none;">
+								<div id="dropdownMenu1" data-toggle="dropdown"><img style="margin-bottom: 5px;" src="image/tj.png" /><label>新增</label></div>
+								<ul class="dropdown-menu" role="menu">
+									<li>
+										<a href="" data-toggle='modal' data-target='#add_share_aunt'><i class="fa fa-female"></i>&nbsp;新增共享保姆</a>
+									</li>
+									<li class="divider"></li>
+									<li>
+										<a href="" data-toggle='modal' data-target='#add_share_clientele'><i class="fa fa-user"></i>&nbsp;新增共享客户</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<ul style="float: right; padding-left: 15px;">
+							<li class="dropdown" style="list-style-type:none;">
+								<div id="dropdownMenu1" data-toggle="dropdown" style="width: 90px;"><img style="margin-bottom: 5px;" src="image/admin.png" /><label>管理员</label></div>
+								<ul class="dropdown-menu" role="menu">
+									<li>
+										<a href="adminCheck.html" target="f"><i class="fa fa-check-square-o"></i>&nbsp;用户审核</a>
+									</li>
+									<li>
+										<a href="article.html" target="f"><i class="fa fa-newspaper-o"></i>&nbsp;新闻发布</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<ul style="float: right; padding-left: 15px;">
+							<li class="dropdown" style="list-style-type:none;">
+								<div id="dropdownMenu1" data-toggle="dropdown">
+									<i class="fa fa-bell-o"></i><span class="label label-warning">10</span>
+								</div>
+								<ul class="dropdown-menu" role="menu">
+									<li>
+										<a href="">
+											</i>&nbsp;消息1</a>
+									</li>
+									<li class="divider"></li>
+									<li>
+										<a href="">
+											</i>&nbsp;消息2</a>
+									</li>
+									<li class="divider"></li>
+									<li>
+										<a href="">
+											</i>&nbsp;消息3</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+
+					</div>
+					<!--<span class="timeShow" style="float: right; margin: 25px 14px 0 0;"></span>-->
+				</div>
+				<!--</div>-->
+		</nav>
+		<div class="container-fluid all">
+			<div class="sidebar">
+				<ul class="nav" id="menuList">
+					<li>
+						<a href="home.html" target="f">
+							<div style="width: 100%; text-align: center; margin-left: 8px;">
+								<i class="fa fa-university" style="font-size: 20px"></i>
+							</div>
+							<div>
+								主页
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="employer_info.html" target="f">
+							<div style="width: 100%; text-align: center; margin-left: 8px;">
+								<i class="fa fa-user" style="font-size: 20px"></i>
+							</div>
+							<div>
+								雇主
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="aunt_info.html" target="f">
+							<div style="width: 100%; text-align: center; margin-left: 8px;">
+								<i class="fa fa-female" style="font-size: 20px"></i>
+							</div>
+							<div>
+								阿姨
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="training_service.html" target="f">
+							<div style="width: 100%; text-align: center; margin-left: 8px;">
+								<i class="fa fa-pencil-square" style="font-size: 20px"></i>
+							</div>
+							<div>
+								学员
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="insurance_agent.html" target="f">
+							<div style="width: 100%; text-align: center; margin-left: 8px;">
+								<i class="fa fa-magic" style="font-size: 20px"></i>
+							</div>
+							<div>
+								保险
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="pact_trace.html" target="f">
+							<div style="width: 100%; text-align: center; margin-left: 8px;">
+								<i class="fa fa-users" style="font-size: 20px"></i>
+							</div>
+							<div>
+								加盟
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="finance.html" target="f">
+							<div style="width: 100%; text-align: center; margin-left: 8px;">
+								<i class="fa fa-book" style="font-size: 20px"></i>
+							</div>
+							<div>
+								财务
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="seek_help.html" target="f">
+							<div style="width: 100%; text-align: center; margin-left: 8px;">
+								<i class="fa fa-phone-square" style="font-size: 20px"></i>
+							</div>
+							<div>
+								求助
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="help_cntral.html" target="f">
+							<div style="width: 100%; text-align: center; margin-left: 8px;">
+								<i class="fa fa-retweet" style="font-size: 20px"></i>
+							</div>
+							<div>
+								共享
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="staff.html" target="f">
+							<div style="width: 100%; text-align: center; margin-left: 8px;">
+								<i class="fa fa-street-view" style="font-size: 20px"></i>
+							</div>
+							<div>
+								员工
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="content">
+				<!----------------主体内容（开始）----------------------->
+				<iframe name="f" frameborder="no" border="0" src="home.html"></iframe>
+				<!----------------主体内容（结束）----------------------->
+			</div>
+		</div>
+		<!--
+        	描述：内容超出浏览器高度时，显示“返回到顶部”按钮
+        -->
+		<a href="#top" id="goTop" title="返回到顶部"><i class="fa fa-angle-up fa-3x"></i></a>
+
+		<!--------------------------------添加共享客户信息(开始)---------------------------------------->
+		<div class="modal fade" id="add_share_clientele" tabindex="-1" role="dialog" aria-labelledby="shareClienteleLabel" aria-hidden="true" style="text-align: center;">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="shareClienteleLabel">添加共享客户信息</h4>
+					</div>
+					<div class="modal-body">
+						<form id="add_clientele_form">
+							<div>
+								<label>*</label><b>需&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;求:</b>
+								<input type="text" name="content" id="content" />
+							</div>
+							<div>
+								<label>*</label><b>联&nbsp;&nbsp;系&nbsp;&nbsp;人:</b>
+								<input type="text" name="contact" />
+							</div>
+							<div>
+								<label>*</label><b>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话:</b>
+								<input type="text" name="phone" id="phone" />
+							</div>
+							<div>
+								<b>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注:</b>
+								<textarea rows="4" cols="20" name="remark" id="remark"></textarea>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+						<button type="button" id="add_share_clientele_btn" class="btn btn-info" style="border: none;outline: none;">
+					添加
+				</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--------------------------------添加共享客户信息(结束)---------------------------------------->
+
+		<!--------------------------------添加共享阿姨信息(开始)---------------------------------------->
+		<div class="modal fade" id="add_share_aunt" tabindex="-1" role="dialog" aria-labelledby="addShareAuntLabel" aria-hidden="true" style="text-align: center;">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="addShareAuntLabel">添加共享阿姨信息</h4>
+					</div>
+					<div class="modal-body">
+						<form id="add_aunt_form">
+							<div>
+								<label>*</label><b>联&nbsp;&nbsp;系&nbsp;&nbsp;人:</b>
+								<input type="text" name="contact" />
+							</div>
+							<div>
+								<label>*</label><b>联系电话:</b>
+								<input type="text" name="phone" id="phone" />
+							</div>
+							<div>
+								<label>*</label><b>技&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;能:</b>
+								<input type="text" name="skill" id="skill" />
+							</div>
+							<div>
+								<b>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注:</b>
+								<textarea rows="4" cols="20" name="remark" id="remark"></textarea>
+							</div>
+							<input type="reset" name="reset" style="display: none;" />
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+						<button type="button" id="add_share_aunt_btn" class="btn btn-info" style="border: none;outline: none;">
+					添加
+				</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--------------------------------添加共享阿姨信息(结束)---------------------------------------->
+
+		<!----------------修改用户密码（开始）----------------------->
+		<div class="modal fade" id="modUserPassword" tabindex="-1" role="dialog" aria-labelledby="modPasswordLabel" aria-hidden="true" style="text-align: center;">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="modPasswordLabel">修改用户密码</h4>
+					</div>
+					<div class="modal-body">
+						<form class="modUser">
+							<div>
+								<b>旧密码:</b>
+								<input type="password" name="oPwd" id="oPwd" />
+							</div>
+							<div>
+								<b>新密码:</b>
+								<input type="password" name="nPwd" id="nPwd" />
+							</div>
+							<div>
+								<b>确认密码:</b>
+								<input type="password" name="nPwds" id="nPwds" />
+							</div>
+
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+						<button type="button" id="btn_userpas_mod" class="btn btn-info" style="border: none;outline: none;">
+					提交更改
+				</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!----------------修改用户密码（结束）----------------------->
+
+		<!----------------修改员工密码（开始）----------------------->
+		<div class="modal fade" id="modYgPassword" tabindex="-1" role="dialog" aria-labelledby="modPasswordLabel" aria-hidden="true" style="text-align: center;">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="modPasswordLabel">修改员工密码</h4>
+					</div>
+					<div class="modal-body">
+						<form class="modUser">
+							<div>
+								<b>旧密码:</b>
+								<input type="password" name="yg_oPwd" id="yg_oPwd" />
+							</div>
+							<div>
+								<b>新密码:</b>
+								<input type="password" name="yg_nPwd" id="yg_nPwd" />
+							</div>
+							<div>
+								<b>确认密码:</b>
+								<input type="password" name="yg_nPwds" id="yg_nPwds" />
+							</div>
+
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+						<button type="button" id="btn_ygpas_mod" class="btn btn-info" style="border: none;outline: none;">
+					提交更改
+				</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!----------------修改员工密码（结束）----------------------->
+
+		<!--
+        	作者：tangbin_man@163.com
+        	时间：2017-05-05
+        	描述：修改用户信息
+        -->
+		<div class="modal fade" id="ModUser" tabindex="-1" role="dialog" aria-labelledby="ModUserLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="ModUserLabel">修改用户信息</h4>
+					</div>
+					<div class="modal-body">
+						<form id="user_mod">
+							<div style="display: none;">
+								<input type="text" name="userId" id="userId" />
+								<input type="text" name="id" id="id" />
+								<input type="text" name="support" id="support" />
+
+								<!--<input type="text" name="charterurl" id="charterurl" />
+								<input type="text" name="idcardurl" id="idcardurl" />-->
+							</div>
+							<div>
+								<label>*</label><b>用&nbsp;&nbsp;户&nbsp;&nbsp;名</b>
+								<input type="text" name="username" id="username" />
+							</div>
+							<div>
+								<label>*</label><b>公&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;司</b>
+								<input type="text" name="company" id="company" />
+							</div>
+							<div>
+								<label>*</label><b>联&nbsp;&nbsp;系&nbsp;&nbsp;人</b>
+								<input type="text" name="contact" id="contact" />
+							</div>
+							<div>
+								<label>*</label><b>手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机</b>
+								<input type="text" name="telephone" id="telephone" />
+							</div>
+							<div>
+								<label>*</label><b>座&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机</b>
+								<input type="text" name="dphone" id="dphone" />
+							</div>
+
+							<div style="display: none;">
+								<b>营业执照</b>
+								<input type="file" name="file1" id="file1" />
+							</div>
+							<div style="display: none;">
+								<b>身份证照</b>
+								<input type="file" name="file2" id="file2" />
+							</div>
+						</form>
+						<div>
+							<label>*</label><b>门店地址</b>
+							<select id="s_province" name="s_province"></select>
+							<select id="s_city" name="s_city"></select>
+						</div>
+						<div>
+							<label>*</label><b>详细地址</b>
+							<input type="text" name="address" id="address" />
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+						<button type="button" id="btn_user_mod" class="btn btn-info" style="border: none;outline: none;">
+					提交更改
+				</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--
+        	作者：tangbin_man@163.com
+        	时间：2017-06-04
+        	描述：修改员工信息
+        -->
+		<div class="modal fade" id="ModYg" tabindex="-1" role="dialog" aria-labelledby="ModYgLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="ModYgLabel">修改员工信息</h4>
+					</div>
+					<div class="modal-body">
+						<form id="ModYg_mod">
+							<div>
+								<b>名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</b>
+								<input type="text" name="yg_name" id="yg_name" />
+							</div>
+							<div>
+								<b>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址</b>
+								<input type="text" name="yg_address" id="yg_address" />
+							</div>
+							<div>
+								<b>职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位</b>
+								<input type="text" name="yg_job" id="yg_job" />
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+						<button type="button" id="btn_yg_mod" class="btn btn-info" style="border: none;outline: none;">
+					提交更改
+				</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--
+        	作者：tangbin_man@163.com
+        	时间：2017-05-24
+        	描述：省，市二级联动
+        -->
+		<script class="resources library" src="js/area.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			_init_area();
+		</script>
+	</body>
+
+</html>

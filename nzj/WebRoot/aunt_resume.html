@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>阿姨信息表</title>
+	</head>
+	<body>
+		<form action="aunt/addAuntInfo" method="post">
+	<h3>阿姨信息录入：</h3>
+		<h4>基础信息：</h4>
+		用户ID：<input type="text" name="userid" value="1">
+		姓名：<input type="text" name="name" value="王二狗">
+		年龄：<input type="text" name="age" value="23">
+		属相：<input type="text" name="zodSign" value="狗"><br><br>
+		籍贯：<input type="text" name="natPlace" value="广西桂林"><br><br>
+		性别：<label><input type="radio" name="sex" value="1">男</label>
+        	<label><input type="radio" name="sex" value="0">女</label><br><br>
+		学历：<input type="text" name="academic" value="小学">
+		婚姻状况：<label><input type="radio" name="marStatus" value="1"></label>已婚
+        		<label><input type="radio" name="marStatus" value="0">未婚</label><br><br>
+		民族：<input type="text" name="nation" value="汉"><br><br>
+		身高：<input type="text" name="height" value="172">CM
+		体重：<input type="text" name="weight" value="64">KG
+		视力：<input type="text" name="eyeSight" value="5.1"><br><br>
+		身份证号：<input type="text" name="idnumber" value="362329199201567854">
+		手机号码：<input type="text" name="phone" value="189708564865"><br><br>
+		家庭地址：<input type="text" name="adress" value="深圳市龙岗区坂田顺兴工业园区125号"><br><br>
+		应聘岗位：<input type="text" name="position" value="催乳师"><br><br>
+		语言：<input type="checkbox" name="languages" value="普通话" />普通话
+			<input type="checkbox" name="languages" value="白话" />白话
+			<input type="checkbox" name="languages" value="客家话" />客家话
+			<input type="checkbox" name="languages" value="潮州话" />潮州话
+			<input type="checkbox" name="languages" value="英语" />英语<br><br>
+		烹饪能力：<input type="checkbox" name="cooking" value="广东菜" />广东菜
+				<input type="checkbox" name="cooking" value="辣菜" />辣菜
+				<input type="checkbox" name="cooking" value="北方菜" />北方菜
+				<input type="checkbox" name="cooking" value="面食" />面食
+				<input type="checkbox" name="cooking" value="海鲜" />海鲜<br><br>
+		基本技能：<input type="checkbox" name="basicskill" value="做饭" />做饭
+				<input type="checkbox" name="basicskill" value="搞卫生" />搞卫生
+				<input type="checkbox" name="basicskill" value="带小孩" />带小孩
+				<input type="checkbox" name="basicskill" value="月子餐" />月子餐
+				<input type="checkbox" name="basicskill" value="烫衣服" />烫衣服<br><br>
+		家用电器：<input type="checkbox" name="useappliances" value="电饭锅" />电饭锅
+				<input type="checkbox" name="useappliances" value="煤气灶" />煤气灶
+				<input type="checkbox" name="useappliances" value="电冰箱" />电冰箱
+				<input type="checkbox" name="useappliances" value="高压锅" />高压锅
+				<input type="checkbox" name="useappliances" value="洗衣机" />洗衣机<br><br>
+		提供证件：<input type="checkbox" name="licences" value="月嫂证" />月嫂证
+				<input type="checkbox" name="licences" value="育婴师" />育婴师
+				<input type="checkbox" name="licences" value="催乳师" />催乳师
+				<input type="checkbox" name="licences" value="厨师证" />厨师证
+				<input type="checkbox" name="licences" value="驾照" />驾照<br><br>
+		<h4>紧急联系人</h4>
+		姓名：<input type="text" name="name1" value="赵小猫">
+		关系：<input type="text" name="relations" value="基友">
+		工作状况:<input type="text" name="workcondition" value="在幼儿园打老头">
+		联系电话：<input type="text" name="phone1" value="13956487502">
+		<h4>工作经历</h4>
+		 开始时间：<input type="month" name="start" value="2016-04"/>
+		 结束时间：<input type="month" name="ending" value="2017-09"/>
+		 主要工作：<input type="text" name="jobcontent" value="在青山市做保洁，天天打小朋友。">
+		 <h4>证件照</h4>
+		 证件照片:<input type="file" name="file" class="element" accept=".jpg, .png">
+		 <input type="submit" value="Test AuntInfo">
+	</form>
+
+	</body>
+</html>

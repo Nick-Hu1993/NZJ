@@ -1,0 +1,49 @@
+/*html,body{
+	height:100%;
+	background: #0066CC;
+}*/
+
+
+.modal-body table{
+	border:1px solid #f8bed2;
+}
+
+.modal-body table td{
+	width: 450px;
+	padding: 10px 30px 10px 30px;
+}
+
+.modal-body table tr{
+	width: 900px;
+	height: 40px;
+}
+
+.modal-body table td label{
+	font-weight:bold;
+}
+
+.modal-body table td input{
+	width: 175px;
+}
+
+.modal-body table th{
+	background: #f8bed2;
+	font-weight:bold;
+	padding-left: 15px;
+}
+
+.modal-body table h4{
+	float: left;
+}
+
+.modal-body table button{
+	float: right;
+	margin: 6px 15px 0 0;
+	width: 50px;
+	height: 25px;
+	background: #f06292;
+	border: none;
+	outline: none;
+	border-radius: 10px;
+	color:#333333;
+}

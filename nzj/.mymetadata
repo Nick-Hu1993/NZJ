@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="nzj"
+  id="myeclipse.1493370714856"
+  context-root="/nzj"
+  j2ee-spec="5.0"
+  archive="nzj.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

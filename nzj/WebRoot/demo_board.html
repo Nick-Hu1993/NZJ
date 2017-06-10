@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script src="js/jquery.min.js"></script>
+<script>
+	$(function() {
+		$("#btn").click(function(){
+			var f=  new FormData(document.getElementById("f"));
+			
+			$.ajax({
+				type:"post",
+				url:"addBoard",
+            	data:f,
+				async: false,
+            	cache: false,
+            	contentType : false,
+				processData : false,
+            	success: function(data) {
+            		alert(data.data);
+            	},
+            	error: function(data) {
+                	alert("服务器连接异常");
+                }
+			});
+		});
+	});
+</script>
+
+</head>
+
+<body>
+	<form action="" method="post" id="f">
+		<h3>公告录入：</h3>
+
+		主题：<input type="text" name="title" /> <br/>
+		备注： <input type="text" name="description"><br/> 
+		公告文件： <input type="file" name="file"
+			accept=".jpg, .doc"> <br/>
+		<input type="button" id="btn">
+	</form>
+</body>
+</html>

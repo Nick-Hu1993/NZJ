@@ -1,0 +1,17 @@
+//主页面--index.html
+//账户详细--account_details.html
+//阿姨信息管理--aunt_info.html
+//雇主信息管理--employer_info.html
+//制度信息文件更新--file_update.html
+//互助中心--help_cntral.html
+//保险代办--insurance_agent.html
+//加盟中心--join_cntral.html
+//加盟商注册及管理--join_register.html
+//公告信息维护--notice_maintain.html
+//订单推送给加盟商--order_push.html
+//培训服务--training_service.html
+//加盟跟踪--join_trace.html
+//登录页--login.html
+//注册页--reg.html
+//修改页--modify.html
+//阿姨信息表--aunt_resume.html

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>addSkill.html</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script src="js/jquery.min.js"></script>
+<script>
+	$(function() {
+		$("#but").click(function() {
+			//alert($("#u").val());
+			var formData = new FormData(document.getElementById("photoForm"));
+			$.ajax({
+				type : "post",
+				url : "addAunt",
+				data : formData,
+				async : false,
+				cache : false,
+				contentType : false,
+				processData : false,
+				success : function(data) {
+					alert(data.msg);
+				},
+				error : function(data) {
+					alert("error");
+				}
+			});
+		});
+	});
+</script>
+</head>
+
+<body>
+	<form id="photoForm">
+		名字：<input type="text" name="name"/>
+		年龄：<input type="text" name="age"/><br>
+		属相：<input type="text" name="sign"/>
+		籍贯：<input type="text" name="native_"/><br>
+		性别：<input type="text" name="sex"/>
+		学历：<input type="text" name="education"/><br>
+		婚姻状况：<input type="text" name="marriage"/>
+		名族：<input type="text" name="nation"/><br>
+		身高：<input type="text" name="height"/>
+		体重：<input type="text" name="weight"/><br>
+		视力：<input type="text" name="sigh"/>
+		身份证号：<input type="text" name="idnumber"/><br>
+		联系电话：<input type="text" name="phone" />
+		家庭地址：<input type="text" name="address" /><br>
+		<hr>
+		语言：<input type="text" name="languageId" />
+		<br>
+		烹饪：<input type="text" name="cookingId" />
+		<br>
+		基本技能：<input type="text" name="skillId" />
+		<br>
+		家用电器：<input type="text" name="applianceId" />
+		<hr>
+		应聘岗位：<input type="text" name="jobId" />
+		<hr>
+		提供证件：<input type="text" name="certificateId" />
+		<hr>
+		紧急联系人：<input type="text" name="cname" />
+		关系：<input type="text" name="relation" />
+		工作状态：<input type="text" name="workstatus" />
+		联系电话：<input type="text" name="cphone" /><br>
+		紧急联系人：<input type="text" name="cname" />
+		关系：<input type="text" name="relation" />
+		工作状态：<input type="text" name="workstatus" />
+		联系电话：<input type="text" name="cphone" />
+		<hr>
+		起始时间：<input type="text" name="time" />
+		主要工作：<input type="text" name="work" />
+		<hr>
+		照片：<input type="file" name="file" value="3" id="f" /><br>
+		<input type="button" id="but" value="提交" />
+	</form>
+</body>
+</html>

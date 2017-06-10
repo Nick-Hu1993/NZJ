@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>用户审核，信息完善界面</title>
+		<link rel="shortcut icon" href="logo.png">
+		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+		<meta http-equiv="description" content="this is my page">
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<link rel="icon" href="logo.ico" />
+		<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/checkUserDetail.css">
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap/bootstrap.min.js"></script>
+		<script>
+			$(function() {
+				//f1();
+
+				$.ajax({
+					type: "post",
+					url: "getSession",
+					//data : {},
+					async: false,
+					cache: false,
+					success: function(data) {
+						if(data.data != null) {
+							var uid = data.data.id;
+							checkUserDetail(uid);
+						} else {
+							alert("请先登录");
+							location.href = "login.html";
+						}
+					},
+					error: function(data) {
+						alert("error");
+					}
+				});
+
+				function checkUserDetail(o) {
+					$.ajax({
+						type: "post",
+						url: "checkUserDetail",
+						data: {
+							"userId": o
+						},
+						async: false,
+						cache: false,
+						success: function(data) {
+							if(data.code == 1) { //已完善过信息，则加载用户信息列表，加载审核结果
+								//alert("已完善信息，请等待审核结果");
+								$.ajax({
+									type: "post",
+									url: "getUser",
+									async: false,
+									cache: false,
+									success: function(data) {
+										if(data.code == 1) { //加载用户信息列表
+											var h = '';
+											    h +="<tr><th colspan='2' style='text-align: center;'><h3>用户信息</h3></th></tr>"
+											    h += "<tr><td><label>用户id:</label></td><td style='text-align: left; padding-left: 3px;'> " + data.data.id + "</td></tr>"
+											    h += "<tr style='background: #e0e0e0;'><td><label>注册账号:</label></td><td style='text-align: left; padding-left: 3px;'> " + data.data.phone + "</td></tr>"
+											    h += "<tr><td><label>注册时间:</label></td><td style='text-align: left; padding-left: 3px;'> " + data.data.time + "</td></tr>"
+											    h += "<tr style='background: #e0e0e0;'><td><label>用户名:</label></td><td style='text-align: left; padding-left: 3px;'> " + data.data.username + "</td></tr>"
+											    h += "<tr><td><label>公&nbsp;&nbsp;&nbsp;&nbsp;司:</label></td><td style='text-align: left; padding-left: 3px;'> " + data.data.company + "</td></tr>"
+											    h += "<tr style='background: #e0e0e0;'><td><label>联系人:</label></td><td style='text-align: left; padding-left: 3px;'> " + data.data.contact + "</td></tr>"
+											    h += "<tr><td><label>联系电话:</label></td><td style='text-align: left; padding-left: 3px;'> " + data.data.telephone + "</td></tr>"
+											    h += "<tr style='background: #e0e0e0;'><td><label>联系座机:</label></td><td style='text-align: left; padding-left: 3px;'> " + data.data.dphone + "</td></tr>"
+											    h += "<tr><td><label>联系地址:</label></td><td style='text-align: left; padding-left: 3px;'> " + data.data.address + "</td></tr>"
+											    if(data.data.charterurl != ""){
+												    h += "<tr><td><label>营业执照: </label></td><td><img width='200px' height='150px' src='" + data.data.charterurl + "' />&nbsp;&nbsp;</td></tr>";
+											    }else{
+											    	h += "<tr style='background: #e0e0e0;'><td><label>营业执照:</label></td><td style='text-align: left; padding-left: 3px;'> （未填）</td></tr>"
+											    }; 
+											    if(data.data.idcardurl != ""){
+											    	h += "<tr><td><label>身份证照: </label></td><td><img width='200px' height='150px' src='" + data.data.idcardurl + "' />&nbsp;&nbsp;</td></tr>";
+											    }else{
+											    	h += "<tr><td><label>身份证照片:</label></td><td style='text-align: left; padding-left: 3px;'> （未填）</td></tr>"
+												}; 
+												h += "<tr><td></td><td><input type='button' class='btn btn-primary' style='float: right; margin:20px' value='修改' id='editUser' /></td></tr>";
+											$("#userInfo").html(h);
+
+											getUserCheck(data.data.id);
+
+											//======================修改用户信息模态框填充======================
+											$("#eid").val(data.data.did);
+											$("#euid").val(data.data.id);
+											$("#eusername").val(data.data.username);
+                                            $("#support").val(data.data.support);
+											$("#ecompany").val(data.data.company);
+											$("#econtact").val(data.data.contact);
+											$("#etelephone").val(data.data.telephone);
+											$("#edphone").val(data.data.dphone);
+											$("#eaddress").val(data.data.address);
+
+										} else {
+											alert(data.msg);
+											location.href = "login.html";
+										}
+									},
+									error: function(data) {
+										alert("error");
+									}
+								});
+							} else { //检测到未完善用户信息，填写用户详细信息表格
+								//alert(data.msg);
+								$("#uid").val(o);
+								$("#addUserModal").modal('toggle');
+							}
+						},
+						error: function(data) {
+							alert("error");
+						}
+					});
+				}
+
+				$("#addButton").click(function() {
+					//      	if($("#eusername").val()==''||$("#ecompany").val()==''||$("#econtact").val()==''||$("#etelephone").val()==''||$("#edphone").val()==''||$("#eaddress").val()==''||){
+					//      		
+					//      	}else{
+					//      		
+					//      	};
+					//      	!/^1[0-9]{10}$/;.test($("#phone").val())
+					var udf = new FormData(document.getElementById("udForm"));
+					$.ajax({
+						type: "post",
+						url: "addUserDetail",
+						data: udf,
+						async: false,
+						cache: false,
+						contentType: false,
+						processData: false,
+						success: function(data) {
+							if(data.code == 1) {
+								//alert("添加信息成功，请等待审核");
+								//location.href = "login.html";
+								location.reload();
+							} else {
+								alert(data.msg);
+//								location.reload();
+							}
+						},
+						error: function(data) {
+							alert("error");
+						}
+					});
+				});
+
+				function getUserCheck(o) {
+					$.ajax({
+						type: "post",
+						url: "getUserCheckById",
+						data: {
+							"userId": o
+						},
+						async: false,
+						cache: false,
+						success: function(data) {
+							if(data.code == 1) {
+								var c = "";
+								c += "<tr>" +
+									"<td>" + data.data.userId + "</td>";
+
+								switch(data.data.status) {
+									case -1:
+										c += "<td>未审核</td>";
+										break;
+									case 0:
+										c += "<td>已审、不通过</td>";
+										break;
+									case 1:
+										c += "<td>审核通过</td>";
+										break;
+								}
+								c += "<td>" + data.data.description + "</td></tr>";
+
+								$("#checkInfo tbody").html(c);
+								//location.reload();
+							}
+						},
+						error: function(data) {
+							alert("error");
+						}
+					});
+				}
+
+				$("#editUser").click(function() {
+					$("#editUserModal").modal('toggle');
+				});
+
+				$("#editBtn").click(function() {
+					var f = new FormData(document.getElementById("ueForm"));
+					$.ajax({
+						type: "post",
+						url: "updateUserDetail",
+						data: f,
+						async: false,
+						cache: false,
+						contentType: false,
+						processData: false,
+						success: function(data) {
+							if(data.code == 1) {
+								//alert("添加信息成功，请等待审核");
+								//location.href = "login.html";
+								location.reload();
+							} else {
+								alert(data.msg);
+								location.reload();
+							}
+						},
+						error: function(data) {
+							alert("error");
+						}
+					});
+
+				});
+			});
+		</script>
+	</head>
+
+	<body>
+		<h1>完善用户信息，审核进度查询</h1>
+		<hr/>
+		<h3>审核状态</h3>
+		<table id="checkInfo" border="1px">
+			<thead>
+				<tr>
+					<th>用户id</th>
+					<th>审核情况</th>
+					<th>审核描述</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+		<hr/>
+        <div class="home"><a href="login.html">返回登录页面</a></div>
+		<table id="userInfo"></table>
+
+		<!-- 添加用户信息 modal -->
+		<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabel">注册成功，请继续完善用户信息，并提交审核</h4>
+					</div>
+					<div class="modal-body" style="text-align: left;">
+						<form role="form" id="udForm">
+							<input type="hidden" name="userId" id="uid" />
+							<div class="form-group">
+								<label for="username">用户名</label>
+								<input type="text" class="form-control" name="username" id="username" placeholder="请输入用户名">
+							</div>
+							<div class="form-group">
+								<label for="company">公司</label>
+								<input type="text" class="form-control" name="company" id="company" placeholder="请输入公司">
+							</div>
+							<div class="form-group">
+								<label for="contact">联系人</label>
+								<input type="text" class="form-control" name="contact" id="contact" placeholder="请输入联系人">
+							</div>
+							<div class="form-group">
+								<label for="telephone">联系电话</label>
+								<input type="text" class="form-control" name="telephone" id="telephone" placeholder="请输入联系电话">
+							</div>
+							<div class="form-group">
+								<label for="dphone">联系座机</label>
+								<input type="text" class="form-control" name="dphone" id="dphone" placeholder="请输入联系座机">
+							</div>
+							<div class="form-group">
+								<label for="address">联系地址</label>
+								<input type="text" class="form-control" name="address" id="address" placeholder="请输入地址">
+							</div>
+							<div class="form-group">
+								<label for="file1">营业执照（可选）</label>
+								<input type="file" class="form-control" name="file1" id="file1">
+							</div>
+							<div class="form-group">
+								<label for="file2">身份证照（可选）</label>
+								<input type="file" class="form-control" name="file2" id="file2">
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+						<button type="button" class="btn btn-primary" id="addButton">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 添加用户信息 modal -->
+
+		<!-- 修改用户信息 modal -->
+		<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+			<div class="modal-dialog modal-lg" style="width: 800px;">
+				<div class="modal-content">
+					<div class="modal-header" style="text-align: left;">
+						<h4 class="modal-title" id="myModalLabel">修改用户信息</h4>
+					</div>
+					<div class="modal-body">
+						<form role="form" id="ueForm" style="padding: 30px 100px 30px 100px; text-align: left;">
+							<input type="hidden" name="id" id="eid" />
+							<input type="hidden" name="userId" id="euid" />
+							<input type="hidden" name="support" id="support" />
+							<div class="form-group">
+								<label for="eusername">用&nbsp;&nbsp;户&nbsp;&nbsp;名</label>
+								<input type="text" name="username" id="eusername" />
+							</div>
+							<div class="form-group">
+								<label for="ecompany">公&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;司</label>
+								<input type="text" name="company" id="ecompany" />
+							</div>
+							<div class="form-group">
+								<label for="econtact">联&nbsp;&nbsp;系&nbsp;&nbsp;人</label>
+								<input type="text" name="contact" id="econtact" />
+							</div>
+							<div class="form-group">
+								<label for="etelephone">联系电话</label>
+								<input type="text" name="telephone" id="etelephone" />
+							</div>
+							<div class="form-group">
+								<label for="edphone">联系座机</label>
+								<input type="text" name="dphone" id="edphone" />
+							</div>
+							<div class="form-group">
+								<label for="eaddress">联系地址</label>
+								<input type="text" name="address" id="eaddress" />
+							</div>
+							<div class="form-group">
+								<label for="file1">营业执照（可选）</label>
+								<input type="file" style="margin-left: 200px;" name="file1" id="file1" />
+							</div>
+							<div class="form-group" >
+								<label for="file2">身份证照（可选）</label>
+								<input type="file"style="margin-left: 200px;" name="file2" id="file2" />
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+						<button type="button" class="btn btn-primary" id="editBtn">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 修改用户信息 modal -->
+	</body>
+
+</html>

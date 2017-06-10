@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>用户详细信息</title>
+		<!--jquery库-->
+		<script src="js/jquery.min.js"></script>
+		<!--bootstrap库-->
+		<link href="css/bootstrap.min.css" rel="stylesheet" />
+		<script src="js/bootstrap/bootstrap.min.js"></script>
+		<link href="css/user_info.css" rel="stylesheet" type="text/css" />
+		<link href="css/default.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/main.js"></script>
+	</head>
+
+	<body>
+		<!--
+        	作者：tangbin_man@163.com
+        	时间：2017-05-05
+        	描述：修改用户信息
+        -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabel">修改用户信息</h4>
+					</div>
+					<div class="modal-body">
+						<form id="user_mod">
+							<div style="display: none;">
+								<input type="text" name="userId" id="userId" />
+								<input type="text" name="id" id="id" />
+								<input type="text" name="charterurl" id="charterurl" />
+								<input type="text" name="idcardurl" id="idcardurl" />
+							</div>
+							<div>
+								<label>*</label><b>用&nbsp;&nbsp;户&nbsp;&nbsp;名</b>
+								<input type="text" name="username" id="username" />
+							</div>
+							<div>
+								<label>*</label><b>公&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;司</b>
+								<input type="text" name="company" id="company" />
+							</div>
+							<div>
+								<label>*</label><b>联&nbsp;&nbsp;系&nbsp;&nbsp;人</b>
+								<input type="text" name="contact" id="contact" />
+							</div>
+							<div>
+								<label>*</label><b>手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机</b>
+								<input type="text" name="telephone" id="telephone" />
+							</div>
+							<div>
+								<label>*</label><b>座&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机</b>
+								<input type="text" name="dphone" id="dphone" />
+							</div>
+							<div>
+								<label>*</label><b>门店地址</b>
+								<input type="text" name="address" id="address" />
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+						<button type="button" id="btn_user_mod" class="btn btn-info" style="border: none;outline: none;">
+					提交更改
+				</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					修改用户信息
+				</h4>
+					</div>
+					<form id="user_mod">
+						<div style="display: none;">
+							<input type="text" name="userId" id="userId" />
+							<input type="text" name="id" id="id" />
+							<input type="text" name="charterurl" id="charterurl" />
+							<input type="text" name="idcardurl" id="idcardurl" />
+						</div>
+						<div>
+							<div id="user_mod_label"><b>用&nbsp;&nbsp;户&nbsp;&nbsp;名</b></div>
+							<div id="user_mod_text"><input type="text" name="username" id="username" /></div>
+						</div>
+						<div>
+							<div id="user_mod_label"><b>公&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;司</b></div>
+							<div id="user_mod_text"><input type="text" name="company" id="company" /></div>
+						</div>
+						<div>
+							<div id="user_mod_label"><b>联&nbsp;&nbsp;系&nbsp;&nbsp;人</b></div>
+							<div id="user_mod_text"><input type="text" name="contact" id="contact" /></div>
+						</div>
+						<div>
+							<div id="user_mod_label"><b>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话</b></div>
+							<div id="user_mod_text"><input type="text" name="telephone" id="telephone" /></div>
+						</div>
+						<div>
+							<div id="user_mod_label"><b>座&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机</b></div>
+							<div id="user_mod_text"><input type="text" name="dphone" id="dphone" /></div>
+						</div>
+						<div>
+							<div id="user_mod_label"><b>门店地址</b></div>
+							<div id="user_mod_text"><input type="text" name="address" id="address" /></div>
+						</div>
+						<!--<div>
+					<div id="user_mod_label">身份证正面：</div>
+					<div id="user_mod_text"><input type="file" name="file" /></div>
+				</div>
+				<div>
+					<div id="user_mod_label">营业执照：</div>
+					<div id="user_mod_text"><input type="file" name="file" /></div>
+				</div>-->
+		<!--<div>
+							<button type="button" class="btn btn-primary" >提交</button>
+						</div>
+					</form>
+				</div>
+				
+			</div>
+		</div>-->
+
+		<!--
+        	作者：tangbin_man@163.com
+        	时间：2017-05-05
+        	描述：显示用户信息
+        -->
+		<div class="clsContent">
+			<div class="user_head">
+				<h3>用户详细信息</h3>
+			</div>
+			<form id="user_info">
+				<!--<div style="display: none;">
+					<input type="text" name="userId" id="userId" />
+					<input type="text" name="id" id="id" />
+					<input type="text" name="charterurl" id="charterurl" />
+					<input type="text" name="idcardurl" id="idcardurl" />
+				</div>-->
+				<div>
+					<div id="user_info_label"><b>用&nbsp;&nbsp;户&nbsp;&nbsp;名</b></div>
+					<div id="user_info_text"><input type="text" name="username" id="username_info" readonly="readonly" /></div>
+				</div>
+				<div>
+					<div id="user_info_label"><b>公&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;司</b></div>
+					<div id="user_info_text"><input type="text" name="company" id="company_info" readonly="readonly" /></div>
+				</div>
+				<div>
+					<div id="user_info_label"><b>联&nbsp;&nbsp;系&nbsp;&nbsp;人</b></div>
+					<div id="user_info_text"><input type="text" name="contact" id="contact_info" readonly="readonly" /></div>
+				</div>
+				<div>
+					<div id="user_info_label"><b>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话</b></div>
+					<div id="user_info_text"><input type="text" name="telephone" id="telephone_info" readonly="readonly" /></div>
+				</div>
+				<div>
+					<div id="user_info_label"><b>座&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机</b></div>
+					<div id="user_info_text"><input type="text" name="dphone" id="dphone_info" readonly="readonly" /></div>
+				</div>
+				<div>
+					<div id="user_info_label"><b>门店地址</b></div>
+					<div id="user_info_text"><input type="text" name="address" id="address_info" readonly="readonly" /></div>
+				</div>
+				<!--<div>
+					<div id="user_info_label">身份证正面：</div>
+					<div id="user_info_text"><input type="file" name="file" /></div>
+				</div>
+				<div>
+					<div id="user_info_label">营业执照：</div>
+					<div id="user_info_text"><input type="file" name="file" /></div>
+				</div>-->
+				<div>
+					<button type="button" id="btn_user_info" data-toggle="modal" data-target="#myModal">修改</button>
+				</div>
+			</form>
+			<script type="text/javascript" src="js/user_info.js"></script>
+		</div>
+	</body>
+
+</html>

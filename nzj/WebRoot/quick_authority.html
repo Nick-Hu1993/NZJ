@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>快速分配权限</title>
+<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"></link>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$.ajax({
+			type: "post",
+			url: "getModuleList",
+			//data : {},
+			async: false,
+			cache: false,
+			success: function(data) {
+				var a="";
+				for(var i=0;i<data.length;i++){
+					a+="<tr>"
+							+"<td>"+data[i].id+"</td>"
+							+"<td>"+data[i].name+"</td>"
+						+"</tr>";
+				}
+				$("#mt tbody").html(a);
+			},
+			error: function(data) {
+				alert("error");
+			}
+		});
+	});
+</script>
+<style>
+	.c{
+		width:100%;
+	}
+	.t{
+		width:100%;
+	}
+	.l{
+		float:left;
+		width:49%;
+		background: #FFFACD;
+	}
+	.r{
+		float:left;
+		width:49%;
+		background: #DEEF5A;
+	}
+</style>
+</head>
+<body>
+	<div class="c">
+		<div class="t">
+			<button class="btn btn-primary">添加模块</button>
+			<button class="btn btn-primary">添加权限</button>
+		</div>
+		<div class="l">
+			模块列表
+			<table class="table table-hover table-condensed" id="mt">
+				<thead>
+					<tr>
+						<th>id</th>
+						<th>模块</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+		<div class="r">
+			权限列表
+			<table border="1px">
+				<thead>
+					<tr>
+						<th>id</th>
+						<th>权限</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+	</div>
+
+
+</body>
+</html>

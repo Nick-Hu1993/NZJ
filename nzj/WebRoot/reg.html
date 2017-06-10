@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="no-js">
+
+	<head>
+
+		<meta charset="utf-8">
+		<title>注册</title>
+		<link rel="shortcut icon" href="logo.png">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<!-- CSS -->
+		<!--<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Sans:400,700'>-->
+		<!--<link rel="stylesheet" href="css/login/css/reset.css">-->
+		<link rel="stylesheet" href="css/login/css/supersized.css">
+		<link rel="stylesheet" href="css/login/css/style.css">
+		<script type="text/javascript" src="js/md5.js"></script>
+		<script type="text/javascript">
+			var authCode = null;
+			var countdown = 60;
+			//发送验证码
+			function auth_code_request() {
+				$.ajax({
+					type: "post",
+					url: mainUrl + "getValidateCode",
+					dataType: "json",
+					async: false,
+					data: {
+						'phone': $('.username').val(),
+					},
+					success: function(data) {
+						console.log("返回：" + JSON.stringify(data));
+						if(data.code == 1) {
+							authCode = data.code;
+						} else {
+							$('.loginMsg').html(data.msg);
+						}
+					},
+					error: function(jqXHR) {
+						alert("网络异常");
+					}
+				});
+			}
+			//发送验证码成功后60秒内不能在次发送
+			function auth_code(val) {
+				if(countdown == 0) {
+					val.removeAttribute("disabled");
+					val.value = "获取验证码";
+					countdown = 60;
+				} else {
+					if(countdown==59){
+						auth_code_request();
+					};
+					val.setAttribute("disabled", true);
+					val.value = "重新发送(" + countdown + ")";
+					countdown--;
+					setTimeout(function() {
+						auth_code(val)
+					}, 1000)
+				}
+			};
+            //注册
+			function reg() {
+				var regPass = $('.password').val();
+				var md5 = hex_md5(regPass+'nzj');
+				if($('.username').val() == '' || $('.password').val() == '') {
+					alert('用户名或密码不能为空');
+				} else if($('.auth_code').val() == '') {
+					alert('请输入验证码!');
+				} else if($('.password').val() != $('.passwords').val()) {
+					alert('确认密码不一致');
+				} else {
+					$.ajax({
+						type: "post",
+						url: mainUrl + "register",
+						dataType: "json",
+						data: {
+							'phone': $('.username').val(),
+							'code': $('.auth_code').val(),
+							'password': md5,
+						},
+						success: function(data) {
+							if(data.code == 1) {
+								//if(getCookie('username') == null) {
+//									if(confirm("注册成功，是否跳转到登录页？")) {
+										//location.href = "user_info.html";
+								location.href = "checkUserDetail.html";
+//									} else {
+//										$('.username').val() == '';
+//										$('.auth_code').val() == '';
+//										$('.password').val() == '';
+//										$('.passwords').val() == '';
+//									}
+								//}
+							} else {
+								alert(data.msg);
+							}
+						},
+						error: function(jqXHR) {
+							alert("网络异常");
+						}
+					});
+				}
+
+			}
+		</script>
+	</head>
+
+	<body>
+		<div style="width: 100%; height: 125px; padding: 125px 0 0 10px; font-size: 40px;"></div>
+		<div style="width: 900px; height: 450px; background: url(image/backgrounds/reg.png);text-align: center;  margin: 0 auto 0 auto; padding-top: 30px;">
+			<div style="margin-left: 250px;"><a href="login.html">返回</a></div>
+			<h1>注册</h1>
+			<div class="login-box">
+				账号: <input type="text " name="username " class="username " placeholder="请输入手机号码!"> 
+				密码: <input type="password" name="password " class="password " placeholder="请输入密码!"> 
+				确认密码: <input type="password" style="width: 190px;" name="passwords" class="passwords" placeholder="请再次输入密码!">
+				<div style="float: left;">
+					验证码：<input class="auth_code ">
+					<input type="button" id="btn" value="获取验证码" class="auth_code_btn " style="background: #f9c1d4; color: #3d3b4f;" onclick="auth_code(this)" />
+					<!--<button type="button " type="button" class="auth_code_btn " value="发送验证码" onclick="auth_code(this)"/>-->
+				</div>
+				<button type="button" type="button" onclick="reg()">注册</button>
+				<!--<input type="button" id="btn" value="免费获取验证码" onclick="settime(this)" />-->
+			</div>
+		</div>
+		<script src="js/login/js/jquery-1.8.2.min.js "></script>
+		<script src="js/login/js/supersized.3.2.7.min.js "></script>
+		<script src="js/login/js/supersized-reg.js "></script>
+		<script src="js/login/js/scripts.js "></script>
+		<script src="js/main.js"></script>
+	</body>
+
+</html>

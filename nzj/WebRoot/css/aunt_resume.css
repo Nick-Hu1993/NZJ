@@ -1,0 +1,272 @@
+.divFrame {
+	width: 100%;
+	height: auto;
+	
+}
+
+.divFrame .aunt_basic_info{
+	width: 100%;
+	height: 900px;
+	border: 1px solid #f8bbd0;
+}
+
+.basic_btn button{
+	width: 80px;
+	height: 25px;
+	border-radius: 5px;
+	margin: 20px 0 0 30px;
+	border: none;
+	outline: none;
+	background: #f06292;
+}
+
+.basic_btn button:hover {
+	color: #FFFFFF;
+}
+
+.divFrame .aunt_basic_info_head {
+	background-color: #f8bbd0;
+	padding: 8px;
+	height: 30px;
+}
+
+.divFrame .aunt_basic_info_head h4 {
+	padding: 0px;
+	margin: 0px;
+	width: 60%;
+	float: left;
+}
+
+.divFrame .aunt_basic_info_head button {
+	padding: 0px;
+	margin: 0px;
+	float: right;
+	width: 50px;
+	height: 20px;
+	background: #f06292;
+	border: none;
+	outline: none;
+	border-radius: 10px;
+}
+
+.divFrame .aunt_basic_info_head button:hover {
+	color: #FFFFFF;
+}
+
+.divFrame .aunt_basic_info_left{
+	float: left; 
+	width: 70%; 
+	height: 800px; 
+}
+
+.divFrame .aunt_basic_info_left table{
+	padding: 0 30px 0 30px;
+	width: 100%; 
+	height: 800px; 
+}
+
+.divFrame .aunt_basic_info_right{
+	float: right; 
+	width: 30%; 
+	height: 725px; 
+	text-align: right;
+}
+
+
+.aunt_img{
+	width: 140px;
+	height: 160px;
+	margin: 10px 100px 0 0;
+}
+.divFrame .aunt_basic_info_left tr{
+	height: 35px;
+	
+}
+
+td{ text-align: left; padding-left: 30px; border-bottom:1pt #f8bbd0  dotted}
+
+.divFrame table tr input[type=text]{
+	height: 20px;
+	width: 120px;
+}
+
+.contact{
+	margin-top: 15px;
+	width: 100%;
+	height: auto;
+	border: 1px solid #f8bbd0;
+}
+
+.contact .contact_head{
+	background-color: #f8bbd0;
+	padding: 5px;
+	height: 30px;
+}
+
+.contact .contact_head h4 {
+	padding: 0px;
+	margin: 0px;
+	width: 70%;
+	float: left;
+}
+
+.contact .contact_head button {
+	
+	float: right;
+	width: 50px;
+	height: 20px;
+	background: #f06292;
+	border: none;
+	outline: none;
+	border-radius: 10px;
+}
+
+.contact .contact_head button:hover {
+	color: #FFFFFF;
+}
+
+/*.contact_btns{
+	display: none;
+	width: 50px;
+	height: 20px;
+	background: #f06292;
+	border: none;
+	outline: none;
+	border-radius: 10px;
+}*/
+
+.contact_del_btn{
+	width: 20px;
+	height: 25px;
+	background:url(../image/del.png) no-repeat;
+	border: none;
+	outline: none;
+	margin-top: 3px;
+	/*border-radius: 10px;*/
+}
+
+.contact_btns:hover {
+	color: #FFFFFF;
+}
+
+.contact .contact_info {
+	padding: 0px;
+	margin: 0;
+}
+
+.contact .contact_info table{ 
+	margin: 0 0 30px 30px;
+}
+
+.contact .contact_info table tr{ 
+	margin-top: 35px;
+	height: 60px;
+}
+
+.contact .contact_info input { 
+	width: 125px;
+	height: 25px;
+	margin-right: 15px;
+	/*outline: none;*/
+	
+}
+
+.red{
+	color: red;
+}
+
+/*.style1{
+	width: 350px;
+}
+
+.divFrame .aunt_basic_info_head {
+	background-color: #f8bbd0;
+	padding: 8px;
+	height: 20px;
+}
+
+.contact{
+	width: 100%;
+	height: 150px;
+}
+
+.contact .contact_head{
+	background-color: #f8bbd0;
+	padding: 8px;
+	height: 20px;
+}
+
+.contact .contact_head h4 {
+	padding: 0px;
+	margin: 0;
+}
+
+.contact .contact_info {
+	padding: 0px;
+	margin: 0;
+}
+
+.contact .contact_info table{ 
+	margin-top: 35px;
+}
+
+.contact .contact_info input { 
+	width: 150px;
+	height: 25px;
+	border:none;
+	outline: none;
+	
+}
+
+.divFrame .aunt_basic_info_head h4 {
+	padding: 0px;
+	margin: 0;
+}
+
+.divFrame .aunt_basic_info{
+	width: 100%;
+	height: 750px;
+}
+
+
+
+
+
+.work_experience{
+	width: 100%;
+	height: 150px;
+}
+
+.work_experience .work_experience_head{
+	background-color: #f8bbd0;
+	padding: 8px;
+	height: 20px;
+}
+
+.work_experience .work_experience_head h4 {
+	padding: 0px;
+	margin: 0;
+}
+
+.work_experience .work_experience_info {
+	padding: 0px;
+	margin: 0;
+}
+
+.work_experience .work_experience_info table{ 
+	margin-top: 35px;
+}
+
+.work_experience .work_experience_info input { 
+	width: 150px;
+	height: 25px;
+	border:none;
+	outline: none;
+	
+}
+
+.photo{
+	margin: 30px 0 0 30px;
+}*/
+
+

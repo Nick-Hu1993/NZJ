@@ -1,0 +1,19 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	import="com.baidu.ueditor.ActionEnter" pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%
+	request.setCharacterEncoding("utf-8");
+	response.setHeader("Content-Type", "text/html");
+
+	String rootPath = application.getRealPath("/");
+
+	String action = request.getParameter("action");
+	String result = new ActionEnter(request, rootPath).exec();
+	//在线管理如果显示不出图片，则加入下面的代码
+	rootPath = rootPath.replace("\\", "/");
+	result = result.replaceAll(rootPath, "/");
+	if (action != null
+			&& (action.equals("listfile") || action.equals("listimage"))) {
+	}
+	out.write(result);
+%>

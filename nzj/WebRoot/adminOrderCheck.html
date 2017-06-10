@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>管理员审核学员界面</title>
+<link rel="shortcut icon" href="logo.png">
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap/bootstrap.min.js"></script>
+
+<script>
+	$(function() {
+		$.ajax({
+            type: "post",
+            url: "getUnAckOrderList",		//页面一加载，就初始化未审核的用户信息列表
+            //data : {},
+            async: false,
+            cache: false,
+            success: function(data) {
+                if(data.code==1){
+                	var o="";
+                	var d=data.data.result;
+                	for(var i=0;i<d.length;i++){
+                		o+="<tr>"
+                				+"<td>"+d[i].id+"</td>"
+                				+"<td>"+d[i].preparer+"</td>"
+                				+"<td>"+d[i].time+"</td>"
+                				+"<td>"+"<input type='button' value='查看' onclick='getOT("+d[i].id+")' />"+"</td>"
+                				+"<td>"+d[i].status+"</td>"
+                				+"<td>"+d[i].description+"</td>"
+                				+"<td>"
+                					+"<input type='button' value='通过' onclick='checkO("+d[i].id+")' />"
+                					+"<input type='button' value='不通过' onclick='uncheckO("+d[i].id+")' />"
+                				+"</td>"
+                			+"<tr>";
+                	}
+                	$("#uTable tbody").html(o);
+                }
+            },
+            error: function(data) {
+                alert("服务器连接异常");
+            }
+        });
+        
+        $("#addOAccount").click(function(){		//提交订单的账目信息
+			$.ajax({
+				type : "post",
+				url : "addOrderAccount", 
+				data : {
+					"id" : $("#ooid").val(),
+					"price":$("#price").val(),
+					"prepare":$("#preparer").val(),
+					"quantity":$("#quantity").val()
+				},
+				async : false,
+				cache : false,
+				success : function(data) {
+					if(data.code==1){
+						$("#quantity").val(data.data);
+					}
+				},
+				error : function(data) {
+					alert("服务器连接异常");
+				}
+			});
+		});
+	});
+	
+	function getOT(o){			//根据订单id，获取学员列表
+		$.ajax({
+			type : "post",
+			url : "getOrderTraineeList", 
+			data : {
+				"orderId" : o
+			},
+			async : false,
+			cache : false,
+			success : function(data) {
+				var l="";
+				var d = data.data.result;
+				for(var i=0;i<d.length;i++){
+					l+="<tr>"
+							+"<td>"+d[i].id+"</td>"
+							+"<td>"+d[i].name+"</td>"
+							+"<td>"+d[i].sex+"</td>"
+							+"<td>"+d[i].birthday+"</td>"
+							+"<td>"+d[i].address+"</td>"
+							+"<td>"+d[i].idnumber+"</td>"
+							+"<td><img width='40px' height='30px' src='"+d[i].idcardurl1+"' /></td>"
+							+"<td><img width='40px' height='30px' src='"+d[i].idcardurl2+"' /></td>"
+							+"<td><img width='40px' height='30px' src='"+d[i].photourl+"' /></td>"
+							+"<td><img width='40px' height='30px' src='"+d[i].infourl+"' /></td>"
+						+"</tr>";
+				}
+				$("#otList tbody").html(l);
+				$("#otModal").modal('toggle');
+			},
+			error : function(data) {
+				alert("服务器连接异常");
+			}
+		});	
+	}
+	
+	function uncheckO(o){
+		$("#oid").val(o);
+		$("#unAckModal").modal('toggle');
+		
+		$("#unAck").click(function(){
+			$.ajax({
+			type : "post",
+			url : "unCheckOrder", 
+			data : {
+				"orderId" : o,
+				"description":$("#description").val()
+			},
+			async : false,
+			cache : false,
+			success : function(data) {
+				if(data.code==1){
+					location.reload();
+				}else{
+					alert(data.msg);
+				}
+			},
+			error : function(data) {
+				alert("服务器连接异常");
+			}
+		});
+		});
+	};
+	
+	function checkO(o){
+		//$("#unAckModal").modal('toggle');
+		
+		$("#ooid").val(o);			//设置账目信息表的订单id
+		//checkOrder();
+
+		getOTCount(o);				//设置账目信息表的数量
+
+		$("#accountModal").modal('toggle');		//弹出填写账目信息表的modal
+	};
+	
+	function getOTCount(o){			//获取订单学员总数
+		$.ajax({
+			type : "post",
+			url : "getOrderTraineeCount", 
+			data : {
+				"orderId" : o
+			},
+			async : false,
+			cache : false,
+			success : function(data) {
+				if(data.code==1){
+					$("#quantity").val(data.data);
+				}
+			},
+			error : function(data) {
+				alert("服务器连接异常");
+			}
+		});
+	}
+	
+	function checkOrder(){
+		$.ajax({
+			type : "post",
+			url : "checkOrder", 
+			data : {
+				"orderId" : o
+			},
+			async : false,
+			cache : false,
+			success : function(data) {
+				if(data.code==1){
+					//location.reload();
+					alert("审核通过");
+				}else{
+					alert(data.msg);
+				}
+			},
+			error : function(data) {
+				alert("服务器连接异常");
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	<h1>审核订单</h1>
+	<table border='1px' id="uTable">
+		<thead>
+			<tr>
+				<th style="text-align:center">id</th>
+				<th style="text-align:center">填表人</th>
+				<th style="text-align:center">时间</th>
+				<th style="text-align:center">学员</th>
+				<th style="text-align:center">状态</th>
+				<th style="text-align:center">备注</th>
+				<th style="text-align:center">审核</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+	
+	<!-- 查看添加学员 modal -->
+	<div class="modal fade" id="otModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">学员信息</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<table id="otList" border="1px">
+							<thead>
+								<tr>
+									<th>id</th>
+									<th>名字</th>
+									<th>性别</th>
+									<th>生日</th>
+									<th>地址</th>
+									<th>身份证号</th>
+									<th>身份证正</th>
+									<th>身份证反</th>
+									<th>照片</th>
+									<th>学员信息</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="addButton">确定</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 查看添加学员 modal -->
+		
+	
+	<!-- 审核不通过信息 modal -->
+    <div class="modal fade" id="unAckModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">审核不通过</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" id="ucForm">
+	                    <div class="form-group">
+							<label for="oid">ID</label>
+	                        <input type="text" class="form-control" name="oid" id="oid" disabled="true "/>
+	                    </div>
+                        <div class="form-group">
+                            <label for="description">原因</label>
+							<textarea type="text" class="form-control" name="description" id="description"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="unAck">确定</button>
+                </div>
+            </div>
+        </div>
+    </div><!-- 审核不通过信息 modal -->
+    
+    <!-- 审核过填写账目信息 modal -->
+    <div class="modal fade" id="accountModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">订单账目信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" id="ucForm">
+	                    <div class="form-group">
+							<label for="ooid">ID</label>
+	                        <input type="text" class="form-control" name="ooid" id="ooid" disabled="true "/>
+	                    </div>
+                        <div class="form-group">
+							<label for="quantity">数量</label>
+	                        <input type="text" class="form-control" name="quantity" id="quantity" disabled="true "/>
+	                    </div>
+                        <div class="form-group">
+                            <label for="price">价格</label>
+							<input type="text" class="form-control" name="price" id="price" value="20.0" />
+                        </div>
+                        <div class="form-group">
+                            <label for="preparer">填表人</label>
+							<input type="text" class="form-control" name="preparer" id="preparer" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="addOAccount">确定</button>
+                </div>
+            </div>
+        </div>
+    </div><!-- 审核不通过信息 modal -->
+</body>
+</html>

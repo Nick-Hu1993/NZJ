@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+validator.Checked=WebRoot/third-party/jquery-1.10.2.min.js,WebRoot/plugins/chartjs/Chart.min.js,WebRoot,WebRoot/third-party/highcharts/modules/map.js
+validator.Unchecked=WebRoot/plugins,WebRoot/third-party

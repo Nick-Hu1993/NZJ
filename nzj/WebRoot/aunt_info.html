@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="icon" href="logo.ico" />
+		<!--jquery库-->
+		<script src="js/jquery.min.js"></script>
+		<!--bootstrap库-->
+		<link href="css/bootstrap.min.css" rel="stylesheet" />
+		<script src="js/bootstrap/bootstrap.min.js"></script>
+		<!--[if lt IE 9]>
+      <script src="js/bootstrap/html5shiv.min.js"></script>
+      <script src="js/bootstrap/respond.min.js"></script>
+    <![endif]-->
+		<!--font-awesome字体库-->
+		<link href="css/font-awesome.min.css" rel="stylesheet" />
+		<!--平滑滚动到顶部库-->
+		<!--<script src="js/jquery.scrolltopcontrol/scrolltopcontrol.js" type="text/javascript"></script>-->
+		<!--主要写的jquery拓展方法-->
+		<script src="js/jquery.extend.js" type="text/javascript"></script>
+		<!--主要写的css代码-->
+		<link href="css/default.css" rel="stylesheet" type="text/css" />
+		<!--主要写的js代码-->
+		<script src="js/default.js" type="text/javascript"></script>
+		<script src="js/main.js" type="text/javascript"></script>
+		<link href="css/aunt_info.css" rel="stylesheet" />
+		<script src="js/aunt_info.js" type="text/javascript"></script>
+		<link href="css/query_startic_pro.css" type="text/css" rel="Stylesheet" />
+		<link href="css/main.css" type="text/css" rel="Stylesheet" />
+		<!--<link href="css/aunt_resume.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/aunt_resume.js"></script>-->
+	</head>
+
+	<body>
+		<!--------------------------------阿姨列表（开始）---------------------------------------->
+
+		<div class="mianBox">
+			<div class="mianBoxDiv">
+				<div class="add_aunt"><button type="button" onclick="addAunt()" data-toggle='modal' data-target='#aunt'>添加阿姨</button></div>
+				<div id="browser" class="tbtree" style="text-align: center; overflow: hidden; padding-bottom: 20px;">
+
+					<div id="mainTbtable" class='uqt_detail'>
+						<table id="auntTable" class="">
+						</table>
+					</div>
+
+					<div id="aunt_pager" class="page_con">
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--------------------------------客户列表（结束）---------------------------------------->
+
+		<!--------------------------------添加或修改阿姨信息(开始)---------------------------------------->
+		<div class="modal fade" id="aunt" tabindex="-1" role="dialog" aria-labelledby="auntLabel" aria-hidden="true" style="text-align: center;">
+			<div class="modal-dialog modal-lg" style="width: 900px; height: 100px;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h2 class="modal-title" id="auntLabel">阿姨信息表</h2>
+					</div>
+					<div class="modal-body">
+						<form id="divFrame" name="divFrame">
+							<div class="aunt_basic_info">
+								<div class="aunt_basic_info_head">
+									<h4 align="left">基本信息(必填)</h4>
+								</div>
+								<div class="aunt_basic_info_left">
+									<input type="text" name="id" style="display: none;" />
+									<input type="text" name="userId" style="display: none;" />
+									<!--<form id="auntForm">-->
+									<table>
+										<tr>
+											<td class="style1">
+												<span class="red">*</span><label>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:&nbsp;&nbsp;</label><input type="text" name="name" />
+											</td>
+											<td>
+												<span class="red">*</span><label>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄:&nbsp;&nbsp;</label><input type="text" name="age" />
+											</td>
+										</tr>
+										<tr>
+											<td class="style1">
+												<span class="red">*</span><label>属&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相:&nbsp;&nbsp;</label><input type="text" name="sign" />
+											</td>
+											<td>
+												<span class="red">*</span><label>籍&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;贯:&nbsp;&nbsp;</label><input type="text" name="native_" />
+											</td>
+										</tr>
+										<tr>
+											<td class="style1">
+												<span class="red">*</span><label>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:&nbsp;&nbsp;</label><input type="radio" name="sex" value="1" />男
+												<input type="radio" name="sex" value="0" checked/>女
+											</td>
+											<td>
+												<span class="red">*</span><label/>学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;历:&nbsp;&nbsp;</label><input type="text" name="education" />
+
+											</td>
+										</tr>
+										<tr>
+											<td class="style1">
+												<span class="red">*</span><label/>婚姻状况:&nbsp;&nbsp;</label><input type="radio" name="marriage" value="1" />已婚
+												<input type="radio" name="marriage" value="0" checked/>未婚
+											</td>
+											<td>
+												<span class="red">*</span><label>民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族:&nbsp;&nbsp;</label><input type="text" name="nation" />
+											</td>
+										</tr>
+										<tr>
+											<td class="style1">
+												<span class="red">*</span><label>身高(cm):&nbsp;&nbsp;</label><input type="text" name="height" />
+											</td>
+											<td>
+												<span class="red">*</span><label>体重(kg):&nbsp;&nbsp;</label><input type="text" name="weight" />
+											</td>
+										</tr>
+										<tr>
+											<td class="style1">
+												<span class="red">*</span><label>视&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;力:&nbsp;&nbsp;</label><input type="text" name="sigh" />
+											</td>
+											<td>
+												<span class="red">*</span><label>手机号码:&nbsp;&nbsp;</label><input type="text" name="phone" />
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2">
+												<span class="red">*</span><label>身份证号:&nbsp;&nbsp;</label><input type="text" style="width: 175px;" name="idnumber" />
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2">
+												<span class="red">*</span><label>家庭地址:&nbsp;&nbsp;</label><input type="text" style="width: 300px;" name="address" />
+
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2" id="tdLanguages">
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2" id="tdCookingId">
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2" id="tdSkillId">
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2" id="tdApplianceId">
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2" id="tdJobId">
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2" id="tdCertificateId">
+											</td>
+										</tr>
+									</table>
+								</div>
+								<div class="aunt_basic_info_right">
+									<img alt="" src="image/u196.png" class="aunt_img" id="xmTanImg" />
+									<div id="xmTanDiv"></div>
+									<input type="file" id="auntFileImg" name="file" class="aunt_img_btn" accept="image/*" style="display: none;" />
+									<button type="button" class="btn btn-info" id="auntIcon" style="margin: 10px 85px 0 0;" onclick="onUpdateIcon()">上传照片</button>
+									<!--<button type="button" class="btn btn-info" id="modIcon" style="margin: 10px 85px 0 0;" onclick="modIcon()">修改照片</button>-->
+								</div>
+							</div>
+							<!--
+                            	作者：tangbin_man@163.com
+                            	时间：2017-05-10
+                            	描述：紧急联系人
+                            -->
+							<div class="contact">
+								<div class="contact_head">
+									<h4 align="left">紧急联系人</h4>
+									<button type="button" onclick="add_contact()">添加</button>
+								</div>
+								<div class="contact_info">
+									<table id="contact_table" class="contact_table">
+
+									</table>
+								</div>
+							</div>
+							<!--
+                            	作者：tangbin_man@163.com
+                            	时间：2017-05-10
+                            	描述：工作经历
+                            -->
+							<div class="work">
+								<div class="work_head">
+									<h4 align="left">工作经历</h4>
+									<button type="button" onclick="add_work()">添加</button>
+								</div>
+								<div class="work_info">
+									<table id="work_table" class="work_table">
+
+									</table>
+								</div>
+							</div>
+							<input type="reset" name="reset" style="display: none;" />
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" id="btn_aunt_mod" class="btn btn-info" style="border: none;outline: none;">提交更改</button>
+						<button type="button" id="btn_aunt_add" class="btn btn-info">添加</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--------------------------------添加或修改阿姨信息(结束)---------------------------------------->
+	</body>
+
+</html>

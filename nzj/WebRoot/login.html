@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh" class="no-js">
+
+	<head>
+
+		<meta charset="utf-8">
+		<title>登录</title>
+		<link rel="shortcut icon" href="logo.png">
+		<script type="text/javascript" src="js/login.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<!-- CSS -->
+		<!--<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Sans:400,700'>-->
+		<link rel="stylesheet" href="css/login/css/reset.css">
+		<link rel="stylesheet" href="css/login/css/supersized.css">
+		<link rel="stylesheet" href="css/login/css/style.css">
+		<script type="text/javascript" src="js/md5.js"></script>
+		<style type="text/css">
+			@-webkit-keyframes rotate-animation {
+				0% {
+					-webkit-transform: rotate(0deg);
+					transform: rotate(0deg);
+				}
+				100% {
+					-webkit-transform: rotate(360deg);
+					transform: rotate(360deg);
+				}
+			}
+			
+			@keyframes rotate-animation {
+				0% {
+					-webkit-transform: rotate(0deg);
+					transform: rotate(0deg);
+				}
+				100% {
+					-webkit-transform: rotate(360deg);
+					transform: rotate(360deg);
+				}
+			}
+			
+			@-webkit-keyframes move-animation {
+				0% {
+					-webkit-transform: translate(0, 0);
+					transform: translate(0, 0);
+				}
+				25% {
+					-webkit-transform: translate(-64px, 0);
+					transform: translate(-64px, 0);
+				}
+				75% {
+					-webkit-transform: translate(32px, 0);
+					transform: translate(32px, 0);
+				}
+				100% {
+					-webkit-transform: translate(0, 0);
+					transform: translate(0, 0);
+				}
+			}
+			
+			@-webkit-keyframes move-animation {
+				0% {
+					-webkit-transform: translate(0, 0);
+				}
+			}
+			
+			@keyframes move-animation {
+				0% {
+					-webkit-transform: translate(0, 0);
+					transform: translate(0, 0);
+				}
+				25% {
+					-webkit-transform: translate(-64px, 0);
+					transform: translate(-64px, 0);
+				}
+				75% {
+					-webkit-transform: translate(32px, 0);
+					transform: translate(32px, 0);
+				}
+				100% {
+					-webkit-transform: translate(0, 0);
+					transform: translate(0, 0);
+				}
+			}
+			
+			body {
+				background-color: #F5F5F5;
+			}
+			
+			.circle-loader {
+				display: block;
+				width: 64px;
+				height: 64px;
+				margin-left: -32px;
+				margin-top: -32px;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				-webkit-transform-origin: 16px 16px;
+				transform-origin: 16px 16px;
+				-webkit-animation: rotate-animation 5s infinite;
+				animation: rotate-animation 5s infinite;
+				-webkit-animation-timing-function: linear;
+				animation-timing-function: linear;
+			}
+			
+			.circle-loader .circle {
+				-webkit-animation: move-animation 2.5s infinite;
+				animation: move-animation 2.5s infinite;
+				-webkit-animation-timing-function: linear;
+				animation-timing-function: linear;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+			}
+			
+			.circle-loader .circle-line {
+				width: 64px;
+				height: 24px;
+				position: absolute;
+				top: 4px;
+				left: 0;
+				-webkit-transform-origin: 4px 4px;
+				transform-origin: 4px 4px;
+			}
+			
+			.circle-loader .circle-line:nth-child(0) {
+				-webkit-transform: rotate(0deg);
+				transform: rotate(0deg);
+			}
+			
+			.circle-loader .circle-line:nth-child(1) {
+				-webkit-transform: rotate(90deg);
+				transform: rotate(90deg);
+			}
+			
+			.circle-loader .circle-line:nth-child(2) {
+				-webkit-transform: rotate(180deg);
+				transform: rotate(180deg);
+			}
+			
+			.circle-loader .circle-line:nth-child(3) {
+				-webkit-transform: rotate(270deg);
+				transform: rotate(270deg);
+			}
+			
+			.circle-loader .circle-line .circle:nth-child(1) {
+				width: 8px;
+				height: 8px;
+				top: 50%;
+				left: 50%;
+				margin-top: -4px;
+				margin-left: -4px;
+				border-radius: 4px;
+				-webkit-animation-delay: -0.3s;
+				animation-delay: -0.3s;
+			}
+			
+			.circle-loader .circle-line .circle:nth-child(2) {
+				width: 16px;
+				height: 16px;
+				top: 50%;
+				left: 50%;
+				margin-top: -8px;
+				margin-left: -8px;
+				border-radius: 8px;
+				-webkit-animation-delay: -0.6s;
+				animation-delay: -0.6s;
+			}
+			
+			.circle-loader .circle-line .circle:nth-child(3) {
+				width: 24px;
+				height: 24px;
+				top: 50%;
+				left: 50%;
+				margin-top: -12px;
+				margin-left: -12px;
+				border-radius: 12px;
+				-webkit-animation-delay: -0.9s;
+				animation-delay: -0.9s;
+			}
+			
+			.circle-loader .circle-blue {
+				background-color: #1f4e5a;
+			}
+			
+			.circle-loader .circle-red {
+				background-color: #ff5955;
+			}
+			
+			.circle-loader .circle-yellow {
+				background-color: #ffb265;
+			}
+			
+			.circle-loader .circle-green {
+				background-color: #00a691;
+			}
+			
+			.loginText {
+				display: block;
+				width: 250px;
+				height: 100px;
+				margin-left: -100px;
+				margin-top: 64px;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				font-size: 24px;
+				color: #1f4e5a;
+			}
+			.page{
+				position:absolute;
+				margin: 0 auto;
+				width: 100%;
+				height: 100%;
+				background: #F5F5F5;
+				z-index:1000;
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		
+		<div class="page">
+			<div class="circle-loader">
+				<div class="circle-line">
+					<div class="circle circle-blue"></div>
+					<div class="circle circle-blue"></div>
+					<div class="circle circle-blue"></div>
+				</div>
+				<div class="circle-line">
+					<div class="circle circle-yellow"></div>
+					<div class="circle circle-yellow"></div>
+					<div class="circle circle-yellow"></div>
+				</div>
+				<div class="circle-line">
+					<div class="circle circle-red"></div>
+					<div class="circle circle-red"></div>
+					<div class="circle circle-red"></div>
+				</div>
+				<div class="circle-line">
+					<div class="circle circle-green"></div>
+					<div class="circle circle-green"></div>
+					<div class="circle circle-green"></div>
+				</div>
+
+			</div>
+			<div class="loginText">
+				登录中,请稍等。。。
+			</div>
+		</div>
+		<div style="width: 100%; height: 125px; padding: 125px 0 0 10px; font-size: 40px;"></div>
+		<div style="width: 900px; height: 450px; background: url(image/backgrounds/login.png);text-align: center;  margin: 0 auto 0 auto; padding-top: 50px;">
+			<h1>娘子军家政登录</h1>
+			
+			<div class="login-box">
+				账号：<input type="text" name="username" class="username"> 
+				密码： <input type="password" name="password" class="password">
+				<div style="width: 150px;float: left; height: 35px; margin-top: 20px; padding-top: 5px; text-align: center;">
+					<button type="button" style="width: 80px;height: 35px; margin:0px; border-radius:20%;" onclick="login()">用户登录</button>
+				</div>
+				<div style="width: 150px;float: left; height: 35px; margin-top: 20px; padding-top: 5px; text-align: center;">
+					<button type="button" style="width: 80px;height: 35px;  margin:0px; border-radius:20%;" onclick="yg_login()">员工登录</button>
+				</div>
+				<button type="button" onclick="youkeLogin()">游客登录</button>
+				<div class="loginMsg"></div>
+				<div style="float: right; margin: 20px 0 0 0;">
+					<a href="reg.html">注册账号</a>
+				</div>
+			</div>
+		</div>
+		<!-- Javascript -->
+		<script src="js/login/js/jquery-1.8.2.min.js"></script>
+		<script src="js/login/js/supersized.3.2.7.min.js"></script>
+		<script src="js/login/js/supersized-init.js"></script>
+		<script src="js/login/js/scripts.js"></script>
+
+	</body>
+
+</html>

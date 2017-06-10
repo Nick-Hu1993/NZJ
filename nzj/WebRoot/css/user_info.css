@@ -1,0 +1,259 @@
+
+#ModUser{
+	text-align: center;
+	color: #3d3b4f;
+}
+
+#ModUser a{
+	/*text-decoration:none;*/
+	float: right;
+	margin-right: 30px;
+	color: #3d3b4f;
+}
+
+#ModUser a:hover{
+	color: #f8bbd0;
+}
+
+#ModUser .clsContent {
+	margin: 100px auto 0 auto;
+	width: 800px;
+	height: 600px;
+	border: 1px solid #f8bbd0;
+	background: #FFFFFF;
+}
+
+#ModUser .user_head {
+	width: 100%;
+	height: 40px;
+	padding-top: 10px;
+	background: #f8bbd0;
+}
+
+#ModUser .user_head h3 {
+	padding: 0px;
+	margin: 0;
+}
+
+#ModUser .clsContent form {
+	width: 100%;
+	height: 560px;
+}
+
+#ModUser #user_info {
+	padding-top: 50px;
+	
+}
+
+#ModUser #user_info div {
+	height: 60px;
+}
+
+#ModUser #user_info_label {
+	float: left;
+	width: 360px;
+	height: 60px;
+	text-align: right;
+	padding-top: 10px;
+	/*background: #1B6D85;*/
+}
+
+/*#user_info_label label{
+	background: #e0e0e0;
+}*/
+
+#ModUser #user_info_text {
+	float: left;
+	width: 430px;
+	height: 60px;
+	text-align: left;
+	padding-top: 10px;
+	/*background: #FFB733;*/
+}
+
+#ModUser #user_info_text input{
+	padding-left: 25px;
+	border: none;
+	outline: none;
+}
+
+#ModUser #btn_user_info{
+	border-radius: 10px;
+	width: 80px;
+	height: 35px;
+	background: #f8bbd0;
+	font-size: 18px;
+	margin: 20px 30px 0 0;
+	border: none;
+	outline: none;
+}
+
+#ModUser #btn_user_info:hover{
+	color: #FFFFFF;
+}
+
+
+#ModUser #user_mod_label {
+	float: left;
+	width: 250px;
+	height: 40px;
+	text-align: right;
+	padding-top: 10px;
+	/*background: #1B6D85;*/
+}
+
+#ModUser #user_mod_text {
+	float: left;
+	width: 340px;
+	height: 40px;
+	text-align: left;
+	padding-top: 10px;
+	padding-left: 20px;
+	/*background: #FFB733;*/
+}
+
+#ModUser div{
+	margin-top: 20px;
+}
+
+#ModUser label{
+	color: red;
+}
+
+/*#btn_user_mod{
+	margin: 30px 0 30px 0;
+	border-radius: 10px;
+	width: 80px;
+	height: 35px;
+	background: #f8bbd0;
+	font-size: 18px;
+	margin: 20px 30px 0 0;
+	border: none;
+	outline: none;
+}
+
+#btn_user_mod:hover{
+	color: #FFFFFF;
+}*/
+
+
+#ModYg{
+	text-align: center;
+	color: #3d3b4f;
+}
+
+#ModYg a{
+	/*text-decoration:none;*/
+	float: right;
+	margin-right: 30px;
+	color: #3d3b4f;
+}
+
+#ModYg a:hover{
+	color: #f8bbd0;
+}
+
+#ModYg .clsContent {
+	margin: 100px auto 0 auto;
+	width: 800px;
+	height: 600px;
+	border: 1px solid #f8bbd0;
+	background: #FFFFFF;
+}
+
+#ModYg .user_head {
+	width: 100%;
+	height: 40px;
+	padding-top: 10px;
+	background: #f8bbd0;
+}
+
+#ModYg .user_head h3 {
+	padding: 0px;
+	margin: 0;
+}
+
+#ModYg .clsContent form {
+	width: 100%;
+	height: 560px;
+}
+
+#ModYg #user_info {
+	padding-top: 50px;
+	
+}
+
+#ModYg #user_info div {
+	height: 60px;
+}
+
+#ModYg #user_info_label {
+	float: left;
+	width: 360px;
+	height: 60px;
+	text-align: right;
+	padding-top: 10px;
+	/*background: #1B6D85;*/
+}
+
+/*#user_info_label label{
+	background: #e0e0e0;
+}*/
+
+#ModYg #user_info_text {
+	float: left;
+	width: 430px;
+	height: 60px;
+	text-align: left;
+	padding-top: 10px;
+	/*background: #FFB733;*/
+}
+
+#ModYg #user_info_text input{
+	padding-left: 25px;
+	border: none;
+	outline: none;
+}
+
+#ModYg #btn_user_info{
+	border-radius: 10px;
+	width: 80px;
+	height: 35px;
+	background: #f8bbd0;
+	font-size: 18px;
+	margin: 20px 30px 0 0;
+	border: none;
+	outline: none;
+}
+
+#ModYg #btn_user_info:hover{
+	color: #FFFFFF;
+}
+
+
+#ModYg #user_mod_label {
+	float: left;
+	width: 250px;
+	height: 40px;
+	text-align: right;
+	padding-top: 10px;
+	/*background: #1B6D85;*/
+}
+
+#ModYg #user_mod_text {
+	float: left;
+	width: 340px;
+	height: 40px;
+	text-align: left;
+	padding-top: 10px;
+	padding-left: 20px;
+	/*background: #FFB733;*/
+}
+
+#ModYg div{
+	margin-top: 20px;
+}
+
+#ModYg label{
+	color: red;
+}
