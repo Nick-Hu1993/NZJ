@@ -70,5 +70,30 @@ public interface TraineeDao {
 	 * @return
 	 */
 	public long geCountByBind (Integer bind, long user_id);
-	
+	/**
+	 * 4.5遍历当前用户的的所有学员
+	 * @param start
+	 * @param limit
+	 * @param id
+	 * @return
+	 */
+	public List<Trainee> getTraineeById (Integer start, Integer limit, long id);
+	/**
+	 * 4.5查询当前用户下学员的总数
+	 * @param id
+	 * @return
+	 */
+	public long getCountById (long id);
+	/**
+	 * 4.6获取所有学员信息（仅管理员）
+	 * @param start
+	 * @param Integer
+	 * @return
+	 */
+	public List<Trainee> getTraineeList (Integer start, Integer limit);
+	/**
+	 * 4.7获取所有学员总数（仅管理员）
+	 * @return
+	 */
+	public long getCount (); 
 }

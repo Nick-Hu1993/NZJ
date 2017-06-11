@@ -39,7 +39,7 @@ public class test15 {
 //		System.out.println(tDao.deleteTrainee(idlist));
 //		System.out.println(tDao.updateTraineePay(56L, 0));
 		try {
-			System.out.println(new ObjectMapper().writeValueAsString(tDao.getTraineeListByBind(null, null, 0, 1L)));
+			System.out.println(new ObjectMapper().writeValueAsString(tDao.getCount()));
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
