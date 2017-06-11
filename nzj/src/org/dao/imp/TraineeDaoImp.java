@@ -15,12 +15,12 @@ import org.util.HibernateSessionFactory;
 public class TraineeDaoImp implements TraineeDao {
 
 	@Override
-	public long addTrainee(Trainee o) {
+	public long addTrainee(Trainee t) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			long id = (Long) session.save(o);
+			long id = (Long) session.save(t);
 			ts.commit();
 			return id;
 		} catch (Exception e) {
@@ -33,27 +33,127 @@ public class TraineeDaoImp implements TraineeDao {
 
 	@Override
 	public boolean deleteTrainee(long[] id) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			//采用hibernate映射类的方法进行删除
+			for (long idList: id) {
+				Trainee t = (Trainee)session.load(Trainee.class, idList);
+				if (t != null) 
+					session.delete(t);
+			}
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
 	}
 
 	@Override
-	public boolean updateTrainee(Trainee o) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateTrainee(Trainee t) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			session.update(t);
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
 	}
 
 	@Override
-	public boolean updateTraineePay(long id, Integer pay) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateTraineePay (long id, Integer pay) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("UPDATE Trainee t SET t.pay = ? WHERE id = ?");
+			query.setParameter(0, pay);
+			query.setParameter(1, id);
+			query.executeUpdate();
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
 	}
 
 	@Override
-	public List<Trainee> geTraineesListByPay(Integer start, Integer limit,
+	public List<Trainee> getTraineesListByPay(Integer start, Integer limit,
 			Integer pay, long user_id) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("FROM Trainee o WHERE user_id = ? AND pay = ?");
+			query.setParameter(0, user_id);
+			query.setParameter(1, pay);
+			if (start == null) {
+				start = 0;
+			}
+			query.setFirstResult(start);
+			if (limit == null) {
+				start = 15;
+			}
+			query.setMaxResults(15);
+			List<Trainee> li = query.list();
+			ts.commit();
+			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<Trainee> getTraineeListByBind(Integer start, Integer limit,
+			Integer bind, long user_id) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("FROM Trainee t Where bind = ? AND user_id = ?");
+			query.setParameter(0, bind);
+			query.setParameter(1, user_id);
+			if (start == null) {
+				start = 0;
+			}
+			query.setFirstResult(start);
+			if (limit == null) {
+				limit = 15;
+			}
+			query.setMaxResults(limit);
+			List<Trainee> li = query.list();
+			ts.commit();
+			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public long getCountByPay(Integer pay, long user_id) {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
+	}
+
+	@Override
+	public long geCountByBind(Integer bind, long user_id) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 //	@Override

@@ -11,7 +11,7 @@ public interface TraineeDao {
 	 * @param o
 	 * @return
 	 */
-	public long addTrainee(Trainee o);
+	public long addTrainee(Trainee t);
 	//-----------------------------------删---------------------------------------
 	/**
 	 * 2.1删除学员（可批量）
@@ -25,7 +25,7 @@ public interface TraineeDao {
 	 * @param o
 	 * @return
 	 */
-	public boolean updateTrainee (Trainee o);
+	public boolean updateTrainee (Trainee t);
 	/**
 	 * 3.1修改学员缴费状态
 	 * @param id
@@ -36,12 +36,39 @@ public interface TraineeDao {
 	//-----------------------------------查---------------------------------------	
 	/**
 	 * 4.1根据学员缴费状态遍历学员
+	 * pay：0:未付1：已付
 	 * @param start
 	 * @param limit
 	 * @param pay
 	 * @param user_id
 	 * @return
 	 */
-	public List<Trainee> geTraineesListByPay (Integer start, Integer limit, Integer pay, long user_id);
+	public List<Trainee> getTraineesListByPay (Integer start, Integer limit, Integer pay, long user_id);
+	/**
+	 * 4.2根据是否绑定定单遍历学员
+	 * ps：即是否申请制证
+	 * @param start
+	 * @param limit
+	 * @param bind
+	 * @param user_id
+	 * @return
+	 */
+	public List<Trainee> getTraineeListByBind (Integer start, Integer limit, Integer bind, long user_id);
+	/**
+	 * 4.3根据支付状态查询当前用户的学员数量
+	 * pay：0:未付1：已付
+	 * @param pay
+	 * @param user_id
+	 * @return
+	 */
+	public long getCountByPay (Integer pay, long user_id);
+	/**
+	 * 4.4根据是否申请制证查询学员数量
+	 * 注意：已经申请制证的学员不可添加到新的订单中
+	 * @param bind
+	 * @param user_id
+	 * @return
+	 */
+	public long geCountByBind (Integer bind, long user_id);
 	
 }

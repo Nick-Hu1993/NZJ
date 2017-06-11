@@ -15,6 +15,7 @@ import org.service.TraineeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.tool.GetUserId;
 import org.tool.JsonObject;
 import org.tool.readProperties;
 
@@ -29,8 +30,9 @@ public class TraineeServiceImp implements TraineeService {
 			CommonsMultipartFile file3, CommonsMultipartFile file4)
 			throws IllegalStateException, IOException {
 
-		User user = (User) session.getAttribute("user");
-		if(user==null){
+//		User user = (User) session.getAttribute("user");
+		Long userId = GetUserId.getUserId(session);
+		if(userId==null){
 			return JsonObject.getResult(-999, "请先登录，才能添加学员", false);
 		}
 		
@@ -38,7 +40,7 @@ public class TraineeServiceImp implements TraineeService {
 		String f2Name = file2.getOriginalFilename();
 		String f3Name = file3.getOriginalFilename();
 		String f4Name = file4.getOriginalFilename();
-
+		//以文件名判定上传文件不可为空
 		if (f1Name.equals("") || f2Name.equals("") || f3Name.equals("")
 				|| f4Name.equals("")) {
 			return JsonObject.getResult(0, "上传的内容不能有空", false);
@@ -65,7 +67,7 @@ public class TraineeServiceImp implements TraineeService {
 		if (!dir.exists() && !dir.isDirectory()) {
 			dir.mkdirs();
 		}
-
+		//separator为当前系统的路径分隔符号
 		String fPath1 = path + File.separator + f1Name; // 文件最终路径
 		String fPath2 = path + File.separator + f2Name; // 文件最终路径
 		String fPath3 = path + File.separator + f3Name; // 文件最终路径
@@ -92,13 +94,13 @@ public class TraineeServiceImp implements TraineeService {
 		File f4 = new File(fPath4);
 		file4.transferTo(f4);
 
-		t.setIdcardurl1(url1);
-		t.setIdcardurl2(url2);
-		t.setPhotourl(url3);
-		t.setInfourl(url4);
+		t.setIdcardurl1(url1);//身份证正面
+		t.setIdcardurl2(url2);//身份证背面
+		t.setPhotourl(url3);//证件照
+		t.setInfourl(url4);//简历
 
 		t.setBind(0); // 初始化绑定标志为0，表示未绑定订单
-		t.setUserId(user.getId());	//绑定学员所属的用户
+		t.setUserId(userId);	//绑定学员所属的用户
 		if (tDao.addTrainee(t) != -1)
 			return JsonObject.getResult(1, "添加学员成功", true);
 		else
