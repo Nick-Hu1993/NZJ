@@ -172,7 +172,7 @@ public class TraineeDaoImp implements TraineeDao {
 	}
 
 	@Override
-	public long geCountByBind(Integer bind, long user_id) {
+	public long getCountByBind(Integer bind, long user_id) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();

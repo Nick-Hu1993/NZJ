@@ -22,7 +22,7 @@ public interface TraineeDao {
 	//-----------------------------------改---------------------------------------
 	/**
 	 * 3.1修改学员信息
-	 * @param o
+	 * @param t
 	 * @return
 	 */
 	public boolean updateTrainee (Trainee t);
@@ -69,7 +69,7 @@ public interface TraineeDao {
 	 * @param user_id
 	 * @return
 	 */
-	public long geCountByBind (Integer bind, long user_id);
+	public long getCountByBind (Integer bind, long user_id);
 	/**
 	 * 4.5遍历当前用户的的所有学员
 	 * @param start

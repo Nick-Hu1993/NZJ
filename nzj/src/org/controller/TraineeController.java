@@ -28,5 +28,46 @@ public class TraineeController {
 		return tService.addTrainee(session, request, t, file1, file2, file3,
 				file4);
 	}
-
+	
+	@RequestMapping("/deleteTrainee")
+	@ResponseBody
+	public Object deleteTrainee (long[] id) { 
+		return tService.deleteTrainee(id);
+	}
+	
+	@RequestMapping("/updateTrainee")
+	@ResponseBody
+	public Object updateTrainee (Trainee t) {
+		return tService.updateTrainee(t);
+	}
+	
+	@RequestMapping("/updateTraineePay")
+	@ResponseBody
+	public Object updateTraineePay (long id, Integer pay) {
+		return tService.updateTraineePay(id, pay);
+	}
+	
+	@RequestMapping("/getTraineeListByPay")
+	@ResponseBody
+	public Object getTraineesListByPay (HttpSession session, Integer start, Integer limit, Integer pay) {
+		return tService.getTraineesListByPay(session, start, limit, pay);
+	}
+	
+	@RequestMapping("/getTraineeListByBind")
+	@ResponseBody
+	public Object getTraineeListByBind (HttpSession session, Integer start, Integer limit, Integer bind) {
+		return tService.getTraineeListByBind(session, start, limit, bind);
+	}
+	
+	@RequestMapping("/getTraineeById")
+	@ResponseBody
+	public Object getTraineeById (HttpSession session, Integer start, Integer limit) {
+		return tService.getTraineeById(session, start, limit);
+	}
+	
+	@RequestMapping("/getTraineeList")
+	@ResponseBody
+	public Object getTraineeList (HttpSession session, Integer start, Integer limit) {
+		return tService.getTraineeList(session, start, limit);
+	}
 }

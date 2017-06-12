@@ -3,6 +3,9 @@ package org.service.imp;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -105,6 +108,96 @@ public class TraineeServiceImp implements TraineeService {
 			return JsonObject.getResult(1, "添加学员成功", true);
 		else
 			return JsonObject.getResult(-1, "添加学员失败", false);
+	}
+
+	@Override
+	public Object deleteTrainee(long[] id) {
+		if (tDao.deleteTrainee(id)) {
+			return JsonObject.getResult(1, "删除成功", true);
+		} else {
+			return JsonObject.getResult(0, "删除失败", false);
+		}
+	}
+
+	@Override
+	public Object updateTrainee(Trainee t) {
+		if (tDao.updateTrainee(t)) {
+			return JsonObject.getResult(1, "修改成功", true);
+		} else {
+			return JsonObject.getResult(0, "修改失败", false);
+		}
+	}
+
+	@Override
+	public Object updateTraineePay(long id, Integer pay) {
+	if (tDao.updateTraineePay(id, pay)) {
+		return JsonObject.getResult(1, "修改成功", true);
+	} else {
+		return JsonObject.getResult(0, "修改失败", false);
+		}
+	}
+
+	@Override
+	public Object getTraineesListByPay(HttpSession session,Integer start, Integer limit,
+			Integer pay) {
+		Long userId = GetUserId.getUserId(session);
+		if (userId != null) {
+			List<Trainee> li = tDao.getTraineesListByPay(start, limit, pay, userId);
+			long count = tDao.getCountByPay(pay, userId);
+			Map<String , Object> map = new HashMap<String, Object>();
+			map.put("TraineeList", li);
+			map.put("count", count);
+			return JsonObject.getResult(1, "学员列表", map);
+		} else {
+			return JsonObject.getResult(-999, "请先登录", false);
+		}
+	}
+
+	@Override
+	public Object getTraineeListByBind(HttpSession session, Integer start, Integer limit,
+			Integer bind) {
+		Long userId = GetUserId.getUserId(session);
+		if (userId != null) {
+			List<Trainee> li = tDao.getTraineeListByBind(start, limit, bind, userId);
+			long count = tDao.getCountByBind(bind, userId);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("TraineeList", li);
+			map.put("count", count);
+			return JsonObject.getResult(1, "学员列表", map);
+ 		} else {
+			return JsonObject.getResult(-999, "请先登录", false);
+		}
+	}
+
+	@Override
+	public Object getTraineeById(HttpSession session, Integer start,
+			Integer limit) {
+		Long userId = GetUserId.getUserId(session);
+		if (userId != null) {
+			List<Trainee> li = tDao.getTraineeById(start, limit, userId);
+			long count = tDao.getCountById(userId);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("TraineeList", li);
+			map.put("count", count);
+			return JsonObject.getResult(1, "学员列表", map);
+		} else {
+			return JsonObject.getResult(0, "请先登录", false);
+		}
+	}
+
+	@Override
+	public Object getTraineeList(HttpSession session, Integer start, Integer limit) {
+		Long userId = GetUserId.getUserId(session);
+		if (userId != null) {
+			List<Trainee> li = tDao.getTraineeById(start, limit, userId);
+			long count = tDao.getCount();
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("TraineeList", li);
+			map.put("count", count);
+			return JsonObject.getResult(1, "所有学员", map);
+		} else {
+			return JsonObject.getResult(0, "请先登录", false);
+		}
 	}
 
 }
