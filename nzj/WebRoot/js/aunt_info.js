@@ -1306,7 +1306,6 @@ function onUpdateIcon() {
 				self.appUploadXHR.open("POST", mainUrl + "updateAuntPhoto");
 				self.appUploadXHR.send(formData);
 			};
-			//或者 img.src = this.result;  //e.target == this
 		}
 		reader.readAsDataURL(file)
 	}

@@ -1,12 +1,10 @@
 package org.test;
 
+import java.sql.Date;
+
 import org.dao.TraineeDao;
 import org.dao.imp.TraineeDaoImp;
 import org.model.Trainee;
-import org.tool.ChangeTime;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class test15 {
 	public static void main(String[] args) {
@@ -38,11 +36,11 @@ public class test15 {
 //		long[] idlist = {64L, 65L};
 //		System.out.println(tDao.deleteTrainee(idlist));
 //		System.out.println(tDao.updateTraineePay(56L, 0));
-		try {
-			System.out.println(new ObjectMapper().writeValueAsString(tDao.getCount()));
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			System.out.println(new ObjectMapper().writeValueAsString(tDao.getCount()));
+//		} catch (JsonProcessingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 }

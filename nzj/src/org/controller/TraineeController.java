@@ -1,5 +1,7 @@
 package org.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Controller
 public class TraineeController {
 	@Autowired
@@ -20,12 +24,12 @@ public class TraineeController {
 	@RequestMapping("/addTrainee")
 	@ResponseBody
 	public Object addTrainee(HttpSession session, HttpServletRequest request,
-			Trainee t, @RequestParam("file1") CommonsMultipartFile file1,
+			Trainee t, String birthday1, @RequestParam("file1") CommonsMultipartFile file1,
 			@RequestParam("file2") CommonsMultipartFile file2,
 			@RequestParam("file3") CommonsMultipartFile file3,
 			@RequestParam("file4") CommonsMultipartFile file4) throws Exception {
-
-		return tService.addTrainee(session, request, t, file1, file2, file3,
+		
+		return tService.addTrainee(session, request, t, birthday1, file1, file2, file3,
 				file4);
 	}
 	
@@ -37,8 +41,14 @@ public class TraineeController {
 	
 	@RequestMapping("/updateTrainee")
 	@ResponseBody
-	public Object updateTrainee (Trainee t) {
-		return tService.updateTrainee(t);
+	public Object updateTrainee (HttpSession session, HttpServletRequest request,
+			Trainee t,String birthday1, @RequestParam("file1") CommonsMultipartFile file1,
+			@RequestParam("file2") CommonsMultipartFile file2,
+			@RequestParam("file3") CommonsMultipartFile file3,
+			@RequestParam("file4") CommonsMultipartFile file4) throws IllegalStateException, IOException {
+		System.out.println(new ObjectMapper().writeValueAsString(t));
+		System.out.println(birthday1);
+		return tService.updateTrainee(session, request, t, birthday1, file1, file2, file3, file4);
 	}
 	
 	@RequestMapping("/updateTraineePay")

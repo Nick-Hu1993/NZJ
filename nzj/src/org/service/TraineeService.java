@@ -18,7 +18,7 @@ public interface TraineeService {
 	 * @return
 	 */
 	public Object addTrainee(HttpSession session, HttpServletRequest request,
-			Trainee t, @RequestParam("file1") CommonsMultipartFile file1,
+			Trainee t,String birthday1, @RequestParam("file1") CommonsMultipartFile file1,
 			@RequestParam("file2") CommonsMultipartFile file2,
 			@RequestParam("file3") CommonsMultipartFile file3,
 			@RequestParam("file4") CommonsMultipartFile file4)
@@ -34,7 +34,12 @@ public interface TraineeService {
 	 * @param t
 	 * @return
 	 */
-	public Object updateTrainee (Trainee t);
+	public Object updateTrainee (HttpSession session, HttpServletRequest request,
+			Trainee t, String birthday1,@RequestParam("file1") CommonsMultipartFile file1,
+			@RequestParam("file2") CommonsMultipartFile file2,
+			@RequestParam("file3") CommonsMultipartFile file3,
+			@RequestParam("file4") CommonsMultipartFile file4)
+			throws IllegalStateException, IOException;
 	/**
 	 *4.修改学员缴费状态
 	 * @param id

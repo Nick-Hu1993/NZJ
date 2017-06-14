@@ -8,31 +8,66 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     
     <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
-
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script>
+  	$("#upload").click(function() {
+  		var formDate = new FormData(document.getElementById("trainee");
+		formDate.append("name", "胡歌");
+		formDate.append("sex", "1");
+  		$.ajax({
+  			type : "post",
+  			url : "addTrainee",
+  			data : formDate,
+  			dataType : "json"
+  			//异步请求开关
+  			async : false;
+  			//是否从缓存中获取信息
+  			cache : false;
+  			//发送的数据是否转换为对象
+  			processData : false,
+  			//决定浏览器以什么方式读取该文件，
+  			//参数设置地址：http://www.runoob.com/http/http-content-type.html
+  			contentType : false,
+  			success : function (data) {
+  				alert("服务器响应成功");
+  			}
+  			error : finction (data) {
+  				alert("服务器无响应");
+  			}
+  		});
+  	});
+  	
+  </script>
   </head>
   
   <body>
-  	<form action="addTrainee" entype="multipart/form-data" method="post"> 
-  	<br><br>
-	name;<input type="text" name="name" value="胡歌">
-	<br><br>
-	sex;<input type="text" name="sex" value="男">
-	<br><br>
-	birthday;<input type="text" name="birthday" value="2017-06-12">
-	<br><br>
-	address;<input type="text" name="addresss" value="深圳市龙岗区坂田顺兴工业区E栋601">
-	<br><br>
-	idnumber;<input type="text" name="idnumber" value="362329199401058467">
-	<br><br>
-	idcardurl1;<input type="file" name="file1">
-	<br><br>
-	idcardurl2;<input type="file" name="file2">
-	<br><br>
-	infourl;<input type="file" name="file3">
-	<br><br>
-	photourl;<input type="file" name="file4">
-	<br><br>
-	<input type="submit" value="Upload">
+  	<form id = "trainee" action="updateTrainee" enctype="multipart/form-data" method="post"> 
+  		<br><br>
+  		身份证正面;<input type="file" name="file1">
+  		<br><br>
+  		身份证背面;<input type="file" name="file2">
+  		<br><br>
+  		简&nbsp历;<input type="file" name="file3">
+  		<br><br>
+  		证件照片;<input type="file" name="file4">
+  		<br><br>
+		id;<input type="text" name="id" value="61">
+		<br><br>
+		name;<input type="text" name="name" value="马大哈">
+		<br><br>
+		sex;<input type="text" name="sex" value="1">
+		<br><br>
+		birthday;<input type="text" name="birthday1" value="2017-06-17">
+		<br><br>
+		address;<input type="text" name="address" value="深圳市龙岗区港都花园F栋902">
+		<br><br>
+		idnumber;<input type="text" name="idnumber" value="362329198901278115">
+		<br><br>
+		pay;<input type="text" name="pay" value="1">
+		<br><br>
+		bind;<input type="text" name="bind" value="0">
+		<br><br>
+		<input type="submit" id="upload" value="upload">
   	</form>
   </body>
 </html>
