@@ -10,5 +10,5 @@ public interface OrderService {
 	 * @param o
 	 * @return
 	 */
-	public Object addOrder(HttpSession session,Orders o);
+	public Object addOrder(HttpSession session,Orders o, long[] id);
 }

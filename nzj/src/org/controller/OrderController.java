@@ -16,8 +16,8 @@ public class OrderController {
 	
 	@RequestMapping("/addOrder")
 	@ResponseBody
-	public Object addOrder(HttpSession session,Orders o)throws Exception{
-		return oService.addOrder(session,o);
+	public Object addOrder(HttpSession session,Orders o, long[] id)throws Exception{
+		return oService.addOrder(session, o, id);
 	}
 	
 	

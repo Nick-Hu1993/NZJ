@@ -18,12 +18,12 @@ public class OrderServiceImp implements OrderService{
 	private OrderDao oDao;
 	
 	@Override
-	public Object addOrder(HttpSession session,Orders o) {
+	public Object addOrder(HttpSession session,Orders o, long[] id) {
 		User u = (User)session.getAttribute("user");
 		if(u!=null){
 			o.setTime(new Date().getTime()/1000);
 			o.setUserId(u.getId());
-			if(oDao.addOrder(o)!=-1)
+			if(oDao.addOrder(o, id)!=-1)
 				return JsonObject.getResult(1, "添加订单成功", true);
 			else
 				return JsonObject.getResult(-1, "添加订单失败", false);
