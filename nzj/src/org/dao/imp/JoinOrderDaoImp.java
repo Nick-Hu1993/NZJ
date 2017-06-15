@@ -24,7 +24,7 @@ public class JoinOrderDaoImp implements JoinOrderDao {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			final long joid = (Long) session.save(jo);
+			final long joId = (Long) session.save(jo);
 			session.doWork(new Work() {
 				@Override
 				public void execute(Connection conn) throws SQLException {
@@ -32,7 +32,7 @@ public class JoinOrderDaoImp implements JoinOrderDao {
 					PreparedStatement stmt = conn.prepareStatement(sql);
 					conn.setAutoCommit(false);
 					for (int i = 0; i < id.length; i++) {
-						stmt.setLong(1, joid);
+						stmt.setLong(1, joId);
 						stmt.setLong(2, id[i]);
 						stmt.addBatch();
 					}

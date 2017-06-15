@@ -11,7 +11,7 @@ public interface OrderDao {
 	 * @param o
 	 * @return
 	 */
-	public long addOrder(Orders o, long[] id);
+	public boolean addOrder(Orders o, long[] id);
 	//-----------------------------------删---------------------------------------
 	/**
 	 * 2.1删除订单（可批量）
@@ -25,7 +25,7 @@ public interface OrderDao {
 	 * @param o
 	 * @return
 	 */
-	public boolean uptdateOrder (OrderDao o);
+	public boolean uptdateOrder (Orders o);
 	/**
 	 * 3.2修改订单状态
 	 * @param id

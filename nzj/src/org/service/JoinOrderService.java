@@ -36,7 +36,7 @@ public interface JoinOrderService {
 	 */
 	public Object updateJoinOrderStatus (Integer status, long joinorderid);
 	/**
-	 * 5.根据当前登录的用户遍历出该用用户的所有订单
+	 * 5.根据当前登录的用户遍历出该用户的所有订单
 	 * @param start
 	 * @param limit
 	 * @param id

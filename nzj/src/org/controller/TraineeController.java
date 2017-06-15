@@ -69,15 +69,15 @@ public class TraineeController {
 		return tService.getTraineeListByBind(session, start, limit, bind);
 	}
 	
-	@RequestMapping("/getTraineeById")
-	@ResponseBody
-	public Object getTraineeById (HttpSession session, Integer start, Integer limit) {
-		return tService.getTraineeById(session, start, limit);
-	}
-	
 	@RequestMapping("/getTraineeList")
 	@ResponseBody
 	public Object getTraineeList (HttpSession session, Integer start, Integer limit) {
+		return tService.getTraineeById(session, start, limit);
+	}
+	
+	@RequestMapping("/getAllTraineeList")
+	@ResponseBody
+	public Object getAllTraineeList (HttpSession session, Integer start, Integer limit) {
 		return tService.getTraineeList(session, start, limit);
 	}
 }

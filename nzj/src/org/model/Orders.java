@@ -10,6 +10,8 @@ public class Orders implements java.io.Serializable {
 
 	private Long id;
 	private String preparer;
+	private String phone;
+	private Integer status;
 	private Long time;
 	private Long userId;
 
@@ -20,8 +22,11 @@ public class Orders implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Orders(String preparer, Long time, Long userId) {
+	public Orders(String preparer, String phone, Integer status, Long time,
+			Long userId) {
 		this.preparer = preparer;
+		this.phone = phone;
+		this.status = status;
 		this.time = time;
 		this.userId = userId;
 	}
@@ -42,6 +47,22 @@ public class Orders implements java.io.Serializable {
 
 	public void setPreparer(String preparer) {
 		this.preparer = preparer;
+	}
+
+	public String getPhone() {
+		return this.phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public Integer getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	public Long getTime() {
