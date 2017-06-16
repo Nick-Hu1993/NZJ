@@ -142,9 +142,9 @@ var getJsonArrayByPageSize = function(pageSize, pageNo) {
 			},
 			success: function(data) {
 				if(data.code == -999) {
-					//				if(confirm("用户登录已失效，是否重新登录？")) {
-					//					window.parent.location.href = "login.html";
-					//				}
+					if(confirm("用户登录已失效，是否重新登录？")) {
+						window.parent.location.href = "login.html";
+					}
 				} else if(data.code == 1) {
 					json = data.data.result;
 					total = data.data.count

@@ -60,6 +60,7 @@ function addJoin_trace() {
 		} else if(!/^[0-9]*$/.test($("#aphone").val())) {
 			alert("阿姨联系电话格式错误");
 		} else {
+		alert("abc");
 			var formData = new FormData(document.getElementById("addjoinTraceForm"));
 			$.ajax({
 				type: "post",

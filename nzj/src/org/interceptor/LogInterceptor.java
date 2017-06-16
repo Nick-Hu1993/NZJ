@@ -41,7 +41,6 @@ public class LogInterceptor implements HandlerInterceptor {
 		}else if(action.equals("login") || action.equals("register")){
 			
 			String phone = request.getParameter("phone");
-			
 			LogDao lDao = new LogDaoImp();
 			Log log = new Log(Long.parseLong(phone),action,new Date().getTime()/1000);
 			lDao.addLog(log);

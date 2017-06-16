@@ -42,20 +42,13 @@
 		<link href="css/help_cntral.css" rel="stylesheet" />
 		<!--<script src="js/help_cntral.js" type="text/javascript"></script>-->
 		<script type="text/javascript">
-			setInterval(check_login, 900000);
 			$(document).ready(function() {
 				check_login();
-				//				$("#liModUser a").text('wwww'); 
-				//				$(".content").css("width", w-70 + "px");
+				setInterval(check_login, 900000);
 				$('.sidebar li').click(function() {
 					$('.sidebar li').removeClass('addLiba');
 					$(this).addClass('addLiba');
 				});
-				//				var h = $(window).height();
-				//				var w = $(window).width();
-				//				$(window).resize(function() {
-				//					alert('宽：'+w+'高：'+h);
-				//				});
 				$(".dropdown").mouseover(function() {
 					$(this).addClass("open");
 				});
@@ -65,9 +58,9 @@
 				});
 				//权限控制左侧菜单栏
 //				$('#menuList li').click(function() {
-//					if($(this).index()==1&&getCookie('permission')){
-//						alert('员工不能查看雇主');
-//						return;
+//					alert($(this).index())
+//					if($(this).index() == 1 && getCookie('permission')) {
+//						$("#employerInfo").attr("href","employer_info.html");
 //					}
 //				});
 			});
@@ -214,19 +207,19 @@
 						<ul style="float: right; padding-left: 15px; ">
 							<li class="dropdown" style="list-style-type:none;">
 								<div id="dropdownMenu1" data-toggle="dropdown"><img src="image/sz.png" /><label>设置</label></div>
-								<!--<ul class="dropdown-menu" role="menu" >
+								<ul class="dropdown-menu" role="menu" >
 									<li>
-										<a href=""><i class="fa fa-user"></i>&nbsp;设置1</a>
+										<a  href="seek_help.html" target="f"><i class="fa fa-phone-square"></i>&nbsp;求助</a>
 									</li>
-									<li class="divider"></li>
+									<!--<li class="divider"></li>
 									<li>
 										<a href=""><i class="fa fa-key"></i>&nbsp;设置2</a>
 									</li>
 									<li class="divider"></li>
 									<li>
 										<a href=""><i class="fa fa-power-off"></i>&nbsp;设置3</a>
-									</li>
-								</ul>-->
+									</li>-->
+								</ul>
 							</li>
 						</ul>
 						<ul style="float: right; padding-left: 15px;">
@@ -299,7 +292,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="employer_info.html" target="f">
+						<a href="employer_info.html" id="employerInfo" target="f">
 							<div style="width: 100%; text-align: center; margin-left: 8px;">
 								<i class="fa fa-user" style="font-size: 20px"></i>
 							</div>
@@ -318,28 +311,9 @@
 							</div>
 						</a>
 					</li>
-					<li>
-						<a href="training_service.html" target="f">
-							<div style="width: 100%; text-align: center; margin-left: 8px;">
-								<i class="fa fa-pencil-square" style="font-size: 20px"></i>
-							</div>
-							<div>
-								学员
-							</div>
-						</a>
-					</li>
+					
 					<li>
 						<a href="insurance_agent.html" target="f">
-							<div style="width: 100%; text-align: center; margin-left: 8px;">
-								<i class="fa fa-magic" style="font-size: 20px"></i>
-							</div>
-							<div>
-								保险
-							</div>
-						</a>
-					</li>
-					<li>
-						<a href="pact_trace.html" target="f">
 							<div style="width: 100%; text-align: center; margin-left: 8px;">
 								<i class="fa fa-users" style="font-size: 20px"></i>
 							</div>
@@ -348,17 +322,7 @@
 							</div>
 						</a>
 					</li>
-					<li>
-						<a href="finance.html" target="f">
-							<div style="width: 100%; text-align: center; margin-left: 8px;">
-								<i class="fa fa-book" style="font-size: 20px"></i>
-							</div>
-							<div>
-								财务
-							</div>
-						</a>
-					</li>
-					<li>
+					<!--<li>
 						<a href="seek_help.html" target="f">
 							<div style="width: 100%; text-align: center; margin-left: 8px;">
 								<i class="fa fa-phone-square" style="font-size: 20px"></i>
@@ -367,7 +331,7 @@
 								求助
 							</div>
 						</a>
-					</li>
+					</li>-->
 					<li>
 						<a href="help_cntral.html" target="f">
 							<div style="width: 100%; text-align: center; margin-left: 8px;">
@@ -385,6 +349,36 @@
 							</div>
 							<div>
 								员工
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="training_service.html" target="f">
+							<div style="width: 100%; text-align: center; margin-left: 8px;">
+								<i class="fa fa-pencil-square" style="font-size: 20px"></i>
+							</div>
+							<div>
+								学员
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="finance.html" target="f">
+							<div style="width: 100%; text-align: center; margin-left: 8px;">
+								<i class="fa fa-book" style="font-size: 20px"></i>
+							</div>
+							<div>
+								财务
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="insurance_agent.html" target="f">
+							<div style="width: 100%; text-align: center; margin-left: 8px;">
+								<i class="fa fa-magic" style="font-size: 20px"></i>
+							</div>
+							<div>
+								保险
 							</div>
 						</a>
 					</li>

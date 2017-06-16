@@ -3,7 +3,7 @@
 	background: #0066CC;
 }*/
 
-
+/*合同样式*/
 .modal-body table{
 	border:1px solid #f8bed2;
 }
@@ -46,4 +46,175 @@
 	outline: none;
 	border-radius: 10px;
 	color:#333333;
+}
+
+/*加盟样式*/
+
+.leftMenuBox {
+	width: 25%;
+	height: 100%;
+	float: left;
+	min-width: 300px;
+	text-align: center;
+}
+
+.leftMenu {
+	width: 250px;
+	height: 89%;
+	margin: 10% 0 10% 40px;
+	/*float: right;*/
+	border: 1px solid #03a9f3;
+	border-radius: 20px;
+	padding: 10px;
+}
+
+.listTitle {
+	list-style-type: none;
+	color: #FFFFFF;
+	border-bottom: 1px dashed #333;
+	text-align: center;
+	margin-left: -40px;
+	font-size: 18px;
+	padding: 12px 12px 12px 50px;
+	background: #03a9f3;
+	border-radius: 20px 20px 0 0;
+}
+
+
+/*.List{
+	list-style-type:none;
+	color: #333;
+	border-bottom:1px dashed #333;  
+	padding: 8px 15px 8px 15px;
+	margin-left: -40px;
+}*/
+
+#joinList p {
+	display: none;
+}
+
+
+/*.List:hover{
+	color: #59a8ff;
+	cursor:pointer;
+	
+	
+}*/
+
+.rightContentBox {
+	width: 75%;
+	height: 100%;
+	float: left;
+	min-width: 900px;
+	text-align: right;
+	padding-top: 50px;
+}
+
+
+/*加盟树型菜单*/
+
+.joinMenuDiv {
+	/*position: fixed;*/
+	left: 0;
+	top: 50px;
+	width: 230px;
+	padding: 0;
+	background-color: #FFFFFF;
+	-webkit-overflow-scrolling: touch;
+	-webkit-overflow-scrolling: -blackberry-touch;
+	/*border-right: 10px solid #ccc;*/
+	overflow-y: auto;
+	overflow-x: hidden;
+	height: 100%;
+	z-index: 1000;
+	border-radius: 20px 20px 0 0;
+}
+
+.joinMenuDiv ul {
+	text-align: left;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.joinMenuDiv li {
+	/*height: 80px;*/
+	/*font-size: 16px;*/
+}
+
+.joinMenuDiv li a {
+	color: #000000;
+}
+
+.joinMenuDiv li .caret {
+	margin-top: 9px;
+}
+
+.joinMenuDiv li i {
+	margin-right: 15px;
+}
+
+
+/*.joinMenuDiv>li>a:hover,
+.joinMenuDiv>li>a:focus {
+	background-color: #03A9F3;
+	color: #BBBBBB;
+}*/
+
+.has-sub> a:hover {
+	/*background-color: #F06292;*/
+}
+
+.joinMenuDiv .sub-menu {
+	display: none;
+}
+
+.joinMenuDiv .sub-menu li:hover {
+	/*background-color: #03A9F3;*/
+}
+
+.joinMenuDiv .sub-menu li a {
+	padding: 15px 30px;
+	text-decoration: none;
+	display: block;
+	/*background-color: #313A43;*/
+}
+
+
+/*.joinMenuDiv .sub-menu li[class*=active]> a {
+	color: firebrick !important;
+}*/
+
+.has-sub>a>label {
+	display: none;
+}
+
+.has-sub-erji>a>label {
+	display: none;
+}
+
+.has-sub-sanji>a>label {
+	display: none;
+	color: #F0AD4E;
+}
+
+.threeIfon {
+	display: none;
+}
+
+
+/*加盟商信息表格*/
+
+.joinTable {
+	float: left;
+	width: 90%;
+	min-width: 800px;
+	min-height: 600px;
+	border: 1px solid #03a9f3;
+	padding: 0 15px 0 15px;
+}
+
+.joinTable tr{
+	float: left;
+	
 }

@@ -72,7 +72,7 @@ body {
 }
 
 .has-sub> a:hover {
-	background-color: #F06292;
+	/*background-color: #F06292;*/
 }
 
 .sidebar .sub-menu {
@@ -91,6 +91,25 @@ body {
 }
 
 .sidebar .sub-menu li[class*=active]> a {
+	color: firebrick !important;
+}
+
+.sidebar .sub-menu1 {
+	display: none;
+}
+
+.sidebar .sub-menu1 li:hover {
+	background-color: #f5f5f5;
+}
+
+.sidebar .sub-menu1 li a {
+	padding: 15px 30px;
+	text-decoration: none;
+	display: block;
+	background-color: #313A43;
+}
+
+.sidebar .sub-menu1 li[class*=active]> a {
 	color: firebrick !important;
 }
 
@@ -267,6 +286,7 @@ body {
 	height: 100%; 
 	margin: 0 auto; 
 	border-top:1px #03A9F3 solid;
+	
 }
 
 .search_options{
@@ -283,3 +303,5 @@ body {
 	color: #03A9F3;
 	cursor:pointer
 }
+
+

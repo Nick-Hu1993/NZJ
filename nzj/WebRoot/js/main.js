@@ -1,8 +1,8 @@
 //var mainUrl = "http://192.168.1.1.226:8080/nzj/";
 var mainUrl = "";
-$(document).ready(function() {
-	getDateShow();
-});
+//$(document).ready(function() {
+//	getDateShow();
+//});
 
 //检查用户登录状态，修改用户或员工的信息显示/隐藏
 function check_login() {
@@ -13,6 +13,7 @@ function check_login() {
 		cache: false,
 		success: function(data) {
 			SetCookie('permission',data.code);
+			SetCookie('sessionId',data.data.id);
 			$('#liModUser').show();
 			$('#liModYg').hide();
 			$('#liModUserPassword').show();

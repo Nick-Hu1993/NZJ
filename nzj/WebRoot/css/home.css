@@ -159,7 +159,7 @@
 	/*padding-bottom: 160px;*/
 	padding: 0px 15px 0px 15px;
 	/*margin-top: -100px;*/
-	min-width: 1400px;
+	min-width: 1450px;
 	min-height: 800px;
 	overflow: hidden
 }
@@ -187,7 +187,7 @@
 	padding: 0 0 0 15px;
 	background: #F1F2F7;
 	position: relative;
-	min-width: 390px;
+	min-width: 440px;
 	min-height: 758px;
 	/*background: #F1A417;*/
 }
@@ -363,8 +363,7 @@ tr:hover {
 	padding: 3px 30px 0 30px;
 	background: #F5F5F5;
 	border-bottom: 1px #e0e0e0 solid;
-	font-weight:bold
-	
+	font-weight: bold
 }
 
 .centreTitle span {
@@ -501,8 +500,79 @@ display:inline-block;
 	outline: none;
 }
 
-.shareEmployerBox {
+.shareEmployerBox1 {
+	float: left;
+	text-align: right;
+	width: 30%;
+	height: 80px;
+	border: 1px solid #DDDDDD;
+	background: #FFFFFF;
+	box-shadow: 2px 2px 2px #888888;
+	min-width: 100px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.sender {
 	width: 100%;
+	height: 100px;
+	margin: 20px;
+}
+
+
+
+.a {
+	float: left;
+	height: 100px;
+	
+	/*width: 30%;*/
+	/*background: #0066CC;*/
+}
+
+.b {
+	/*background-color: aquamarine;*/
+	float: left;
+	margin: 0 20px 10px 15px;
+	/*padding: 0px 20px 0px 0px;*/
+	border-radius: 20px;
+	height: 100px;
+	width: 80%;
+	background: -moz-linear-gradient(top, #D9FFF2 0%, #d3fff0 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#D9FFF2), color-stop(100%,#d3fff0));
+    background: -webkit-linear-gradient(top, #D9FFF2 0%,#d3fff0 100%);
+    background: -o-linear-gradient(top, #D9FFF2 0%,#d3fff0 100%);
+    background: -ms-linear-gradient(top, #D9FFF2 0%,#d3fff0 100%);
+    background: linear-gradient(to bottom, #D9FFF2 0%,#d3fff0 100%);
+}
+
+.sender div:first-child img {
+	float: left;
+	width: 80px;
+	height: 80px;
+	margin-top: 15px;
+}
+
+.left_triangle {
+	height: 0px;
+	width: 0px;
+	border-width: 8px;
+	border-style: solid;
+	border-color: transparent #d3fff0 transparent transparent;
+	position: relative;
+	left: -16px;
+	top: 45px;
+	
+}
+
+
+/*.userImg{
+	width: 180px;
+	height: 180px;
+}*/
+
+.shareEmployerBox2 {
+	float: left;
+	width: 70%;
 	height: 80px;
 	padding: 0 30px 0 30px;
 	border: 1px solid #DDDDDD;
@@ -526,14 +596,15 @@ display:inline-block;
 .shareEmployerContent {
 	width: 100%;
 	height: 50px;
-	padding-top: 20px;
+	padding: 0px 20px 0px 20px;
 	float: left;
 	text-align: left;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	font-size: 16px;
+	font-size: 15px;
 	color: #808080;
+	cursor:pointer
 }
 
 .shareEmployerButtom {
@@ -543,4 +614,11 @@ display:inline-block;
 	padding-top: 8px;
 	font-size: 13px;
 	color: #909090;
+	padding: 0px 20px 0px 20px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-size: 15px;
+	color: #808080;
+	cursor:pointer
 }

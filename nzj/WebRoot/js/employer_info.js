@@ -394,7 +394,7 @@ var builderUQTQueryMsg = function(UQTQueryMsg) {
 			"<td class='dis_order' title=" + address + ">" + address + "</td>" +
 			"<td class='query_pro' title=" + changeTime(time) + ">" + changeTime(time) + "</td>" +
 			"<td class='dis_dta'>" +
-			"<a class='editOp' href=''  data-toggle='modal' data-target='#modemployer' onclick='modEmployer(" + JSON.stringify(eachData) + ")'>雇主追踪</a>" +
+//			"<a class='editOp' href=''  data-toggle='modal' data-target='#modemployer' onclick='modEmployer(" + JSON.stringify(eachData) + ")'>雇主追踪</a>" +
 			"<a class='editOp' href=''  data-toggle='modal' data-target='#modemployer' onclick='modEmployer(" + JSON.stringify(eachData) + ")'>修改</a>" +
 			"<a class='editOp' href='javascript:void(0);' onclick='deleteEmployer(" + id + ")'>删除</a>" +
 			"</td>" +

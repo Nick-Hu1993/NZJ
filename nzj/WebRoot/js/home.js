@@ -1,36 +1,51 @@
 $(document).ready(function() {
 //获取主页面阿姨共享列表
-//	$.ajax({
-//		type: "post",
-//		url: "getAllShareAuntList",
-//		data: {
-//			start: 0,
-//			limit: 6
-//		},
-//		async: false,
-//		cache: false,
-//		success: function(data) {
-//			if(data.code == 1) {
-//				var nanny_table = $('#nanny_table');
-//				var nanny_list = '';
-//				nanny_list += "<tr style='background: #ccc;'><th class='home_table'></th><th class='home_table1'>能力</th><th class='home_table2'>联系人</th><th class='home_table2'>联系电话</th><th class='home_table5'>备注</th><th class='home_table3'>发布时间</th></tr>"
-//				for(i = 0; i < data.data.result.length; i++) {
+	$.ajax({
+		type: "post",
+		url: "getAllShareAuntList",
+		data: {
+			start: 0,
+			limit: 6
+		},
+		async: false,
+		cache: false,
+		success: function(data) {
+			if(data.code == 1) {
+				var nanny_list = '';
+				for(i = 0; i < data.data.result.length; i++) {
+					nanny_list += "<div class='sender'>"
+					nanny_list += "<div class='a'>"
+					if(i==0){
+						nanny_list += "<img style='width: 80px; height: 80px;' src='image/0.jpg' class='img-circle'>"
+					}else{
+						nanny_list += "<img style='width: 80px; height: 80px;' src='image/"+i+".png' class='img-circle'>"
+					}
+					nanny_list += "</div>"
+					nanny_list += "<div class='b'>"
+					nanny_list += "<div class='left_triangle'></div>"
+					nanny_list += "<div >"
+					nanny_list += "<div class='shareEmployerContent'><span style='font-size: 18px;'>求职意向:&nbsp</span><span title='"+data.data.result[i].skill+"'>"+data.data.result[i].skill+"</span></div>"
+					nanny_list += "<div class='shareEmployerButtom'>联系人:"+data.data.result[i].contact+"&nbsp;&nbsp;&nbsp;&nbsp;地址;"+data.data.result[i].address+"&nbsp;&nbsp;&nbsp;&nbsp;联系电话:"+data.data.result[i].phone+"&nbsp;&nbsp;&nbsp;&nbsp;发表时间:"+changeTime(data.data.result[i].time)+"</div>"
+					nanny_list += "</div>"
+					nanny_list += "</div>"
+					nanny_list += "</div>"
 //					if(i % 2 != 0) {
 //						nanny_list += "<tr style='background: #e0e0e0;'><td class='home_table'><img src='image/3.png' /></td><td class='home_table1' title='能力:"+data.data.result[i].skill+"'>" + data.data.result[i].skill + "</td><td class='home_table2' title='联系人:"+data.data.result[i].contact+"'>" + data.data.result[i].contact + "</td><td class='home_table2' title='联系电话："+data.data.result[i].phone+"'>" + data.data.result[i].phone + "</td><td class='home_table5' title='备注:"+data.data.result[i].remark+"'>" + data.data.result[i].remark + "</td><td class='home_table3' title='发布时间："+changeTime(data.data.result[i].time)+"'>" + changeTime(data.data.result[i].time) + "</td></tr>"
 //					} else {
 //						nanny_list += "<tr style='background: #f1f2f7;'><td class='home_table'><img src='image/3.png' /></td><td class='home_table1' title='能力:"+data.data.result[i].skill+"'>" + data.data.result[i].skill + "</td><td class='home_table2' title='联系人:"+data.data.result[i].contact+"'>" + data.data.result[i].contact + "</td><td class='home_table2' title='联系电话："+data.data.result[i].phone+"'>" + data.data.result[i].phone + "</td><td class='home_table5' title='备注:"+data.data.result[i].remark+"'>" + data.data.result[i].remark + "</td><td class='home_table3' title='发布时间："+changeTime(data.data.result[i].time)+"'>" + changeTime(data.data.result[i].time) + "</td></tr>"
 //					};
-//				};
-//				nanny_table.html(nanny_list);
-//			} else {
-//				alert(data.msg);
-//				location.href = "login.html";
-//			}
-//		},
-//		error: function(data) {
-//			alert("error");
-//		}
-//	});
+				};
+				$('#shareAunt').prepend(nanny_list);
+			} else {
+				alert(data.msg);
+				location.href = "login.html";
+			}
+		},
+		error: function(data) {
+			alert("error");
+		}
+	});
+
 	//获取主页面客户共享列表
 	$.ajax({
 		type: "post",
@@ -46,11 +61,23 @@ $(document).ready(function() {
 				//加载主页客户列表
 				var shareEmployerList = '';
 				for(var i = 0; i < data.data.result.length; i++) {
-					shareEmployerList += "<div class='shareEmployerBox'>"
-//					shareEmployerList += "<div class='shareEmployerTitle'>"+data.data.result[i].contact+"</div>"
-					shareEmployerList += "<div class='shareEmployerContent'>"+data.data.result[i].content+"</div>"
+					shareEmployerList += "<div class='sender'>"
+					shareEmployerList += "<div class='a'>"
+					shareEmployerList += "<img style='width: 80px; height: 80px;' src='image/"+i+".png' class='img-circle'>"
+					shareEmployerList += "</div>"
+					shareEmployerList += "<div class='b'>"
+					shareEmployerList += "<div class='left_triangle'></div>"
+					shareEmployerList += "<div >"
+					shareEmployerList += "<div class='shareEmployerContent'><span style='font-size: 18px;'>需求:&nbsp</span><span title='"+data.data.result[i].content+"'>"+data.data.result[i].content+"</span></div>"
 					shareEmployerList += "<div class='shareEmployerButtom'>联系人:"+data.data.result[i].contact+"&nbsp;&nbsp;&nbsp;&nbsp;地址;"+data.data.result[i].address+"&nbsp;&nbsp;&nbsp;&nbsp;联系电话:"+data.data.result[i].phone+"&nbsp;&nbsp;&nbsp;&nbsp;发表时间:"+changeTime(data.data.result[i].time)+"</div>"
-					shareEmployerList += "</div>";
+					shareEmployerList += "</div>"
+					shareEmployerList += "</div>"
+					shareEmployerList += "</div>"
+//					shareEmployerList += "<div class='shareEmployerBox'>"
+////					shareEmployerList += "<div class='shareEmployerTitle'>"+data.data.result[i].contact+"</div>"
+//					shareEmployerList += "<div class='shareEmployerContent'>"+data.data.result[i].content+"</div>"
+//					shareEmployerList += "<div class='shareEmployerButtom'>联系人:"+data.data.result[i].contact+"&nbsp;&nbsp;&nbsp;&nbsp;地址;"+data.data.result[i].address+"&nbsp;&nbsp;&nbsp;&nbsp;联系电话:"+data.data.result[i].phone+"&nbsp;&nbsp;&nbsp;&nbsp;发表时间:"+changeTime(data.data.result[i].time)+"</div>"
+//					shareEmployerList += "</div>";
 				}
 				$("#shareEmployer").prepend(shareEmployerList);
 			} else {
