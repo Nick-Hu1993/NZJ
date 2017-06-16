@@ -85,6 +85,7 @@
 	<mapping resource="org/model/Help.hbm.xml" />
 	<mapping resource="org/model/JoinOrders.hbm.xml" />
 	<mapping resource="org/view/VJoinUserdetail.hbm.xml" />
+	<mapping resource="org/view/VOrderTraineedetail.hbm.xml" />
 
 </session-factory>
 </hibernate-configuration>

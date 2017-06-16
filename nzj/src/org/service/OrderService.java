@@ -24,7 +24,7 @@ public interface OrderService {
 	 * @param o
 	 * @return
 	 */
-	public Object updateOrder (Orders o);
+	public Object updateOrder (HttpSession session, Orders o);
 	/**
 	 * 4.修改学员订单状态
 	 * status：0审核中（默认状态）：1通过 ：-1驳回： -2完成
@@ -32,7 +32,7 @@ public interface OrderService {
 	 * @param order_id
 	 * @return
 	 */
-	public Object updateOrderStatus (Integer status, long order_id);
+	public Object updateOrderStatus (Integer status, long orderid);
 	/**
 	 * 5.获取当前用户所有的订单
 	 * @param session

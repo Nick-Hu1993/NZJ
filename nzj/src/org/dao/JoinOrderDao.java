@@ -45,7 +45,7 @@ public interface JoinOrderDao {
 	 */
 	public List<JoinOrders> getJoinOrderListById (Integer start, Integer limit, long id);
 	/**
-	 * 4.2根据订单号查询该订单的详情
+	 * 4.2根据订单号查询该订单的详情/订单中包含哪些加盟商
 	 * @param start
 	 * @param limit
 	 * @param id

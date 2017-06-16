@@ -93,6 +93,29 @@ public class TraineeDaoImp implements TraineeDao {
 	}
 
 	@Override
+	//学员的id本就是自增长的，无需输入userId
+	public boolean upadteTraineebind (long[] id, Integer bind) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("UPDATE Trainee t SET t.bind = ? WHERE t.id = ?");
+			query.setParameter(0, bind);
+			for (long i: id) {
+				query.setParameter(1, i);
+			}
+			query.executeUpdate();
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+	
+	@Override
 	public List<Trainee> getTraineesListByPay(Integer start, Integer limit,
 			Integer pay, long user_id) {
 		try {

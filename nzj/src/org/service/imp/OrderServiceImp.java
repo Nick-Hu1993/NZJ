@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.dao.OrderDao;
+import org.dao.TraineeDao;
 import org.model.Orders;
 import org.model.User;
 import org.service.OrderService;
@@ -15,18 +16,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tool.GetUserId;
 import org.tool.JsonObject;
+import org.view.VOrderTraineedetail;
 
 @Service
 public class OrderServiceImp implements OrderService{
 	@Autowired
 	private OrderDao oDao;
 	
+	@Autowired
+	private TraineeDao tDao;
+	
 	@Override
 	public Object addOrder(HttpSession session,Orders o, long[] id) {
-		User u = (User)session.getAttribute("user");
-		if(u!=null){
+		Long userId = GetUserId.getUserId(session);
+		if(userId != null){
 			o.setTime(new Date().getTime()/1000);
-			o.setUserId(u.getId());
+			o.setUserId(userId);
+			o.setStatus(0);
+			//学员加入订单之后将bind值设置成1（已绑定订单）
+			tDao.upadteTraineebind(id, 1);
 			if(oDao.addOrder(o, id))
 				return JsonObject.getResult(1, "添加订单成功", true);
 			else
@@ -38,6 +46,8 @@ public class OrderServiceImp implements OrderService{
 
 	@Override
 	public Object deleteOrder(long[] id) {
+		//订单删除后绑定状态初始化0（未绑定）
+		tDao.upadteTraineebind(id, 0);
 		if (oDao.deletOrder(id)) {
 			return JsonObject.getResult(1, "订单删除成功", true);
 		} else {
@@ -46,20 +56,26 @@ public class OrderServiceImp implements OrderService{
 	}
 
 	@Override
-	public Object updateOrder(Orders o) {
-		if (oDao.uptdateOrder(o)) {
-			return JsonObject.getResult(1, "订单修改完成", true);
+	public Object updateOrder(HttpSession session, Orders o) {
+		Long userId = GetUserId.getUserId(session);
+		if (userId != null) {
+			o.setUserId(userId);
+			if (oDao.uptdateOrder(o)) {
+				return JsonObject.getResult(1, "订单修改完成", true);
+			} else {
+				return JsonObject.getResult(0, "订单修改失败", false);
+			}
 		} else {
-			return JsonObject.getResult(0, "订单修改失败", false);
+			return JsonObject.getResult(-99, "请先登录", false);
 		}
 	}
 
 	@Override
-	public Object updateOrderStatus(Integer status, long order_id) {
-		if (oDao.updateOrderStatus(order_id, status)) {
+	public Object updateOrderStatus(Integer status, long orderid) {
+		if (oDao.updateOrderStatus(orderid, status) && status == 0 || status == 1 || status == -1 || status == -2) {
 			return JsonObject.getResult(1, "状态修改成功", true);
 		} else {
-			return JsonObject.getResult(0, "状态修改失败", false);
+			return JsonObject.getResult(0, "参数非法", false);
 		}
 	}
 
@@ -81,8 +97,12 @@ public class OrderServiceImp implements OrderService{
 	@Override
 	public Object getOrderDetailByOrderid(Integer start, Integer limit,
 			long orderid) {
-		
-		return null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<VOrderTraineedetail> li = oDao.getOrderTaineeDetailByOrderid(start, limit, orderid);
+		long count = oDao.getOrderTraineedetailCount(orderid);
+		map.put("TraineeDetail", li);
+		map.put("count", count);
+		return JsonObject.getResult(1, "订单详情", map);
 	}
 
 	@Override

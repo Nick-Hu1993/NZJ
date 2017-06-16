@@ -13,6 +13,7 @@ import org.hibernate.jdbc.Work;
 import org.model.Orders;
 import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
+import org.view.VOrderTraineedetail;
 
 @Service
 public class OrderDaoImp implements OrderDao {
@@ -178,7 +179,7 @@ public class OrderDaoImp implements OrderDao {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 			
-			Query query = session.createQuery("FROM Orders o WHERE o.userId = ? AB=ND o.status = ?");
+			Query query = session.createQuery("FROM Orders o WHERE o.userId = ? AND o.status = ?");
 			query.setParameter(0, userId);
 			query.setParameter(1, status);
 			if (start == null) {
@@ -206,7 +207,7 @@ public class OrderDaoImp implements OrderDao {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 			
-			Query query = session.createQuery("SELECT COUNT(*) FROM Orders o WHERE O.userId = ? AND o.status = ?");
+			Query query = session.createQuery("SELECT COUNT(*) FROM Orders o WHERE o.userId = ? AND o.status = ?");
 			query.setParameter(0, userId);
 			query.setParameter(1, status);
 			query.setMaxResults(1);
@@ -244,6 +245,54 @@ public class OrderDaoImp implements OrderDao {
 			Transaction ts = session.beginTransaction();
 			
 			Query query = session.createQuery("SELECT COUNT(*) FROM Orders o");
+			query.setMaxResults(1);
+			long count = (Long)query.uniqueResult();
+			ts.commit();
+			return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public List<VOrderTraineedetail> getOrderTaineeDetailByOrderid(
+			Integer start, Integer limit, long orderid) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("FROM VOrderTraineedetail o WHERE o.id.orderId = ?");
+			query.setParameter(0, orderid);
+			if (start == null) {
+				start = 0;
+			}
+			query.setFirstResult(start);
+			if (limit == null) {
+				limit = 15;
+			}
+			query.setMaxResults(limit);
+			List<VOrderTraineedetail> li = query.list();
+			ts.commit();
+			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public long getOrderTraineedetailCount(long orderid) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("SELECT COUNT(*) FROM VOrderTraineedetail o WHERE o.id.orderId = ?");
+			query.setParameter(0, orderid);
 			query.setMaxResults(1);
 			long count = (Long)query.uniqueResult();
 			ts.commit();

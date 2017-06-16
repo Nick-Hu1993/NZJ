@@ -33,6 +33,14 @@ public interface TraineeDao {
 	 * @return
 	 */
 	public boolean updateTraineePay (long id, Integer pay);
+	/**
+	 * 3.2修改学员绑定订单的状态
+	 * 只要被被加入订单中就会将状态0（未绑定订单）改为1（已绑定订单）
+	 * @param id
+	 * @param bind
+	 * @return
+	 */
+	public boolean upadteTraineebind (long[] id, Integer bind);
 	//-----------------------------------查---------------------------------------	
 	/**
 	 * 4.1根据学员缴费状态遍历学员

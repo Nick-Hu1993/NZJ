@@ -3,6 +3,7 @@ package org.dao;
 import java.util.List;
 
 import org.model.Orders;
+import org.view.VOrderTraineedetail;
 
 public interface OrderDao {
 	//-----------------------------------增---------------------------------------
@@ -76,4 +77,18 @@ public interface OrderDao {
 	 * @return
 	 */
 	public long getAllCount ();
+	/**
+	 * 4.7通过订单查询订单详情/订单中包含哪些学员
+	 * @param start
+	 * @param limit
+	 * @param orderid
+	 * @return
+	 */
+	public List<VOrderTraineedetail> getOrderTaineeDetailByOrderid (Integer start, Integer limit, long orderid);
+	/**
+	 * 4.8根据点单号查询该订单包含trainee的数量
+	 * @param orderid
+	 * @return
+	 */
+	public long getOrderTraineedetailCount (long orderid);
 }

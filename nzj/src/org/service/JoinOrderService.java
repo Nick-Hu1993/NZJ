@@ -44,7 +44,7 @@ public interface JoinOrderService {
 	 */
 	public Object getJoinOrderListById (HttpSession session, Integer start, Integer limit);
 	/**
-	 * 6.根据订单号查询该订单的详情
+	 * 6.根据订单号查询该订单的详情/订单中包含哪些加盟商
 	 * @param start
 	 * @param limit
 	 * @param id
