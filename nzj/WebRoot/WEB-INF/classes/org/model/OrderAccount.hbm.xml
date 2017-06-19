@@ -14,13 +14,13 @@
             <column name="prepare" not-null="true" />
         </property>
         <property name="quantity" type="java.lang.Double">
-            <column name="quantity" precision="22" scale="0" not-null="true" />
+            <column name="quantity" precision="20" scale="0" not-null="true" />
         </property>
         <property name="cityprice" type="java.lang.Double">
-            <column name="cityprice" precision="22" scale="0" not-null="true" />
+            <column name="cityprice" precision="20" scale="0" not-null="true" />
         </property>
         <property name="provinceprice" type="java.lang.Double">
-            <column name="provinceprice" precision="22" scale="0" not-null="true" />
+            <column name="provinceprice" precision="20" scale="0" not-null="true" />
         </property>
         <property name="atime" type="java.lang.Long">
             <column name="atime" not-null="true" />

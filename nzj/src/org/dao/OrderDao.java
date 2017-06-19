@@ -91,4 +91,12 @@ public interface OrderDao {
 	 * @return
 	 */
 	public long getOrderTraineedetailCount (long orderid);
+	/**
+	 * 4.9根据订单号及状态码查询学员订单
+	 * 服务于账单创建（状态为1时才可创建账单）
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	public boolean getOrderTraineeByStatusAndId (long id, Integer status);
 }

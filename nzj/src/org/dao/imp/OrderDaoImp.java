@@ -305,4 +305,23 @@ public class OrderDaoImp implements OrderDao {
 		}
 	}
 
+	@Override
+	public boolean getOrderTraineeByStatusAndId(long id, Integer status) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("FROM OrderTrainee o WHERE id = ? AND status = ?");
+			query.setParameter(0, id);
+			query.setParameter(1, status);
+			query.setMaxResults(1);
+			query.uniqueResult();
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 }
