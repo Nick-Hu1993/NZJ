@@ -1,6 +1,8 @@
 package org.service.imp;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.dao.OrderAccountDao;
 import org.dao.OrderDao;
@@ -50,6 +52,18 @@ public class OrderAccountServiceImp implements OrderAccountService {
 			return JsonObject.getResult(1, "修改成功", true);
 		} else {
 			return JsonObject.getResult(0, "修改失败", false);
+		}
+	}
+
+	@Override
+	public Object getOrderAccountByOrderId (long orderid) {
+		OrderAccount oa = oaDao.getOrderAccountByOrderId(orderid);
+		if (oa != null) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("OrderAccount", oa);
+			return JsonObject.getResult(1, "账单详情", map);
+		} else {
+			return JsonObject.getResult(0, "此订单无账单详情", false);
 		}
 	}
 }

@@ -26,4 +26,17 @@ public interface JoinAccountDao {
 	 */
 	public boolean updateJoinAccount (JoinAccount ja);
 	//-----------------------------------查--------------------------------------
+	/**
+	 * 4.1通过加盟返点账单id号获取订单的id
+	 * 为账单删除后自动将订单回退到1（审核通过）状态做准备
+	 * @param id
+	 * @return
+	 */
+	public long getJoinOrderIdById (long id);
+	/**
+	 * 4.2通过加盟返点订单id号获取账单详情
+	 * @param joinaccountid
+	 * @return
+	 */
+	public JoinAccount getJoinAccountByJoinAccountId(long joinaccountid);
 }

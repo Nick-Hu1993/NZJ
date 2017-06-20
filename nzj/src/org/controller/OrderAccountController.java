@@ -30,4 +30,10 @@ public class OrderAccountController {
 	public Object updateOrderAccount (OrderAccount oa) {
 		return oaService.updateOrderAccount(oa);
 	}
+	
+	@RequestMapping("/getOrderAccountByOrderId")
+	@ResponseBody
+	public Object getOrderAccountByOrderId (long orderid) {
+		return oaService.getOrderAccountByOrderId(orderid);
+	}
 }

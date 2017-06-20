@@ -22,4 +22,11 @@ public interface OrderAccountService {
 	 * @return
 	 */
 	public Object updateOrderAccount (OrderAccount oa);
+	/**
+	 * 4.通过学员返点订单id号获取账单详情
+	 * 一对一关系
+	 * @param orderid
+	 * @return
+	 */
+	public Object getOrderAccountByOrderId (long orderid);
 }

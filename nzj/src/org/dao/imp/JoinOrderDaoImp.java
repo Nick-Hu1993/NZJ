@@ -268,4 +268,26 @@ public class JoinOrderDaoImp implements JoinOrderDao {
 		}
 	}
 
+	@Override
+	public boolean getJoinOrderByStatusAndId (long id, Integer status) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("FROM JoinOrder jo WHERE id = ? AND status = ?");
+			query.setParameter(0, id);
+			query.setParameter(1, status);
+			query.setMaxResults(1);
+			query.uniqueResult();
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
 }

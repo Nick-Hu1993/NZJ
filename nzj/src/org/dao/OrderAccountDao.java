@@ -28,8 +28,17 @@ public interface OrderAccountDao {
 	// -----------------------------------查---------------------------------------
 	/**
 	 * 4.1通过学员返点账单id号获取订单的id
+	 * 为账单删除后自动将订单回退到1（审核通过）状态做准备
 	 * @param id
 	 * @return
 	 */
 	public long getOrderIdById (long id);
+	/**
+	 * 4.2通过学员返点订单id号获取账单详情
+	 * 一对一关系
+	 * @param orderid
+	 * @return
+	 */
+	public OrderAccount getOrderAccountByOrderId (long orderid);
+	
 }

@@ -81,5 +81,12 @@ public interface JoinOrderDao {
 	 * @return
 	 */
 	public long getJoinOrderDetailCount (long joinorderid);
+	/**
+	 * 5.判断加盟订单的状态是否为X,
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	public boolean getJoinOrderByStatusAndId (long id, Integer status);
 	
 }

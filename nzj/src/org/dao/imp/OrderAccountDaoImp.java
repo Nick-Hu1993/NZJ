@@ -1,5 +1,7 @@
 package org.dao.imp;
 
+import java.util.List;
+
 import org.dao.OrderAccountDao;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
@@ -80,6 +82,27 @@ public class OrderAccountDaoImp implements OrderAccountDao{
 		} catch (Exception e) {
 			e.printStackTrace();
 			return -1;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public OrderAccount getOrderAccountByOrderId(long orderid) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("FROM OrderAccount oa WHERE oa.orderId = ?");
+			query.setParameter(0, orderid);
+			query.setMaxResults(1);
+			OrderAccount oa = (OrderAccount)query.uniqueResult();
+			ts.commit();
+			return oa;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return new OrderAccount();
 		} finally {
 			HibernateSessionFactory.closeSession();
 		}
