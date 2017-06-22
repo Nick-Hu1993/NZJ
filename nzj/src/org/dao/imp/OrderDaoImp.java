@@ -311,7 +311,7 @@ public class OrderDaoImp implements OrderDao {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 			
-			Query query = session.createQuery("FROM OrderTrainee o WHERE id = ? AND status = ?");
+			Query query = session.createQuery("FROM Orders o WHERE id = ? AND status = ?");
 			query.setParameter(0, id);
 			query.setParameter(1, status);
 			query.setMaxResults(1);

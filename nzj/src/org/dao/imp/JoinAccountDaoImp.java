@@ -6,8 +6,10 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.model.JoinAccount;
+import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
 
+@Service
 public class JoinAccountDaoImp implements JoinAccountDao{
 
 	@Override

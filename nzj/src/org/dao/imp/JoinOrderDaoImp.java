@@ -274,7 +274,7 @@ public class JoinOrderDaoImp implements JoinOrderDao {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 			
-			Query query = session.createQuery("FROM JoinOrder jo WHERE id = ? AND status = ?");
+			Query query = session.createQuery("FROM JoinOrders jo WHERE id = ? AND status = ?");
 			query.setParameter(0, id);
 			query.setParameter(1, status);
 			query.setMaxResults(1);

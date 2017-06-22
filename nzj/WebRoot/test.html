@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>test.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+
+  </head>
+  
+  <body>
+  <h2>添加加盟订单</h2>
+  	<form action="addJoinAccount" method="post">
+  		prepare:<input type="text" name="prepare" value="宇文玥">
+  		quantity:<input type="text" name="quantity" value="1">
+  		cityprice:<input type="text" name="cityprice" value="3789.89">
+  		provinceprice:<input type="text" name="provinceprice" value="7812.36">
+  		joinId:<input type="text" name="joinId" value="7">
+		<input type="submit" value="添加加盟订单">  		 
+  	</form>
+  <h2>修改加盟订单</h2>
+  <form action="updateJoinAccount" method="post">
+  	id:<input type="text" name="id" value="1">
+  	prepare:<input type="text" name="prepare" value="燕洵">
+  	quantity:<input type="text" name="quantity" value="35">
+  	cityprice:<input type="text" name="cityprice" value="8500.63">
+  	provinceprice:<input type="text" name="provinceprice" value="5600.56">
+  	atime:<input type="text" name="atime" value="1498042085866">
+  	joinId:<input type="text" name="joinId" value="8">
+  	<input type="submit" value="修改加盟返点账单">
+  </form>
+  
+  <h2>添加学员返点账单</h2>
+  <form action="addOrderAccount" method="post">
+	  prepare:<input type="text" name="prepare" value="宇文怀">
+	  quantity:<input type="text" name="quantity" value="12">
+	  cityprice:<input type="text" name="cityprice" value="1200.00">
+	  provinceprice<input type="text" name="provinceprice" value="1500.15">
+	  orderId:<input type="text" name="orderId" value="60">
+	  <input type="submit" value="添加学员返点账单">
+  </form>
+  
+  <h2>修改学员返点账单</h2>
+  	<form action="updateOrderAccount" method="post">
+  		id:<input type="text" name="id" value="1">
+	  	prepare:<input type="text" name="prepare" value="燕洵">
+	  	quantity:<input type="text" name="quantity" value="35">
+	  	cityprice:<input type="text" name="cityprice" value="8500.63">
+	  	provinceprice:<input type="text" name="provinceprice" value="5600.56">
+	  	atime:<input type="text" name="atime" value="1498042085866">
+	  	orderId:<input type="text" name="orderId" value="54">
+  		<input type="submit" value="修改学员返点账单">
+  	</form>
+  </body>
+</html>

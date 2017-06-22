@@ -32,7 +32,7 @@ public class JoinAccountServiceImp implements JoinAccountService {
 			joDao.updateJoinOrderStatus(-2, ja.getJoinId());
 			return JsonObject.getResult(1, "添加成功", true);
 		} else {
-			return JsonObject.getResult(0, "订单未出来或已生成订单", false);
+			return JsonObject.getResult(0, "订单未处理或已生成订单", false);
 		}
 	}
 
