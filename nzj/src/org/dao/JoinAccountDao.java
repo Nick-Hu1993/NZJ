@@ -10,14 +10,17 @@ public interface JoinAccountDao {
 	 * @param id
 	 * @return
 	 */
-	public long addJoinAccount (JoinAccount ja);
+	public long addJoinAccount (JoinAccount ja, Integer status);
 	//-----------------------------------删--------------------------------------
 	/**
 	 * 2.1删除加盟返点订单（仅管理员）
-	 * @param id
+	 * joinid:订单id
+	 * @param id 账单id
+	 * @param status
+	 * @param joinid
 	 * @return
 	 */
-	public boolean deleteJoinAccount (long id);
+	public boolean deleteJoinAccount (long id, long joinid, Integer status);
 	//-----------------------------------改--------------------------------------
 	/**
 	 * 3.1修改加盟返点账单（仅管理员）

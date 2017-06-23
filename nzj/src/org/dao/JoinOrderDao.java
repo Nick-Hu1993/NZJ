@@ -87,6 +87,6 @@ public interface JoinOrderDao {
 	 * @param status
 	 * @return
 	 */
-	public boolean getJoinOrderByStatusAndId (long id, Integer status);
+	public JoinOrders getJoinOrderByStatusAndId (long id, Integer status);
 	
 }

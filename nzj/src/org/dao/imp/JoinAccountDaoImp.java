@@ -1,10 +1,17 @@
 package org.dao.imp;
 
+import java.math.BigInteger;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 import org.dao.JoinAccountDao;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.jdbc.Work;
 import org.model.JoinAccount;
 import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
@@ -13,12 +20,24 @@ import org.util.HibernateSessionFactory;
 public class JoinAccountDaoImp implements JoinAccountDao{
 
 	@Override
-	public long addJoinAccount(JoinAccount ja) {
+	public long addJoinAccount(final JoinAccount ja, final Integer status) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 			
 			long id = (Long)session.save(ja);
+			session.doWork(new Work() {
+				
+				@Override
+				public void execute(Connection conn) throws SQLException {
+					String sql = "UPDATE join_orders jo SET jo.status = ? WHERE jo.id = ?";
+					PreparedStatement stmt = conn.prepareStatement(sql);
+					stmt.setInt(1, status);
+					stmt.setLong(2, ja.getJoinId());
+					stmt.addBatch();
+					stmt.executeUpdate();
+				}
+			});
 			ts.commit();
 			return id;
 		} catch (Exception e) {
@@ -30,7 +49,7 @@ public class JoinAccountDaoImp implements JoinAccountDao{
 	}
 
 	@Override
-	public boolean deleteJoinAccount(long id) {
+	public boolean deleteJoinAccount(long id, final long joinid, final Integer status) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
@@ -39,6 +58,18 @@ public class JoinAccountDaoImp implements JoinAccountDao{
 			if (ja != null) {
 				session.delete(ja);
 			}
+			session.doWork(new Work() {
+				
+				@Override
+				public void execute(Connection conn) throws SQLException {
+					String sql = "UPDATE join_orders jo SET jo.status = ? WHERE jo.id = ?";
+					PreparedStatement stmt = conn.prepareStatement(sql);
+					stmt.setInt(1, status);
+					stmt.setLong(2, joinid);
+					stmt.addBatch();
+					stmt.executeUpdate();
+				}
+			});
 			ts.commit();
 			return true;
 		} catch (Exception e) {
@@ -74,6 +105,7 @@ public class JoinAccountDaoImp implements JoinAccountDao{
 			
 			SQLQuery sqlQuery = session.createSQLQuery("SELECT join_id FROM join_account ja WHERE ja.id = ?");
 			sqlQuery.setParameter(0, id);
+			sqlQuery.addScalar("join_id", Hibernate.LONG);
 			sqlQuery.setMaxResults(1);
 			long joinorderid = (Long)sqlQuery.uniqueResult();
 			ts.commit();

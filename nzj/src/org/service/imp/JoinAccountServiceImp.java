@@ -7,6 +7,7 @@ import java.util.Map;
 import org.dao.JoinAccountDao;
 import org.dao.JoinOrderDao;
 import org.model.JoinAccount;
+import org.model.JoinOrders;
 import org.service.JoinAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,11 +26,12 @@ public class JoinAccountServiceImp implements JoinAccountService {
 	@Override
 	public Object addJoinAccount(JoinAccount ja) {
 		//只有当订单状态为1时（订单审核通过）才可创建账单
-		if (joDao.getJoinOrderByStatusAndId(ja.getJoinId(), 1)) {
+		JoinOrders jo = joDao.getJoinOrderByStatusAndId(ja.getJoinId(), 1);
+		if (jo != null) {
 			ja.setAtime(new Date().getTime());
-			jaDao.addJoinAccount(ja);
 			//账单创建后加盟返点订单的状态变更为-2（已完成）状态
-			joDao.updateJoinOrderStatus(-2, ja.getJoinId());
+			jaDao.addJoinAccount(ja, -2);
+//			joDao.updateJoinOrderStatus(-2, ja.getJoinId());
 			return JsonObject.getResult(1, "添加成功", true);
 		} else {
 			return JsonObject.getResult(0, "订单未处理或已生成订单", false);
@@ -38,9 +40,8 @@ public class JoinAccountServiceImp implements JoinAccountService {
 
 	@Override
 	public Object deleteJoinAccount(long id) {
-		if (jaDao.deleteJoinAccount(id)) {
-			//账单删除后订单退回到1（审核通过状态）
-			joDao.updateJoinOrderStatus(1, jaDao.getJoinOrderIdById(id));
+		//账单删除后订单退回到1（审核通过状态）
+		if (jaDao.deleteJoinAccount(id, jaDao.getJoinOrderIdById(id), 1)) {
 			return JsonObject.getResult(1, "删除成功", true);
 		} else {
 			return JsonObject.getResult(0, "删除失败", false);

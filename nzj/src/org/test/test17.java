@@ -1,19 +1,16 @@
 package org.test;
 
+import org.dao.JoinOrderDao;
 import org.dao.OrderAccountDao;
+import org.dao.imp.JoinOrderDaoImp;
 import org.dao.imp.OrderAccountDaoImp;
-import org.model.OrderAccount;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
-import java.util.Date;
 
 
 public class test17 {
 	public static void main(String[] args) {
 		OrderAccountDao oaDao = new OrderAccountDaoImp();
+		JoinOrderDao joDao = new JoinOrderDaoImp();
+		System.out.println(joDao.getJoinOrderByStatusAndId(8L, 1));
 //		OrderAccount oa = new OrderAccount();
 //		oa.setAtime(new Date().getTime());
 //		oa.setCityprice(1100.78);

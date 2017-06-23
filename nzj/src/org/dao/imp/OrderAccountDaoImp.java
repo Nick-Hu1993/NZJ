@@ -1,5 +1,8 @@
 package org.dao.imp;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.dao.OrderAccountDao;
@@ -7,6 +10,7 @@ import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.jdbc.Work;
 import org.model.OrderAccount;
 import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
@@ -15,12 +19,25 @@ import org.util.HibernateSessionFactory;
 public class OrderAccountDaoImp implements OrderAccountDao{
 
 	@Override
-	public long addOrderAccount(OrderAccount oa) {
+	public long addOrderAccount(final OrderAccount oa, final Integer status) {
 		try {
 			Session session =HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 			
 			long accountId =(Long) session.save(oa);
+			session.doWork(new Work() {
+				
+				@Override
+				public void execute(Connection conn) throws SQLException {
+					String sql = "UPDATE orders o SET o.status = ? WHERE o.id = ?";
+					PreparedStatement stmt = conn.prepareStatement(sql);
+					stmt.setInt(1, status);
+					stmt.setLong(2, oa.getOrderId());
+					conn.setAutoCommit(false);
+					stmt.addBatch();
+					stmt.executeBatch();
+				}
+			});
 			ts.commit();
 			return accountId;
 		} catch (Exception e) {

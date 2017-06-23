@@ -10,7 +10,7 @@ public interface OrderAccountDao {
 	 * @param id 
 	 * @return
 	 */
-	public long addOrderAccount (OrderAccount oa);
+	public long addOrderAccount (OrderAccount oa, Integer status);
 	// -----------------------------------删---------------------------------------
 	/**
 	 * 2.1删除学员返点订单（仅管理员）

@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
 import org.view.VJoinUserdetail;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Service
 public class JoinOrderDaoImp implements JoinOrderDao {
 
@@ -269,7 +271,7 @@ public class JoinOrderDaoImp implements JoinOrderDao {
 	}
 
 	@Override
-	public boolean getJoinOrderByStatusAndId (long id, Integer status) {
+	public JoinOrders getJoinOrderByStatusAndId (long id, Integer status) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
@@ -278,13 +280,13 @@ public class JoinOrderDaoImp implements JoinOrderDao {
 			query.setParameter(0, id);
 			query.setParameter(1, status);
 			query.setMaxResults(1);
-			query.uniqueResult();
+			JoinOrders jo = (JoinOrders)query.uniqueResult();
 			ts.commit();
-			return true;
+			return jo;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return false;
+			return null;
 		} finally {
 			HibernateSessionFactory.closeSession();
 		}
