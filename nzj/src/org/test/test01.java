@@ -32,6 +32,8 @@ public class test01 {
 //		
 //		System.out.println(udDao.addUserDetail(ud));
 		
-		System.out.println(new readProperties().getP("IP"));
+//		System.out.println(new readProperties().getP("IP"));
+		UserDao uDao = new UserDaoImp();
+		System.out.println(uDao.getRankByUserId(1));
 	}
 }

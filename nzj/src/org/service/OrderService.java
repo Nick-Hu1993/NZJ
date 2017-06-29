@@ -2,15 +2,19 @@ package org.service;
 
 import javax.servlet.http.HttpSession;
 
+import org.model.AmountRecord;
 import org.model.Orders;
 
 public interface OrderService {
 	/**
 	 * 1添加订单
+	 * ps;1.当用户使用在线支付的方式的时候产生消费记录
+	 * 	  2.使用线下支付的时候则无法生成消费记录，需人工确认是否收款完成
+	 * 	  3.订单创建中的学员事由遍历bind=0的学员组曾
 	 * @param o
 	 * @return
 	 */
-	public Object addOrder(HttpSession session,Orders o, long[] id);
+	public Object addOrder(HttpSession session,Orders o, long[] TraineeId );
 	/**
 	 * 2.删除订单（仅管理员）
 	 * 连带中间关系表一同删除

@@ -2,46 +2,29 @@ package org.dao.imp;
 
 import java.util.List;
 
-import org.dao.AmountDao;
+import org.dao.PriceDao;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.model.Amount;
+import org.model.Price;
 import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
-import org.view.VUserUserdetailAmount;
 
 @Service
-public class AmountDaoImp implements AmountDao {
+public class PriceDaoImp implements PriceDao {
 
 	@Override
-	public long addAmount(Amount a) {
+	public boolean updatePrice(long id, Double price) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
-			
-			long id = (Long)session.save(a);
-			ts.commit();
-			return id;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return -1;
-		} finally {
-			HibernateSessionFactory.closeSession();
-		}
-	}
 
-	@Override
-	public boolean updateAmountBalance(Double Balance, long id) {
-		try {
-			Session session = HibernateSessionFactory.getSession();
-			Transaction ts = session.beginTransaction();
-			
-			SQLQuery sqlQuery = session.createSQLQuery("UPDATE amount a SET a.balance = ? WHERE id = ?");
-			sqlQuery.setParameter(0, Balance);
-			sqlQuery.setParameter(1, id);
-			sqlQuery.executeUpdate();
+			Query query = session
+					.createQuery("UPDATE Price p SET p.price = ? WHERE id = ?  ");
+			query.setParameter(0, price);
+			query.setParameter(1, id);
+			query.executeUpdate();
 			ts.commit();
 			return true;
 		} catch (Exception e) {
@@ -53,23 +36,18 @@ public class AmountDaoImp implements AmountDao {
 	}
 
 	@Override
-	public List<VUserUserdetailAmount> getAmountList(Integer start, Integer limit) {
+	public Double getPrice(long userId) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
-			
-			Query query = session.createQuery("FROM VUserUserdetailAmount vda ");
-			if (start == null) {
-				start = 0;
-			}
-			query.setFirstResult(start);
-			if (limit == null) {
-				limit = 15;
-			}
-			query.setMaxResults(limit);
-			List<VUserUserdetailAmount> li = query.list();
+
+			SQLQuery sqlQuery = session
+					.createSQLQuery("SELECT p.price FROM price p WHERE p.rank = (SELECT u.rank FROM user u WHERE u.id = ? )");
+			sqlQuery.setParameter(0, userId);
+			sqlQuery.setMaxResults(1);// 仅有一个结果
+			Double price = (Double) sqlQuery.uniqueResult();
 			ts.commit();
-			return li;
+			return price;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -79,17 +57,37 @@ public class AmountDaoImp implements AmountDao {
 	}
 
 	@Override
-	public Double getAmount(long id) {
+	public List<Price> getPriceList() {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
-			
-			Query query = session.createQuery("SELECT vda.id.balance FROM VUserUserdetailAmount vda WHERE vda.id.id = ?");
-			query.setParameter(0, id);
-			query.setMaxResults(1);
-			Double amount = (Double)query.uniqueResult();
+
+			Query query = session.createQuery("FROM Price p");
+			List<Price> li = query.list();
 			ts.commit();
-			return amount;
+			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+
+	}
+
+	@Override
+	public Double getPriceByRank(Integer rank) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			Query query = session
+					.createQuery("SELECT p.price FROM Price p WHERE P.rank = ?");
+			query.setParameter(0, rank);
+			query.setMaxResults(1);
+			Double price = (Double) query.uniqueResult();
+			ts.commit();
+			return price;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -97,5 +95,4 @@ public class AmountDaoImp implements AmountDao {
 			HibernateSessionFactory.closeSession();
 		}
 	}
-
 }

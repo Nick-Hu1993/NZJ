@@ -8,9 +8,10 @@ import org.dao.imp.OrderAccountDaoImp;
 
 public class test17 {
 	public static void main(String[] args) {
-		OrderAccountDao oaDao = new OrderAccountDaoImp();
-		JoinOrderDao joDao = new JoinOrderDaoImp();
-		System.out.println(joDao.getJoinOrderByStatusAndId(8L, 1));
+		System.out.println(3.56 > 2.11);
+//		OrderAccountDao oaDao = new OrderAccountDaoImp();
+//		JoinOrderDao joDao = new JoinOrderDaoImp();
+//		System.out.println(joDao.getJoinOrderByStatusAndId(8L, 1));
 //		OrderAccount oa = new OrderAccount();
 //		oa.setAtime(new Date().getTime());
 //		oa.setCityprice(1100.78);

@@ -104,4 +104,12 @@ public interface TraineeDao {
 	 * @return
 	 */
 	public long getCount (); 
+	/**
+	 * 4.8获取被添加到订单中学员的状态
+	 * ps：当状态为0时，可正常加入订单
+	 * 	      当状态为1时，代表该学员已经绑定其它订单
+	 * @param id
+	 * @return
+	 */
+	public List<Integer> getTraineeStatus (long[] id);
 }

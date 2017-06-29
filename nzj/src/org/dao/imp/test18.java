@@ -11,7 +11,6 @@ public class test18 {
 		try {
 			System.out.println(new ObjectMapper().writeValueAsString(amDao.getAmountList(null, null)));
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		};
 	}

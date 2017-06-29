@@ -2,17 +2,27 @@ package org.dao;
 
 import java.util.List;
 
+import org.model.AmountRecord;
 import org.model.Orders;
 import org.view.VOrderTraineedetail;
 
 public interface OrderDao {
 	//-----------------------------------增---------------------------------------
 	/**
-	 * 1.1添加订单
+	 * 1.1添加订单（在线支付方式）
+	 * 与1.2区别在于本接口需生成消费记录
 	 * @param o
 	 * @return
 	 */
-	public boolean addOrder(Orders o, long[] id);
+	public boolean addOrder(Orders o, long[] id, AmountRecord ad);
+	/**
+	 * 1.2添加订单（线下支付方式）
+	 * 于1.1区别在于本接口无需生成消费记录支付
+	 * @param o
+	 * @param id
+	 * @return
+	 */
+	public boolean addOrderByOfflion (Orders o, long[] id);
 	//-----------------------------------删---------------------------------------
 	/**
 	 * 2.1删除订单（可批量）

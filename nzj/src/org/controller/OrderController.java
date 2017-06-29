@@ -2,12 +2,15 @@ package org.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.model.AmountRecord;
 import org.model.Orders;
 import org.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class OrderController {
@@ -16,8 +19,8 @@ public class OrderController {
 	
 	@RequestMapping("/addOrder")
 	@ResponseBody
-	public Object addOrder(HttpSession session,Orders o, long[] id)throws Exception{
-		return oService.addOrder(session, o, id);
+	public Object addOrder(HttpSession session, Orders o, long[] TraineeId)throws Exception{
+		return oService.addOrder(session, o, TraineeId);
 	}
 	
 	@RequestMapping("/deleteOrder")

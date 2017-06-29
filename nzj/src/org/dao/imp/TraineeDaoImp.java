@@ -1,17 +1,15 @@
 package org.dao.imp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.dao.TraineeDao;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.model.OrderTrainee;
 import org.model.Trainee;
 import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
-
-import sun.print.resources.serviceui;
 
 @Service
 public class TraineeDaoImp implements TraineeDao {
@@ -302,6 +300,29 @@ public class TraineeDaoImp implements TraineeDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return -1;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public List<Integer> getTraineeStatus (long[] id) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			List<Integer> li = new ArrayList<>();
+			Query query = session.createQuery("SELECT t.bind FROM Trainee t WHERE t.id = ?");
+			
+			for (long l : id) {
+				query.setParameter(0, l);
+			Integer bind = (Integer)query.uniqueResult();
+			li.add(bind);
+			}
+			ts.commit();
+			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		} finally {
 			HibernateSessionFactory.closeSession();
 		}

@@ -1,10 +1,6 @@
 package org.dao;
 
-import java.util.List;
-
 import org.model.UserDetail;
-import org.view.VUser;
-import org.view.VUserId;
 
 public interface UserDetailDao {
 	//-----------------------------------增---------------------------------------

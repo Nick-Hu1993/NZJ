@@ -10,6 +10,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.jdbc.Work;
+import org.model.AmountRecord;
 import org.model.Orders;
 import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
@@ -19,26 +20,71 @@ import org.view.VOrderTraineedetail;
 public class OrderDaoImp implements OrderDao {
 
 	@Override
-	public boolean addOrder(Orders o, final long[] id) {
+	public boolean addOrder(final Orders o, final long[] TraineeId, final AmountRecord ad) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
 			final long orderId = (Long) session.save(o);
 			session.doWork(new Work() {
-				
+
 				@Override
 				public void execute(Connection conn) throws SQLException {
 					String sql = "INSERT INTO order_trainee (order_id, trainee_id) value (?, ?)";
-					PreparedStatement stmt = conn.prepareStatement(sql); 
+					PreparedStatement stmt = conn.prepareStatement(sql);
 					conn.setAutoCommit(false);
-					for (long i : id) {
+					for (long i : TraineeId) {
 						System.out.println(i);
 						stmt.setLong(1, orderId);
 						stmt.setLong(2, i);
 						stmt.addBatch();
 					}
+
 					stmt.executeBatch();
+					String sql2 = "INSERT INTO amount_record (time, order_id, amount, description, user_id) value (?, ?, ?, ?, ?)";
+					PreparedStatement stmt2 = conn.prepareStatement(sql2);
+					// 设置消费记录属于哪张订单
+					stmt2.setLong(1, ad.getTime());
+					stmt2.setLong(2, orderId);
+					stmt2.setDouble(3, o.getTotal());
+					stmt2.setString(4, ad.getDescription());
+					stmt2.setLong(5, ad.getUserId());
+					stmt2.addBatch();
+					stmt2.executeUpdate();
+				}
+			});
+			ts.commit();
+			session.flush();
+			session.clear();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public boolean addOrderByOfflion(Orders o, final long[] id) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			final long orderId = (Long) session.save(o);
+			session.doWork(new Work() {
+
+				@Override
+				public void execute(Connection conn) throws SQLException {
+					String sql = "INSERT INTO order_trainee (order_id, trainee_id) value (?, ?)";
+					PreparedStatement stmt = conn.prepareStatement(sql);
+					conn.setAutoCommit(false);
+					for (long i : id) {
+						stmt.setLong(1, orderId);
+						stmt.setLong(2, i);
+						stmt.addBatch();
+						stmt.executeUpdate();
+					}
 				}
 			});
 			ts.commit();
@@ -64,13 +110,14 @@ public class OrderDaoImp implements OrderDao {
 				if (o != null) {
 					session.delete(o);
 					session.doWork(new Work() {
-						
+
 						@Override
-						public void execute(Connection conn) throws SQLException {
+						public void execute(Connection conn)
+								throws SQLException {
 							String sql = "DELETE FROM order_trainee WHERE order_id = ?";
 							PreparedStatement stmt = conn.prepareStatement(sql);
 							conn.setAutoCommit(false);
-							for (long i: id) {
+							for (long i : id) {
 								stmt.setLong(1, i);
 							}
 							stmt.executeUpdate();
@@ -110,16 +157,17 @@ public class OrderDaoImp implements OrderDao {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
-			
-			Query query = session.createQuery("UPDATE Orders o SET o.status = ? WHERE o.id = ?");
+
+			Query query = session
+					.createQuery("UPDATE Orders o SET o.status = ? WHERE o.id = ?");
 			query.setParameter(0, status);
 			query.setParameter(1, id);
 			query.executeUpdate();
 			ts.commit();
 			return true;
-			} catch (Exception e) {
-				e.printStackTrace();
-				return false;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		} finally {
 			HibernateSessionFactory.closeSession();
 		}
@@ -131,8 +179,9 @@ public class OrderDaoImp implements OrderDao {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
-			
-			Query query = session.createQuery("FROM Orders o WHERE o.userId = ?");
+
+			Query query = session
+					.createQuery("FROM Orders o WHERE o.userId = ?");
 			query.setParameter(0, userId);
 			if (start == null) {
 				start = 0;
@@ -158,10 +207,10 @@ public class OrderDaoImp implements OrderDao {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
-			
+
 			Query query = session.createQuery("SELECT COUNT(*) FROM Orders o");
 			query.setMaxResults(1);
-			long count = (Long)query.uniqueResult();
+			long count = (Long) query.uniqueResult();
 			ts.commit();
 			return count;
 		} catch (Exception e) {
@@ -178,8 +227,9 @@ public class OrderDaoImp implements OrderDao {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
-			
-			Query query = session.createQuery("FROM Orders o WHERE o.userId = ? AND o.status = ?");
+
+			Query query = session
+					.createQuery("FROM Orders o WHERE o.userId = ? AND o.status = ?");
 			query.setParameter(0, userId);
 			query.setParameter(1, status);
 			if (start == null) {
@@ -206,12 +256,13 @@ public class OrderDaoImp implements OrderDao {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
-			
-			Query query = session.createQuery("SELECT COUNT(*) FROM Orders o WHERE o.userId = ? AND o.status = ?");
+
+			Query query = session
+					.createQuery("SELECT COUNT(*) FROM Orders o WHERE o.userId = ? AND o.status = ?");
 			query.setParameter(0, userId);
 			query.setParameter(1, status);
 			query.setMaxResults(1);
-			long count = (Long)query.uniqueResult();
+			long count = (Long) query.uniqueResult();
 			ts.commit();
 			return count;
 		} catch (Exception e) {
@@ -225,7 +276,7 @@ public class OrderDaoImp implements OrderDao {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
-			
+
 			Query query = session.createQuery("FROM Orders o");
 			List<Orders> li = query.list();
 			ts.commit();
@@ -243,10 +294,10 @@ public class OrderDaoImp implements OrderDao {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
-			
+
 			Query query = session.createQuery("SELECT COUNT(*) FROM Orders o");
 			query.setMaxResults(1);
-			long count = (Long)query.uniqueResult();
+			long count = (Long) query.uniqueResult();
 			ts.commit();
 			return count;
 		} catch (Exception e) {
@@ -263,8 +314,9 @@ public class OrderDaoImp implements OrderDao {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
-			
-			Query query = session.createQuery("FROM VOrderTraineedetail o WHERE o.id.orderId = ?");
+
+			Query query = session
+					.createQuery("FROM VOrderTraineedetail o WHERE o.id.orderId = ?");
 			query.setParameter(0, orderid);
 			if (start == null) {
 				start = 0;
@@ -290,11 +342,12 @@ public class OrderDaoImp implements OrderDao {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
-			
-			Query query = session.createQuery("SELECT COUNT(*) FROM VOrderTraineedetail o WHERE o.id.orderId = ?");
+
+			Query query = session
+					.createQuery("SELECT COUNT(*) FROM VOrderTraineedetail o WHERE o.id.orderId = ?");
 			query.setParameter(0, orderid);
 			query.setMaxResults(1);
-			long count = (Long)query.uniqueResult();
+			long count = (Long) query.uniqueResult();
 			ts.commit();
 			return count;
 		} catch (Exception e) {
@@ -310,8 +363,9 @@ public class OrderDaoImp implements OrderDao {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
-			
-			Query query = session.createQuery("FROM Orders o WHERE id = ? AND status = ?");
+
+			Query query = session
+					.createQuery("FROM Orders o WHERE id = ? AND status = ?");
 			query.setParameter(0, id);
 			query.setParameter(1, status);
 			query.setMaxResults(1);

@@ -266,4 +266,24 @@ public class UserDaoImp implements UserDao {
 			HibernateSessionFactory.closeSession();
 		}
 	}
+
+	@Override
+	public Integer getRankByUserId(long UserId) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("SELECT u.rank FROM User u WHERE u.id = ?");
+			query.setParameter(0, UserId);
+			query.setMaxResults(1);
+			Integer rank = (Integer)query.uniqueResult();
+			ts.commit();
+			return rank;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
 }

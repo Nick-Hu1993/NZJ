@@ -21,6 +21,24 @@
                 <comment>0:审核中1：通过-1：驳回-2：已完成</comment>
             </column>
         </property>
+        <property name="price" type="java.lang.Double">
+            <column name="price" precision="20" not-null="true">
+                <comment>制证单价</comment>
+            </column>
+        </property>
+        <property name="quantity" type="java.lang.Double">
+            <column name="quantity" precision="20" scale="0" not-null="true" />
+        </property>
+        <property name="total" type="java.lang.Double">
+            <column name="total" precision="20" not-null="true">
+                <comment>总价</comment>
+            </column>
+        </property>
+        <property name="payment" type="java.lang.Integer">
+            <column name="payment" not-null="true">
+                <comment>支付方式：0在线支付：1线下支付</comment>
+            </column>
+        </property>
         <property name="time" type="java.lang.Long">
             <column name="time" not-null="true" />
         </property>

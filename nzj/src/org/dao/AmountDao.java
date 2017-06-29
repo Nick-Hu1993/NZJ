@@ -29,4 +29,10 @@ public interface AmountDao {
 	 * @return
 	 */
 	public List<VUserUserdetailAmount> getAmountList (Integer start, Integer limit);
+	/**
+	 * 4.2查询当前用户的账户余额
+	 * @param id
+	 * @return
+	 */
+	public Double getAmount (long id);
 }

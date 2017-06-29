@@ -10,10 +10,10 @@ public class AmountRecord implements java.io.Serializable {
 
 	private Long id;
 	private Long time;
-	private Long joinorderId;
+	private Long orderId;
 	private Double amount;
-	private String remark;
-	private Long amountId;
+	private String description;
+	private Long userId;
 
 	// Constructors
 
@@ -21,23 +21,14 @@ public class AmountRecord implements java.io.Serializable {
 	public AmountRecord() {
 	}
 
-	/** minimal constructor */
-	public AmountRecord(Long time, Long joinorderId, Double amount,
-			Long amountId) {
-		this.time = time;
-		this.joinorderId = joinorderId;
-		this.amount = amount;
-		this.amountId = amountId;
-	}
-
 	/** full constructor */
-	public AmountRecord(Long time, Long joinorderId, Double amount,
-			String remark, Long amountId) {
+	public AmountRecord(Long time, Long orderId, Double amount,
+			String description, Long userId) {
 		this.time = time;
-		this.joinorderId = joinorderId;
+		this.orderId = orderId;
 		this.amount = amount;
-		this.remark = remark;
-		this.amountId = amountId;
+		this.description = description;
+		this.userId = userId;
 	}
 
 	// Property accessors
@@ -58,12 +49,12 @@ public class AmountRecord implements java.io.Serializable {
 		this.time = time;
 	}
 
-	public Long getJoinorderId() {
-		return this.joinorderId;
+	public Long getOrderId() {
+		return this.orderId;
 	}
 
-	public void setJoinorderId(Long joinorderId) {
-		this.joinorderId = joinorderId;
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
 	}
 
 	public Double getAmount() {
@@ -74,20 +65,20 @@ public class AmountRecord implements java.io.Serializable {
 		this.amount = amount;
 	}
 
-	public String getRemark() {
-		return this.remark;
+	public String getDescription() {
+		return this.description;
 	}
 
-	public void setRemark(String remark) {
-		this.remark = remark;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public Long getAmountId() {
-		return this.amountId;
+	public Long getUserId() {
+		return this.userId;
 	}
 
-	public void setAmountId(Long amountId) {
-		this.amountId = amountId;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 }

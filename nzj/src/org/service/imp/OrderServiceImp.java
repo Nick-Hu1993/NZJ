@@ -1,52 +1,87 @@
 package org.service.imp;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.dao.AmountDao;
+import org.dao.AmountRecordDao;
 import org.dao.OrderDao;
 import org.dao.TraineeDao;
+import org.dao.UserDao;
+import org.model.AmountRecord;
 import org.model.Orders;
-import org.model.User;
 import org.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.tool.ChangeTime;
 import org.tool.GetUserId;
 import org.tool.JsonObject;
 import org.view.VOrderTraineedetail;
 
 @Service
-public class OrderServiceImp implements OrderService{
+public class OrderServiceImp implements OrderService {
 	@Autowired
 	private OrderDao oDao;
-	
+
 	@Autowired
 	private TraineeDao tDao;
-	
+
+	@Autowired
+	private AmountDao aDao;
+
 	@Override
-	public Object addOrder(HttpSession session,Orders o, long[] id) {
+	public Object addOrder(HttpSession session, Orders o, long[] TraineeId) {
 		Long userId = GetUserId.getUserId(session);
-		if(userId != null){
-			o.setTime(new Date().getTime()/1000);
-			o.setUserId(userId);
+		if (userId == null) {
+			return JsonObject.getResult(-999, "请先登录", false);
+		}
+		AmountRecord ad = new AmountRecord();
+		Double amount = aDao.getAmount(userId);//查询账户余额
+		// 使用在线支付&余额大于订单金额&学员的未绑定其它订单（即bind值为0）
+		if (o.getPayment().equals(0) && amount > o.getTotal() && !tDao.getTraineeStatus(TraineeId).contains(1)) {
+			// 订单状态默认为0：审核中
 			o.setStatus(0);
-			//学员加入订单之后将bind值设置成1（已绑定订单）
-			tDao.upadteTraineebind(id, 1);
-			if(oDao.addOrder(o, id))
+			// 获取订单生成时间
+			o.setTime(Long.parseLong(ChangeTime.timeStamp()));
+			// 设置订单所属于哪个用户
+			o.setUserId(userId);
+			// 将被添加进订单的学员的bind值设置成1：已绑定订单
+			tDao.upadteTraineebind(TraineeId, 1);
+			// 设置消费记录的参数：扣款时间
+			ad.setTime(Long.parseLong(ChangeTime.timeStamp()));
+			// 设置款项支付的用途
+			ad.setDescription("学员制证费");
+			// 设置消费记录的所有者
+			ad.setUserId(userId);
+			if (oDao.addOrder(o, TraineeId, ad)) {
 				return JsonObject.getResult(1, "添加订单成功", true);
-			else
-				return JsonObject.getResult(-1, "添加订单失败", false);
-		}else{
-			return JsonObject.getResult(0, "请先登录，才能添加订单", false);
+			} else {
+				return JsonObject.getResult(0, "添加订单失败", false);
+			}
+		} else if (o.getPayment().equals(1) && !tDao.getTraineeStatus(TraineeId).contains(1)) {
+			// 1：线下支付:当前方式为线下支付
+			System.out.println(o.getPayment().equals(1));
+			// 订单状态默认为0：审核中
+			o.setStatus(0);
+			// 获取订单生成时间
+			o.setTime(Long.parseLong(ChangeTime.timeStamp()));
+			// 设置订单所属于哪个用户
+			o.setUserId(userId);
+			// 将被添加进订单的学员的bind值设置成1：已绑定订单
+			tDao.upadteTraineebind(TraineeId, 1);
+			oDao.addOrderByOfflion(o, TraineeId);
+			return JsonObject.getResult(1, "订单添加成功", true);
+		} else {
+			return JsonObject.getResult(0, "支付方式选择有误或选取的学员已制证", false);
 		}
 	}
 
 	@Override
 	public Object deleteOrder(long[] id) {
-		//订单删除后绑定状态初始化0（未绑定）
+		// 订单删除后绑定状态初始化0（未绑定）
 		tDao.upadteTraineebind(id, 0);
 		if (oDao.deletOrder(id)) {
 			return JsonObject.getResult(1, "订单删除成功", true);
@@ -72,7 +107,8 @@ public class OrderServiceImp implements OrderService{
 
 	@Override
 	public Object updateOrderStatus(Integer status, long orderid) {
-		if (oDao.updateOrderStatus(orderid, status) && status == 0 || status == 1 || status == -1 || status == -2) {
+		if (oDao.updateOrderStatus(orderid, status) && status == 0
+				|| status == 1 || status == -1 || status == -2) {
 			return JsonObject.getResult(1, "状态修改成功", true);
 		} else {
 			return JsonObject.getResult(0, "参数非法", false);
@@ -98,7 +134,8 @@ public class OrderServiceImp implements OrderService{
 	public Object getOrderDetailByOrderid(Integer start, Integer limit,
 			long orderid) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<VOrderTraineedetail> li = oDao.getOrderTaineeDetailByOrderid(start, limit, orderid);
+		List<VOrderTraineedetail> li = oDao.getOrderTaineeDetailByOrderid(
+				start, limit, orderid);
 		long count = oDao.getOrderTraineedetailCount(orderid);
 		map.put("TraineeDetail", li);
 		map.put("count", count);
@@ -109,8 +146,10 @@ public class OrderServiceImp implements OrderService{
 	public Object getOrderByStatus(HttpSession session, Integer start,
 			Integer limit, Integer status) {
 		Long userId = GetUserId.getUserId(session);
-		if (userId != null && status == 0 || status == 1 || status == -1 || status == -2) {
-			List<Orders> li = oDao.getOrderListByStatus(start, limit, status, userId);
+		if (userId != null && status == 0 || status == 1 || status == -1
+				|| status == -2) {
+			List<Orders> li = oDao.getOrderListByStatus(start, limit, status,
+					userId);
 			long count = oDao.getCountByStatus(userId, status);
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("OrderList", li);
