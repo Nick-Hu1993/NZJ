@@ -36,7 +36,7 @@ public class AmountRecordDaoImp implements AmountRecordDao {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 			
-			Query query = session.createQuery("FROM AmountRecord ad WHERE ad.userId = ?");
+			Query query = session.createQuery("FROM AmountRecord ad WHERE ad.userId = ? ORDER BY ad.time");
 			query.setParameter(0, id);
 			if (start == null ) {
 				start = 0;
@@ -54,6 +54,24 @@ public class AmountRecordDaoImp implements AmountRecordDao {
 			return null;
 		} finally {
 			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public long getCount(long id) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("SELECT COUNT(*) FROM AmountRecord ar WHERE ar.userId = ?");
+			query.setParameter(0, id);
+			query.setMaxResults(1);
+			long count = (Long)query.uniqueResult();
+			ts.commit();
+			return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
 		}
 	}
 }

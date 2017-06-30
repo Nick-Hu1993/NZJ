@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.dao.AmountDao;
 import org.dao.AmountRecordDao;
 import org.dao.OrderDao;
+import org.dao.PriceDao;
 import org.dao.TraineeDao;
 import org.dao.UserDao;
 import org.model.AmountRecord;
@@ -31,6 +32,9 @@ public class OrderServiceImp implements OrderService {
 
 	@Autowired
 	private AmountDao aDao;
+	
+//	@Autowired
+//	private PriceDao pDao;
 
 	@Override
 	public Object addOrder(HttpSession session, Orders o, long[] TraineeId) {
@@ -44,6 +48,12 @@ public class OrderServiceImp implements OrderService {
 		if (o.getPayment().equals(0) && amount > o.getTotal() && !tDao.getTraineeStatus(TraineeId).contains(1)) {
 			// 订单状态默认为0：审核中
 			o.setStatus(0);
+			//设置学员数量,思前想后还是在前端计算更符合常规，不然用户无法立即看到所需要支付的金额
+//			int i = TraineeId.length;
+//			double d = i;
+//			o.setQuantity(d);
+			//计算总价
+//			o.setTotal(pDao.getPrice(userId) * d);
 			// 获取订单生成时间
 			o.setTime(Long.parseLong(ChangeTime.timeStamp()));
 			// 设置订单所属于哪个用户
