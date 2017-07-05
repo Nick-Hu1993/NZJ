@@ -147,4 +147,12 @@ public class EmployerServiceImp implements EmployerService {
 		System.out.println(map);
 		return JsonObject.getResult(1, "获取列表", map);
 	}
+
+	@Override
+	public Object getEmployerListByIdStatus (Integer start, Integer limit, Long userId,	Integer status) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("employerList", eDao.getEmpolyerListByStatus(start, limit, userId, status));
+		map.put("count", eDao.getEmployerCountByIdStatus(userId, status));
+		return JsonObject.getResult(1, "雇主列表", map);
+	}
 }

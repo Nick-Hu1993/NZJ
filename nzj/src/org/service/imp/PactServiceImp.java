@@ -109,8 +109,10 @@ public class PactServiceImp implements PactService {
 
 	@Override
 	public Object getPactTrackingList(Long packId) {
-		List li = pDao.getPactTrackingList(packId);
-		return JsonObject.getResult(1, "获取合同跟踪情况列表", li);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("PactTrackingList", pDao.getPactTrackingList(packId));
+		map.put("count", pDao.getCountByPactId(packId));
+		return JsonObject.getResult(1, "获取合同跟踪情况列表", map);
 	}
 
 	@Override
@@ -133,5 +135,14 @@ public class PactServiceImp implements PactService {
 			map.put("状态码输入错误", "0:正常 -1:暂停 -2:退单");
 			return JsonObject.getResult(0, "数据获取失败", map);
 		}
+	}
+
+	@Override
+	public Object getPactListByEmployerId(Integer start, Integer limit,
+			Long employerId) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("PactList", pDao.getPactListByEmployerId(start, limit, employerId));
+			map.put("count", pDao.getCountByEmployerId(employerId));
+			return JsonObject.getResult(1, "合同列表", map);
 	}
 }

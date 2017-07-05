@@ -47,6 +47,12 @@ public class PactController {
 		return pService.getPactListByStatus(session, start, limit, userId, status);
 	}
 	
+	@RequestMapping("/getPactListByEmployerId")
+	@ResponseBody
+	public Object getPactListByEmployerId (Integer start, Integer limit, Long employerId) {
+		return pService.getPactListByEmployerId(start, limit, employerId);
+	}
+	
 	//----------------------------------PactTracking 合同服务跟踪------------------------------------
 	
 	@RequestMapping("/addPactTracking")

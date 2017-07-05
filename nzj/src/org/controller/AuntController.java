@@ -129,4 +129,11 @@ public class AuntController {
 	public Object updateAuntStauts(Long AuntId, Integer status)throws Exception{
 		return aService.updateAuntStauts(AuntId, status);
 	}
+	
+	@RequestMapping("/getAuntListByIdStatus")
+	@ResponseBody
+	public Object getAuntListByIdStatus (Integer start, Integer limit,
+			Long userId, Integer status) {
+		return aService.getAuntListByIdStatus(start, limit, userId, status);
+	}
 }

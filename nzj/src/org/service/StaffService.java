@@ -114,4 +114,19 @@ public interface StaffService {
 	 * @return
 	 */
 	public Object getStaffAuthorityById (HttpSession session, Long id);
+	/**
+	 * 11.根据用户id查询其下属的所有员工
+	 * @param start
+	 * @param limit
+	 * @param id
+	 * @return
+	 */
+	public Object getStaffListById (Integer start, Integer limit, Long id);
+	/**
+	 * 12.重置员工的密码
+	 * @param sid
+	 * @param nPwd
+	 * @return
+	 */
+	public Object ResetStffPassword (Long sid, String nPwd); 
 }

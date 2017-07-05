@@ -82,11 +82,25 @@ public interface JoinOrderDao {
 	 */
 	public long getJoinOrderDetailCount (long joinorderid);
 	/**
-	 * 5.判断加盟订单的状态是否为X,
+	 * 4.7.判断加盟订单的状态是否为X,
 	 * @param id
 	 * @param status
 	 * @return
 	 */
 	public JoinOrders getJoinOrderByStatusAndId (long id, Integer status);
+	/**
+	 * 4.8.仅仅根据不同状态遍历订单
+	 * @param start
+	 * @param limit
+	 * @param status
+	 * @return
+	 */
+	public Object getAllJoinOrderByStatus (Integer start, Integer limit, Integer status);
+	/**
+	 * 4.9查询不同状态下订单的数量
+	 * @param status
+	 * @return
+	 */
+	public long getCountJoinOrderByStatus (Integer status);
 	
 }

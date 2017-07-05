@@ -78,10 +78,21 @@ public interface UserDao {
 	public Long getAckUserCount();
 	/**
 	 * 4.8根据用户id查询其rank值
-	 * 用于员工登录之后查询学员制证的单价
+	 * 1.用于员工登录之后查询学员制证的单价
 	 * @param UserId
 	 * @return
 	 */
-	public Integer getRankByUserId (long UserId);
-
+	public Integer getRankByUserId (long userId);
+	/**
+	 * 4.9根据rank值遍历用户信息
+	 * 1：总部 2：省 3：市 4：区 
+	 * @param rank
+	 * @return
+	 */
+	public List<VUser> getUserListByRank (Integer start, Integer limit, Integer rank);
+	/**
+	 * 5.0配合4.9，查询不同rank值的用户数量
+	 * @return
+	 */
+	public long getRankCount (Integer rank);
 }

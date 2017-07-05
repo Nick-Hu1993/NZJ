@@ -52,7 +52,7 @@ public interface JoinOrderService {
 	 */
 	public Object getJoinOrderDetailByJoinorderid (Integer start, Integer limit, long joinorderid);
 	/**
-	 * 7.根据状态遍历该用户的加盟订单
+	 * 7.根据状态遍当前用户的加盟订单
 	 * status：0审核中（默认状态）：1通过：-1驳回：-2完成
 	 * @param start
 	 * @param limit
@@ -60,4 +60,14 @@ public interface JoinOrderService {
 	 * @return
 	 */
 	public Object getJoinOrderByStatus (HttpSession session, Integer start, Integer limit, Integer status);
+	/**
+	 * 8.获取所有不同状态的加盟订单
+	 * status：0审核中（默认状态）：1通过：-1驳回：-2完成
+	 * @param start
+	 * @param limit
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	public Object getAllJoinOrderByStatus (Integer start, Integer limit, Integer status);
 }

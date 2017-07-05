@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.model.User;
 import org.springframework.stereotype.Service;
+import org.tool.readProperties;
 import org.util.HibernateSessionFactory;
 import org.view.VUser;
 import org.view.VUserId;
@@ -268,17 +269,64 @@ public class UserDaoImp implements UserDao {
 	}
 
 	@Override
-	public Integer getRankByUserId(long UserId) {
+	public Integer getRankByUserId(long userId) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 			
 			Query query = session.createQuery("SELECT u.rank FROM User u WHERE u.id = ?");
-			query.setParameter(0, UserId);
+			query.setParameter(0, userId);
 			query.setMaxResults(1);
 			Integer rank = (Integer)query.uniqueResult();
 			ts.commit();
 			return rank;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public List<VUser> getUserListByRank(Integer start, Integer limit, Integer rank) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("FROM VUser vu WHERE vu.id.rank = ?");
+			query.setParameter(0, rank);
+			if (start == null) {
+				start = 0;
+			}
+			query.setFirstResult(start);
+			if (limit == null) {
+				limit = 15;
+			}
+			query.setMaxResults(limit);
+			List<VUser> li = (List<VUser>)query.list();
+			ts.commit();
+			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public long getRankCount(Integer rank) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("SELECT COUNT(*) FROM VUser vu WHERE vu.id.rank = ?");
+			query.setParameter(0, rank);
+			query.setMaxResults(1);
+			long count = (Long)query.uniqueResult();
+			ts.commit();
+			return count;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return -1;

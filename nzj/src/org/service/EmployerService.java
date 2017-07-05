@@ -73,4 +73,12 @@ public interface EmployerService {
 	 * @return
 	 */
 	public Object getEmployerTrackingByemployerId (Integer start, Integer limit, Long employerId);
+	/**
+	 * 10.通过用户id遍历雇主
+	 * @param start
+	 * @param limit
+	 * @param userId
+	 * @return
+	 */
+	public Object getEmployerListByIdStatus (Integer start, Integer limit,Long userId, Integer status);
 }

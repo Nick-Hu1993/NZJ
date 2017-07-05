@@ -12,6 +12,7 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.dao.StaffDao;
 import org.dao.UserCheckDao;
 import org.dao.UserDao;
 import org.dao.UserDetailDao;
@@ -47,6 +48,9 @@ public class UserServiceImp implements UserService {
 	private UserLinkDao ulDao;
 	@Autowired
 	private UserCheckDao ucDao;
+	
+	@Autowired
+	private StaffDao sDao;
 
 	public Object register(HttpSession session, User u, Integer code) {
 		System.out.println("	code: " + code);
@@ -288,11 +292,16 @@ public class UserServiceImp implements UserService {
 	@Override
 	public Object getUser(HttpSession session) {
 		User u = (User) session.getAttribute("user");
-		if (u == null) {
-			return JsonObject.getResult(-999, "请先登录", false);
+		Staff s = (Staff)session.getAttribute("staff");
+		if (u != null) {
+			VUserId v = uDao.getUserById(u.getId());
+			return JsonObject.getResult(1, "获取当前用户信息", v);
+		} else if (s != null) {
+			Staff sDetail = sDao.getStaffById(s.getId());
+			sDetail.setPassword("***********");
+			return JsonObject.getResult(1, "获取当前用户信息", sDetail);
 		}
-		VUserId v = uDao.getUserById(u.getId());
-		return JsonObject.getResult(1, "获取当前用户信息", v);
+		return JsonObject.getResult(-999, "请先登录", false);
 	}
 
 	@Override
@@ -398,6 +407,36 @@ public class UserServiceImp implements UserService {
 		long uId = new GetUserId().getUserId(session);*/
 		List<VUser> li = ulDao.getChildByParent(start, limit, parent);
 		map.put("UserlList", li);
+		return JsonObject.getResult(1, "用户列表", map);
+	}
+
+	@Override
+	public Object loginByAdmin(HttpSession session) {
+		Long userId = GetUserId.getUserId(session);
+		if (userId == null) {
+			return JsonObject.getResult(-999, "登录已失效，请重新登录", false);
+		}
+		if (uDao.getRankByUserId(userId).equals(1)) {
+			return JsonObject.getResult(1, "登录成功", true);
+		} else {
+			return JsonObject.getResult(-999, "仅管理员登录", false);
+		}
+	}
+
+	@Override
+	public Object ResetUserPassword(long id, String nPwd) {
+		if (uDao.updateUserPassword(id, nPwd)) {
+			return JsonObject.getResult(1, "重置用户密码成功", true);
+		} else {
+			return JsonObject.getResult(0, "重置用户密码失败", false);
+		}
+	}
+
+	@Override
+	public Object getUserListByRank(Integer start, Integer limit, Integer rank) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("UserList", uDao.getUserListByRank(start, limit, rank));
+		map.put("count",uDao.getRankCount(rank));
 		return JsonObject.getResult(1, "用户列表", map);
 	}
 }

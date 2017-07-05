@@ -284,9 +284,57 @@ public class JoinOrderDaoImp implements JoinOrderDao {
 			ts.commit();
 			return jo;
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public Object getAllJoinOrderByStatus(Integer start, Integer limit,
+			Integer status) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("FROM JoinOrders jo WHERE jo.status = ?");
+			query.setParameter(0, status);
+			if (start == null) {
+				start = 0;
+			}
+			query.setFirstResult(0);
+			if (limit == null) {
+				limit = 15;
+			}
+			query.setMaxResults(limit);
+			List<JoinOrders> li = query.list();
+			ts.commit();
+			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public long getCountJoinOrderByStatus(Integer status) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("SELECT COUNT(*) FROM JoinOrders jo WHERE jo.status = ?");
+			query.setParameter(0, status);
+			query.setMaxResults(1);
+			long count = (Long)query.uniqueResult();
+			ts.commit();
+			return count;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return -1;
 		} finally {
 			HibernateSessionFactory.closeSession();
 		}

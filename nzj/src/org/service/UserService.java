@@ -140,4 +140,26 @@ public interface UserService {
 	 * @return
 	 */
 	public Object getChildByParent (HttpSession session, Integer start, Integer limit, Long[] parent);
+	/**
+	 * 16.管理员登录
+	 * ps：总部的员工亦可登录
+	 * @param session
+	 * @return
+	 */
+	public Object loginByAdmin (HttpSession session);
+	/**
+	 * 17.重置用户密码
+	 * @param id
+	 * @param nPwd
+	 * @return
+	 */
+	public Object ResetUserPassword (long id, String nPwd);
+	/**
+	 * 18.通过rank值遍历用户
+	 * @param start
+	 * @param limit
+	 * @param rank
+	 * @return
+	 */
+	public Object getUserListByRank (Integer start, Integer limit, Integer rank);
 }

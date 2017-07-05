@@ -103,4 +103,16 @@ public class JoinOrderServiceImp implements JoinOrderService {
 		}
 	}
 
+	@Override
+	public Object getAllJoinOrderByStatus(Integer start, Integer limit, Integer status) {
+		if (status == 0 || status == 1 || status == -1 || status == -2) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("JoinOrderList", joDao.getAllJoinOrderByStatus(start, limit, status));
+			map.put("count", joDao.getCountJoinOrderByStatus(status));
+			return JsonObject.getResult(1, "订单列表", map);
+		} else {
+			return JsonObject.getResult(0, "状态码输入错误:0审核中（默认状态）：1通过 -1驳回： -2完成", false);
+		}
+	}
+
 }

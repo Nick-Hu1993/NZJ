@@ -1,5 +1,7 @@
 package org.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.Form.PactTrackingForm;
@@ -69,4 +71,12 @@ public interface PactService {
 	 * @return
 	 */
 	public Object getPactListByStatus(HttpSession session, Integer start, Integer limit, Long userId, Integer status);
+	/**
+	 * 10.以雇主id来获取这名雇主的所有合同
+	 * @param start
+	 * @param limit
+	 * @param employerId
+	 * @return
+	 */
+	public Object getPactListByEmployerId (Integer start, Integer limit, Long employerId);
 }

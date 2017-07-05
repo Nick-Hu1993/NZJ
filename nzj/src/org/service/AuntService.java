@@ -166,4 +166,13 @@ public interface AuntService {
 	 * @return
 	 */
 	public Object updateAuntStauts(Long AuntId,Integer status);
+	/**
+	 * 6.根据用户id及阿姨状态遍历阿姨信息（0待岗， 1上岗， -1黑名单）
+	 * @param start
+	 * @param limit
+	 * @param userId
+	 * @param status
+	 * @return
+	 */
+	public Object getAuntListByIdStatus (Integer start, Integer limit, Long userId, Integer status);
 }

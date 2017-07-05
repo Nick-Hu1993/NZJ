@@ -272,4 +272,21 @@ public class StaffServiceImp implements StaffService {
 		}
 	}
 
+	@Override
+	public Object getStaffListById(Integer start, Integer limit, Long id) {
+		List<Staff> sList = sDao.getStaffList(id, start, limit);
+		Map<String , Object> map = new HashMap<String, Object>();
+		map.put("staffList", sList);
+		return JsonObject.getResult(1, "员工列表", map);
+	}
+
+	@Override
+	public Object ResetStffPassword(Long sid, String nPwd) {
+		if (sDao.updateStaffPassword(sid, nPwd)) {
+			return JsonObject.getResult(1, "密码重置成功", true);
+		} else {
+			return JsonObject.getResult(0, "重置失败", false);
+		}
+	}
+
 }

@@ -291,4 +291,72 @@ public class PactDaoImp implements PactDao {
 			HibernateSessionFactory.closeSession();
 		}
 	}
+
+	@Override
+	public List<Pact> getPactListByEmployerId(Integer start, Integer limit,
+			Long employerId) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("FROM Pact p WHERE p.employerId = ?");
+			query.setParameter(0, employerId);
+			if (start == null) {
+				start = 0;
+			}
+			query.setFirstResult(start);
+			if (limit == null) {
+				limit = 15;
+			}
+			query.setMaxResults(limit);
+			List<Pact> li = query.list();
+			ts.commit();
+			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public long getCountByEmployerId(long employerId) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("SELECT COUNT(*) FROM Pact p WHERE p.employerId = ?");
+			query.setParameter(0, employerId);
+			query.setMaxResults(1);
+			long count = (Long)query.uniqueResult();
+			ts.commit();
+			return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public long getCountByPactId(long packId) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("SELECT COUNT(*) FROM PactTracking pt WHERE pt.pactId = ?");
+			query.setParameter(0, packId);
+			query.setMaxResults(1);
+			long count = (Long)query.uniqueResult();
+			ts.commit();
+			return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
 }

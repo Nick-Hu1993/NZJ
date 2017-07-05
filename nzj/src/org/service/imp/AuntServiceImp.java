@@ -328,4 +328,13 @@ public class AuntServiceImp implements AuntService {
 			return JsonObject.getResult(0, "修改阿姨状态失败", false);
 	}
 
+	@Override
+	public Object getAuntListByIdStatus(Integer start, Integer limit,
+			Long userId, Integer status) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("AuntList", aDao.getAuntListByStatus(status, start, limit, userId));
+		map.put("count", aDao.getAuntCountByStatus(status, userId));
+		return JsonObject.getResult(1, "阿姨信息列表", map);
+	}
+
 }

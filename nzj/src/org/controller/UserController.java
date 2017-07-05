@@ -80,7 +80,24 @@ public class UserController {
 	public Object ackUser(Long id, Integer rank, Long pid) throws Exception {
 		return uService.ackUser(id, rank, pid);
 	}
-
+	// -----------------------------------admin-----------------------------------------
+	@RequestMapping("/loginByAdmin")
+	@ResponseBody
+	public Object loginByAdmin(HttpSession session) {
+		return uService.loginByAdmin(session);
+	}
+	
+	@RequestMapping("/ResetUserPassword")
+	@ResponseBody
+	public Object ResetUserPassword(long id, String nPwd) {
+		return uService.ResetUserPassword(id, nPwd);
+	}
+	
+	@RequestMapping("/getUserListByRank")
+	@ResponseBody
+	public Object getUserListByRank(Integer start, Integer limit, Integer rank) {
+		return uService.getUserListByRank(start, limit, rank);
+	}
 	// -----------------------------------UserDetail-----------------------------------------
 	@RequestMapping("/addUserDetail")
 	@ResponseBody

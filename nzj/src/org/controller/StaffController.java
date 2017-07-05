@@ -91,4 +91,15 @@ public class StaffController {
 		return sService.getStaffAuthorityById(session, id);
 	}
 	
+	@RequestMapping("/getStaffListById")
+	@ResponseBody
+	public Object getStaffListById(Integer start, Integer limit, Long id) {
+		return sService.getStaffListById(start, limit, id);
+	}
+	
+	@RequestMapping("/ResetStffPassword")
+	@ResponseBody
+	public Object ResetStffPassword(Long sid, String nPwd) {
+		return sService.ResetStffPassword(sid, nPwd);
+	}
 }
