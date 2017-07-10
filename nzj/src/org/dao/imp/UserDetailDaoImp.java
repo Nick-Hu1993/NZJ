@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import org.model.UserDetail;
 import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
+import org.view.VUser;
 
 @Service
 public class UserDetailDaoImp implements UserDetailDao {
@@ -127,4 +128,53 @@ public class UserDetailDaoImp implements UserDetailDao {
 			return false;
 		}
 	}
+
+	@Override
+	public List<VUser> getUserDetailListBySupport(
+			Integer start, Integer limit, Integer support) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("FROM VUser vu WHERE vu.id.support = ?");
+			query.setParameter(0, support);
+			if (start == null) {
+				start = 0;
+			}
+			query.setFirstResult(start);
+			if (limit == null) {
+				limit = 15;
+			}
+			query.setMaxResults(limit);
+			List<VUser> li = query.list();
+			ts.commit();
+			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public long getCountBySupport(Integer support) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("SELECT COUNT(*) FROM VUser vu WHERE vu.id.support = ?");
+			query.setParameter(0, support);
+			query.setMaxResults(1);
+			long count  = (Long)query.uniqueResult();
+			ts.commit();
+			return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
 }

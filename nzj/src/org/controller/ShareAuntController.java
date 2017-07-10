@@ -1,5 +1,7 @@
 package org.controller;
 
+import java.text.ParseException;
+
 import javax.servlet.http.HttpSession;
 
 import org.model.ShareAunt;
@@ -79,6 +81,13 @@ public class ShareAuntController {
 	public Object getLocalShareAuntList(HttpSession session, Integer start,
 			Integer limit) throws Exception{
 		return saService.getLocalShareAuntList(session, start, limit);
+	}
+	
+	@RequestMapping("/getShareAuntListByTime")
+	@ResponseBody
+	public Object getShareAuntListByTime(String stime, String etime,
+			Integer share, Integer start, Integer limit) throws ParseException {
+		return saService.getShareAuntListByTime(stime, etime, share, start, limit);
 	}
 
 }

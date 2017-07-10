@@ -38,4 +38,11 @@ public class SupportTrackingController {
 	public Object getSupportTrackingByStatus (HttpSession session, Integer start, Integer limit, Integer status) {
 		return stService.getSupportTrackingByStatus(session, start, limit, status);
 	}
+	
+	@RequestMapping("/getSupportTrackingByIdStatus")
+	@ResponseBody
+	public Object getSupportTrackingByIdStatus(Integer start, Integer limit,
+			Long userId, Integer status) {
+		return stService.getSupportTrackingByIdStatus(start, limit, userId, status);
+	}
 }

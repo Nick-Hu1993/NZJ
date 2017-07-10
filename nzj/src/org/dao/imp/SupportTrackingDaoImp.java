@@ -106,13 +106,14 @@ public class SupportTrackingDaoImp implements SupportTrackingDao {
 
 	@Override
 	public List<SupportTracking> getSupportTrackingByStatus(Integer start,
-			Integer limit, Integer status) {
+			Integer limit, Integer status, Long userId) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 			
-			SQLQuery sqlQuery = session.createSQLQuery("SELECT * FROM v_support WHERE status = ?");
+			SQLQuery sqlQuery = session.createSQLQuery("SELECT * FROM v_support WHERE status = ? AND user_id = ?");
 			sqlQuery.addEntity(VSupport.class);
+			sqlQuery.setParameter(1, userId);
 			sqlQuery.setParameter(0, status);
 			if (start == null) {
 				start = 0;

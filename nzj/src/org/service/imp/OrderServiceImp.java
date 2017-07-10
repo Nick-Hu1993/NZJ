@@ -12,6 +12,9 @@ import org.dao.OrderDao;
 import org.dao.PriceDao;
 import org.dao.TraineeDao;
 import org.dao.UserDao;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.model.AmountRecord;
 import org.model.Orders;
 import org.service.OrderService;
@@ -20,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.tool.ChangeTime;
 import org.tool.GetUserId;
 import org.tool.JsonObject;
+import org.util.HibernateSessionFactory;
 import org.view.VOrderTraineedetail;
 
 @Service
@@ -32,9 +36,9 @@ public class OrderServiceImp implements OrderService {
 
 	@Autowired
 	private AmountDao aDao;
-	
-//	@Autowired
-//	private PriceDao pDao;
+
+	// @Autowired
+	// private PriceDao pDao;
 
 	@Override
 	public Object addOrder(HttpSession session, Orders o, long[] TraineeId) {
@@ -43,17 +47,18 @@ public class OrderServiceImp implements OrderService {
 			return JsonObject.getResult(-999, "请先登录", false);
 		}
 		AmountRecord ad = new AmountRecord();
-		Double amount = aDao.getAmount(userId);//查询账户余额
+		Double amount = aDao.getAmount(userId);// 查询账户余额
 		// 使用在线支付&余额大于订单金额&学员的未绑定其它订单（即bind值为0）
-		if (o.getPayment().equals(0) && amount > o.getTotal() && !tDao.getTraineeStatus(TraineeId).contains(1)) {
+		if (o.getPayment().equals(0) && amount > o.getTotal()
+				&& !tDao.getTraineeStatus(TraineeId).contains(1)) {
 			// 订单状态默认为0：审核中
 			o.setStatus(0);
-			//设置学员数量,思前想后还是在前端计算更符合常规，不然用户无法立即看到所需要支付的金额
-//			int i = TraineeId.length;
-//			double d = i;
-//			o.setQuantity(d);
-			//计算总价
-//			o.setTotal(pDao.getPrice(userId) * d);
+			// 设置学员数量,思前想后还是在前端计算更符合常规，不然用户无法立即看到所需要支付的金额
+			// int i = TraineeId.length;
+			// double d = i;
+			// o.setQuantity(d);
+			// 计算总价
+			// o.setTotal(pDao.getPrice(userId) * d);
 			// 获取订单生成时间
 			o.setTime(Long.parseLong(ChangeTime.timeStamp()));
 			// 设置订单所属于哪个用户
@@ -71,7 +76,8 @@ public class OrderServiceImp implements OrderService {
 			} else {
 				return JsonObject.getResult(0, "添加订单失败", false);
 			}
-		} else if (o.getPayment().equals(1) && !tDao.getTraineeStatus(TraineeId).contains(1)) {
+		} else if (o.getPayment().equals(1)
+				&& !tDao.getTraineeStatus(TraineeId).contains(1)) {
 			// 1：线下支付:当前方式为线下支付
 			System.out.println(o.getPayment().equals(1));
 			// 订单状态默认为0：审核中
@@ -170,4 +176,12 @@ public class OrderServiceImp implements OrderService {
 		}
 	}
 
+	@Override
+	public Object getAllOrderByStatus(Integer start, Integer limit,
+			Integer status) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("TraineeOrderList", oDao.getAllTraineeByStatus(start, limit, status));
+		map.put("count", oDao.getAllCountByStatus(status));
+		return JsonObject.getResult(1, "学员订单列表", map);
+	}
 }

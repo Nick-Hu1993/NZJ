@@ -154,4 +154,11 @@ public class UserController {
 	public Object getChildByParent (HttpSession session, Integer start, Integer limit, Long[] parent) {
 		return uService.getChildByParent(session, start, limit, parent);
 	}
+	
+	@RequestMapping("/getUserDetailListBySupport")
+	@ResponseBody
+	public Object getUserDetailListBySupport(Integer start, Integer limit,
+			Integer support) {
+		return uService.getUserDetailListBySupport(start, limit, support);
+	}
 }

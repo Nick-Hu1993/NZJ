@@ -1,5 +1,7 @@
 package org.tool;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -118,4 +120,23 @@ public class ChangeTime {
 				.format(new java.util.Date(timestamp));
 		return date;
 	}
+	
+	/**
+	 * 比较date1和date2的大小，date1是否大于date2
+	 * 返回boolean类型
+	 * @param date1
+	 * @param date2
+	 * @return
+	 * @throws ParseException
+	 */
+	public static boolean compare_date(String date1, String date2) throws ParseException {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date dt1 = df.parse(date1);//将日期解析为时间戳形式,但还是日期类型
+        Date dt2 = df.parse(date2);
+        if (dt1.getTime() > dt2.getTime()) {//转换成为long类型的整数进行比较
+            return true;
+        } else {
+        	return false;
+        }
+    }
 }

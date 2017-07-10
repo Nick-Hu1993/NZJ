@@ -61,7 +61,7 @@ public class JoinOderController {
 	
 	@RequestMapping("/getAllJoinOrderByStatus")
 	@ResponseBody
-	public Object getAllJoinOrderByStatus (Integer start, Integer limit, Long id, Integer status) {
+	public Object getAllJoinOrderByStatus (Integer start, Integer limit, Integer status) {
 		return joService.getAllJoinOrderByStatus(start, limit, status);
 	}
 	

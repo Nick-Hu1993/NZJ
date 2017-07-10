@@ -26,9 +26,19 @@ public interface SupportTrackingService {
 	 */
 	public Object updateSupportTranking (SupportTracking st, String time);
 	/**
-	 * 4.根据不同状态（-1开业前，1开业后）遍历服务追踪标签
+	 * 4.根据不同状态（-1开业前，1开业后）遍历当前登录用户的服务追踪标签
 	 * @param status
 	 * @return
 	 */
 	public Object getSupportTrackingByStatus (HttpSession session,Integer start, Integer limit, Integer status);
+	/**
+	 * 5.根据用户id遍历不同时期的加盟追踪标签（-1开业前，开业后）
+	 * @param start
+	 * @param limit
+	 * @param userId
+	 * @param status
+	 * @return
+	 */
+	public Object getSupportTrackingByIdStatus (Integer start, Integer limit, Long userId, Integer status);
+	
 }

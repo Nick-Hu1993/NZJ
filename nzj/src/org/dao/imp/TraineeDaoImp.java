@@ -228,7 +228,7 @@ public class TraineeDaoImp implements TraineeDao {
 			if (limit == null) {
 				limit = 15;
 			}
-			query.setMaxResults(15);
+			query.setMaxResults(limit);
 			List<Trainee> li = query.list();
 			ts.commit();
 			return li;

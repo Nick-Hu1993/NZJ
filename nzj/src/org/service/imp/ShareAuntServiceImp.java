@@ -1,5 +1,6 @@
 package org.service.imp;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ import org.model.User;
 import org.service.ShareAuntService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.tool.ChangeTime;
 import org.tool.GetUserId;
 import org.tool.JsonObject;
 import org.view.VUserId;
@@ -167,6 +169,19 @@ public class ShareAuntServiceImp implements ShareAuntService {
 			map.put("count",  count);
 			
 			return JsonObject.getResult(1, "用户登录，获取本地的共享的阿姨列表",map);
+		}
+	}
+
+	@Override
+	public Object getShareAuntListByTime(String stime, String etime,
+			Integer share, Integer start, Integer limit) throws ParseException {
+		if (stime != null && etime != null && !ChangeTime.compare_date(stime, etime)) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("AuntList", saDao.getShareAuntListByTime(stime, etime, share, start, limit));
+			map.put("count", saDao.getCountByTime(stime, etime, share));
+			return JsonObject.getResult(1, "共享阿姨列表", map);
+		} else {
+			return JsonObject.getResult(0, "时间不可为空/时间数据非法", false);
 		}
 	}
 }

@@ -251,7 +251,7 @@ public class TraineeServiceImp implements TraineeService {
 	}
 
 	@Override
-	public Object getTraineeById(HttpSession session, Integer start,
+	public Object getTraineeList (HttpSession session, Integer start,
 			Integer limit) {
 		Long userId = GetUserId.getUserId(session);
 		if (userId != null) {
@@ -267,18 +267,13 @@ public class TraineeServiceImp implements TraineeService {
 	}
 
 	@Override
-	public Object getTraineeList(HttpSession session, Integer start, Integer limit) {
-		Long userId = GetUserId.getUserId(session);
-		if (userId != null) {
+	public Object getTraineeListById (Long userId, Integer start, Integer limit) {
 			List<Trainee> li = tDao.getTraineeById(start, limit, userId);
 			long count = tDao.getCount();
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("TraineeList", li);
 			map.put("count", count);
 			return JsonObject.getResult(1, "所有学员", map);
-		} else {
-			return JsonObject.getResult(0, "请先登录", false);
-		}
 	}
 
 }

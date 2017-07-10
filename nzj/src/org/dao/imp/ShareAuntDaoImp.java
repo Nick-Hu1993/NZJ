@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.dao.ShareAuntDao;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.model.ShareAunt;
@@ -215,8 +216,8 @@ public class ShareAuntDaoImp implements ShareAuntDao {
 
 			String sql = "from ShareAunt where share=1 and (skill like :key or address like :key)";
 			Query query = session.createQuery(sql);
-			
-			query.setString("key", "%"+key+"%");
+
+			query.setString("key", "%" + key + "%");
 
 			if (start == null) {
 				start = 0;
@@ -251,8 +252,8 @@ public class ShareAuntDaoImp implements ShareAuntDao {
 			String sql = "select count(id) from ShareAunt where share=1 and (skill like :key or address like :key)";
 			Query query = session.createQuery(sql);
 
-			query.setString("key", "%"+key+"%");
-			
+			query.setString("key", "%" + key + "%");
+
 			query.setMaxResults(1);
 			Long count = (Long) query.uniqueResult();
 
@@ -266,8 +267,8 @@ public class ShareAuntDaoImp implements ShareAuntDao {
 	}
 
 	@Override
-	public List<ShareAunt> getLocalShareAuntList(Integer share,String address, Integer start,
-			Integer limit) {
+	public List<ShareAunt> getLocalShareAuntList(Integer share, String address,
+			Integer start, Integer limit) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
@@ -275,8 +276,8 @@ public class ShareAuntDaoImp implements ShareAuntDao {
 			String sql = "from ShareAunt where share=? and address like :key";
 			Query query = session.createQuery(sql);
 			query.setParameter(0, share);
-			
-			query.setString("key", "%"+address+"%");
+
+			query.setString("key", "%" + address + "%");
 
 			if (start == null) {
 				start = 0;
@@ -303,7 +304,7 @@ public class ShareAuntDaoImp implements ShareAuntDao {
 	}
 
 	@Override
-	public long getLocalShareAuntCount(Integer share,String address) {
+	public long getLocalShareAuntCount(Integer share, String address) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
@@ -311,9 +312,9 @@ public class ShareAuntDaoImp implements ShareAuntDao {
 			String sql = "select count(id) from ShareAunt where share=? and address like :key)";
 			Query query = session.createQuery(sql);
 			query.setParameter(0, share);
-			
-			query.setString("key", "%"+address+"%");
-			
+
+			query.setString("key", "%" + address + "%");
+
 			query.setMaxResults(1);
 			Long count = (Long) query.uniqueResult();
 
@@ -325,7 +326,59 @@ public class ShareAuntDaoImp implements ShareAuntDao {
 			HibernateSessionFactory.closeSession();
 		}
 	}
-	
-	
+
+	@Override
+	public List<ShareAunt> getShareAuntListByTime(String stime, String etime,
+			Integer share, Integer start, Integer limit) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+
+			SQLQuery sqlQuery = session
+					.createSQLQuery("SELECT * FROM share_aunt st WHERE st.time >=  UNIX_TIMESTAMP(?) AND st.time < UNIX_TIMESTAMP(?) AND st.share = ? ORDER BY st.time desc ");
+			sqlQuery.setParameter(0, stime);
+			sqlQuery.setParameter(1, etime);
+			sqlQuery.setParameter(2, share);
+			if (start == null) {
+				start = 0;
+			}
+			sqlQuery.setFirstResult(start);
+			if (limit == null) {
+				limit = 15;
+			}
+			sqlQuery.setMaxResults(limit);
+			List<ShareAunt> li = sqlQuery.list();
+			ts.commit();
+			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public long getCountByTime(String stime, String etime, Integer share) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("SELECT COUNT(*) FROM ShareAunt sa WHERE sa.time >= UNIX_TIMESTAMP(?) AND sa.time < UNIX_TIMESTAMP(?) AND sa.share = ?");
+			query.setParameter(0, stime);
+			query.setParameter(1, etime);
+			query.setParameter(2, share);
+			query.setMaxResults(1);
+			long count = (Long)query.uniqueResult();
+			ts.commit();
+			return count;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return -1;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
 
 }

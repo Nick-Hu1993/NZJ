@@ -109,4 +109,18 @@ public interface OrderDao {
 	 * @return
 	 */
 	public boolean getOrderTraineeByStatusAndId (long id, Integer status);
+	/**
+	 * 4.10根据订单状态遍历所有订单
+	 * @param start
+	 * @param limit
+	 * @param status
+	 * @return
+	 */
+	public List<Orders> getAllTraineeByStatus (Integer start, Integer limit, Integer status);
+	/**
+	 * 4.11根据学员订单的状态查找总行数
+	 * @param status
+	 * @return
+	 */
+	public long getAllCountByStatus (Integer status);
 }

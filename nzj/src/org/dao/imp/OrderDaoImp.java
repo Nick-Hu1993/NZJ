@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
 import org.view.VOrderTraineedetail;
 
+import sun.net.www.content.text.plain;
+
 @Service
 public class OrderDaoImp implements OrderDao {
 
@@ -375,6 +377,54 @@ public class OrderDaoImp implements OrderDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		}
+	}
+
+	@Override
+	public List<Orders> getAllTraineeByStatus(Integer start, Integer limit, Integer status) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("FROM Orders o WHERE o.status = ? ORDER BY o.id desc");
+			query.setParameter(0, status);
+			if (start == null) {
+				start = 0;
+			}
+			query.setFirstResult(start);
+			if (limit == null) {
+				limit = 15;
+			}
+			query.setMaxResults(limit);
+			List<Orders> li = query.list();
+			ts.commit();
+			return li;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public long getAllCountByStatus(Integer status) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("SELECT COUNT(*) FROM Orders o WHERE o.status = ? ");
+			query.setParameter(0, status);
+			query.setMaxResults(1);
+			long count = (Long)query.uniqueResult();
+			ts.commit();
+			return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		} finally {
+			HibernateSessionFactory.closeSession();
 		}
 	}
 

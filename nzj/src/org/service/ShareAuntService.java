@@ -1,5 +1,7 @@
 package org.service;
 
+import java.text.ParseException;
+
 import javax.servlet.http.HttpSession;
 
 import org.model.ShareAunt;
@@ -96,4 +98,15 @@ public interface ShareAuntService {
 	 */
 	public Object getLocalShareAuntList(HttpSession session, Integer start,
 			Integer limit);
+	/**
+	 * 11.以时间区间遍历阿姨分享数据
+	 * @param stime
+	 * @param etime
+	 * @param share
+	 * @param start
+	 * @param limit
+	 * @return
+	 * @throws ParseException 
+	 */
+	public Object getShareAuntListByTime (String stime, String etime, Integer share, Integer start, Integer limit) throws ParseException;
 }

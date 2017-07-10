@@ -1,6 +1,9 @@
 package org.dao;
 
+import java.util.List;
+
 import org.model.UserDetail;
+import org.view.VUser;
 
 public interface UserDetailDao {
 	//-----------------------------------增---------------------------------------
@@ -46,4 +49,17 @@ public interface UserDetailDao {
 	 * @return
 	 */
 	public boolean getUserDetailSupport (long id);
+	/**
+	 * 4.5以是否已享受加盟服务遍历用户详情
+	 * 0需要（未服务过）：1不需要（已服务过）
+	 * @return
+	 */
+	public List<VUser> getUserDetailListBySupport (Integer start, Integer limit, Integer support);
+	/**
+	 * 4.6服务4.5，查询是否已享受加盟服务的总数量
+	 * 0需要（未服务过）：1不需要（已服务过）
+	 * @param support
+	 * @return
+	 */
+	public long getCountBySupport (Integer support);
 }

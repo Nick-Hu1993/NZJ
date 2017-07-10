@@ -60,4 +60,11 @@ public class OrderController {
 			Integer limit, Integer status) {
 		return oService.getOrderByStatus(session, start, limit, status);
 	} 
+	
+	@RequestMapping("/getAllOrderByStatus")
+	@ResponseBody
+	public Object getAllOrderByStatus(Integer start, Integer limit,
+			Integer status) {
+		return oService.getAllOrderByStatus(start, limit, status);
+	}
 }

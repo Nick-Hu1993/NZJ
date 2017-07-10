@@ -112,4 +112,18 @@ public interface ShareAuntDao {
 	 * @return
 	 */
 	public long getLocalShareAuntCount(Integer share, String address);
+	/**
+	 * 4.9查询某一时间区间内的共享阿姨信息
+	 * @param stime
+	 * @param etime
+	 * @return
+	 */
+	public List<ShareAunt> getShareAuntListByTime (String stime, String etime, Integer share, Integer start, Integer limit);
+	/**
+	 * 4.10配合4.9，获取某个时间区间内的总数
+	 * @param stime
+	 * @param etime
+	 * @return
+	 */
+	public long getCountByTime (String stime, String etime, Integer share);
 }

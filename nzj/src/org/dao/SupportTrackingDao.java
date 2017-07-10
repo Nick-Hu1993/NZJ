@@ -37,7 +37,7 @@ public interface SupportTrackingDao {
 	 * @param status
 	 * @return
 	 */
-	public List<SupportTracking> getSupportTrackingByStatus (Integer start, Integer limit, Integer status);
+	public List<SupportTracking> getSupportTrackingByStatus (Integer start, Integer limit, Integer status, Long userId);
 	/**
 	 * 4.2根据不同状态（-1开业前，1开业后）查询记录数量
 	 * @param status

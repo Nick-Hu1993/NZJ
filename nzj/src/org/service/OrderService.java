@@ -63,5 +63,13 @@ public interface OrderService {
 	 * @return
 	 */
 	public Object getOrderByStatus (HttpSession session, Integer start, Integer limit, Integer status);
-	
+	/**
+	 * 8.根据状态遍历所有订单
+	 * status：0审核中（默认状态）：1通过：-1驳回：-2完成
+	 * @param start
+	 * @param limit
+	 * @param status
+	 * @return
+	 */
+	public Object getAllOrderByStatus (Integer start, Integer limit, Integer status);
 }

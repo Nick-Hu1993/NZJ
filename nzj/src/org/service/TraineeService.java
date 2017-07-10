@@ -1,8 +1,6 @@
 package org.service;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -73,13 +71,13 @@ public interface TraineeService {
 	 * @param id
 	 * @return
 	 */
-	public Object getTraineeById (HttpSession session, Integer start, Integer limit);
+	public Object getTraineeList (HttpSession session, Integer start, Integer limit);
 	/**
 	 * 8.获取所有学员信息（仅管理员）
 	 * @param start
 	 * @param Integer
 	 * @return
 	 */
-	public Object getTraineeList (HttpSession session, Integer start, Integer limit);
+	public Object getTraineeListById (Long userId, Integer start, Integer limit);
 	
 }

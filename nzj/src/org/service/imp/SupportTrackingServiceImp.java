@@ -65,10 +65,19 @@ public class SupportTrackingServiceImp implements SupportTrackingService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		//拿useId查总行数（需要先登录）
 		long count = stDao.getCountByStatus(GetUserId.getUserId(session), status);
-		List<SupportTracking> li  = stDao.getSupportTrackingByStatus(start, limit, status);
+		List<SupportTracking> li  = stDao.getSupportTrackingByStatus(start, limit, status, GetUserId.getUserId(session));
 		map.put("count", count);
 		map.put("result", li);
-		return JsonObject.getResult(1, "获取不同阶段追踪标签", map);
+		return JsonObject.getResult(1, "开业前/开业后追踪标签", map);
+	}
+
+	@Override
+	public Object getSupportTrackingByIdStatus(Integer start, Integer limit,
+			Long userId, Integer status) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("SupportTrackingList", stDao.getSupportTrackingByStatus(start, limit, status, userId));
+		map.put("count", stDao.getCountByStatus(userId, status));
+		return JsonObject.getResult(1, "开业前/开业后追踪标签", map);
 	}
 
 }

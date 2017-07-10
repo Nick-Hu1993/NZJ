@@ -1,6 +1,7 @@
 package org.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,6 +10,7 @@ import org.model.User;
 import org.model.UserDetail;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.view.VUser;
 
 public interface UserService {
 	/**
@@ -162,4 +164,10 @@ public interface UserService {
 	 * @return
 	 */
 	public Object getUserListByRank (Integer start, Integer limit, Integer rank);
+	/**
+	 * 19.以是否已享受加盟服务遍历用户详情
+	 * 0需要（为服务过）：1不需要（已服务过）
+	 * @return
+	 */
+	public Object getUserDetailListBySupport (Integer start, Integer limit, Integer support);
 }
