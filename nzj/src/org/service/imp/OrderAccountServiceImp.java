@@ -66,4 +66,13 @@ public class OrderAccountServiceImp implements OrderAccountService {
 			return JsonObject.getResult(0, "此订单无账单详情", false);
 		}
 	}
+
+	@Override
+	public Object getOrderAndAccountByUserId(Integer start, Integer limit,
+			long userid) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("orderAccountList", oaDao.getOrderAndAccountByUserId(start, limit, userid));
+		map.put("count", oaDao.getCountByUserId(userid));
+		return JsonObject.getResult(1, "订单与账单详情", map);
+	}
 }

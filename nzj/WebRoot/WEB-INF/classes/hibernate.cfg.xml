@@ -91,6 +91,7 @@
 	<mapping resource="org/model/AmountRecord.hbm.xml" />
 	<mapping resource="org/view/VUserUserdetailAmount.hbm.xml" />
 	<mapping resource="org/model/Price.hbm.xml"/>
+	<mapping resource="org/view/VOrderAccount.hbm.xml"/>
 	
 </session-factory>
 </hibernate-configuration>

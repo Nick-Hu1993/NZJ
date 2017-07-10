@@ -36,4 +36,11 @@ public class OrderAccountController {
 	public Object getOrderAccountByOrderId (long orderid) {
 		return oaService.getOrderAccountByOrderId(orderid);
 	}
+	
+	@RequestMapping("/getOrderAndAccountByUserId")
+	@ResponseBody
+	public Object getOrderAndAccountByUserId(Integer start, Integer limit,
+			long userid) {
+		return oaService.getOrderAndAccountByUserId(start, limit, userid);
+	}
 }

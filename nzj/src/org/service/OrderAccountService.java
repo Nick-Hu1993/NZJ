@@ -1,5 +1,6 @@
 package org.service;
 
+
 import org.model.OrderAccount;
 
 public interface OrderAccountService {
@@ -29,4 +30,13 @@ public interface OrderAccountService {
 	 * @return
 	 */
 	public Object getOrderAccountByOrderId (long orderid);
+	/**
+	 * 4.3通过用户id获取所有该用户所有已完成的账单
+	 * ps：只有已完成的订单才是百分百都已经生成了账单的
+	 * @param start
+	 * @param limit
+	 * @param userid
+	 * @return
+	 */
+	public Object getOrderAndAccountByUserId(Integer start, Integer limit, long userid);
 }

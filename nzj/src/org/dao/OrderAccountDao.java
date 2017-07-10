@@ -1,6 +1,9 @@
 package org.dao;
 
+import java.util.List;
+
 import org.model.OrderAccount;
+import org.view.VOrderAccount;
 
 public interface OrderAccountDao {
 	// -----------------------------------增---------------------------------------
@@ -40,5 +43,20 @@ public interface OrderAccountDao {
 	 * @return
 	 */
 	public OrderAccount getOrderAccountByOrderId (long orderid);
+	/**
+	 * 4.3通过用户id获取所有该用户所有已完成的账单
+	 * ps：只有已完成的订单才是百分百都已经生成了账单的
+	 * @param start
+	 * @param limit
+	 * @param userid
+	 * @return
+	 */
+	public List<VOrderAccount> getOrderAndAccountByUserId (Integer start, Integer limit, long userid);
+	/**
+	 * 4.4配合4.3做分页
+	 * @param userid
+	 * @return
+	 */
+	public long getCountByUserId (long userid);
 	
 }

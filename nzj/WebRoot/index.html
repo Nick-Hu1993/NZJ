@@ -7,6 +7,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>娘子军家政共享平台</title>
 		<!--<link rel="icon" href="logo.ico" />-->
+		<link rel="stylesheet" href="css/login/css/reset.css" />
+		<link rel="stylesheet" href="css/index.css" />
 		<link rel="shortcut icon" href="logo.png">
 		<!--jquery库-->
 		<script src="js/jquery.min.js"></script>
@@ -40,6 +42,7 @@
 		<script src="js/main.js" type="text/javascript"></script>
 		<!--引用添加共享客户和共享保姆-->
 		<link href="css/help_cntral.css" rel="stylesheet" />
+		<link href="./font/iconfont.css" rel="stylesheet" />
 		<!--<script src="js/help_cntral.js" type="text/javascript"></script>-->
 		<script type="text/javascript">
 			$(document).ready(function() {
@@ -180,99 +183,54 @@
 					<span><img style="height: 50px;" src="image/logo.png"/></span>
 					<span class="xmmSpan">娘子军家政共享平台</span>
 					<div class="topMenu">
-						<ul style="float: right; padding-left: 15px;">
-							<li class="dropdown" style="list-style-type:none;">
-								<div id="dropdownMenu1" data-toggle="dropdown"><img style="margin-top: -8px;" src="image/yh.png" /><label>用户</label></div>
-								<ul id="head_menu" class="dropdown-menu" role="menu" style="margin: 0 0 0 -40px; ">
-									<li id="liModUser">
-										<a href="" data-toggle='modal' data-target='#ModUser'><i class="fa fa-user"></i>&nbsp;修改用户信息</a>
-									</li>
-									<li id="liModYg">
-										<a href="" data-toggle='modal' data-target='#ModYg'><i class="fa fa-user"></i>&nbsp;修改员工信息</a>
-									</li>
-									<li class="divider"></li>
-									<li id="liModUserPassword">
-										<a href="" data-toggle='modal' data-target='#modUserPassword'><i class="fa fa-key"></i>&nbsp;修改用户密码</a>
-									</li>
-									<li id="liModYgPassword">
-										<a href="" data-toggle='modal' data-target='#modYgPassword'><i class="fa fa-key"></i>&nbsp;修改员工密码</a>
-									</li>
-									<li class="divider"></li>
-									<li>
-										<a href="login.html"><i class="fa fa-power-off"></i>&nbsp;退出登录</a>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<ul style="float: right; padding-left: 15px; ">
-							<li class="dropdown" style="list-style-type:none;">
-								<div id="dropdownMenu1" data-toggle="dropdown"><img src="image/sz.png" /><label>设置</label></div>
-								<ul class="dropdown-menu" role="menu" >
-									<li>
-										<a  href="seek_help.html" target="f"><i class="fa fa-phone-square"></i>&nbsp;求助</a>
-									</li>
-									<!--<li class="divider"></li>
-									<li>
-										<a href=""><i class="fa fa-key"></i>&nbsp;设置2</a>
-									</li>
-									<li class="divider"></li>
-									<li>
-										<a href=""><i class="fa fa-power-off"></i>&nbsp;设置3</a>
-									</li>-->
-								</ul>
-							</li>
-						</ul>
-						<ul style="float: right; padding-left: 15px;">
-							<li class="dropdown" style="list-style-type:none;">
-								<div id="dropdownMenu1" data-toggle="dropdown"><img style="margin-bottom: 5px;" src="image/tj.png" /><label>新增</label></div>
-								<ul class="dropdown-menu" role="menu">
-									<li>
-										<a href="" data-toggle='modal' data-target='#add_share_aunt'><i class="fa fa-female"></i>&nbsp;新增共享保姆</a>
-									</li>
-									<li class="divider"></li>
-									<li>
-										<a href="" data-toggle='modal' data-target='#add_share_clientele'><i class="fa fa-user"></i>&nbsp;新增共享客户</a>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<ul style="float: right; padding-left: 15px;">
-							<li class="dropdown" style="list-style-type:none;">
-								<div id="dropdownMenu1" data-toggle="dropdown" style="width: 90px;"><img style="margin-bottom: 5px;" src="image/admin.png" /><label>管理员</label></div>
-								<ul class="dropdown-menu" role="menu">
-									<li>
-										<a href="adminCheck.html" target="f"><i class="fa fa-check-square-o"></i>&nbsp;用户审核</a>
-									</li>
-									<li>
-										<a href="article.html" target="f"><i class="fa fa-newspaper-o"></i>&nbsp;新闻发布</a>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<ul style="float: right; padding-left: 15px;">
-							<li class="dropdown" style="list-style-type:none;">
-								<div id="dropdownMenu1" data-toggle="dropdown">
-									<i class="fa fa-bell-o"></i><span class="label label-warning">10</span>
+						<ul class="nav-list" id="nav-list">
+							<li>
+								<a href="javascript:;" class="tit">
+									<i class="iconfont icon-remind_fill"></i><span class="nav-text">消息</span><span class="badge" style="background-color: orange;">10</span>
+								</a>
+								<div class="nav-down">
+									<a href="javascript:;">消息1</a>
+									<a href="javascript:;">消息2</a>
+									<a href="javascript:;">消息3</a>
 								</div>
-								<ul class="dropdown-menu" role="menu">
-									<li>
-										<a href="">
-											</i>&nbsp;消息1</a>
-									</li>
-									<li class="divider"></li>
-									<li>
-										<a href="">
-											</i>&nbsp;消息2</a>
-									</li>
-									<li class="divider"></li>
-									<li>
-										<a href="">
-											</i>&nbsp;消息3</a>
-									</li>
-								</ul>
+							</li>
+							<li>
+								<a href="javascript:;" class="tit">
+									<i class="iconfont icon-businesscard_fill"></i><span class="nav-text">管理员</span>
+								</a>
+								<div class="nav-down">
+									<a href="javascript:;">用户审核</a>
+									<a href="javascript:;">新闻发布</a>
+								</div>
+							</li>
+							<li>
+								<a href="javascript:;" class="tit">
+									<i class="iconfont icon-addition_fill"></i><span class="nav-text">新增</span>
+								</a>
+								<div class="nav-down">
+									<a href="javascript:;">新增共享保姆</a>
+									<a href="javascript:;">新增共享客户</a>
+								</div>
+							</li>
+							<li>
+								<a href="javascript:;" class="tit">
+									<i class="iconfont icon-setup_fill"></i><span class="nav-text">设置</span>
+								</a>
+								<div class="nav-down">
+									<a href="javascript:;">求助</a>
+								</div>
+							</li>
+							<li>
+								<a href="javascript:;" class="tit">
+									<i class="iconfont icon-people_fill"></i><span class="nav-text">用户</span>
+								</a>
+								<div class="nav-down">
+									<a href="javascript:;">修改用户信息</a>
+									<a href="javascript:;">修改用户密码</a>
+									<a href="javascript:;">退出登录</a>
+								</div>
 							</li>
 						</ul>
-
 					</div>
 					<!--<span class="timeShow" style="float: right; margin: 25px 14px 0 0;"></span>-->
 				</div>
@@ -664,6 +622,15 @@
 		<script class="resources library" src="js/area.js" type="text/javascript"></script>
 		<script type="text/javascript">
 			_init_area();
+		</script>
+		<script>
+			$(function(){
+				$('#nav-list li').hover(function(){
+					$(this).find('.nav-down').stop().fadeIn(300);
+				},function(){
+					$(this).find('.nav-down').stop().fadeOut(300);
+				});
+			})
 		</script>
 	</body>
 

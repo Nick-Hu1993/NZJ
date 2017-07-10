@@ -14,6 +14,7 @@ import org.hibernate.jdbc.Work;
 import org.model.OrderAccount;
 import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
+import org.view.VOrderAccount;
 
 @Service
 public class OrderAccountDaoImp implements OrderAccountDao{
@@ -120,6 +121,56 @@ public class OrderAccountDaoImp implements OrderAccountDao{
 			// TODO: handle exception
 			e.printStackTrace();
 			return new OrderAccount();
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public List<VOrderAccount> getOrderAndAccountByUserId(Integer start,
+			Integer limit, long userid) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("FROM VOrderAccount va WHERE va.id.userId = ?");
+			query.setParameter(0, userid);
+			if (start == null) {
+				start = 0;
+			}
+			query.setFirstResult(start);
+			if (limit == null) {
+				limit = 15;
+			}
+			query.setMaxResults(limit);
+			List<VOrderAccount> li = query.list();
+			ts.commit();
+			return li;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public long getCountByUserId(long userid) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("SELECT COUNT(*) FROM VOrderAccount va WHERE va.id.userId = ?");
+			query.setParameter(0, userid);
+			query.setMaxResults(1);
+			long count = (Long)query.uniqueResult();
+			ts.commit();
+			return count;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return -1;
 		} finally {
 			HibernateSessionFactory.closeSession();
 		}

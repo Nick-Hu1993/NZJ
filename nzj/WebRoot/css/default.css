@@ -30,8 +30,8 @@ body {
 	-webkit-overflow-scrolling: touch;
 	-webkit-overflow-scrolling: -blackberry-touch;
 	/*border-right: 10px solid #ccc;*/
-	overflow-y: auto;
-	overflow-x: hidden;
+	/*overflow-y: auto;
+	overflow-x: hidden;*/
 	height: 100%;
 	z-index: 1000;
 }
@@ -255,7 +255,7 @@ body {
 	font-size: 14px;
 }
 
-.topMenu div {
+/*.topMenu div {
 	text-align: center;
 	height: 40px;
 	width: 70px;
@@ -271,7 +271,7 @@ body {
 	background: #FFFFFF;
 	color: #5B91DB;
 	outline: none;
-}
+}*/
 
 .mianBox{
 	width: 100%; 

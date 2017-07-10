@@ -198,6 +198,7 @@
 	background: #FFFFFF;
 	padding: 0px 0px 50px 0px;
 	border: 1px #CECECE solid;
+	overflow: hidden;
 	/*min-width: 980px;
 	min-height: 320px;*/
 }
@@ -344,23 +345,19 @@ tr:hover {
 	/*font-weight:bold;*/
 }
 
-.newsUl li {
+/*.newsUl li {
 	border-bottom: 1px #e0e0e0 dashed;
 	color: #337ab7;
-}
+}*/
 
-.newsUl li:hover {
-	background: #F1F2F7;
-	color: #7e57c2;
-	/*font-weight:bold;*/
-}
+
 
 .centreTitle {
 	width: 100%;
 	height: 40px;
+	line-height: 40px;;
 	font-size: 20px;
 	text-align: center;
-	padding: 3px 30px 0 30px;
 	background: #F5F5F5;
 	border-bottom: 1px #e0e0e0 solid;
 	font-weight: bold
@@ -622,3 +619,61 @@ display:inline-block;
 	color: #808080;
 	cursor:pointer
 }
+
+
+/*共享*/
+.nanny-head,.nav-tabs{background: #f5f5f5;}
+.nanny-head{width: 100%; height: 80px;}
+.head-img{float: left; margin:10px 0 0 10px; width: 60px; height: 60px;}
+.head-con{float: left;}
+.head-con h3.head-tit{ padding: 15px 0 0 10px; font-size: 18px; margin-top: 0; margin-bottom: 10px;}
+.head-con .city{margin-left: 22px; font-size: 14px; }
+.city .city-txt{font-weight: bold;}
+.head-more{float: right; margin-right: 10px; line-height: 40px;}
+.head-more a{margin: 0 5px; color: #666;}
+.head-more a:hover{text-decoration: none; color: #59a8ff;}
+.city select{width: 80px; height: 25px; color: #888; line-height: 25px; font-size: 14px; margin: 0 3px;}
+
+.nav-tabs li a{color: #333; padding-left: 24px; }
+.nav-tabs a.icon-guzhu{background: url(../image/icon/guzhu.png)3px 10px no-repeat;}
+.nav-tabs a.icon-aunt{background: url(../image/icon/aunt.png)3px 10px no-repeat;}
+.nav-tabs a.icon-stu{background: url(../image/icon/stu.png)3px 10px no-repeat;}
+
+.tab-content{width: 100%; height: 100%; }
+.tab-pane{padding: 20px 100px 30px 10px; height: 100%; text-align: center; overflow-y:scroll}
+.pane-item{width: 100%; margin: 20px;}
+.item-left{float: left; height: 100px; width: 8%;}
+.item-left img{width: 50px; height: 50px; border-radius: 50%;}
+.item-right{float: left; text-align: left; width: 92%;}
+.item-right .user-name{font-size: 14px; font-weight: bold;}
+.user-name .contact{font-weight: normal; font-size: 12px;}
+.user-name .contact .tel{color: #f56954;}
+.item-right .user-name .time{font-weight: normal; font-size: 12px; color: #888; margin-left: 100px;}
+.item-right .rele-con{width: 100%; background-color: #8cd4b3; color: #fff; border-radius: 10px; padding: 10px; line-height: 24px; font-size: 14px; position: relative;}
+.rele-con .box-ico{display: block; width: 10px; height: 10px; background: url(../image/icon/box-ico.png) no-repeat; position: absolute;left: -9px; top: 3px;}
+
+
+/*新闻*/
+.news-con,.notice-con{padding: 10px 30px; height: 100%; overflow: hidden;}
+.news-con a:hover,.news-top .news-info h3 a:hover{text-decoration: none; color: #59a8ff;}
+.news-top{ border-bottom: 1px dashed #ddd; height: 36%;}
+.news-top .news-img{float: left; width: 28%; }
+.news-top .news-info{float: right; width: 72%;}
+.news-top .news-info h3.news-tit{width: 90%; padding: 5px 0; margin: 0;}
+.news-top .news-info h3 a{ font-size: 16px; color: #333; font-weight: bold;}
+.news-con .news-time{float: right; margin-right: 50px; font-size: 12px; color: #909090;}
+.news-top .news-info p.news-intro{width: 90%; text-indent: 22px; font-size: 12px; color: #666; line-height: 20px; height: 56px; overflow: hidden; text-overflow: ellipsis;}
+
+.newsUl{padding: 8px 0; height: 50%; overflow: hidden;}
+.newsUl li{background: url(../image/icon/n_icon.png) 0 8px no-repeat; height: 28px;  overflow: hidden; line-height: 28px; padding-left: 20px;}
+.newsUl li a{color: #333; font-size: 14px; display: inline-block; width: 60%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+
+
+/*制度*/
+.notice-con{padding: 10px; overflow-y: scroll;}
+.notice-con table{border-collapse: collapse; width: 100%; table-layout: fixed;}
+.notice-con table td,.notice-con table th{border:1px solid #eae9e9; height: 50px; padding: 0 10px; width: 33%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+.notice-con table th{height: 40px; line-height: 40px; text-align: center; background-color: #f5f6fa;}
+.notice-con table td.col-L{ background: url(../image/icon/file.png)45px 8px no-repeat;}
+.notice-con table td a.down{display: inline-block; width: 65px; line-height: 30px; padding-left: 18px; background: #59a8ff url(../image/icon/icon_download.png)10px 5px no-repeat; font-size: 12px; color: #fff; border-radius: 8px;}
+.notice-con table td a.down:hover{text-decoration: none; background-color: #1e88e5;}

@@ -212,7 +212,7 @@ body{
 }
 
 .query_pro {
-	width: 140px;
+	width: 65px;
 	text-align: center;
 	word-break: break-all;
 	overflow: hidden;
@@ -239,7 +239,7 @@ body{
 }
 
 .dis_dta {
-	width: 65px;
+	width: 140px;
 	text-align: center;
 	word-break: break-all;
 	overflow: hidden;

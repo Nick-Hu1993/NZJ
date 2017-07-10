@@ -3,6 +3,30 @@ var total = null;
 var pageSize = 20;
 var pageNo = 1;
 var indexState = 2;
+
+
+
+function p(s) {
+    return s < 10 ? '0' + s: s;
+}
+
+var myDate = new Date();
+//获取当前年
+var year=myDate.getFullYear();
+//获取当前月
+var month=myDate.getMonth()+1;
+//获取当前日
+var date=myDate.getDate(); 
+var h=myDate.getHours();       //获取当前小时数(0-23)
+var m=myDate.getMinutes();     //获取当前分钟数(0-59)
+var s=myDate.getSeconds();  
+
+var now=year+'-'+p(month)+"-"+p(date)+" "+p(h)+':'+p(m)+":"+p(s);
+
+
+
+
+
 //加载默认列表（全部雇主）
 $(function() {
 	builderUQTQueryMsg(getJsonArrayByPageSize(pageSize, pageNo));
@@ -129,6 +153,169 @@ function deleteEmployer(v) {
 		}
 	});
 };
+
+
+//获取追踪标签
+function Noteloyer(nId){
+		$.ajax({
+		type:"post",
+		datatype: 'json',
+		url: "getEmployerTrackingByemployerId",
+		data:{
+			'employerId': nId,
+			'start': 0,
+			'limit': 4
+		},
+		success:function(data){
+			if(data.code == 1) {
+				var note_list = '';
+				for (i = 0; i < data.data.result.length; i++) {
+					note_list += "<li>"
+					note_list +="<span class='delete-note' onclick='Deletenote("+data.data.result[i].id+")'>×</span>"
+					note_list +="<p class='note-time'>发布时间：<span class='n-time'>"+data.data.result[i].etime+"</span></p>"
+					note_list +="<div class='note-con'><i class='ico-san'></i><span class='note-txt'>"+data.data.result[i].econtent+"</span></div>"
+					note_list +="</li>"
+				}
+				$('.note-list').html(note_list);
+				
+			} else {
+				alert(data.msg);
+			}
+		},
+		error: function(jqXHR) {
+			alert("网络异常");
+		}
+		
+	});	
+
+
+//添加标签
+$('#note-btn').click(function(){
+		if($('#note-text').val() == ''){
+			alert("标签信息内容不能为空");
+		}else{
+			$.ajax({
+				type: "post",
+				url: "addEmployerTracking",
+				data: {
+					etime:now,
+					econtent:$('#note-text').val(),
+					employerId:nId
+				},
+				success: function(data) {
+					if(data.code == -999) {
+						if(confirm("用户登录已失效，是否重新登录？")) {
+							window.location.href = "login.html";
+						}
+					} else if(data.code == 1) {
+						alert("添加成功");
+						$('#note-text').val("");
+					} else {
+						alert(data.msg);
+					}
+				},
+				error: function(data) {
+					alert("error");
+				}
+			});
+		}
+		if ($('#note-text').val() == '') {
+			return false;
+		}else{
+			var note_list = '';
+			note_list += "<li>"
+			note_list +="<span class='delete-note' >×</span>"
+			note_list +="<p class='note-time'>发布时间：<span class='n-time'>"+now+"</span></p>"
+			note_list +="<div class='note-con'><i class='ico-san'></i><span class='note-txt'>"+$('#note-text').val()+"</span></div>"
+			note_list +="</li>"
+			$('.note-list').prepend(note_list);
+		}
+		
+	});
+	
+}
+
+
+//删除标签
+
+function Deletenote(id){
+	$.ajax({
+		type: "post",
+		url:  "deleteEmployerTracking",
+		data: {
+			id: id
+		},
+		success: function(data) {
+			if(data.code == 1) {
+				alert("删除成功");
+			} else {
+				alert(data.msg);
+			}
+		},
+		error: function(data) {
+			alert("error");
+		}
+	});
+	
+}
+
+
+//查看合同
+
+function Lookpact(p){
+	$('.u-name').html(p.name);
+	$.ajax({
+		type:"post",
+		datatype: 'json',
+		async : false,
+		url: "http://192.168.1.134:8080/nzj/getPactListByEmployerId",
+		data:{
+			'employerId': p.id,
+			'start': 0,
+			'limit': 8
+		},
+		success:function(data){
+			if(data.code == 1) {
+				var list = '';
+				for (i = 0; i < data.data.PactList.length; i++) {
+					list += "<div class='pact-list'><div class='info-t'><span class='info-tit'>合同编号"+data.data.PactList[i].code+"</span><a href='javascript:;' class='btnj'>展开</a></div>"
+					list +="<div class='pact-info'><div class='info-one'><ul class='clearfix'><li>雇主姓名：<span class='normal'>"+data.data.PactList[i].ename+"</span></li>"
+					list +="<li>签约时间：<span class='normal'>"+data.data.PactList[i].ptime+"</span></li>"
+					list +="<li>雇主电话：<span class='normal'>"+data.data.PactList[i].ephone+"</span></li>"
+					list +="<li>雇主需求：<span class='normal'>"+data.data.PactList[i].econtent+"</span></li>"
+					list +="<li>签约时长：<span class='normal'>"+data.data.PactList[i].duration+"</span></li>"
+					list +="<li>服务费：<span class='normal'>"+data.data.PactList[i].cost+"</span></li>"
+					list +="<li>上班时间：<span class='normal'>"+data.data.PactList[i].time+"</span></li>"
+					list +="<li>雇主地址：<span class='normal'>"+data.data.PactList[i].econtent+"</span></li>"
+					list +="<li>雇主需求：<span class='normal'>"+data.data.PactList[i].eaddress+"</span></li>"
+					list +="</ul></div>"
+					list +="<div class='info-two'><ul class='clearfix'>"
+					list +="<li>服务人员姓名：<span class='normal'>"+data.data.PactList[i].aname+"</span></li>"
+					list +="<li>服务人员电话：<span class='normal'>"+data.data.PactList[i].aphone+"</span></li>"
+					list +="<li>薪资标准：<span class='normal'>"+data.data.PactList[i].salary+"</span></li>"
+					list +="</ul></div>"
+					list +="<div class='info-three'><span class='remark'>备注：</span>"
+					list +="<p class='remark-info'>"+data.data.PactList[i].remark+"</p></div>"
+					list +="</div></div>"
+					
+				}
+				$('.model-main').html(list);
+				
+			} else {
+				alert(data.msg);
+			}
+		},
+		error: function(jqXHR) {
+			alert("网络异常");
+		}
+		
+	});	
+}
+
+
+
+
+
 
 //切换雇主列表状态
 function EmployerListByStatus(v) {
@@ -374,6 +561,7 @@ function refreshData(pageSize, pageNo) {
  * 构建表格数据
  */
 var builderUQTQueryMsg = function(UQTQueryMsg) {
+
 	var UQT_detailTable = $('#UQT_detailTable');
 	UQT_detailTable.empty();
 	var th = '<tr><th scope="col" class="eng_name" >姓名</th><th class="match_type" scope="col">需求</th><th scope="col" class="query_pro" >联系电话</th><th scope="col" class="dis_order" >地址</th><th scope="col"  class="query_pro">时间</th><th scope="col"  class="dis_dta">操作</th><th class="dis_hidden" style="display: none">隐藏属性</th></tr>';
@@ -388,6 +576,16 @@ var builderUQTQueryMsg = function(UQTQueryMsg) {
 		var phone = eachData.phone;
 		var address = eachData.address;
 		var time = eachData.time;
+		
+		if(eachData.status !==1){
+			$('.lookpact').hide();
+		}
+		if(eachData.status !==0 && eachData.status !==1){
+			$('.addPact').hide();
+		}
+		
+		
+		
 		tr.append("<td class='eng_name' title=" + name + ">" + name + "</td>" +
 			"<td class='match_type' title=" + content + ">" + content + "</td>" +
 			"<td class='query_pro' title=" + phone + ">" + phone + "</td>" +
@@ -395,12 +593,19 @@ var builderUQTQueryMsg = function(UQTQueryMsg) {
 			"<td class='query_pro' title=" + changeTime(time) + ">" + changeTime(time) + "</td>" +
 			"<td class='dis_dta'>" +
 //			"<a class='editOp' href=''  data-toggle='modal' data-target='#modemployer' onclick='modEmployer(" + JSON.stringify(eachData) + ")'>雇主追踪</a>" +
+			"<a class='editOp addNote' href=''  data-toggle='modal' data-target='#noteloyer' onclick='Noteloyer(" + id + ")' >标签</a>" +
 			"<a class='editOp' href=''  data-toggle='modal' data-target='#modemployer' onclick='modEmployer(" + JSON.stringify(eachData) + ")'>修改</a>" +
+			"<a class='editOp addPact' href=''  data-toggle='modal' data-target='#addpactloyer' >添加合同</a>" +
+			"<a class='editOp lookpact' href=''  data-toggle='modal' onclick='Lookpact(" + JSON.stringify(eachData) + ")'>查看合同</a>" +
 			"<a class='editOp' href='javascript:void(0);' onclick='deleteEmployer(" + id + ")'>删除</a>" +
 			"</td>" +
 			"<td class='dis_hidden' style='display: none'></td>"
+			
 		);
+				
+			 
 		UQT_detailTable.append(tr);
+	
 	});
 }
 
