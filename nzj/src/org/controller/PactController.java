@@ -78,4 +78,10 @@ public class PactController {
 	public Object getPactTrackingList(Long packId)throws Exception{
 		return pService.getPactTrackingList(packId);
 	}
+	
+	@RequestMapping("/getPactById")
+	@ResponseBody
+	public Object getPactById(long id) {
+		return pService.getPactById(id);
+	}
 }

@@ -1,6 +1,9 @@
 package org.service;
 
+import java.util.List;
+
 import org.model.JoinAccount;
+import org.view.VJoinorderAccount;
 
 public interface JoinAccountService {
 	/**
@@ -29,5 +32,14 @@ public interface JoinAccountService {
 	 * @return
 	 */
 	public Object getJoinAccountByJoinId (long joinid);
+	/**
+	 * 5.通过用户id获取所有该用户所有已完成的加盟返点账单
+	 * ps：只有已完成的订单才是百分百都已经生成了账单的
+	 * @param start
+	 * @param limit
+	 * @param userid
+	 * @return
+	 */
+	public Object getJoinOrderAndAccountByUserId (Integer start, Integer limit, long userid);
 
 }

@@ -64,10 +64,10 @@ public interface HelpDao {
 	 */
 	public long getCountByStatus (Long userId, Integer status);
 	/**
-	 * 4.5查询帮助信息的总数量
+	 * 4.5根据求助单的状态查询帮助信息的总数量
 	 * @return
 	 */
-	public long getCount ();
+	public long getAllCountByStatus (Integer status);
 	/**
 	 * 4.6使用唯一标识符快速查找工单
 	 * @param identifier

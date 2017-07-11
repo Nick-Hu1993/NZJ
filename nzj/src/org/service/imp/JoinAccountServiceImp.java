@@ -69,4 +69,13 @@ public class JoinAccountServiceImp implements JoinAccountService {
 		}
 	}
 
+	@Override
+	public Object getJoinOrderAndAccountByUserId(Integer start, Integer limit,
+			long userid) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("JoingOrderAccountList", jaDao.getJoinOrderAndAccountByUserId(start, limit, userid));
+		map.put("count", jaDao.getCountByUserId(userid));
+		return JsonObject.getResult(1, "订单/账单列表", map);
+	}
+
 }

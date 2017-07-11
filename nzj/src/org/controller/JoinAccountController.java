@@ -36,4 +36,11 @@ public class JoinAccountController {
 	public Object getJoinAccountByJoinId (long joinid) {
 		return jaService.getJoinAccountByJoinId(joinid);
 	}
+	
+	@RequestMapping("/getJoinOrderAndAccountByUserId")
+	@ResponseBody
+	public Object getJoinOrderAndAccountByUserId(Integer start, Integer limit,
+			long userid) {
+		return jaService.getJoinOrderAndAccountByUserId(start, limit, userid);
+	}
 }

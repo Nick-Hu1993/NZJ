@@ -25,51 +25,48 @@
 	</property>
 
 	<property name="myeclipse.connection.profile">nzj</property>
+	
 	<mapping resource="org/model/Aunt.hbm.xml" />
-
 	<mapping resource="org/model/Appliance.hbm.xml" />
 	<mapping resource="org/model/Cooking.hbm.xml" />
 	<mapping resource="org/model/Job.hbm.xml" />
 	<mapping resource="org/model/Language.hbm.xml" />
 	<mapping resource="org/model/Skill.hbm.xml" />
 	<mapping resource="org/model/Certificate.hbm.xml" />
-
 	<mapping resource="org/model/AuntContact.hbm.xml" />
 	<mapping resource="org/model/AuntPhoto.hbm.xml" />
 	<mapping resource="org/model/AuntWork.hbm.xml" />
-
 	<mapping resource="org/model/User.hbm.xml" />
 	<mapping resource="org/model/UserDetail.hbm.xml" />
 	<mapping resource="org/model/UserLink.hbm.xml" />
 	<mapping resource="org/model/UserCheck.hbm.xml" />
-
 	<mapping resource="org/model/Employer.hbm.xml" />
-
 	<mapping resource="org/model/Pact.hbm.xml" />
 	<mapping resource="org/model/PactTracking.hbm.xml" />
-
 	<mapping resource="org/model/ShareAunt.hbm.xml" />
 	<mapping resource="org/model/ShareEmployer.hbm.xml" />
-
 	<mapping resource="org/model/Board.hbm.xml" />
-
 	<mapping resource="org/model/Article.hbm.xml" />
-
 	<mapping resource="org/model/OrderAccount.hbm.xml" />
 	<mapping resource="org/model/OrderCheck.hbm.xml" />
 	<mapping resource="org/model/Orders.hbm.xml" />
 	<mapping resource="org/model/OrderTrainee.hbm.xml" />
 	<mapping resource="org/model/Trainee.hbm.xml" />
-
 	<mapping resource="org/model/Log.hbm.xml" />
-
 	<mapping resource="org/model/Staff.hbm.xml" />
-
 	<mapping resource="org/model/Module.hbm.xml" /><!-- 测试用，待删 -->
-
+	<mapping resource="org/model/SupportType.hbm.xml" />
+	<mapping resource="org/model/Help.hbm.xml" />
+	<mapping resource="org/model/JoinOrders.hbm.xml" />
+	<mapping resource="org/model/EmployerTracking.hbm.xml" />
+	<mapping resource="org/model/JoinAccount.hbm.xml" />
+	<mapping resource="org/model/Amount.hbm.xml" />
+	<mapping resource="org/model/AmountRecord.hbm.xml" />
+	<mapping resource="org/model/Price.hbm.xml"/>
+	<mapping resource="org/model/SupportTracking.hbm.xml" />
+	
 	<mapping resource="org/view/VAunt.hbm.xml" />
 	<mapping resource="org/view/VUser.hbm.xml" />
-
 	<mapping resource="org/view/VAppliance.hbm.xml" />
 	<mapping resource="org/view/VCertificate.hbm.xml" />
 	<mapping resource="org/view/VCooking.hbm.xml" />
@@ -78,20 +75,12 @@
 	<mapping resource="org/view/VSkill.hbm.xml" />
 	<mapping resource="org/view/VOrder.hbm.xml" />
 	<mapping resource="org/view/VLog.hbm.xml" />
-	<mapping resource="org/model/SupportTracking.hbm.xml" />
-	<mapping resource="org/model/SupportType.hbm.xml" />
 	<mapping resource="org/view/VSupport.hbm.xml" />
-	<mapping resource="org/model/EmployerTracking.hbm.xml" />
-	<mapping resource="org/model/Help.hbm.xml" />
-	<mapping resource="org/model/JoinOrders.hbm.xml" />
 	<mapping resource="org/view/VJoinUserdetail.hbm.xml" />
 	<mapping resource="org/view/VOrderTraineedetail.hbm.xml" />
-	<mapping resource="org/model/JoinAccount.hbm.xml" />
-	<mapping resource="org/model/Amount.hbm.xml" />
-	<mapping resource="org/model/AmountRecord.hbm.xml" />
 	<mapping resource="org/view/VUserUserdetailAmount.hbm.xml" />
-	<mapping resource="org/model/Price.hbm.xml"/>
 	<mapping resource="org/view/VOrderAccount.hbm.xml"/>
+	<mapping resource="org/view/VJoinorderAccount.hbm.xml"/>
 	
 </session-factory>
 </hibernate-configuration>

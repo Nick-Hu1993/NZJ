@@ -79,4 +79,10 @@ public interface PactService {
 	 * @return
 	 */
 	public Object getPactListByEmployerId (Integer start, Integer limit, Long employerId);
+	/**
+	 * 11.以合同id号获取合同详情
+	 * @param id
+	 * @return
+	 */
+	public Object getPactById (long id);
 }

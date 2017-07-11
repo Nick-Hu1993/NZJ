@@ -62,4 +62,5 @@ public interface UserDetailDao {
 	 * @return
 	 */
 	public long getCountBySupport (Integer support);
+	
 }

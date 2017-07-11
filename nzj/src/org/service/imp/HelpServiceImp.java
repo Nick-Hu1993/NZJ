@@ -97,7 +97,7 @@ public class HelpServiceImp implements HelpService {
 		if (status == 0 || status == 1 || status == -1) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			List<Help> li = hDao.getHelpListByStatus1(start, limit, status);
-			long count = hDao.getCount();
+			long count = hDao.getAllCountByStatus(status);
 			map.put("result", li);
 			map.put("count", count);
 			return JsonObject.getResult(1, "获取求助列表", map);

@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.dao.JoinAccountDao;
 import org.hibernate.Hibernate;
@@ -15,6 +16,9 @@ import org.hibernate.jdbc.Work;
 import org.model.JoinAccount;
 import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
+import org.view.VJoinorderAccount;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class JoinAccountDaoImp implements JoinAccountDao{
@@ -133,6 +137,56 @@ public class JoinAccountDaoImp implements JoinAccountDao{
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new JoinAccount();
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public List<VJoinorderAccount> getJoinOrderAndAccountByUserId(
+			Integer start, Integer limit, long userid) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("FROM VJoinorderAccount va WHERE va.id.userId = ?");
+			query.setParameter(0, userid);
+			if (start == null) {
+				start = 0;
+			}
+			query.setFirstResult(start);
+			if (limit == null) {
+				limit = 15;
+			}
+			query.setMaxResults(limit);
+			List<VJoinorderAccount> li = query.list();
+			ts.commit();
+			return li;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public long getCountByUserId(long userid) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("SELECT COUNT(*) FROM VJoinorderAccount va WHERE va.id.userId = ?");
+			query.setParameter(0, userid);
+			query.setMaxResults(1);
+			long count = (Long)query.uniqueResult();
+			ts.commit();
+			return count;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return -1;
 		} finally {
 			HibernateSessionFactory.closeSession();
 		}

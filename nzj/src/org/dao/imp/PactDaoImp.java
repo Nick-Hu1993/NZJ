@@ -359,4 +359,25 @@ public class PactDaoImp implements PactDao {
 			HibernateSessionFactory.closeSession();
 		}
 	}
+
+	@Override
+	public Pact getPactById(long id) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("FROM Pact p WHERE id = ?");
+			query.setParameter(0, id);
+			query.setMaxResults(1);
+			Pact p = (Pact)query.uniqueResult();
+			ts.commit();
+			return p;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
 }

@@ -145,4 +145,15 @@ public class PactServiceImp implements PactService {
 			map.put("count", pDao.getCountByEmployerId(employerId));
 			return JsonObject.getResult(1, "合同列表", map);
 	}
+
+	@Override
+	public Object getPactById(long id) {
+		if (pDao.getPactById(id) != null) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("Pact", pDao.getPactById(id));
+			return JsonObject.getResult(1, "合同详情", map);
+		} else {
+			return JsonObject.getResult(0, "合同详情获取失败", false);
+		}
+	}
 }

@@ -170,4 +170,10 @@ public interface UserService {
 	 * @return
 	 */
 	public Object getUserDetailListBySupport (Integer start, Integer limit, Integer support);
+	/**
+	 * 20.根据用户id获取用户详细信息
+	 * @param userId
+	 * @return
+	 */
+	public Object getUserDetailById(Long userId);
 }

@@ -174,13 +174,14 @@ public class HelpDaoImp  implements HelpDao {
 	}
 	
 	@Override
-	public long getCount () {
+	public long getAllCountByStatus (Integer status) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
 			Query query = session
-					.createQuery("SELECT COUNT(*) FROM Help h");
+					.createQuery("SELECT COUNT(*) FROM Help h WHERE h.status = ?");
+			query.setParameter(0, status);
 			query.setMaxResults(1);
 			long pageCount = (long) query.uniqueResult();
 			return pageCount;

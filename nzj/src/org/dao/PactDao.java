@@ -135,4 +135,10 @@ public interface PactDao {
 	 * @return
 	 */
 	public long getCountByPactId (long packId);
+	/**
+	 * 4.10以合同id号获取合同的详细信息
+	 * @param id
+	 * @return
+	 */
+	public Pact getPactById (long id);
 }

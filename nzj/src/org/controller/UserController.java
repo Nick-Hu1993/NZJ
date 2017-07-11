@@ -147,6 +147,12 @@ public class UserController {
 		return uService.updateUserCheck(userId, 0, description);
 	}
 	
+	@RequestMapping("/getUserDetailById")
+	@ResponseBody
+	public Object getUserDetailById(Long userid) {
+		return uService.getUserDetailById(userid);
+	}
+	
 	// -----------------------------------加盟（join）-----------------------------------------
 	
 	@RequestMapping("/getChildByParent")			

@@ -448,4 +448,15 @@ public class UserServiceImp implements UserService {
 		map.put("count", udDao.getCountBySupport(support));
 		return JsonObject.getResult(1, "用户列表", map);
 	}
+
+	@Override
+	public Object getUserDetailById(Long userId) {
+		if (udDao.getUserDetailById(userId) != null) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("UserDetail", udDao.getUserDetailById(userId));
+			return JsonObject.getResult(1, "用户详情", map);
+		} else {
+			return JsonObject.getResult(0, "用户详情获取失败", false);
+		}
+	}
 }
