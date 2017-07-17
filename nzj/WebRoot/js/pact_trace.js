@@ -1,3 +1,22 @@
+//获取当前时间
+function p(s) {
+    return s < 10 ? '0' + s: s;
+}
+
+var myDate = new Date();
+//获取当前年
+var year=myDate.getFullYear();
+//获取当前月
+var month=myDate.getMonth()+1;
+//获取当前日
+var date=myDate.getDate(); 
+/*var h=myDate.getHours();       //获取当前小时数(0-23)
+var m=myDate.getMinutes();     //获取当前分钟数(0-59)
+var s=myDate.getSeconds(); */ 
+
+var now=year+'-'+p(month)+"-"+p(date);
+
+
 //合同
 var json = null;
 var total = null;
@@ -142,6 +161,169 @@ function updateJointrace(eachData){
 			});
 	});
 };
+
+//查看合同详细信息
+function lookjoinTrace(id){
+	
+	$.ajax({
+		type:"post",
+		datatype: 'json',
+		url:"getPactById",
+		async:false,
+		data:{
+			'id':id
+		},
+		success:function(data){
+			
+			if(data.code == 1){
+				var tr = '';
+				tr +="<thead><tr><th colspan='2'><h4><span class='u-name'>"+data.data.Pact.ename+"</span>的合同详细信息</h4></th><th colspan='2' style='text-align: right;'>合同编号"+data.data.Pact.code+"</th></tr></thead>"
+				tr +="<tbody>"
+				tr +="<tr><td class='tit'>雇主姓名</td><td>"+data.data.Pact.ename+"</td><td class='tit'>签约时间</td><td>"+changeTime(data.data.Pact.ptime)+"</td></tr>"
+				tr +="<tr><td class='tit'>雇主电话</td><td>"+data.data.Pact.ephone+"</td><td class='tit'>雇主需求</td><td>"+data.data.Pact.econtent+"</td></tr>"
+				tr +="<tr><td class='tit'>签约时长</td><td>"+data.data.Pact.duration+"</td><td class='tit'>服务费</td><td>"+data.data.Pact.cost+"</td></tr>"
+				tr +="<tr><td class='tit'>上班时间</td><td>"+data.data.Pact.time+"</td><td class='tit'>服务人员姓名</td><td>"+data.data.Pact.aname+"</td></tr>"
+				tr +="<tr><td class='tit'>服务人员电话</td><td>"+data.data.Pact.aphone+"</td><td class='tit'>薪资标准</td><td>"+data.data.Pact.salary+"</td></tr>"
+				tr +="<tr><td class='tit'>雇主地址</td><td colspan='3'>"+data.data.Pact.eaddress+"</td></tr>"
+				tr +="<tr><td class='tit'>备注</td><td colspan='3'>"+data.data.Pact.remark+"</td></tr>"
+				tr +="</tbody>"
+				$('.pact-info-list').html(tr);
+			}else{
+				alert(data.msg)
+			}
+		},
+		error:function(data){
+			alert("error");
+		}
+	});
+	
+}
+
+//获取合同追踪标签
+
+$(document).on('click','.pact-note',function(){
+	var id = $(this).data('pactid');
+	$.ajax({
+		type:"post",
+		datatype:'json',
+		url:"getPactTrackingList",
+		async:false,
+		data:{
+			'packId':id
+		},
+		success:function(data){
+			if(data.code == 1) {
+				var li = '';
+				for (i = 0; i < data.data.PactTrackingList.length; i++) {
+					li += "<li>"
+					li +="<span class='delete-note' onclick='Deletepactnote("+data.data.PactTrackingList[i].id+")' alt='删除标签' title='删除标签'>×</span>"
+					li +="<p class='note-time'>发布时间：<span class='n-time'>"+changeTime(data.data.PactTrackingList[i].ttime)+"</span></p>"
+					li +="<div class='note-con'><i class='ico-san'></i><span class='note-txt'>"+data.data.PactTrackingList[i].content+"<i class='edit-note'  title='修改标签'onclick='Editpactnote("+JSON.stringify(data.data.PactTrackingList[i])+")'></i></span></div>"
+					li +="</li>"
+				}
+				$('#pact-note-list').html(li);
+				
+			} else {
+				alert(data.msg);
+			}					
+		},
+		error:function(data){
+			alert('error');
+		}
+	});
+	
+//添加合同追踪标签
+
+	$('#note-btn').one('click',function(){
+		if($('#note-text').val() == ''){
+			alert("合同追踪信息不能为空！")
+			return false;
+		}else{
+			$.ajax({
+				type:"post",
+				datatype:'json',
+				url:"addPactTracking",
+				data:{
+					'pactId':id,
+					'content':$('#note-text').val(),
+					'ttime':now
+				},
+				success:function(data){
+					if(data.code == 1){
+						alert("添加合同服务跟踪状态成功");
+						var li = '';
+						li += "<li>"
+						li +="<span class='delete-note' >×</span>"
+						li +="<p class='note-time'>发布时间：<span class='n-time'>"+now+"</span></p>"
+						li +="<div class='note-con'><i class='ico-san'></i><span class='note-txt'><span class='notetxt'>"+$('#note-text').val()+"</span><i class='edit-note'></i></span></div>"
+						li +="</li>"
+						$('#pact-note-list').append(li);
+						$('#note-text').val("");
+					}else{
+						alert(data.msg);
+					}
+				},
+				error:function(data){
+					alert("error")
+				}
+			});
+		}
+	});
+	return false;
+});
+
+//修改标签
+
+function Editpactnote(v){
+	$(document).on('blur','.edit-input',function(){
+		$.ajax({
+			type:"post",
+			datatype: 'json',
+			url:"updatePactTracking",
+			data:{
+				'id':v.id,
+				'ptTime':now,
+				'content':$(this).val(),
+				'pactId':v.pactId
+			},
+			success:function(data){
+				if(data.code == 1){
+					alert("修改合同服务跟踪成功");
+				}else{
+					alert("修改合同服务跟踪失败");
+				}
+			},
+			error:function(data){
+				alert("error");
+			}
+		});
+	});
+}
+
+
+
+//删除标签
+
+function Deletepactnote(id){
+	$.ajax({
+		type: "post",
+		url:  "deletePactTracking",
+		data: {
+			id: id
+		},
+		success: function(data) {
+			if(data.code == 1) {
+				alert("添加删除合同服务跟踪成功");
+			} else {
+				alert(data.msg);
+			}
+		},
+		error: function(data) {
+			alert("error");
+		}
+	});
+	
+}
 
 
 //切换合同列表状态
@@ -364,6 +546,8 @@ var builderUQTQueryMsg = function(UQTQueryMsg) {
 			+"<td class='match_type'>" + listAphone + "</td>" 
 			+"<td class='eng_name'>" + changeTime(listTime) + "</td>" 
 			+"<td class='dis_dta'>" 
+			+"<a class='editOp pact-note' href=''  data-toggle='modal' data-target='#noteloyer' data-pactid='"+listId+"' >标签</a>"
+			+"<a class='editOp lookpact1' href=''  data-toggle='modal' onclick='lookjoinTrace("+listId+")' >查看合同</a>"
 			+"<a class='editOp' href='' data-toggle='modal' data-target='#modjoinTrace' onclick='updateJointrace("+JSON.stringify(eachData)+")'>修改</a>" 
 			+"<a class='editOp' href='javascript:void(0);' onclick='deleteJointrace(" + listId + ")'>删除</a>" 
 			+"</td>" 
@@ -371,6 +555,7 @@ var builderUQTQueryMsg = function(UQTQueryMsg) {
 			
 			+"</td>"
 		);
+
 		UQT_detailTable.append(tr);
 	});
 }

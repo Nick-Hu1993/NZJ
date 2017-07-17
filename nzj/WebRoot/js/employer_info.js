@@ -6,6 +6,7 @@ var indexState = 2;
 
 
 
+//获取当前时间
 function p(s) {
     return s < 10 ? '0' + s: s;
 }
@@ -17,11 +18,11 @@ var year=myDate.getFullYear();
 var month=myDate.getMonth()+1;
 //获取当前日
 var date=myDate.getDate(); 
-var h=myDate.getHours();       //获取当前小时数(0-23)
+/*var h=myDate.getHours();       //获取当前小时数(0-23)
 var m=myDate.getMinutes();     //获取当前分钟数(0-59)
-var s=myDate.getSeconds();  
+var s=myDate.getSeconds(); */ 
 
-var now=year+'-'+p(month)+"-"+p(date)+" "+p(h)+':'+p(m)+":"+p(s);
+var now=year+'-'+p(month)+"-"+p(date);
 
 
 
@@ -156,7 +157,8 @@ function deleteEmployer(v) {
 
 
 //获取追踪标签
-function Noteloyer(nId){
+$(document).on('click','.addNote',function(){
+	var nId = $(this).data('noteid');
 		$.ajax({
 		type:"post",
 		datatype: 'json',
@@ -167,13 +169,14 @@ function Noteloyer(nId){
 			'limit': 4
 		},
 		success:function(data){
+			console.log(data)
 			if(data.code == 1) {
 				var note_list = '';
 				for (i = 0; i < data.data.result.length; i++) {
 					note_list += "<li>"
-					note_list +="<span class='delete-note' onclick='Deletenote("+data.data.result[i].id+")'>×</span>"
-					note_list +="<p class='note-time'>发布时间：<span class='n-time'>"+data.data.result[i].etime+"</span></p>"
-					note_list +="<div class='note-con'><i class='ico-san'></i><span class='note-txt'>"+data.data.result[i].econtent+"</span></div>"
+					note_list +="<span class='delete-note' onclick='Deletenote("+data.data.result[i].id+")' alt='删除标签' title='删除标签'>×</span>"
+					note_list +="<p class='note-time'>发布时间：<span class='n-time'>"+changeTime(data.data.result[i].etime)+"</span></p>"
+					note_list +="<div class='note-con'><i class='ico-san'></i><span class='note-txt'>"+data.data.result[i].econtent+"<i class='edit-note'  title='修改标签'onclick='Editnote("+JSON.stringify(data.data.result[i])+")'></i></span></div>"
 					note_list +="</li>"
 				}
 				$('.note-list').html(note_list);
@@ -190,9 +193,10 @@ function Noteloyer(nId){
 
 
 //添加标签
-$('#note-btn').click(function(){
+$('#note-btn').one('click',function(){
 		if($('#note-text').val() == ''){
 			alert("标签信息内容不能为空");
+			return false;
 		}else{
 			$.ajax({
 				type: "post",
@@ -209,6 +213,13 @@ $('#note-btn').click(function(){
 						}
 					} else if(data.code == 1) {
 						alert("添加成功");
+						var note_list = '';
+						note_list += "<li>"
+						note_list +="<span class='delete-note' >×</span>"
+						note_list +="<p class='note-time'>发布时间：<span class='n-time'>"+now+"</span></p>"
+						note_list +="<div class='note-con'><i class='ico-san'></i><span class='note-txt'><span class='notetxt'>"+$('#note-text').val()+"</span><i class='edit-note'></i></span></div>"
+						note_list +="</li>"
+						$('.note-list').prepend(note_list);
 						$('#note-text').val("");
 					} else {
 						alert(data.msg);
@@ -219,22 +230,38 @@ $('#note-btn').click(function(){
 				}
 			});
 		}
-		if ($('#note-text').val() == '') {
-			return false;
-		}else{
-			var note_list = '';
-			note_list += "<li>"
-			note_list +="<span class='delete-note' >×</span>"
-			note_list +="<p class='note-time'>发布时间：<span class='n-time'>"+now+"</span></p>"
-			note_list +="<div class='note-con'><i class='ico-san'></i><span class='note-txt'>"+$('#note-text').val()+"</span></div>"
-			note_list +="</li>"
-			$('.note-list').prepend(note_list);
-		}
-		
 	});
-	
-}
+	return false;
+		
+});
 
+//修改标签
+
+function Editnote(v){
+	$(document).on('blur','.edit-input',function(){
+		$.ajax({
+			type:"post",
+			datatype: 'json',
+			url:"updateEmployerTracking",
+			data:{
+				'id':v.id,
+				'time':now,
+				'econtent':$(this).val(),
+				'employerId':v.employerId
+			},
+			success:function(data){
+				if(data.code == 1){
+					alert("修改成功");
+				}else{
+					alert("修改失败");
+				}
+			},
+			error:function(data){
+				alert("error");
+			}
+		});
+	});
+}
 
 //删除标签
 
@@ -259,7 +286,6 @@ function Deletenote(id){
 	
 }
 
-
 //查看合同
 
 function Lookpact(p){
@@ -268,7 +294,7 @@ function Lookpact(p){
 		type:"post",
 		datatype: 'json',
 		async : false,
-		url: "http://192.168.1.134:8080/nzj/getPactListByEmployerId",
+		url: "getPactListByEmployerId",
 		data:{
 			'employerId': p.id,
 			'start': 0,
@@ -280,19 +306,19 @@ function Lookpact(p){
 				for (i = 0; i < data.data.PactList.length; i++) {
 					list += "<div class='pact-list'><div class='info-t'><span class='info-tit'>合同编号"+data.data.PactList[i].code+"</span><a href='javascript:;' class='btnj'>展开</a></div>"
 					list +="<div class='pact-info'><div class='info-one'><ul class='clearfix'><li>雇主姓名：<span class='normal'>"+data.data.PactList[i].ename+"</span></li>"
-					list +="<li>签约时间：<span class='normal'>"+data.data.PactList[i].ptime+"</span></li>"
+					list +="<li>签约时间：<span class='normal'>"+changeTime(data.data.PactList[i].ptime)+"</span></li>"
 					list +="<li>雇主电话：<span class='normal'>"+data.data.PactList[i].ephone+"</span></li>"
 					list +="<li>雇主需求：<span class='normal'>"+data.data.PactList[i].econtent+"</span></li>"
 					list +="<li>签约时长：<span class='normal'>"+data.data.PactList[i].duration+"</span></li>"
-					list +="<li>服务费：<span class='normal'>"+data.data.PactList[i].cost+"</span></li>"
+					list +="<li>服务费：<span class='normal'>￥"+data.data.PactList[i].cost+"</span></li>"
 					list +="<li>上班时间：<span class='normal'>"+data.data.PactList[i].time+"</span></li>"
-					list +="<li>雇主地址：<span class='normal'>"+data.data.PactList[i].econtent+"</span></li>"
-					list +="<li>雇主需求：<span class='normal'>"+data.data.PactList[i].eaddress+"</span></li>"
+					list +="<li>雇主需求：<span class='normal'>"+data.data.PactList[i].econtent+"</span></li>"
+					list +="<li style='width:100%;'>雇主地址：<span class='normal'>"+data.data.PactList[i].eaddress+"</span></li>"
 					list +="</ul></div>"
 					list +="<div class='info-two'><ul class='clearfix'>"
 					list +="<li>服务人员姓名：<span class='normal'>"+data.data.PactList[i].aname+"</span></li>"
 					list +="<li>服务人员电话：<span class='normal'>"+data.data.PactList[i].aphone+"</span></li>"
-					list +="<li>薪资标准：<span class='normal'>"+data.data.PactList[i].salary+"</span></li>"
+					list +="<li>薪资标准：<span class='normal'>￥"+data.data.PactList[i].salary+"</span></li>"
 					list +="</ul></div>"
 					list +="<div class='info-three'><span class='remark'>备注：</span>"
 					list +="<p class='remark-info'>"+data.data.PactList[i].remark+"</p></div>"
@@ -312,10 +338,48 @@ function Lookpact(p){
 	});	
 }
 
+//添加合同
 
-
-
-
+function Addpack(v){
+	$('#ap-employerId').val(v.id);
+	$('#ap-ename').val(v.name);
+	var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/; 
+	$('#btn_pactloyer_add').off().on('click',function(){
+		if($('#ap-code').val() == '' || $('#ap-eTime').val() == '' ||  $('#ap-ename').val() =='' || $('#ap-employerId').val() =='' ||$('#ap-ephone').val() =='' ||$('#ap-econtent').val() =='' ||$('#ap-duration').val() =='' ||$('#ap-cost').val() =='' || $('#ap-time').val() =='' ||$('#ap-aname').val() =='' ||$('#ap-aphone').val() =='' ||$('#ap-salary').val() =='' ||$('#ap-eaddress').val() ==''){
+			alert("请完善信息！");
+		}else if(!myreg.test($("#ap-ephone").val())){
+			alert('雇主的手机号码输入格式错误！'); 
+    		return false; 
+		}else if(!myreg.test($("#ap-aphone").val())){
+			alert('服务人员的手机号码输入格式错误！'); 
+    		return false; 
+		}else{
+			$.ajax({
+				type: 'post',
+			    url: 'addPact',
+			    data: $("#addpact-form").serialize(),
+			    success: function(data) {
+			        if(data.code == -999) {
+						if(confirm("用户登录已失效，是否重新登录？")) {
+							window.location.href = "login.html";
+						}
+					}else if(data.code == 0) {
+						alert("合同号已存在，请勿重复录入");
+					} else if(data.code == 1) {
+						alert("添加合同成功");
+						$('#addpactloyer').modal('hide');
+						location.reload();
+					} else {
+						alert(data.msg);
+					}
+			   },
+			   error: function(data) {
+					alert("error");
+				}
+			});
+		}
+	});
+}
 
 //切换雇主列表状态
 function EmployerListByStatus(v) {
@@ -583,9 +647,6 @@ var builderUQTQueryMsg = function(UQTQueryMsg) {
 		if(eachData.status !==0 && eachData.status !==1){
 			$('.addPact').hide();
 		}
-		
-		
-		
 		tr.append("<td class='eng_name' title=" + name + ">" + name + "</td>" +
 			"<td class='match_type' title=" + content + ">" + content + "</td>" +
 			"<td class='query_pro' title=" + phone + ">" + phone + "</td>" +
@@ -593,9 +654,9 @@ var builderUQTQueryMsg = function(UQTQueryMsg) {
 			"<td class='query_pro' title=" + changeTime(time) + ">" + changeTime(time) + "</td>" +
 			"<td class='dis_dta'>" +
 //			"<a class='editOp' href=''  data-toggle='modal' data-target='#modemployer' onclick='modEmployer(" + JSON.stringify(eachData) + ")'>雇主追踪</a>" +
-			"<a class='editOp addNote' href=''  data-toggle='modal' data-target='#noteloyer' onclick='Noteloyer(" + id + ")' >标签</a>" +
+			"<a class='editOp addNote' href=''  data-toggle='modal' data-target='#noteloyer' data-noteid='"+id+"'>标签</a>" +
 			"<a class='editOp' href=''  data-toggle='modal' data-target='#modemployer' onclick='modEmployer(" + JSON.stringify(eachData) + ")'>修改</a>" +
-			"<a class='editOp addPact' href=''  data-toggle='modal' data-target='#addpactloyer' >添加合同</a>" +
+			"<a class='editOp addPact' href=''  data-toggle='modal' data-target='#addpactloyer' onclick='Addpack(" + JSON.stringify(eachData) + ")' >添加合同</a>" +
 			"<a class='editOp lookpact' href=''  data-toggle='modal' onclick='Lookpact(" + JSON.stringify(eachData) + ")'>查看合同</a>" +
 			"<a class='editOp' href='javascript:void(0);' onclick='deleteEmployer(" + id + ")'>删除</a>" +
 			"</td>" +
@@ -632,40 +693,6 @@ var optionCheckBoxes = function(data) {
 			currentCheck.attr("checked", false);
 		});
 	}
-}
-
-function changeTime(ts) { //时间戳转时间函数
-	//	var timestamp = new Date(parseInt(ts) * 1000).toLocaleString().replace(/年|月/g, "-").substr(0, 8);
-	var date = new Date(parseInt(ts) * 1000);
-	var seperator1 = "-";
-	var seperator2 = ":";
-	var month = date.getMonth() + 1;
-	var strDate = date.getDate();
-	var getHours = date.getHours(); //时
-	var getMinutes = date.getMinutes(); //分
-	var getSeconds = date.getSeconds(); //秒
-	if(month >= 1 && month <= 9) {
-		month = "0" + month;
-	}
-	if(strDate >= 0 && strDate <= 9) {
-		strDate = "0" + strDate;
-	}
-
-	if(getHours >= 1 && getHours <= 9) {
-		getHours = "0" + getHours;
-	}
-	if(getMinutes >= 1 && getMinutes <= 9) {
-		getMinutes = "0" + getMinutes;
-	}
-	if(getSeconds >= 1 && getSeconds <= 9) {
-		getSeconds = "0" + getSeconds;
-	}
-	var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate +
-		" " + getHours + seperator2 + getMinutes +
-		seperator2 + getSeconds;
-	//		$('#eTime').val(currentdate.substr(0,10));
-	return currentdate.substr(0, 10);
-
 }
 
 /**

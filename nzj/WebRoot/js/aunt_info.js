@@ -1,5 +1,10 @@
 var json = null;
 var total = null;
+var pageSize = 20;
+var pageNo = 1;
+var indexState = 0;
+
+
 $(function() {
 	$('#tdLanguages').children('span').hide();
 	$('#tdCookingId').children('span').hide();
@@ -621,6 +626,29 @@ function del_contact(v) {
 	$(v).parent().remove();
 };
 
+
+
+//切换阿姨列表状态
+function AuntListByStatus(v) {
+	indexState = v;
+	builderUQTQueryMsg(getJsonArrayByPageSize(pageSize, pageNo));
+	var totalPage = getTotllePage(pageSize);
+	var totalRecords = total;
+	//生成分页控件 根据分页的形式在这里设置
+	kkpager.init({
+		pno: pageNo,
+		//总页码
+		total: totalPage,
+		//总数据条数
+		totalRecords: totalRecords,
+		//页面条数
+		pageSize: pageSize
+	});
+	kkpager.generPageHtml();
+};
+
+
+
 /**
  * 获取总页数
  * @returns {number}
@@ -641,35 +669,80 @@ var getTotllePage = function(pageSize) {
 	 * @returns {*}
 	 */
 var getJsonArrayByPageSize = function(pageSize, pageNo) {
-	$.ajax({
-		type: "post",
-		url: mainUrl + "getAuntList",
-		dataType: "json",
-		async: false,
-		cache: false,
-		data: {
-			'start': (pageNo - 1) * pageSize,
-			'limit': pageSize
-		},
-		success: function(data) {
-			if(data.code == -999) {
-				if(confirm("用户登录已失效，是否重新登录？")) {
-					window.parent.location.href = "login.html";
+	if(indexState == 0){ //待岗阿姨
+		$.ajax({
+			type: "post",
+			url:  "getAuntListByStatus",
+			dataType: "json",
+			async: false,
+			cache: false,
+			data: {
+				'status':0,
+				'start': (pageNo - 1) * pageSize,
+				'limit': pageSize
+			},
+			success: function(data) {
+				if(data.code == 1) {
+					json = data.data.result;
+					total = data.data.count
+				} else {
+					alert(data.msg);
 				}
-			} else if(data.code == 1) {
-				json = data.data.result;
-				total = data.data.count
-			} else {
-				alert(data.msg);
+			},
+			error: function(jqXHR) {
+				alert("网络异常");
 			}
-			//			console.log(JSON.stringify(data))
-			//			builderUQTQueryMsg(data);
-
-		},
-		error: function(jqXHR) {
-			alert("网络异常");
-		}
-	});
+		});
+	}else if(indexState == 1){ //获取上岗阿姨列表
+		$.ajax({
+			type: "post",
+			url: "getAuntListByStatus",
+			dataType: "json",
+			async: false,
+			cache: false,
+			data: {
+				'start': (pageNo - 1) * pageSize,
+				'limit': pageSize,
+				'status': 1
+			},
+			success: function(data) {
+				if(data.code == 1) {
+					json = data.data.result;
+					total = data.data.count
+				} else {
+					alert(data.msg);
+				}
+			},
+			error: function(jqXHR) {
+				alert("网络异常");
+			}
+		})
+	}else if(indexState == -1){ //获取黑名单
+		$.ajax({
+			type: "post",
+			url:  "getAuntListByStatus",
+			dataType: "json",
+			async: false,
+			cache: false,
+			data: {
+				'status':-1,
+				'start': (pageNo - 1) * pageSize,
+				'limit': pageSize
+			},
+			success: function(data) {
+				
+				if(data.code == 1) {
+					json = data.data.result;
+					total = data.data.count
+				} else {
+					alert(data.msg);
+				}
+			},
+			error: function(jqXHR) {
+				alert("网络异常");
+			}
+		});
+	};
 	var jsonCount = total;
 	var shang = getTotllePage(pageSize);
 	//  var startIndex = (pageNo);
@@ -700,7 +773,6 @@ function refreshData(pageSize, pageNo) {
 	kkpager.generPageHtml();
 
 }
-
 /**
  * 构建表格数据
  */
@@ -712,12 +784,8 @@ var builderUQTQueryMsg = function(UQTQueryMsg) {
 	auntTable.append(th);
 	var tr;
 	$.each(UQTQueryMsg, function(i, eachData) {
+//		console.log(eachData);
 		tr = $('<tr>');
-//		if(i % 2 == 0) {
-//			tr.css('background-color', '#f5f5f5');
-//		} else {
-//			tr.css('background-color', '#FFFFFF');
-//		}
 		var listId = eachData.id;
 		var listName = eachData.name;
 		var listAge = eachData.age;
@@ -740,6 +808,7 @@ var builderUQTQueryMsg = function(UQTQueryMsg) {
 			"<td class='match_type'>" + listPhone + "</td>" +
 			"<td class='dis_order'>" + listAdress + "</td>" +
 			"<td class='dis_dta'>" +
+			"<a class='editOp auntInfo' href='' data-toggle='modal' data-auntid='"+listId+"' >查看</a>" +
 			"<a class='editOp' href='' data-toggle='modal' data-target='#aunt'onclick='updateAunt(" + listId + ")'>修改</a>" +
 			"<a class='editOp' href='javascript:void(0);' onclick='deleteAunt(" + listId + ")'>删除</a>" +
 			"</td>" +
@@ -1312,3 +1381,289 @@ function onUpdateIcon() {
 	}
 	fileObj.click();
 };
+
+
+
+
+//查看阿姨简历
+
+$(document).on('click','.auntInfo',function(){
+	var auntId = $(this).data('auntid');
+	var basic_tbody=$("<tbody>");
+	var skill,contact,img,work='';
+	$.ajax({
+		type:"post",
+		dataType:'json',
+		url:"getAuntById",
+		async:false,
+		cache: false,
+		data:{
+			'id':auntId
+		},
+		success:function(data){
+			console.log(data)
+			if(data.data.sex == 0 && data.data.marriage ==0){
+				data.data.sex='女';
+				data.data.marriage ='未婚';
+			}else{
+				data.data.sex='男';
+				data.data.marriage = '已婚';
+			}
+			$('#auntInfo .u-name').html(data.data.name);
+			if(data.code == 1){
+				/*获取基本信息*/
+				basic_tbody.append("<tr><td class='td-tit'><span class='red'>*</span>姓&nbsp;&nbsp;&nbsp;&nbsp;名:</td>"+
+				"<td class='td-input'>"+data.data.name+"</td>"+
+				"<td class='td-tit'><span class='red'>*</span>年&nbsp;&nbsp;&nbsp;&nbsp;龄:</td>"+
+				"<td class='td-input'>"+data.data.age+"</td></tr><tr>"+
+				"<td class='td-tit'><span class='red'>*</span>属&nbsp;&nbsp;&nbsp;&nbsp;相:</td>"+
+				"<td class='td-input'>"+data.data.sign+"</td>"+
+				"<td class='td-tit'><span class='red'>*</span>籍&nbsp;&nbsp;&nbsp;&nbsp;贯:</td>"+
+				"<td class='td-input'>"+data.data.native+"</td></tr><tr>"+
+				"<td class='td-tit'><span class='red'>*</span>性&nbsp;&nbsp;&nbsp;&nbsp;别:</td>"+
+				"<td class='td-input'>"+data.data.sex+"</td>"+
+				"<td class='td-tit'><span class='red'>*</span>学&nbsp;&nbsp;&nbsp;&nbsp;历:</td>"+
+				"<td class='td-input'>"+data.data.education+"</td></tr><tr>"+
+				"<td class='td-tit'><span class='red'>*</span>婚姻状况:</td>"+
+				"<td class='td-input'>"+data.data.marriage+"</td>"+
+				"<td class='td-tit'><span class='red'>*</span>民&nbsp;&nbsp;&nbsp;&nbsp;族:</td>"+
+				"<td class='td-input'>"+data.data.nation+"</td></tr><tr>"+
+				"<td class='td-tit'><span class='red'>*</span>身&nbsp;&nbsp;高(cm):</td>"+
+				"<td class='td-input'>"+data.data.height+"</td>"+
+				"<td class='td-tit'><span class='red'>*</span>体&nbsp;&nbsp;重(kg):</td>"+
+				"<td class='td-input'>"+data.data.weight+"</td></tr><tr>"+
+				"<td class='td-tit'><span class='red'>*</span>视&nbsp;&nbsp;&nbsp;&nbsp;力:</td>"+
+				"<td class='td-input'>"+data.data.sigh+"</td>"+
+				"<td class='td-tit'><span class='red'>*</span>手机号码:</td>"+
+				"<td class='td-input'>"+data.data.phone+"</td></tr><tr>"+
+				"<td class='td-tit'><span class='red'>*</span>身份证号码:</td>"+
+				"<td colspan='3' class='td-input id-input-l'>"+data.data.idnumber+"</td></tr><tr>"+
+				"<td class='td-tit'><span class='red'>*</span>现居住地址:</td>"+
+				"<td colspan='3' class='td-input id-input-l'>"+data.data.address+"</td></tr><tr>");
+				$('.aunt-basic-info .aunt-info-left table').html(basic_tbody);
+				
+				img ="<div class='upload-img'><img src='"+data.data.url+"' width='140' height='180' /><a href='javascript:;' class='link-upload' title='上传照片' data-toggle='modal' data-target='#filePhoto' onclick='referPhoto("+auntId+")'>上传照片</a></div>"
+				$('.aunt-basic-info .aunt-info-right').html(img);
+				
+				/*获取技能专长*/
+				skill +="<tbody>"
+				skill +="<tr><td class='td-tit'>语言</td><td class='td-list'>"
+				for(var i=0; i<data.data.language.length; i++){
+					skill +="<span>"+data.data.language[i].name+"<i>×</i></span>"
+				}
+				skill +="</td><td class='td-select'><select class='language'></select><a href='javascript:;' class='add-skill-btn'>添加</a></td></tr>"
+				skill +="<tr><td class='td-tit'>烹饪</td><td class='td-list'>"
+				for(var i=0; i<data.data.cooking.length; i++){
+					skill +="<span>"+data.data.cooking[i].name+"<i>×</i></span>"
+				}
+				skill +="</td><td class='td-select'><select class='cooking'></select><a href='javascript:;' class='add-skill-btn'>添加</a></td></tr>"
+				skill +="<tr><td class='td-tit'>基本技能</td><td class='td-list'>"
+				for(var i=0; i<data.data.skill.length; i++){
+					skill +="<span>"+data.data.skill[i].name+"<i>×</i></span>"
+				}
+				skill +="</td><td class='td-select'><select class='skill'></select><a href='javascript:;' class='add-skill-btn'>添加</a></td></tr>"
+				skill +="<tr><td class='td-tit'>家用电器</td><td class='td-list'>"
+				for(var i=0; i<data.data.appliance.length; i++){
+					skill +="<span>"+data.data.appliance[i].name+"<i>×</i></span>"
+				}
+				skill +="</td><td class='td-select'><select class='appliance'></select><a href='javascript:;' class='add-skill-btn'>添加</a></td></tr>"
+				skill +="<tr><td class='td-tit'>应聘岗位</td><td class='td-list'>"
+				for(var i=0; i<data.data.job.length; i++){
+					skill +="<span>"+data.data.job[i].name+"<i>×</i></span>"
+				}
+				skill +="</td><td class='td-select'><select class='job'></select><a href='javascript:;' class='add-skill-btn'>添加</a></td></tr>"
+				skill +="<tr><td class='td-tit'>提供证件</td><td class='td-list'>"
+				for(var i=0; i<data.data.certificate.length; i++){
+					skill +="<span>"+data.data.certificate[i].name+"<i>×</i></span>"
+				}
+				skill +="</td><td class='td-select'><select class='certificate'></select><a href='javascript:;' class='add-skill-btn'>添加</a></td></tr>"
+				skill +="</tbody>"
+				$('.aunt-skill-info .aunt-skill-con table').html(skill);
+				
+				/*获取紧急联系人*/
+				
+				contact +="<tbody>"
+				for(var t=0; t<data.data.contact.length; t++){
+					contact +="<tr><td class='td-tit'>姓名</td><td>"+data.data.contact[t].cname+"</td><td class='td-tit'>关系</td><td>"+data.data.contact[t].relation+"</td><td class='td-tit'>工作状况</td><td>"+data.data.contact[t].workstatus+"</td><td class='td-tit'>联系电话</td><td>"+data.data.contact[t].cphone+"</td><td style='padding: 0; text-align: center;'><a href='javascript:;' class='delete-contact-btn iconfont icon-shanchu2'></a></td></tr>"
+				}
+				contact +="</tbody>"
+				$('.aunt-contact-info .aunt-contact-con table').html(contact);
+				
+				/*工作经历*/
+				work +="<tbody>"
+				work +=""
+				for (var w = 0; w<data.data.work.length; w++) {
+					work +="<tr><td class='td-tit'>起止时间</td><td class='works'>"+data.data.work[w].time+"</td><td rowspan='2' class='td-btn'><a href='javascript:;' class='delete-work-btn iconfont icon-shanchu2'></a></td></tr>"
+					work +="<tr><td class='td-tit'>主要工作</td><td class='works work-con'>"+data.data.work[w].work+"</td></tr>"
+				}
+				work +="</tbody>"
+				
+				$('.aunt-work-info .aunt-work-con table').html(work);
+					
+				}else{
+					alert(data.msg);
+				}
+			},
+			error:function(data){
+				alert("error");
+			}	
+	});
+	
+	
+
+	
+	
+	
+//获取语言
+	$.ajax({
+		type: "post",
+		url:  "getLanguageList",
+		dataType: "json",
+		async: false,
+		cache: false,
+		success: function(data) {
+			if(data.code == 1){
+				var options = [];
+				for(var l=0; l<data.data.length; l++){
+					options.push("<option>"+data.data[l].name+"</option>");
+					$('.language').append(options[l]);
+				}
+			}else{
+				alert(data.msg);
+			}	
+		},
+		error: function(data) {
+			alert("网络异常");
+		}
+	});
+	
+//获取烹饪
+	$.ajax({
+		type: "post",
+		url:  "getCookingList",
+		dataType: "json",
+		async: false,
+		cache: false,
+		success: function(data) {
+			if(data.code == 1){
+				var options = [];
+				for(var l=0; l<data.data.length; l++){
+					options.push("<option>"+data.data[l].name+"</option>");
+					$('.cooking').append(options[l]);
+				}
+			}else{
+				alert(data.msg);
+			}	
+		},
+		error: function(data) {
+			alert("网络异常");
+		}
+	});
+
+//获取基本技能
+		$.ajax({
+		type: "post",
+		url:  "getSkillList",
+		dataType: "json",
+		async: false,
+		cache: false,
+		success: function(data) {
+			if(data.code == 1){
+				var options = [];
+				for(var l=0; l<data.data.length; l++){
+					options.push("<option>"+data.data[l].name+"</option>");
+					$('.skill').append(options[l]);
+				}
+				
+			}else{
+				alert(data.msg);
+			}	
+		},
+		error: function(data) {
+			alert("网络异常");
+		}
+	});
+	
+//获取家用电器
+	$.ajax({
+		type: "post",
+		url:  "getApplianceList",
+		dataType: "json",
+		async: false,
+		cache: false,
+		success: function(data) {
+			if(data.code == 1){
+				var options = [];
+				for(var l=0; l<data.data.length; l++){
+					options.push("<option>"+data.data[l].name+"</option>");
+					$('.appliance').append(options[l])
+				}
+			}else{
+				alert(data.msg);
+			}	
+		},
+		error: function(data) {
+			alert("网络异常");
+		}
+	});
+
+//获取应聘岗位
+	$.ajax({
+		type: "post",
+		url:  "getJobList",
+		dataType: "json",
+		async: false,
+		cache: false,
+		success: function(data) {
+			if(data.code == 1){
+				var options = [];
+				for(var l=0; l<data.data.length; l++){
+					options.push("<option>"+data.data[l].name+"</option>");
+					$('.job').append(options[l])
+				}
+			}else{
+				alert(data.msg);
+			}	
+		},
+		error: function(data) {
+			alert("网络异常");
+		}
+	});
+	
+//获取证件
+	$.ajax({
+		type: "post",
+		url:  "getCertificateList",
+		dataType: "json",
+		async: false,
+		cache: false,
+		success: function(data) {
+			if(data.code == 1){
+				var options = [];
+				for(var l=0; l<data.data.length; l++){
+					options.push("<option>"+data.data[l].name+"</option>");
+					$('.certificate').append(options[l])
+				}
+			}else{
+				alert(data.msg);
+			}	
+		},
+		error: function(data) {
+			alert("网络异常");
+		}
+	});
+
+	
+	
+});
+
+
+function referPhoto(v){
+	var auntId = v;
+	$('#referphoto').click(function(){
+		var img = $('.cropped img').attr('src');
+		console.log(img)
+		
+	})
+}
+

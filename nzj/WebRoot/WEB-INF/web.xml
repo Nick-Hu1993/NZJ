@@ -7,7 +7,8 @@
 	<welcome-file-list>
 		<welcome-file>login.html</welcome-file>
 	</welcome-file-list>
-
+	
+	<!-- 配置字符编码，解决中文乱码问题：仅限post请求 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -20,7 +21,8 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
+	
+	<!-- 配置绕过springmvc拦截器的静态资源获取 -->
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.doc</url-pattern>
@@ -53,7 +55,8 @@
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.woff</url-pattern>
 	</servlet-mapping>
-
+	
+	<!-- 配置使用proxool连接池 -->
 	<servlet>
 		<servlet-name>Admin</servlet-name>
 		<servlet-class>org.logicalcobwebs.proxool.admin.servlet.AdminServlet</servlet-class>
@@ -63,6 +66,7 @@
 		<url-pattern>/admin</url-pattern>
 	</servlet-mapping>
 
+	<!-- 配置使用springmvc框架 -->
 	<servlet>
 		<servlet-name>springmvc</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>

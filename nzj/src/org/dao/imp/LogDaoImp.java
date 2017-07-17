@@ -24,6 +24,7 @@ public class LogDaoImp implements LogDao{
 			Transaction ts= session.beginTransaction();
 			
 			long id = (Long) session.save(l);
+			System.out.println("日志id；" + id);
 			ts.commit();
 			return id;
 		} catch (Exception e) {

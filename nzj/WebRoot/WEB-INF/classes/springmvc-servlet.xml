@@ -8,18 +8,22 @@
           http://www.springframework.org/schema/context/spring-context-4.0.xsd
           http://www.springframework.org/schema/mvc 
           http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
-
+          
+	<!-- 配置需要扫描的包，用于springmvc的DI注入资源 -->
 	<context:component-scan base-package="org.controller"></context:component-scan>
 	<context:component-scan base-package="org.service"></context:component-scan>
 	<context:component-scan base-package="org.dao"></context:component-scan>
 
+	<!-- 配置自定义的拦截器 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/**" />
+			<mvc:mapping path="/**" /><!-- 过滤全部请求 -->
+			<!-- 对样式、字体、jsp不进行过滤 -->
 			<mvc:exclude-mapping path="/fonts/**"/>
 			<mvc:exclude-mapping path="/css/**"/>
 			<mvc:exclude-mapping path="/jsp/.*"/>
 			
+			<!-- 对主页信息加载的接口不进行过滤 -->
 			<mvc:exclude-mapping path="/getSession" />
 			<mvc:exclude-mapping path="/getLogList" />
 			<mvc:exclude-mapping path="/logout" />
@@ -38,9 +42,7 @@
 			<mvc:exclude-mapping path="/getLocalShareEmployerList" />
 			<mvc:exclude-mapping path="/getAllShareEmployerList" />
 			<mvc:exclude-mapping path="/getSearchShareEmployerList" />
-			
 			<mvc:exclude-mapping path="/getStaffById" />	<!-- 获取员工信息 -->
-			
 			<mvc:exclude-mapping path="/getAllStaffList" />
 			
 			<mvc:exclude-mapping path="/getModuleList" />	<!-- 测试，待删 -->
@@ -49,11 +51,12 @@
 		</mvc:interceptor>
 	</mvc:interceptors>
 
-	<mvc:annotation-driven />
+	<mvc:annotation-driven /><!-- 启用注解驱动的指令 -->
 	<mvc:resources location="/fonts/**" mapping="/fonts/**"/>
 	<mvc:resources location="/css/**" mapping="/css/**"/>
 		<!-- 此行是用于防止/css/fonts 被拦截，应用在login中，.css的排除已经在web.xml中排除 -->
 
+	<!-- 用于文件上传的配置 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="104857600" />
@@ -61,6 +64,7 @@
 		<property name="defaultEncoding" value="UTF-8"></property>
 	</bean>
 
+	<!-- 用于视图转发的配置 -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/" />

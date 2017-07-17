@@ -44,6 +44,18 @@ public interface AuntDao {
 	 * @return
 	 */
 	public boolean updateAuntStatus(Long id,Integer status);
+	/**
+	 * 3.3修改复选框信息（1.语言，2，烹饪技能，3.基本技能、4.家用电器、5.证书、6.岗位）
+	 * @param auntid
+	 * @param laId
+	 * @param coId
+	 * @param skId
+	 * @param apId
+	 * @param ceId
+	 * @param joId
+	 * @return
+	 */
+	public boolean updateAuntSkills (long auntid, long[] laId, long[] coId, long[] skId,  long[] apId, long[] ceId, long[] joId);
 	// -----------------------------------查---------------------------------------
 	/**
 	 * 4.1获取全部阿姨
@@ -69,6 +81,7 @@ public interface AuntDao {
 	public VAuntId getAuntById(Long id);
 	/**
 	 * 4.5根据状态来筛选当前加盟商的所有阿姨
+	 * status：0待岗， 1上岗， -1黑名单
 	 * @param status
 	 * @param start
 	 * @param limit

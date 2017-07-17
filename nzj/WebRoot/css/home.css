@@ -648,7 +648,7 @@ display:inline-block;
 .item-right .user-name{font-size: 14px; font-weight: bold;}
 .user-name .contact{font-weight: normal; font-size: 12px;}
 .user-name .contact .tel{color: #f56954;}
-.item-right .user-name .time{font-weight: normal; font-size: 12px; color: #888; margin-left: 100px;}
+.item-right .user-name .time{font-weight: normal; font-size: 12px; color: #888; float: right; margin-right: 30px;}
 .item-right .rele-con{width: 100%; background-color: #8cd4b3; color: #fff; border-radius: 10px; padding: 10px; line-height: 24px; font-size: 14px; position: relative;}
 .rele-con .box-ico{display: block; width: 10px; height: 10px; background: url(../image/icon/box-ico.png) no-repeat; position: absolute;left: -9px; top: 3px;}
 

@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class LogInterceptor implements HandlerInterceptor {
-
+	
 	/**
 	 * Handler 执行前调用
 	 */
@@ -28,7 +28,7 @@ public class LogInterceptor implements HandlerInterceptor {
 			HttpServletResponse response, Object arg2) throws Exception {
 //		System.out.println("\n——preHandle——");
 
-		String action = request.getServletPath().substring(1);		//请求的接口名
+		String action = request.getServletPath().substring(1);		//请求的接口名：用substring()去掉接口前的“/”
 		System.out.println("\n"+request.getContextPath()+"——"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())+"——"+action);
 
 		if(action.equals("sLogin")){

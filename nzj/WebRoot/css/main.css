@@ -1,6 +1,7 @@
 body{
 	font-family: "微软雅黑", Arial, Helvetica, sans-serif;
 }
+a:hover{text-decoration: none;}
 
 /*
 *��ҳ���
@@ -61,12 +62,14 @@ body{
     /*color: #999999;*/
     font-family:arial,����;
 }
+.uqt_detail table tr td.dis_dta a{margin: 0 6px; display: inline-block; padding: 0 6px; line-height: 18px; border:1px solid #41a1e6; color: #41a1e6; border-radius: 4px;}
+.uqt_detail table tr td.dis_dta a:hover{text-decoration: none; background-color: #41a1e6; color: #fff;}
 
 
-/*右侧弹窗*/
+/*查看合同-右侧弹窗*/
 
-.model-con{ min-width: 1200px; width: calc(100% - 300px); background-color:#f1f1f1; z-index:1050; position: fixed; right: -3000px; top: 16px; bottom: 0; }
-.r-model .model-head{padding: 0 15px; height: 45px; line-height: 45px; overflow: hidden; background-color: #fff; }
+.model-con{ width: 1000px;  background-color:#d8ebf5; z-index:1050; position: fixed; right: -3000px; top: 16px; bottom: 0;overflow-y: scroll; }
+.r-model .model-head{padding: 0 15px; height: 45px; line-height: 45px; overflow: hidden; background-color: #fff; border-bottom: 2px solid #f1f1f1;}
 .r-model .close-btn{display: inline-block; width: 20px; height: 20px; line-height: 18px; text-align: center; color: #fff; background-color: #00c292; font-size: 18px; border-radius: 5px; cursor: pointer;}
 .model-head .model-tit{font-size: 18px; margin-left: 8px;}
 
@@ -77,14 +80,14 @@ body{
 .pact-list .info-t .info-tit{font-size: 18px; font-weight: 700; padding-left: 20px; line-height: 58px;}
 .pact-list .info-t .btnj{float: right; margin-right: 25px; display: inline-block; padding: 5px 20px; border: 1px solid #03a9f3; color: #03a9f3; border-radius: 16px; margin-top: 14px;}
 .pact-list .info-t .btnj:hover{color: #fff; background-color: #03a9f3; border-color: #fff; text-decoration: none;}
-.pact-info{width: 1200px; margin: 0 auto; display: none;}
+.pact-info{width: 90%; margin: 0 auto; display: none;}
 .info-one{width: 100%;}
 .pact-info ul{width: 100%; border-bottom: 1px solid #eee; padding: 10px 0;}
 .pact-info li{list-style: none; float: left; color: #999; font-size: 14px; width: 50%; line-height: 30px;}
 .pact-info li .normal{margin-left: 8px; color: #333;}
 .info-three{padding: 10px 0;}
 .info-three .remark{font-size: 16px; color: #e65b5b;}
-.info-three .remark-info{line-height: 24px; text-indent: 50px;}
+.info-three .remark-info{line-height: 24px; text-indent: 50px; font-size: 12px;}
 
 /*标签*/
 #noteloyer .modal-header{position: relative;}
@@ -106,14 +109,34 @@ body{
 .note-list li .note-con{position: relative; background-color: #f5f6fa; padding: 10px; margin-left: 20px; margin-top: 8px; text-align: left; color: #666;}
 .note-list li .note-con .ico-san{position: absolute; left: -10px; top: 9px; width:0; height:0; border-width:10px 10px 10px 0; border-style:solid; border-color:transparent #f5f6fa transparent  transparent; }
 .note-list li .note-con .note-txt{font-size: 12px;}
+.note-con .edit-note{position: absolute; right: 0px; top: 0px; display: block; width: 20px; height: 20px; background: url(../image/icon/note-edit.png) no-repeat; cursor: pointer;}
+.note-con  .edit-input{font-size: 12px; width: 98%; height: 100%; border: 1px solid #00C292; padding: 5px;}
 
 
 /*添加合同*/
 
-#addpactloyer .addpact{padding-left: 20px;}
-.addpact .add-info{width: 90%;margin: 8px 0;}
-.addpact label{text-align: right; width: 76px; font-weight: normal; font-size: 12px; margin-right: 5px;}
-.addpact .add-info label{  display: inline-block; }
-.addpact .add-info input{width: 200px; text-indent: 12px; font-size: 12px; color: #aaa;}
-.addpact .add-remark label{float: left; color: #e65b5b;}
+#add-pact-table table{ border:1px solid #dcebf7; }
+#add-pact-table table td{ width: 450px; padding: 10px 30px 10px 30px; }
+#add-pact-table table td .star{font-style: normal; color: red; font-size: 16px; margin-right: 5px; vertical-align: middle;}
+#add-pact-table table tr{ width: 900px; height: 40px; }
+#add-pact-table table td label{text-align: right; width: 90px; font-weight: normal; font-size: 12px; margin-right: 5px;}
+#add-pact-table table label.add-remark{float: left; color: #e65b5b;}
+#add-pact-table table td input{width: 175px; height: 24px; text-indent: 5px; font-size: 12px;}
+#add-pact-table table th{ background: #dcebf7; padding-left: 15px; line-height: 40px; }
+#add-pact-table table h4{ float: left; }
+#add-pact-table table button{float: right;margin: 6px 15px 0 0;width: 50px;height: 25px;background: #f06292; border: none; outline: none; border-radius: 10px; color:#333333; }
+#add-pact-table table .laydate-icon{border: 1px solid #aaa; padding-top: 3px; padding-bottom: 3px; cursor: pointer;}
 
+
+/*合同 -- 查看合同*/
+#model{width: 1000px; background-color: #fff; position: fixed; right: 300px; left: 350px; top: 3000px; border: 3px solid #f1f1f1; border-radius: 6px; }
+#model .model-head{position: relative;}
+#model .close-btn{position: absolute; right: 5px; top: 5px; }
+#model .model-main table{ width: 95%; border:1px solid #dcebf7; margin: 5px auto;}
+#model .model-main table th{ background: #dcebf7; padding:0 15px; line-height: 40px; font-weight: normal;}
+#model .model-main table th h4{font-size: 16px;}
+#model .model-main table tr{ width: 900px; height: 40px; }
+#model .model-main table td{ width: 225px; padding: 10px 30px 10px 30px; border:1px solid #dcebf7; }
+#model .model-main table td.tit{font-weight: bold; padding: 0; text-align: center;}
+#model .model-main table td label{text-align: right; width: 90px; font-size: 14px; margin-right: 5px;}
+#model .model-main table td span{width: 175px; height: 24px; text-indent: 5px; font-size: 14px;}

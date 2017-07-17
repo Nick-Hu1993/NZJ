@@ -62,7 +62,7 @@
 
 						<div id="browser" class="tbtree" style="text-align: center; overflow: hidden; padding: 0 40px 30px 40px;">
 							<div id="mainTbtable" class='uqt_detail'>
-								<table id="UQT_detailTable" class="">
+								<table id="UQT_detailTable" >
 								</table>
 							</div>
 
@@ -72,7 +72,7 @@
 						</div>
 					</div>
 					<div class="tab-pane fade" id="ht">
-						<iframe name="htlb" style="width: 100%; height: 100%; position: fixed; background: #F0AD4E; padding-right: 20px; margin-left: -150px;" frameborder="no" border="0" src="pact_trace.html"></iframe>
+						<iframe name="htlb" id="iframe" style="width: 100%; height: 100%; position: fixed; background: #F0AD4E; padding-right: 20px; margin-left: -150px;" frameborder="no" border="0" src="pact_trace.html"></iframe>
 					</div>
 				</div>
 
@@ -208,8 +208,8 @@
 					</div>
 					<div class="modal-body">
 						<div class="note-input">
-							<textarea cols="70" rows="6" id="note-text" placeholder="请输入不超过200字的标签信息……"></textarea>
-							<button type="button" id="note-btn" class="btn" style="border: none;outline: none;">提交</button>
+							<textarea cols="70" rows="6" id="note-text" style="resize:none" placeholder="请输入不超过200字的标签信息……"></textarea>
+							<div id="note-btn" class="btn">提交</div>
 						</div>
 						<div class="notice-con">
 							<ul class="note-list">
@@ -218,7 +218,7 @@
 									<p class="note-time">发布时间：<span class="n-time">2017-07-06</span></p>
 									<div class="note-con">
 										<i class="ico-san"></i>
-										<span class="note-txt">谁在时间啊淡饭黄齑阿双方说得太多容易掉入带入箭哈</span>
+										<span class="note-txt">谁在时间啊淡饭黄齑阿双方说得太多容易掉入带入箭哈<i class="edit-note"></i></span>
 									</div>
 								</li>-->
 							</ul>
@@ -231,83 +231,103 @@
 		
 		<!----------------------------------添加合同（开始）--------------------------------------------------->
 		<div class="modal fade" id="addpactloyer" tabindex="-1" role="dialog" aria-labelledby="myModLabel" aria-hidden="true" >
-			<div class="modal-dialog">
+			<div class="modal-dialog" style="width: 900px;">
 				<div class="modal-content">
 					<div class="modal-header" style="text-align: center;">
 						<h4 class="modal-title">添加合同</h4>
 					</div>
-					<div class="modal-body">
-						<div class="addpact clearfix">
-							<div class="add-info">
-								<label>合同编码:</label>
-								<input type="text" placeholder="请输入合同编码" />
-							</div>
-							<div class="add-info">
-								<label>签约时间:</label>
-								<input type="text" placeholder="yyyy-MM-dd" />
-							</div>
-							<div class="add-info">
-								<label>雇主id:</label>
-								<input type="text" placeholder="请输入雇主ID"  />
-							</div>
-							<div class="add-info">
-								<label>雇主姓名:</label>
-								<input type="text" placeholder="请输入真实姓名" />
-							</div>
-							<div class="add-info">
-								<label>雇主电话:</label>
-								<input type="text"  placeholder="请输入手机号码"/>
-							</div>
-							<div class="add-info">
-								<label>雇主需求:</label>
-								<input type="text" placeholder="请输入需求" />
-							</div>
-							<div class="add-info">
-								<label>签约时长:</label>
-								<input type="text"  placeholder="请输入签约的时长"/>
-							</div>
-							<div class="add-info">
-								<label>服务费用:</label>
-								<input type="text"  placeholder="请输入费用"/>
-							</div>
-							<div class="add-info">
-								<label>上班时间:</label>
-								<input type="text"  placeholder="请输入上班时间"/>
-							</div>
-							<div class="add-info">
-								<label>服务人员姓名:</label>
-								<input type="text"  placeholder="请输入服务人员姓名"/>
-							</div>
-							<div class="add-info">
-								<label>服务人员电话:</label>
-								<input type="text" placeholder="请输入服务人员电话" />
-							</div>
-							<div class="add-info">
-								<label>薪资标准:</label>
-								<input type="text" placeholder="请输入薪资标准" />
-							</div>
-							<div class="add-info">
-								<label>雇主地址:</label>
-								<input type="text"  style="width: 400px;" placeholder="请输入地址"/>
-							</div>
-							<div class="add-remark">
-								<label>备&nbsp;&nbsp;注：</label>
-								<textarea cols="40" rows="5" placeholder="请输入需要备注的信息…" style="text-indent: 12px; font-size: 12px; color: #aaa; padding: 8px 0;"></textarea>
-							</div>
-						</div>
+					<div class="modal-body" id="add-pact-table">
+						<form role="form" id="addpact-form">
+							<table>
+								<th colspan="2">
+									<h4>合同签约信息</h4>
+								</th>
+								<tr>
+									<td>
+										<label><em class="star">*</em>合同编码:</label>
+										<input type="text" id="ap-code" name="code" placeholder="请输入合同编码" />
+									</td>
+									<td>
+										<label><em class="star">*</em>签约时间:</label>
+										<input placeholder="请输入日期" id="ap-eTime" name="eTime" class="laydate-icon" onclick="laydate()">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label><em class="star">*</em>雇主id:</label>
+										<input type="text" id="ap-employerId" name="employerId" placeholder="请输入雇主ID"  />
+									</td>
+									<td>
+										<label><em class="star">*</em>雇主姓名:</label>
+										<input type="text" id="ap-ename" name="ename" placeholder="请输入真实姓名" />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label><em class="star">*</em>雇主电话:</label>
+										<input type="text" id="ap-ephone" name="ephone"  placeholder="请输入手机号码"/>
+									</td>
+									<td>
+										<label><em class="star">*</em>雇主需求:</label>
+										<input type="text" id="ap-econtent" name="econtent" placeholder="请输入需求" />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label><em class="star">*</em>签约时长:</label>
+										<input type="text" id="ap-duration" name="duration"  placeholder="请输入签约的时长"/>
+									</td>
+									<td>
+										<label><em class="star">*</em>服务费用:</label>
+										<input type="text" id="ap-cost" name="cost"  placeholder="请输入费用"/>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label><em class="star">*</em>上班时间:</label>
+										<input type="text" id="ap-time" name="time"  placeholder="如：8:00/18:00"/>
+									</td>
+									<td>
+										<label><em class="star">*</em>服务人员姓名:</label>
+										<input type="text" id="ap-aname" name="aname"  placeholder="请输入服务人员姓名"/>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label><em class="star">*</em>服务人员电话:</label>
+										<input type="text" id="ap-aphone" name="aphone" placeholder="请输入服务人员电话" />
+									</td>
+									<td>
+										<label><em class="star">*</em>薪资标准:</label>
+										<input type="text" id="ap-salary" name="salary" placeholder="请输入薪资标准" />
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<label><em class="star">*</em>雇主地址:</label>
+										<input type="text" id="ap-eaddress" name="eaddress"  style="width: 610px;" placeholder="请输入地址"/>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<label class="add-remark">备注（可不填）</label>
+										<textarea id="ap-remark" name="remark" cols="100" rows="8" placeholder="请输入需要备注的信息  如：需要住家…" style="text-indent: 12px; font-size: 12px; color: #aaa; padding: 8px 0; resize:none;"></textarea>
+									</td>
+								</tr>
+							</table>
+							<input type="reset" name="reset" style="display: none;" />
+						</form>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" id="btn_employer_mod" class="btn btn-info" style="border: none;outline: none;">提交合同</button>
+						<button type="button" id="btn_pactloyer_add" class="btn btn-info" style="border: none;outline: none;">添加合同</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!----------------------------------添加合同（结束）---------------------------------------------------->
 		
-		
-		
-		<!---------------------------------右侧弹窗（开始）-------------------------------------------------------->
+		<!---------------------------------查看合同列表（开始）-------------------------------------------------------->
 		<div class="r-model">
 			<div class="model-con">
 				<div class="model-head">
@@ -346,78 +366,13 @@
 							</div>
 						</div>
 					</div>-->
-					<!--<div class="pact-list">
-						<div class="info-t">
-							<span class="info-tit">合同编号#1</span>
-							<a href="javascript:;" class="btnj">展开</a>
-						</div>
-						<div class="pact-info">
-							<div class="info-one">
-								<ul class="clearfix">
-									<li>雇主姓名：<span class="normal">小红</span></li>
-									<li>签约时间：<span class="normal">1494518400</span></li>
-									<li>雇主电话：<span class="normal">13645895642</span></li>
-									<li>雇主需求：<span class="normal">烧饭洗衣服</span></li>
-									<li>签约时长：<span class="normal">1</span></li>
-									<li>服务费：<span class="normal">￥2300.0</span></li>
-									<li>上班时间：<span class="normal">8:00/18:00</span></li>
-									<li>雇主地址：<span class="normal">深圳市龙岗区坂田顺兴工业区E栋603</span></li>
-								</ul>
-							</div>
-							<div class="info-two">
-								<ul class="clearfix">
-									<li>服务人员姓名：<span class="normal">王玉凤</span></li>
-									<li>服务人员电话：<span class="normal">13568945475</span></li>
-									<li>薪资标准：<span class="normal">￥4500</span></li>
-								</ul>
-							</div>
-							<div class="info-three">
-								<span class="remark">备注：</span>
-								<p class="remark-info">此雇主的合同很难才签下来</p>
-							</div>
-						</div>
-					</div>-->
-					<!--<div class="pact-list">
-						<div class="info-t">
-							<span class="info-tit">合同编号#1</span>
-							<a href="javascript:;" class="btnj">展开</a>
-						</div>
-						<div class="pact-info">
-							<div class="info-one">
-								<ul class="clearfix">
-									<li>雇主姓名：<span class="normal">小红</span></li>
-									<li>签约时间：<span class="normal">1494518400</span></li>
-									<li>雇主电话：<span class="normal">13645895642</span></li>
-									<li>雇主需求：<span class="normal">烧饭洗衣服</span></li>
-									<li>签约时长：<span class="normal">1</span></li>
-									<li>服务费：<span class="normal">￥2300.0</span></li>
-									<li>上班时间：<span class="normal">8:00/18:00</span></li>
-									<li>雇主地址：<span class="normal">深圳市龙岗区坂田顺兴工业区E栋603</span></li>
-								</ul>
-							</div>
-							<div class="info-two">
-								<ul class="clearfix">
-									<li>服务人员姓名：<span class="normal">王玉凤</span></li>
-									<li>服务人员电话：<span class="normal">13568945475</span></li>
-									<li>薪资标准：<span class="normal">￥4500</span></li>
-								</ul>
-							</div>
-							<div class="info-three">
-								<span class="remark">备注：</span>
-								<p class="remark-info">此雇主的合同很难才签下来</p>
-							</div>
-						</div>
-					</div>-->
-				
 				</div>
 			</div>
 		</div>
-		<!---------------------------------右侧弹窗（结束)----------------------------------------------------------------------->
-
+		<!---------------------------------查看合同列表（结束)----------------------------------------------------------------------->
+		
 		<script>
 			$(function(){
-				//右侧弹窗
-				
 				$('.search_options span').click(function(){
 					var dataId = $(this).data('id');
 					if(dataId == 1){
@@ -430,41 +385,17 @@
 					if(dataId !==2 && dataId !==3){
 						$('.addPact').hide();
 					}
-				})
-				
-				
-				
-				
-				$('.close-btn').click(function(){
-					$('.model-con').animate({'right':'-3000px'},300);
 				});
-				$(document).on('click','.lookpact',function(){
-					$('.model-con').animate({'right':'0'},600);
-				});
-				$('.btnj').click(function(){
-					$(this).toggleClass('on');
-					if($(this).hasClass('on')){
-						$(this).html("收起");
-						$(this).parents('.pact-list').find('.pact-info').slideDown(300);
-					}else{
-						$(this).parents('.pact-list').find('.pact-info').slideUp(300);
-						$(this).html("展开");
-					}
-				});
-				
-				//删除标签
-				$(document).on('click','.delete-note',function(){
-					$(this).parent().remove();
-				})
-				
-			});
+			});	
 		</script>
-
+		<script src="laydate/laydate.js"></script>
+		<link rel="stylesheet" type="text/css" href="laydate/skins/danlan/laydate.css">
 		<link href="css/employer_info.css" rel="stylesheet" />
 		<script src="js/employer_info.js" type="text/javascript"></script>
 		<!--<script type="text/javascript" src="js/modelBuilder.js"></script>-->
 		<link href="css/query_startic_pro.css" type="text/css" rel="Stylesheet" />
 		<link href="css/main.css" type="text/css" rel="Stylesheet" />
+		<script type="text/javascript" src="js/index.js"></script>
 
 	</body>
 

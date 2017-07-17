@@ -303,4 +303,48 @@ table tr input[type=text]{
 }
 
 
+/*查看简历*/
+#auntInfo{background-color: #fff;}
+#myForm>div{margin-bottom: 10px;}
+#myForm table{width: 100%;}
+#myForm .aunt-info-head {background-color: #dcebf7; height: 30px;}
+#myForm .aunt-info-head h4 {float: left; width: 80%; font-size: 16px; margin: 0; line-height: 30px; text-indent: 20px; }
+#myForm .aunt-info-head .edit-info-btn{line-height: 31px; background-color: #fff; border: 1px solid #89c4f9; padding: 2px 4px; border-radius: 8px; margin-left: 110px;}
+#myForm .aunt-info-head .edit-info-btn:hover{background-color: #89c4f9; color: #fff;}
+.aunt-info-con,.aunt-skill-con,.aunt-contact-con,.aunt-work-info{width: 100%; border: 1px solid #dcebf7;}
+.aunt-info-con .aunt-info-left{width: 70%; float: left; }
+.aunt-info-con .aunt-info-left table{width: 100%; margin: 10px;}
+#myForm table td{ border-bottom:1px dotted #74bef9; border-top: 1px dotted #74bef9; height: 30px; line-height: 30px; font-size: 12px; }
+#myForm table td.td-tit{width: 20%; background-color: #dcebf7;}
+.aunt-info-con .aunt-info-left table td.td-tit .red{display: none;}
+.aunt-info-con .aunt-info-left table td.td-input{width: 30%;}
+.aunt-info-con .aunt-info-left table td.td-input input{text-indent: 12px;}
+.aunt-info-con .aunt-info-left table td.id-input-l input{width: 50%;}
+.aunt-info-con .aunt-info-right{float: right; width: 30%;}
+.aunt-info-right .upload-img{width: 140px; height: 180px; margin: 10px auto; border: 2px solid #ddd; background: url(../image/photo_bg.jpg) center center no-repeat; position: relative;}
+.upload-img .link-upload{position: absolute; left: 2px; bottom: -5px; width: 100%; text-align: center; line-height: 38px; background: rgba(220, 235, 247, 0.49); color: #333; font-weight: bold;}
+
+.oper-info-btn{width: 100%; height: 40px; text-align: center; display: none;}
+.oper-info-btn a{display: inline-block; line-height: 20px; border: 1px solid #3ca1f3; padding: 2px 18px; margin: 5px 20px 0 20px;}
+.oper-info-btn a:hover{background-color: #3ca1f3; color: #fff;}
+
+#myForm .aunt-skill-con table td.td-tit{width: 15%;}
+.aunt-skill-con table td.td-list{width: 60%;}
+.aunt-skill-con table td.td-list span{margin-right: 8px;}
+.aunt-skill-con table td.td-list span i{display: none;}
+.aunt-skill-con table td.td-list span.on{display: inline-block;  background-color: #5cbff9; line-height: 20px; padding-left: 3px; padding-right: 15px; color: #fff;  position: relative;}
+.aunt-skill-con table td.td-list span.on i{display: inline-block; position: absolute; top: -6px; right: 0px; font-size: 6px; font-style: normal; cursor: pointer;}
+.aunt-skill-con table td.td-select{width: 25%; display: none;}
+.aunt-skill-con table td.td-select select{width: 100px; }
+.aunt-skill-con table td.td-select .add-skill-btn{margin-left: 7px; display: inline-block; background-color: #dcebf7; line-height: 20px; padding: 0 5px; border-radius: 4px;}
+
+.table-con{margin: 10px;}
+
+#myForm .aunt-contact-con table td{border: 1px dotted #74bef9; width: 10%; padding: 0; text-align: center;}
+#myForm .aunt-contact-con table td input{width: 100px;}
+.aunt-work-con .table-con table{margin-bottom: 5px;}
+#myForm .aunt-work-con table td.td-tit{width: 20%; padding: 0; text-align: center;}
+#myForm .aunt-work-con table td.works{width: 70%;}
+#myForm .aunt-work-con table td.work-con{height: 100px;}
+#myForm .aunt-work-con table td.td-btn{width: 10%; padding: 0; text-align: center; border: 1px dotted #74bef9;}
 

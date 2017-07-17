@@ -40,6 +40,7 @@
 		<!--主要写的js代码-->
 		<script src="js/default.js" type="text/javascript"></script>
 		<script src="js/main.js" type="text/javascript"></script>
+		<script src="js/index.js" type="text/javascript"></script>
 		<!--引用添加共享客户和共享保姆-->
 		<link href="css/help_cntral.css" rel="stylesheet" />
 		<link href="./font/iconfont.css" rel="stylesheet" />
@@ -60,12 +61,8 @@
 					$(this).removeClass("open");
 				});
 				//权限控制左侧菜单栏
-//				$('#menuList li').click(function() {
-//					alert($(this).index())
-//					if($(this).index() == 1 && getCookie('permission')) {
-//						$("#employerInfo").attr("href","employer_info.html");
-//					}
-//				});
+				
+							
 			});
 			//添加共享保姆
 			$('#add_share_aunt_btn').click(function() {
@@ -199,8 +196,8 @@
 									<i class="iconfont icon-businesscard_fill"></i><span class="nav-text">管理员</span>
 								</a>
 								<div class="nav-down">
-									<a href="javascript:;">用户审核</a>
-									<a href="javascript:;">新闻发布</a>
+									<a href="adminCheck.html" target="f">用户审核</a>
+									<a href="article.html" target="f">新闻发布</a>
 								</div>
 							</li>
 							<li>
@@ -208,16 +205,16 @@
 									<i class="iconfont icon-addition_fill"></i><span class="nav-text">新增</span>
 								</a>
 								<div class="nav-down">
-									<a href="javascript:;">新增共享保姆</a>
-									<a href="javascript:;">新增共享客户</a>
+									<a href="" data-toggle='modal' data-target='#add_share_aunt'>新增共享保姆</a>
+									<a href="" data-toggle='modal' data-target='#add_share_clientele'>新增共享客户</a>
 								</div>
 							</li>
 							<li>
 								<a href="javascript:;" class="tit">
 									<i class="iconfont icon-setup_fill"></i><span class="nav-text">设置</span>
 								</a>
-								<div class="nav-down">
-									<a href="javascript:;">求助</a>
+								<div class="nav-down" data-index='9' onclick='liclick(this)'>
+									<a href="seek_help.html" target="f">求助</a>
 								</div>
 							</li>
 							<li>
@@ -225,9 +222,11 @@
 									<i class="iconfont icon-people_fill"></i><span class="nav-text">用户</span>
 								</a>
 								<div class="nav-down">
-									<a href="javascript:;">修改用户信息</a>
-									<a href="javascript:;">修改用户密码</a>
-									<a href="javascript:;">退出登录</a>
+									<a href="" data-toggle='modal' data-target='#ModUser'>修改用户信息</a>
+									<a href="" data-toggle='modal' data-target='#ModYg'>修改员工信息</a>
+									<a href="" data-toggle='modal' data-target='#modUserPassword'>修改用户密码</a>
+									<a href="" data-toggle='modal' data-target='#modYgPassword'>修改员工密码</a>
+									<a href="login.html">退出登录</a>
 								</div>
 							</li>
 						</ul>
@@ -249,7 +248,7 @@
 							</div>
 						</a>
 					</li>
-					<li>
+					<li data-index='1' onclick='liclick(this)'>
 						<a href="employer_info.html" id="employerInfo" target="f">
 							<div style="width: 100%; text-align: center; margin-left: 8px;">
 								<i class="fa fa-user" style="font-size: 20px"></i>
@@ -259,7 +258,7 @@
 							</div>
 						</a>
 					</li>
-					<li>
+					<li data-index='2' onclick='liclick(this)'>
 						<a href="aunt_info.html" target="f">
 							<div style="width: 100%; text-align: center; margin-left: 8px;">
 								<i class="fa fa-female" style="font-size: 20px"></i>
@@ -270,7 +269,7 @@
 						</a>
 					</li>
 					
-					<li>
+					<li data-index='3' onclick='liclick(this)'>
 						<a href="insurance_agent.html" target="f">
 							<div style="width: 100%; text-align: center; margin-left: 8px;">
 								<i class="fa fa-users" style="font-size: 20px"></i>
@@ -290,7 +289,7 @@
 							</div>
 						</a>
 					</li>-->
-					<li>
+					<li data-index='4' onclick='liclick(this)'>
 						<a href="help_cntral.html" target="f">
 							<div style="width: 100%; text-align: center; margin-left: 8px;">
 								<i class="fa fa-retweet" style="font-size: 20px"></i>
@@ -300,7 +299,7 @@
 							</div>
 						</a>
 					</li>
-					<li>
+					<li data-index='5' onclick='liclick(this)'>
 						<a href="staff.html" target="f">
 							<div style="width: 100%; text-align: center; margin-left: 8px;">
 								<i class="fa fa-street-view" style="font-size: 20px"></i>
@@ -310,7 +309,7 @@
 							</div>
 						</a>
 					</li>
-					<li>
+					<li data-index='6' onclick='liclick(this)'>
 						<a href="training_service.html" target="f">
 							<div style="width: 100%; text-align: center; margin-left: 8px;">
 								<i class="fa fa-pencil-square" style="font-size: 20px"></i>
@@ -320,7 +319,7 @@
 							</div>
 						</a>
 					</li>
-					<li>
+					<li data-index='7' onclick='liclick(this)'>
 						<a href="finance.html" target="f">
 							<div style="width: 100%; text-align: center; margin-left: 8px;">
 								<i class="fa fa-book" style="font-size: 20px"></i>
@@ -330,7 +329,7 @@
 							</div>
 						</a>
 					</li>
-					<li>
+					<li data-index='8' onclick='liclick(this)'>
 						<a href="insurance_agent.html" target="f">
 							<div style="width: 100%; text-align: center; margin-left: 8px;">
 								<i class="fa fa-magic" style="font-size: 20px"></i>
@@ -614,11 +613,14 @@
 			</div>
 		</div>
 
+
+
+
 		<!--
         	作者：tangbin_man@163.com
         	时间：2017-05-24
         	描述：省，市二级联动
-        -->
+       -->
 		<script class="resources library" src="js/area.js" type="text/javascript"></script>
 		<script type="text/javascript">
 			_init_area();

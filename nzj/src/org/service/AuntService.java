@@ -49,7 +49,7 @@ public interface AuntService {
 	public Object getAuntList(HttpSession session, Integer start, Integer limit);
 
 	/**
-	 * 3.2通过id获取阿姨完整信息
+	 * 4.通过id获取阿姨完整信息
 	 * 
 	 * @param id
 	 * @return
@@ -57,8 +57,8 @@ public interface AuntService {
 	public Object getAuntById(Long id);
 
 	/**
-	 * 3.3根据状态来获取当前加盟商的所有阿姨列表
-	 * 
+	 * 5.根据状态来获取当前加盟商的所有阿姨列表
+	 * 0待岗，1上岗，-1黑名单
 	 * @param status
 	 * @param start
 	 * @param limit
@@ -69,15 +69,15 @@ public interface AuntService {
 			Integer start, Integer limit, Long userId);
 
 	/**
-	 * 4修改阿姨基本信息（不包括从表）
+	 * 6.修改阿姨基本信息（不包括从表）
 	 * 
 	 * @param a
 	 * @return
 	 */
-	public Object updateAunt(Aunt a);
+	public Object updateAunt (Aunt a);
 
 	/**
-	 * 4.1修改阿姨语言
+	 * 7.修改阿姨语言
 	 * 
 	 * @param AuntId
 	 * @param laId
@@ -86,7 +86,7 @@ public interface AuntService {
 	public Object updateAuntLanguage(long AuntId, long[] laId);
 
 	/**
-	 * 4.2修改阿姨烹饪技能
+	 * 8.修改阿姨烹饪技能
 	 * 
 	 * @param AuntId
 	 * @param coId
@@ -95,7 +95,7 @@ public interface AuntService {
 	public Object updateAuntCooking(long AuntId, long[] coId);
 
 	/**
-	 * 4.3修改阿姨基本技能
+	 * 9.修改阿姨基本技能
 	 * 
 	 * @param AuntId
 	 * @param skId
@@ -104,7 +104,7 @@ public interface AuntService {
 	public Object updateAuntSkill(long AuntId, long[] skId);
 
 	/**
-	 * 4.4修改阿姨家用电器
+	 * 10.修改阿姨家用电器
 	 * 
 	 * @param AuntId
 	 * @param apId
@@ -113,7 +113,7 @@ public interface AuntService {
 	public Object updateAuntAppliance(long AuntId, long[] apId);
 
 	/**
-	 * 4.5修改阿姨证书
+	 * 11.修改阿姨证书
 	 * 
 	 * @param AuntId
 	 * @param ceId
@@ -122,7 +122,7 @@ public interface AuntService {
 	public Object updateAuntCertificate(long AuntId, long[] ceId);
 
 	/**
-	 * 4.6修改阿姨岗位
+	 * 12.修改阿姨岗位
 	 * 
 	 * @param AuntId
 	 * @param joId
@@ -131,7 +131,7 @@ public interface AuntService {
 	public Object updateAuntJob(long AuntId, long[] joId);
 
 	/**
-	 * 4.7修改阿姨紧急联系人
+	 * 13.修改阿姨紧急联系人
 	 * 
 	 * @param AuntId
 	 * @param c
@@ -140,7 +140,7 @@ public interface AuntService {
 	public Object updateAuntContact(long AuntId, AuntContactForm c);
 
 	/**
-	 * 4.8修改阿姨工作经历
+	 * 14.修改阿姨工作经历
 	 * 
 	 * @param AuntId
 	 * @param w
@@ -149,7 +149,7 @@ public interface AuntService {
 	public Object updataAuntWork(long AuntId, AuntWorkForm w);
 
 	/**
-	 * 4.9修改阿姨照片
+	 * 15.修改阿姨照片
 	 * 
 	 * @param AuntId
 	 * @param url
@@ -160,14 +160,14 @@ public interface AuntService {
 			throws IllegalStateException, IOException;
 	
 	/**
-	 * 5修改阿姨状态（0待岗， 1上岗， -1黑名单）
+	 * 16.修改阿姨状态（0待岗， 1上岗， -1黑名单）
 	 * @param AuntId
 	 * @param status
 	 * @return
 	 */
 	public Object updateAuntStauts(Long AuntId,Integer status);
 	/**
-	 * 6.根据用户id及阿姨状态遍历阿姨信息（0待岗， 1上岗， -1黑名单）
+	 * 17.根据用户id及阿姨状态遍历阿姨信息（0待岗， 1上岗， -1黑名单）
 	 * @param start
 	 * @param limit
 	 * @param userId
@@ -175,4 +175,16 @@ public interface AuntService {
 	 * @return
 	 */
 	public Object getAuntListByIdStatus (Integer start, Integer limit, Long userId, Integer status);
+	/**
+	 * 18.修改复选框信息（1.语言，2，烹饪技能，3.基本技能、4.家用电器、5.证书、6.岗位）
+	 * @param auntid
+	 * @param laId
+	 * @param coId
+	 * @param skId
+	 * @param apId
+	 * @param ceId
+	 * @param joId
+	 * @return
+	 */
+	public Object updateAuntSkills (long auntid, long[] laId, long[] coId, long[] skId,  long[] apId, long[] ceId, long[] joId);
 }

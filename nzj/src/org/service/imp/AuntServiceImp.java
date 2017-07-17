@@ -308,8 +308,8 @@ public class AuntServiceImp implements AuntService {
 //		User u = (User) session.getAttribute("user");
 		Long userId1 = GetUserId.getUserId(session);
 		if (userId1 != null) {
-			List<VAuntId> li = aDao.getAuntList(start, limit, userId1);
-			Long count = aDao.getAuntCount(userId1);
+			List<VAuntId> li = aDao.getAuntListByStatus(status, start, limit, userId1);
+			Long count = aDao.getAuntCountByStatus(status, userId1);
 
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("result", li);
@@ -335,6 +335,16 @@ public class AuntServiceImp implements AuntService {
 		map.put("AuntList", aDao.getAuntListByStatus(status, start, limit, userId));
 		map.put("count", aDao.getAuntCountByStatus(status, userId));
 		return JsonObject.getResult(1, "阿姨信息列表", map);
+	}
+
+	@Override
+	public Object updateAuntSkills(long auntid, long[] laId, long[] coId,
+			long[] skId, long[] apId, long[] ceId, long[] joId) {
+		if (aDao.updateAuntSkills(auntid, laId, coId, skId, apId, ceId, joId)) {
+			return JsonObject.getResult(1, "复选框信息修改成功", true);
+		} else {
+			return JsonObject.getResult(0, "复选框信息修改失败", false);
+		}
 	}
 
 }

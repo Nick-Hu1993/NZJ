@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Controller
 public class AuntController {
 	@Autowired
@@ -135,5 +138,12 @@ public class AuntController {
 	public Object getAuntListByIdStatus (Integer start, Integer limit,
 			Long userId, Integer status) {
 		return aService.getAuntListByIdStatus(start, limit, userId, status);
+	}
+	
+	@RequestMapping("/updateAuntSkills")
+	@ResponseBody
+	public Object updateAuntSkills(long auntid, long[] laId, long[] coId,
+			long[] skId, long[] apId, long[] ceId, long[] joId) {
+		return aService.updateAuntSkills(auntid, laId, coId, skId, apId, ceId, joId);
 	}
 }

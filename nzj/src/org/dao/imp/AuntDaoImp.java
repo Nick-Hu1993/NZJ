@@ -20,6 +20,9 @@ import org.util.HibernateSessionFactory;
 import org.view.VAunt;
 import org.view.VAuntId;
 
+import sun.net.www.content.text.plain;
+import sun.security.timestamp.TSRequest;
+
 @Service
 public class AuntDaoImp implements AuntDao {
 
@@ -420,6 +423,133 @@ public class AuntDaoImp implements AuntDao {
 			e.printStackTrace();
 			return false;
 		}finally{
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public boolean updateAuntSkills(final long auntid, final long[] laId, final long[] coId,
+			final long[] skId, final long[] apId, final long[] ceId, final long[] joId) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			session.doWork(new Work() {
+				
+				@Override
+				public void execute(Connection conn) throws SQLException {
+					String sql1_1 = "DELETE FROM aunt_language WHERE aunt_id = ?";
+					PreparedStatement stmt1_1 = conn.prepareStatement(sql1_1);
+					conn.setAutoCommit(false);
+					stmt1_1.setLong(1, auntid);
+					stmt1_1.addBatch();
+					stmt1_1.executeUpdate();
+					
+					String sql1 = "INSERT INTO aunt_language(language_id,aunt_id) VALUES(?,?)";
+					PreparedStatement stmt1 = conn.prepareStatement(sql1);
+					conn.setAutoCommit(false);
+					for (long  l: laId) {
+						stmt1.setLong(1, l);
+						stmt1.setLong(2, auntid);
+						stmt1.addBatch();
+					} 
+					stmt1.executeBatch();
+					
+					String sql2_1 = "DELETE FROM aunt_cooking WHERE aunt_id = ?";
+					PreparedStatement stmt2_1 = conn.prepareStatement(sql2_1);
+					conn.setAutoCommit(false);
+					stmt2_1.setLong(1, auntid);
+					stmt2_1.addBatch();
+					stmt2_1.executeUpdate();
+					
+					String sql2 = "INSERT INTO aunt_cooking(cooking_id, aunt_id) VALUES(?,?)";
+					PreparedStatement stmt2 = conn.prepareStatement(sql2);
+					conn.setAutoCommit(false);
+					for (long c : coId) {
+						stmt2.setLong(1, c);
+						stmt2.setLong(2, auntid);
+						stmt2.addBatch();
+					}
+					stmt2.executeBatch();
+					
+					String sql3_1 = "DELETE FROM aunt_skill WHERE aunt_id = ?";
+					PreparedStatement stmt3_1 = conn.prepareStatement(sql3_1);
+					conn.setAutoCommit(false);
+					stmt3_1.setLong(1, auntid);
+					stmt3_1.addBatch();
+					stmt3_1.executeUpdate();
+					
+					String sql3 = "INSERT INTO aunt_skill(skill_id, aunt_id) VALUES(?,?)";
+					PreparedStatement stmt3 = conn.prepareStatement(sql3);
+					conn.setAutoCommit(false);
+					for (long k : skId) {
+						stmt3.setLong(1, k);
+						stmt3.setLong(2, auntid);
+						stmt3.addBatch();
+					}
+					stmt3.executeBatch();
+					
+					String sql4_1 = "DELETE FROM aunt_appliance WHERE aunt_id = ?";
+					PreparedStatement stmt4_1 = conn.prepareStatement(sql4_1);
+					conn.setAutoCommit(false);
+					stmt4_1.setLong(1, auntid);
+					stmt4_1.addBatch();
+					stmt4_1.executeUpdate();
+					
+					String sql4 = "INSERT INTO aunt_appliance(appliance_id, aunt_id) VALUES(?,?)";
+					PreparedStatement stmt4 = conn.prepareStatement(sql4);
+					conn.setAutoCommit(false);
+					for (long p : apId) {
+						stmt4.setLong(1, p);
+						stmt4.setLong(2, auntid);
+						stmt4.addBatch();
+					}
+					stmt4.executeBatch();
+					
+					String sql5_1 = "DELETE FROM aunt_certificate WHERE aunt_id = ?";
+					PreparedStatement stmt5_1 = conn.prepareStatement(sql5_1);
+					conn.setAutoCommit(false);
+					stmt5_1.setLong(1, auntid);
+					stmt5_1.addBatch();
+					stmt5_1.executeUpdate();
+					
+					String sql5 = "INSERT INTO aunt_certificate(certificate_id, aunt_id) VALUES(?,?)";
+					PreparedStatement stmt5 = conn.prepareStatement(sql5);
+					conn.setAutoCommit(false);
+					for (long i : ceId) {
+						stmt5.setLong(1, i);
+						stmt5.setLong(2, auntid);
+						stmt5.addBatch();
+					}
+					stmt5.executeBatch();
+					
+					String sql6_1 = "DELETE FROM aunt_job WHERE aunt_id = ?";
+					PreparedStatement stmt6_1 = conn.prepareStatement(sql6_1);
+					conn.setAutoCommit(false);
+					stmt6_1.setLong(1, auntid);
+					stmt6_1.addBatch();
+					stmt6_1.executeUpdate();
+					
+					String sql6 = "INSERT INTO aunt_job(job_id, aunt_id) VALUES(?,?)";
+					PreparedStatement stmt6 = conn.prepareStatement(sql6);
+					conn.setAutoCommit(false);
+					for (long b : joId) {
+						stmt6.setLong(1, b);
+						stmt6.setLong(2, auntid);
+						stmt6.addBatch();
+					}
+					stmt6.executeBatch();
+				}
+			});
+			ts.commit();
+			session.flush();
+			session.clear();
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+		} finally {
 			HibernateSessionFactory.closeSession();
 		}
 	}
