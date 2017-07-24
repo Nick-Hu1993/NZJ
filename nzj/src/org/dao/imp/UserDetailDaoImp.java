@@ -49,6 +49,26 @@ public class UserDetailDaoImp implements UserDetailDao {
 	}
 
 	@Override
+	public boolean updatePhoto(long userId, String photourl) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("UPDATE UserDetail ud SET ud.phonturl = ? WHERE ud.userId = ?");
+			query.setParameter(0, photourl);
+			query.setParameter(1, userId);
+			query.executeUpdate();
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+	
+	@Override
 	public UserDetail getUserDetail(String username) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
@@ -176,5 +196,4 @@ public class UserDetailDaoImp implements UserDetailDao {
 			HibernateSessionFactory.closeSession();
 		}
 	}
-
 }

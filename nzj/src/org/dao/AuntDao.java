@@ -55,7 +55,8 @@ public interface AuntDao {
 	 * @param joId
 	 * @return
 	 */
-	public boolean updateAuntSkills (long auntid, long[] laId, long[] coId, long[] skId,  long[] apId, long[] ceId, long[] joId);
+	public boolean updateAuntSkills (Long auntid, Long[] laId, Long[] coId,
+			Long[] skId, Long[] apId, Long[] ceId, Long[] joId);
 	// -----------------------------------查---------------------------------------
 	/**
 	 * 4.1获取全部阿姨

@@ -16,6 +16,7 @@ public class UserDetail implements java.io.Serializable {
 	private Long telephone;
 	private Long dphone;
 	private String address;
+	private String photourl;
 	private String charterurl;
 	private String idcardurl;
 	private Integer support;
@@ -43,7 +44,8 @@ public class UserDetail implements java.io.Serializable {
 	/** full constructor */
 	public UserDetail(Long userId, String username, String company,
 			String contact, Long telephone, Long dphone, String address,
-			String charterurl, String idcardurl, Integer support) {
+			String photourl, String charterurl, String idcardurl,
+			Integer support) {
 		this.userId = userId;
 		this.username = username;
 		this.company = company;
@@ -51,6 +53,7 @@ public class UserDetail implements java.io.Serializable {
 		this.telephone = telephone;
 		this.dphone = dphone;
 		this.address = address;
+		this.photourl = photourl;
 		this.charterurl = charterurl;
 		this.idcardurl = idcardurl;
 		this.support = support;
@@ -120,6 +123,14 @@ public class UserDetail implements java.io.Serializable {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getPhotourl() {
+		return this.photourl;
+	}
+
+	public void setPhotourl(String photourl) {
+		this.photourl = photourl;
 	}
 
 	public String getCharterurl() {

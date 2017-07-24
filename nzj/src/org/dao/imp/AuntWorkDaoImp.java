@@ -3,6 +3,7 @@ package org.dao.imp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.List;
 
 import org.Form.AuntWorkForm;
@@ -18,6 +19,58 @@ import org.util.HibernateSessionFactory;
 
 @Service
 public class AuntWorkDaoImp implements AuntWorkDao{
+	@Override
+	public boolean addWork(final long AuntId, final AuntWorkForm w) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction() ;
+			
+			session.doWork(new Work() {
+				
+				@Override
+				public void execute(Connection conn) throws SQLException {
+					String sql = "INSERT INTO aunt_work (time, work, aunt_id) values (?,?,?)";
+					PreparedStatement stmt1 = conn.prepareStatement(sql);
+					conn.setAutoCommit(false);
+					//应该遍历下标
+					for (int i = 0; i < w.getTime().length; i++) {
+						stmt1.setString(1, w.getTime()[i]);
+						stmt1.setString(2, w.getWork()[i]);
+						stmt1.setLong(3, AuntId);
+						stmt1.addBatch();
+					}
+					stmt1.executeBatch();
+				}
+			});
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+	
+	@Override
+	public boolean deleteWork(long id) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("Delete AuntWork WHERE id = ?");
+			query.setParameter(0, id);
+			query.executeUpdate();
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
 
 	@Override
 	public List getWorkByAuntId(long auntId) {
@@ -77,5 +130,4 @@ public class AuntWorkDaoImp implements AuntWorkDao{
 			HibernateSessionFactory.closeSession();
 		}
 	}
-
 }

@@ -38,15 +38,17 @@ $(function() {
 		async: false,
 		cache: false,
 		success: function(data) {
-			var Languages = "<label>语&nbsp;&nbsp;&nbsp;&nbsp;言:&nbsp;&nbsp;</label>";
+			var Languages = "<div class='sk-tit'><label>语&nbsp;&nbsp;&nbsp;&nbsp;言:&nbsp;&nbsp;</label></div>";
+			Languages +="<div class='sk-list'>"
 			for(var i = 0; i < data.data.length; i++) {
 				//				 if(i==0){
 				//				 	Languages += "<input type='checkbox' value='"+data.data[i].id+"' name='languageId' checked='checked'/>"+data.data[i].name+'&nbsp;&nbsp;&nbsp;&nbsp;';
 				//				 }else{
-				Languages += "<input type='checkbox' value=" + data.data[i].id + " name='languageId'/>" + data.data[i].name + "&nbsp;&nbsp;&nbsp;&nbsp;";
+				Languages += "<span><input type='checkbox' value=" + data.data[i].id + " name='languageId'/>" + data.data[i].name+"</span>";
 				//				 }
 			}
-			$("#tdLanguages").html(Languages + "<span style='display: none;'><button type='button' id='modLanguage' class='btn btn-info' style='float: right;'>保存</button></span>");
+			Languages +="</div>"
+			$("#tdLanguages").html(Languages);
 		},
 		error: function(jqXHR) {
 			alert("网络异常");
@@ -97,15 +99,17 @@ $(function() {
 		async: false,
 		cache: false,
 		success: function(data) {
-			var CookingId = "<label>烹&nbsp;&nbsp;&nbsp;&nbsp;饪:&nbsp;&nbsp;</label>";
+			var CookingId = "<div class='sk-tit'><label>烹&nbsp;&nbsp;&nbsp;&nbsp;饪:&nbsp;&nbsp;</label></div>";
+			CookingId +="<div class='sk-list'>"
 			for(var i = 0; i < data.data.length; i++) {
 				//				 if(i==0){
 				//				 	CookingId += "<input type='checkbox' value='"+data.data[i].id+"' name='cookingId' checked='checked'/>"+data.data[i].name+'&nbsp;&nbsp;&nbsp;&nbsp;';
 				//				 }else{
-				CookingId += "<input type='checkbox' value='" + data.data[i].id + "' name='cookingId'/>" + data.data[i].name + '&nbsp;&nbsp;&nbsp;&nbsp;';
+				CookingId += "<span><input type='checkbox' value='" + data.data[i].id + "' name='cookingId'/>" + data.data[i].name +"</span>";
 				//				 }
 			}
-			$("#tdCookingId").html(CookingId + "<span style='display: none;'><button type='button' id='modCooking' class='btn btn-info' style='float: right;'>保存</button></span>");
+			CookingId +="</div>"
+			$("#tdCookingId").html(CookingId);
 		},
 		error: function(jqXHR) {
 			alert("网络异常");
@@ -156,15 +160,17 @@ $(function() {
 		async: false,
 		cache: false,
 		success: function(data) {
-			var SkillId = "<label>基本技能:&nbsp;&nbsp;</label>";
+			var SkillId = "<div class='sk-tit'><label>基本技能:&nbsp;&nbsp;</label></div>";
+			SkillId +="<div class='sk-list'>"
 			for(var i = 0; i < data.data.length; i++) {
 				//				 if(i==0){
 				//				 	SkillId += "<input type='checkbox' value='"+data.data[i].id+"' name='skillId' checked='checked'/>"+data.data[i].name+'&nbsp;&nbsp;&nbsp;&nbsp;';
 				//				 }else{
-				SkillId += "<input type='checkbox' value='" + data.data[i].id + "' name='skillId'/>" + data.data[i].name + '&nbsp;&nbsp;&nbsp;&nbsp;';
+				SkillId += "<span><input type='checkbox' value='" + data.data[i].id + "' name='skillId'/>" + data.data[i].name +"</span>";
 				//				 }
 			}
-			$("#tdSkillId").html(SkillId + "<span style='display: none;'><button type='button' id='modSkill' class='btn btn-info' style='float: right;'>保存</button></span>");
+			SkillId +="</div>"
+			$("#tdSkillId").html(SkillId);
 		},
 		error: function(jqXHR) {
 			alert("网络异常");
@@ -215,15 +221,17 @@ $(function() {
 		async: false,
 		cache: false,
 		success: function(data) {
-			var ApplianceId = "<label>家用电器:&nbsp;&nbsp;</label>";
+			var ApplianceId = "<div class='sk-tit'><label>家用电器:&nbsp;&nbsp;</label></div>";
+				ApplianceId +="<div class='sk-list'>"
 			for(var i = 0; i < data.data.length; i++) {
 				//				 if(i==0){
 				//				 	ApplianceId += "<input type='checkbox' value='"+data.data[i].id+"' name='applianceId' checked='checked'/>"+data.data[i].name+'&nbsp;&nbsp;&nbsp;&nbsp;';
 				//				 }else{
-				ApplianceId += "<input type='checkbox' value='" + data.data[i].id + "' name='applianceId'/>" + data.data[i].name + '&nbsp;&nbsp;&nbsp;&nbsp;';
+				ApplianceId += "<span><input type='checkbox' value='" + data.data[i].id + "' name='applianceId'/>" + data.data[i].name+"</span>";
 				//				 }
 			}
-			$("#tdApplianceId").html(ApplianceId + "<span style='display: none;'><button type='button' id='modAppliance' class='btn btn-info' style='float: right;'>保存</button></span>");
+				ApplianceId +="</div>"
+			$("#tdApplianceId").html(ApplianceId);
 		},
 		error: function(jqXHR) {
 			alert("网络异常");
@@ -274,15 +282,17 @@ $(function() {
 		async: false,
 		cache: false,
 		success: function(data) {
-			var JobId = "<label>应聘岗位:&nbsp;&nbsp;</label>";
+			var JobId = "<div class='sk-tit'><label>应聘岗位:&nbsp;&nbsp;</label></div>";
+				JobId +="<div class='sk-list'>"
 			for(var i = 0; i < data.data.length; i++) {
 				//				 if(i==0){
 				//				 	JobId += "<input type='checkbox' value='"+data.data[i].id+"' name='jobId' checked='checked'/>"+data.data[i].name+'&nbsp;&nbsp;&nbsp;&nbsp;';
 				//				 }else{
-				JobId += "<input type='checkbox' value='" + data.data[i].id + "' name='jobId'/>" + data.data[i].name + '&nbsp;&nbsp;&nbsp;&nbsp;';
+				JobId += "<span><input type='checkbox' value='" + data.data[i].id + "' name='jobId'/>" + data.data[i].name +"</span>";
 				//				 }
 			}
-			$("#tdJobId").html(JobId + "<span style='display: none;'><button type='button' id='modJob' class='btn btn-info' style='float: right;'>保存</button></span>");
+				JobId +="</div>"
+			$("#tdJobId").html(JobId);
 		},
 		error: function(jqXHR) {
 			alert("网络异常");
@@ -333,15 +343,17 @@ $(function() {
 		async: false,
 		cache: false,
 		success: function(data) {
-			var CertificateId = "<label>提供证件:&nbsp;&nbsp;</label>";
+			var CertificateId = "<div class='sk-tit'><label>提供证件:&nbsp;&nbsp;</label></div>";
+				CertificateId +="<div class='sk-list'>"
 			for(var i = 0; i < data.data.length; i++) {
 				//				 if(i==0){
 				//				 	CertificateId += "<input type='checkbox' value='"+data.data[i].id+"' name='certificateId' checked='checked'/>"+data.data[i].name+'&nbsp;&nbsp;&nbsp;&nbsp;';
 				//				 }else{
-				CertificateId += "<input type='checkbox' value='" + data.data[i].id + "' name='certificateId'/>" + data.data[i].name + '&nbsp;&nbsp;&nbsp;&nbsp;';
+				CertificateId += "<span><input type='checkbox' value='" + data.data[i].id + "' name='certificateId'/>" + data.data[i].name+"</span>";
 				//				 }
 			}
-			$("#tdCertificateId").html(CertificateId + "<span style='display: none;'><button type='button' id='modCertificate' class='btn btn-info' style='float: right;'>保存</button></span>");
+				CertificateId +="</div>"
+			$("#tdCertificateId").html(CertificateId);
 		},
 		error: function(jqXHR) {
 			alert("网络异常");
@@ -393,7 +405,7 @@ $(function() {
 			"<td>关系：<input type='text' name='relation'/></td>" +
 			"<td>工作状况 : <input type='text' name='workstatus'/></td>" +
 			"<td>联系电话：<input type='text' name='cphone'/></td>" +
-			"<td onClick='del_contact(this)'><button class='contact_del_btn' type='button' title='删除'/></td>" +
+			"<td onClick='del_contact(this)'><i class='contact_del_btn iconfont icon-shanchu2' title='删除'/></i></td>" +
 			"</tr>";
 	}
 	$(".contact_table").html(val_contact);
@@ -402,13 +414,17 @@ $(function() {
 	var val_work;
 	for(var i = 0; i < 1; i++) {
 
-		val_work += "<tr id='tr" + i + "'>" +
-			"<td>起止时间：<input type='text' name='time'/></td>" +
-			"<td>主要工作：<input type='text' name='work'/></td>" +
-			"<td onClick='del_work(this)'><button class='contact_del_btn' type='button' title='删除'/></td>" +
-			"</tr>";
+		val_work ="<table class='work_table'><tbody>"+
+			"<tr>" +
+			"<td>起止时间：<input type='text' name='time' placeholder='年-月-日  至 年-月-日'/></td>" +
+			"<td rowspan='2' onClick='del_work(this)'><i class='contact_del_btn iconfont icon-shanchu2' title='删除'/></i></td>" +
+			"</tr>"+
+			"<tr>"+
+			"<td class='area-td'>主要工作：<textarea cols='80' rows='5'   name='work'/></textarea></td>" +
+			"</tr>"+
+			"</tbody></table>";
 	}
-	$(".work_table").html(val_work);
+	$(".work_info_table").html(val_work);
 	//	
 	//添加阿姨信息
 	$('#btn_aunt_add').click(function() {
@@ -440,7 +456,7 @@ $(function() {
 		});
 	});
 	//修改阿姨信息
-	$('#btn_aunt_mod').click(function() {
+	/*$('#btn_aunt_mod').click(function() {
 		//  var formData = new FormData(document.getElementById("divFrame"));
 		var appform = document.getElementById('divFrame');
 		//  alert(appform.id.value+'--'+appform.userId.value+'--'+appform.native_.value);
@@ -484,53 +500,7 @@ $(function() {
 			}
 		});
 
-	});
-});
-
-$(function() {
-
-	//鼠标经过语言复选框是显示保存按钮
-	$('#tdLanguages').mouseover(function() {
-		$('#tdLanguages').children('span').show()
-	});
-//	$('#tdLanguages').mouseout(function() {
-//		$('#tdLanguages').children('span').hide()
-//	});
-	//鼠标经过语言复选框是显示保存按钮
-	$('#tdCookingId').mouseover(function() {
-		$('#tdCookingId').children('span').show()
-	});
-//	$('#tdCookingId').mouseout(function() {
-//		$('#tdCookingId').children('span').hide()
-//	});
-	//鼠标经过语言复选框是显示保存按钮
-	$('#tdSkillId').mouseover(function() {
-		$('#tdSkillId').children('span').show()
-	});
-//	$('#tdSkillId').mouseout(function() {
-//		$('#tdSkillId').children('span').hide()
-//	});
-	//鼠标经过语言复选框是显示保存按钮
-	$('#tdApplianceId').mouseover(function() {
-		$('#tdApplianceId').children('span').show()
-	});
-//	$('#tdApplianceId').mouseout(function() {
-//		$('#tdApplianceId').children('span').hide()
-//	});
-	//鼠标经过语言复选框是显示保存按钮
-	$('#tdJobId').mouseover(function() {
-		$('#tdJobId').children('span').show()
-	});
-//	$('#tdJobId').mouseout(function() {
-//		$('#tdJobId').children('span').hide()
-//	});
-	//鼠标经过语言复选框是显示保存按钮
-	$('#tdCertificateId').mouseover(function() {
-		$('#tdCertificateId').children('span').show()
-	});
-//	$('#tdCertificateId').mouseout(function() {
-//		$('#tdCertificateId').children('span').hide()
-//	});
+	});*/
 });
 
 //添加阿姨信息时初始化表
@@ -538,7 +508,7 @@ function addAunt() {
 	//	document.getElementById("divFrame").reset(); 
 	//	$(".aunt_img").attr("src", "image/u196.png");
 	$("input[type=reset]").trigger("click");
-	$(".aunt_img").attr("src", "image/u196.png");
+	$(".aunt_img").attr("src");
 	$('#auntLabel').html('添加阿姨信息');
 	$('#btn_aunt_add').show();
 	$('#btn_aunt_mod').hide();
@@ -548,7 +518,7 @@ function addAunt() {
 	$('#modAppliance').hide();
 	$('#modJob').hide();
 	$('#modCertificate').hide();
-	$('#auntIcon').html('添加阿姨照片');
+	$('#auntIcon').html('上传照片');
 	//初始化紧急联系人
 	var tb = document.getElementById('contact_table');
 	var rowNum = tb.rows.length;
@@ -565,46 +535,42 @@ function addAunt() {
 			"<td>关系：<input type='text' name='relation'/></td>" +
 			"<td>工作状况 : <input type='text' name='workstatus'/></td>" +
 			"<td>联系电话：<input type='text' name='cphone'/></td>" +
-			"<td onClick='del_contact(this)'><button class='contact_del_btn' type='button' title='删除'/></td>" +
+			"<td onClick='del_contact(this)'><i class='contact_del_btn iconfont icon-shanchu2' title='删除'/></i></td>" +
 			"</tr>";
 	}
 	$(".contact_table").html(val_contact);
 
 	//初始化工作经历
-	var tb = document.getElementById('work_table');
-	var rowNum = tb.rows.length;
-	for(i = 0; i < rowNum; i++) {
-		tb.deleteRow(i);
-		rowNum = rowNum - 1;
-		i = i - 1;
-	};
-	var val_work;
-	for(var i = 0; i < 1; i++) {
+	var val_work ="<table class='work_table'><tbody>"+
+			"<tr>" +
+			"<td>起止时间：<input type='text' name='time' placeholder='年-月-日  至  年-月-日'/></td>" +
+			"<td rowspan='2' onClick='del_work(this)'><i class='contact_del_btn iconfont icon-shanchu2' title='删除'/></i></td>" +
+			"</tr>"+
+			"<tr>"+
+			"<td class='area-td'>主要工作：<textarea cols='80' rows='5'  name='work'/></textarea></td>" +
+			"</tr>"+
+			"</tbody></table>";
 
-		val_work += "<tr id='tr" + i + "'>" +
-			"<td>起止时间：<input type='text' name='time'/></td>" +
-			"<td>主要工作：<input type='text' name='work'/></td>" +
-			"<td onClick='del_work(this)'><button class='contact_del_btn' type='button' title='删除'/></td>" +
-			"</tr>";
-	}
-	$(".work_table").html(val_work);
+	$(".work_info_table").html(val_work);
 };
 
 //添加工作经历
 function add_work() {
-	var work_table = document.getElementById("work_table");
-	var rows = work_table.rows.length;
-	var add_tr = "<tr id='tr" + rows + "'>" +
-		"<td>起止时间：<input type='text' name='time'/></td>" +
-		"<td>主要工作：<input type='text' name='work'/></td>" +
-		"<td onClick='del_work(this)'><button class='contact_del_btn' type='button' title='删除'/></td>" +
-		" </tr>"
-	$(".work_table").append(add_tr);
+	var add_tr = "<table class='work_table'><tbody>"+
+			"<tr>" +
+			"<td>起止时间：<input type='text' name='time' placeholder='年-月-日  至  年-月-日'/></td>" +
+			"<td rowspan='2' onClick='del_work(this)'><i class='contact_del_btn iconfont icon-shanchu2' title='删除'/></i></td>" +
+			"</tr>"+
+			"<tr>"+
+			"<td class='area-td'>主要工作：<textarea cols='80' rows='5'  name='work'/></textarea></td>" +
+			"</tr>"+
+			"</tbody></table>";
+	$(".work_info_table").append(add_tr);
 };
 
 //删除工作经历
 function del_work(v) {
-	$(v).parent().remove();
+	$(v).parents('.work_table').remove();
 };
 
 //添加紧急联系人
@@ -616,7 +582,7 @@ function add_contact() {
 		"<td>关系：<input type='text' name='relation'/></td>" +
 		"<td>工作状况 : <input type='text' name='workstatus'/></td>" +
 		"<td>联系电话：<input type='text' name='cphone'/></td>" +
-		"<td  onClick='del_contact(this)'><button class='contact_del_btn' type='button' title='删除'/></td>" +
+		"<td  onClick='del_contact(this)'><i class='contact_del_btn iconfont icon-shanchu2' title='删除'/></i></td>" +
 		" </tr>"
 	$(".contact_table").append(add_tr);
 };
@@ -784,11 +750,11 @@ var builderUQTQueryMsg = function(UQTQueryMsg) {
 	auntTable.append(th);
 	var tr;
 	$.each(UQTQueryMsg, function(i, eachData) {
-//		console.log(eachData);
 		tr = $('<tr>');
 		var listId = eachData.id;
 		var listName = eachData.name;
 		var listAge = eachData.age;
+		var listStatus = eachData.status;
 		var listSex = null;
 		if(eachData.sex == 1) {
 			listSex = '男';
@@ -808,8 +774,7 @@ var builderUQTQueryMsg = function(UQTQueryMsg) {
 			"<td class='match_type'>" + listPhone + "</td>" +
 			"<td class='dis_order'>" + listAdress + "</td>" +
 			"<td class='dis_dta'>" +
-			"<a class='editOp auntInfo' href='' data-toggle='modal' data-auntid='"+listId+"' >查看</a>" +
-			"<a class='editOp' href='' data-toggle='modal' data-target='#aunt'onclick='updateAunt(" + listId + ")'>修改</a>" +
+			"<a class='editOp auntInfo' href='' data-toggle='modal' data-auntid='"+listId+"' data-status='"+listStatus+"' >查看简历</a>" +
 			"<a class='editOp' href='javascript:void(0);' onclick='deleteAunt(" + listId + ")'>删除</a>" +
 			"</td>" +
 			"<td class='dis_hidden' style='display: none'></td>"
@@ -861,6 +826,7 @@ function updateAunt(aid) {
 				$("input[name='idnumber']").val(data.data.idnumber);
 				$("input[name='address']").val(data.data.address);
 				$(".aunt_img").attr("src", data.data.url);
+				$('#auntIcon').html('修改照片');
 				$(":radio[name='sex'][value='" + data.data.sex + "']").prop("checked", "checked");
 				$(":radio[name='marriage'][value='" + data.data.marriage + "']").prop("checked", "checked");
 				//勾选语言
@@ -949,20 +915,25 @@ function updateAunt(aid) {
 						"<td>关系：<input type='text' name='relation' value='" + data.data.contact[i].relation + "'/></td>" +
 						"<td>工作状况 : <input type='text' name='workstatus' value='" + data.data.contact[i].workstatus + "'/></td>" +
 						"<td>联系电话：<input type='text' name='cphone' value='" + data.data.contact[i].cphone + "'/></td>" +
-						"<td onClick='del_contact(this)'><button class='contact_del_btn' type='button' title='删除'/></td>" +
+						"<td onClick='del_contact(this)'><i class='contact_del_btn iconfont icon-shanchu2' title='删除'/></i></td>" +
 						"</tr>";
 				};
 				$(".contact_table").html(val_contact);
 				//获取工作经历 
 				var val_work;
 				for(var i = 0; i < data.data.work.length; i++) {
-					val_work += "<tr id='tr" + i + "'>" +
+					
+					val_work += "<table class='work_table'><tbody>" +
+						"<tr>" +
 						"<td>起止时间：<input type='text' name='time' value='" + data.data.work[i].time + "'/></td>" +
-						"<td>主要工作：<input type='text' name='work' value='" + data.data.work[i].work + "'/></td>" +
-						"<td onClick='del_work(this)'><button class='contact_del_btn' type='button' title='删除'/></td>" +
-						"</tr>";
+						"<td onClick='del_work(this)'><i class='contact_del_btn iconfont icon-shanchu2' title='删除'/></i></td>" +
+						"</tr>"+
+						"<tr>"+
+						"<td class='area-td'>主要工作：<textarea cols='80' rows='5'  name='work' value='" + data.data.work[i].work + "' /></textarea></td>" +
+						"</tr>"+
+						"</tbody></table>";
 				};
-				$(".work_table").html(val_work);
+				$(".work_info_table").html(val_work);
 			} else {
 				alert(data.msg);
 			};
@@ -1389,8 +1360,10 @@ function onUpdateIcon() {
 
 $(document).on('click','.auntInfo',function(){
 	var auntId = $(this).data('auntid');
+	var status = $(this).data('status');
 	var basic_tbody=$("<tbody>");
 	var skill,contact,img,work='';
+	var basic_btn='';
 	$.ajax({
 		type:"post",
 		dataType:'json',
@@ -1401,7 +1374,6 @@ $(document).on('click','.auntInfo',function(){
 			'id':auntId
 		},
 		success:function(data){
-			console.log(data)
 			if(data.data.sex == 0 && data.data.marriage ==0){
 				data.data.sex='女';
 				data.data.marriage ='未婚';
@@ -1413,72 +1385,78 @@ $(document).on('click','.auntInfo',function(){
 			if(data.code == 1){
 				/*获取基本信息*/
 				basic_tbody.append("<tr><td class='td-tit'><span class='red'>*</span>姓&nbsp;&nbsp;&nbsp;&nbsp;名:</td>"+
-				"<td class='td-input'>"+data.data.name+"</td>"+
+				"<td class='td-input' name='name'>"+data.data.name+"</td>"+
 				"<td class='td-tit'><span class='red'>*</span>年&nbsp;&nbsp;&nbsp;&nbsp;龄:</td>"+
-				"<td class='td-input'>"+data.data.age+"</td></tr><tr>"+
+				"<td class='td-input' name='age'>"+data.data.age+"</td></tr><tr>"+
 				"<td class='td-tit'><span class='red'>*</span>属&nbsp;&nbsp;&nbsp;&nbsp;相:</td>"+
-				"<td class='td-input'>"+data.data.sign+"</td>"+
+				"<td class='td-input' name='sign'>"+data.data.sign+"</td>"+
 				"<td class='td-tit'><span class='red'>*</span>籍&nbsp;&nbsp;&nbsp;&nbsp;贯:</td>"+
-				"<td class='td-input'>"+data.data.native+"</td></tr><tr>"+
+				"<td class='td-input' name='native'>"+data.data.native+"</td></tr><tr>"+
 				"<td class='td-tit'><span class='red'>*</span>性&nbsp;&nbsp;&nbsp;&nbsp;别:</td>"+
-				"<td class='td-input'>"+data.data.sex+"</td>"+
+				"<td class='td-input' name='sex'>"+data.data.sex+"</td>"+
 				"<td class='td-tit'><span class='red'>*</span>学&nbsp;&nbsp;&nbsp;&nbsp;历:</td>"+
-				"<td class='td-input'>"+data.data.education+"</td></tr><tr>"+
+				"<td class='td-input' name='education'>"+data.data.education+"</td></tr><tr>"+
 				"<td class='td-tit'><span class='red'>*</span>婚姻状况:</td>"+
-				"<td class='td-input'>"+data.data.marriage+"</td>"+
+				"<td class='td-input' name='marriage'>"+data.data.marriage+"</td>"+
 				"<td class='td-tit'><span class='red'>*</span>民&nbsp;&nbsp;&nbsp;&nbsp;族:</td>"+
-				"<td class='td-input'>"+data.data.nation+"</td></tr><tr>"+
+				"<td class='td-input' name='nation'>"+data.data.nation+"</td></tr><tr>"+
 				"<td class='td-tit'><span class='red'>*</span>身&nbsp;&nbsp;高(cm):</td>"+
-				"<td class='td-input'>"+data.data.height+"</td>"+
+				"<td class='td-input' name='height'>"+data.data.height+"</td>"+
 				"<td class='td-tit'><span class='red'>*</span>体&nbsp;&nbsp;重(kg):</td>"+
-				"<td class='td-input'>"+data.data.weight+"</td></tr><tr>"+
+				"<td class='td-input' name='weight'>"+data.data.weight+"</td></tr><tr>"+
 				"<td class='td-tit'><span class='red'>*</span>视&nbsp;&nbsp;&nbsp;&nbsp;力:</td>"+
-				"<td class='td-input'>"+data.data.sigh+"</td>"+
+				"<td class='td-input' name='sigh'>"+data.data.sigh+"</td>"+
 				"<td class='td-tit'><span class='red'>*</span>手机号码:</td>"+
-				"<td class='td-input'>"+data.data.phone+"</td></tr><tr>"+
+				"<td class='td-input' name='phone'>"+data.data.phone+"</td></tr><tr>"+
 				"<td class='td-tit'><span class='red'>*</span>身份证号码:</td>"+
-				"<td colspan='3' class='td-input id-input-l'>"+data.data.idnumber+"</td></tr><tr>"+
+				"<td colspan='3' class='td-input id-input-l' name='idnumber'>"+data.data.idnumber+"</td></tr><tr>"+
 				"<td class='td-tit'><span class='red'>*</span>现居住地址:</td>"+
-				"<td colspan='3' class='td-input id-input-l'>"+data.data.address+"</td></tr><tr>");
+				"<td colspan='3' class='td-input id-input-l' name='address'>"+data.data.address+"</td></tr><tr>");
 				$('.aunt-basic-info .aunt-info-left table').html(basic_tbody);
+				basic_btn +="<a href='javascript:;' class='keep-info-btn keep-basic-btn' data-stuid='"+status+"' data-userid='"+data.data.userId+"' data-auid='"+data.data.id+"'>保存</a><a href='javascript:;' class='off-info-btn'>取消</a>"
+				$('.basic-btn').html(basic_btn);
 				
-				img ="<div class='upload-img'><img src='"+data.data.url+"' width='140' height='180' /><a href='javascript:;' class='link-upload' title='上传照片' data-toggle='modal' data-target='#filePhoto' onclick='referPhoto("+auntId+")'>上传照片</a></div>"
+				
+				img ="<div class='upload-img'><img src='"+data.data.url+"' width='140' height='160' /><a href='javascript:;' class='link-upload' title='上传照片' data-toggle='modal' data-target='#filePhoto' onclick='referPhoto("+auntId+")'>上传照片</a></div>"
 				$('.aunt-basic-info .aunt-info-right').html(img);
 				
 				/*获取技能专长*/
 				skill +="<tbody>"
-				skill +="<tr><td class='td-tit'>语言</td><td class='td-list'>"
+				skill +="<tr><td class='td-tit'>语言</td><td class='td-list language_list'>"
 				for(var i=0; i<data.data.language.length; i++){
-					skill +="<span>"+data.data.language[i].name+"<i>×</i></span>"
+					skill +="<span name='"+data.data.language[i].languageId+"'>"+data.data.language[i].name+"<i>×</i></span>"
 				}
 				skill +="</td><td class='td-select'><select class='language'></select><a href='javascript:;' class='add-skill-btn'>添加</a></td></tr>"
-				skill +="<tr><td class='td-tit'>烹饪</td><td class='td-list'>"
+				skill +="<tr><td class='td-tit'>烹饪</td><td class='td-list cooking_list'>"
 				for(var i=0; i<data.data.cooking.length; i++){
-					skill +="<span>"+data.data.cooking[i].name+"<i>×</i></span>"
+					skill +="<span name='"+data.data.cooking[i].cookingId+"'>"+data.data.cooking[i].name+"<i>×</i></span>"
 				}
 				skill +="</td><td class='td-select'><select class='cooking'></select><a href='javascript:;' class='add-skill-btn'>添加</a></td></tr>"
-				skill +="<tr><td class='td-tit'>基本技能</td><td class='td-list'>"
+				skill +="<tr><td class='td-tit'>基本技能</td><td class='td-list skill_list'>"
 				for(var i=0; i<data.data.skill.length; i++){
-					skill +="<span>"+data.data.skill[i].name+"<i>×</i></span>"
+					skill +="<span name='"+data.data.skill[i].skillId+"'>"+data.data.skill[i].name+"<i>×</i></span>"
 				}
 				skill +="</td><td class='td-select'><select class='skill'></select><a href='javascript:;' class='add-skill-btn'>添加</a></td></tr>"
-				skill +="<tr><td class='td-tit'>家用电器</td><td class='td-list'>"
+				skill +="<tr><td class='td-tit'>家用电器</td><td class='td-list appliance_list'>"
 				for(var i=0; i<data.data.appliance.length; i++){
-					skill +="<span>"+data.data.appliance[i].name+"<i>×</i></span>"
+					skill +="<span name='"+data.data.appliance[i].applianceId+"'>"+data.data.appliance[i].name+"<i>×</i></span>"
 				}
 				skill +="</td><td class='td-select'><select class='appliance'></select><a href='javascript:;' class='add-skill-btn'>添加</a></td></tr>"
-				skill +="<tr><td class='td-tit'>应聘岗位</td><td class='td-list'>"
+				skill +="<tr><td class='td-tit'>应聘岗位</td><td class='td-list job_list'>"
 				for(var i=0; i<data.data.job.length; i++){
-					skill +="<span>"+data.data.job[i].name+"<i>×</i></span>"
+					skill +="<span name='"+data.data.job[i].jobId+"'>"+data.data.job[i].name+"<i>×</i></span>"
 				}
-				skill +="</td><td class='td-select'><select class='job'></select><a href='javascript:;' class='add-skill-btn'>添加</a></td></tr>"
-				skill +="<tr><td class='td-tit'>提供证件</td><td class='td-list'>"
+				skill +="</td><td class='td-select'><select class='job'></select><a href='javascript:;' class='add-skill-btn add-job-btn'>添加</a></td></tr>"
+				skill +="<tr><td class='td-tit'>提供证件</td><td class='td-list certificate_list'>"
 				for(var i=0; i<data.data.certificate.length; i++){
-					skill +="<span>"+data.data.certificate[i].name+"<i>×</i></span>"
+					skill +="<span name='"+data.data.certificate[i].certificateId+"'>"+data.data.certificate[i].name+"<i>×</i></span>"
 				}
 				skill +="</td><td class='td-select'><select class='certificate'></select><a href='javascript:;' class='add-skill-btn'>添加</a></td></tr>"
 				skill +="</tbody>"
 				$('.aunt-skill-info .aunt-skill-con table').html(skill);
+				
+				var skill_btn ="<a href='javascript:;' class='keep-info-btn keep-skill-btn' data-stuid='"+status+"' data-userid='"+data.data.userId+"' data-auid='"+data.data.id+"'>保存</a><a href='javascript:;' class='off-info-btn'>取消</a>"
+				$('.skill-btn').html(skill_btn);
 				
 				/*获取紧急联系人*/
 				
@@ -1488,6 +1466,9 @@ $(document).on('click','.auntInfo',function(){
 				}
 				contact +="</tbody>"
 				$('.aunt-contact-info .aunt-contact-con table').html(contact);
+				
+				var contact_btn ="<a href='javascript:;' class='keep-info-btn keep-contact-btn' data-stuid='"+status+"' data-userid='"+data.data.userId+"' data-auid='"+data.data.id+"'>保存</a><a href='javascript:;' class='off-info-btn'>取消</a>"
+				$('.contact-btn').html(contact_btn);
 				
 				/*工作经历*/
 				work +="<tbody>"
@@ -1499,6 +1480,8 @@ $(document).on('click','.auntInfo',function(){
 				work +="</tbody>"
 				
 				$('.aunt-work-info .aunt-work-con table').html(work);
+				var work_btn ="<a href='javascript:;' class='keep-info-btn keep-work-btn' data-stuid='"+status+"' data-userid='"+data.data.userId+"' data-auid='"+data.data.id+"'>保存</a><a href='javascript:;' class='off-info-btn'>取消</a>"
+				$('.work-btn').html(work_btn);
 					
 				}else{
 					alert(data.msg);
@@ -1509,11 +1492,7 @@ $(document).on('click','.auntInfo',function(){
 			}	
 	});
 	
-	
-
-	
-	
-	
+		
 //获取语言
 	$.ajax({
 		type: "post",
@@ -1525,7 +1504,7 @@ $(document).on('click','.auntInfo',function(){
 			if(data.code == 1){
 				var options = [];
 				for(var l=0; l<data.data.length; l++){
-					options.push("<option>"+data.data[l].name+"</option>");
+					options.push("<option name='"+data.data[l].id+"'>"+data.data[l].name+"</option>");
 					$('.language').append(options[l]);
 				}
 			}else{
@@ -1548,7 +1527,7 @@ $(document).on('click','.auntInfo',function(){
 			if(data.code == 1){
 				var options = [];
 				for(var l=0; l<data.data.length; l++){
-					options.push("<option>"+data.data[l].name+"</option>");
+					options.push("<option name='"+data.data[l].id+"'>"+data.data[l].name+"</option>");
 					$('.cooking').append(options[l]);
 				}
 			}else{
@@ -1571,7 +1550,7 @@ $(document).on('click','.auntInfo',function(){
 			if(data.code == 1){
 				var options = [];
 				for(var l=0; l<data.data.length; l++){
-					options.push("<option>"+data.data[l].name+"</option>");
+					options.push("<option name='"+data.data[l].id+"'>"+data.data[l].name+"</option>");
 					$('.skill').append(options[l]);
 				}
 				
@@ -1595,7 +1574,7 @@ $(document).on('click','.auntInfo',function(){
 			if(data.code == 1){
 				var options = [];
 				for(var l=0; l<data.data.length; l++){
-					options.push("<option>"+data.data[l].name+"</option>");
+					options.push("<option name='"+data.data[l].id+"'>"+data.data[l].name+"</option>");
 					$('.appliance').append(options[l])
 				}
 			}else{
@@ -1618,7 +1597,7 @@ $(document).on('click','.auntInfo',function(){
 			if(data.code == 1){
 				var options = [];
 				for(var l=0; l<data.data.length; l++){
-					options.push("<option>"+data.data[l].name+"</option>");
+					options.push("<option name='"+data.data[l].id+"'>"+data.data[l].name+"</option>");
 					$('.job').append(options[l])
 				}
 			}else{
@@ -1641,7 +1620,7 @@ $(document).on('click','.auntInfo',function(){
 			if(data.code == 1){
 				var options = [];
 				for(var l=0; l<data.data.length; l++){
-					options.push("<option>"+data.data[l].name+"</option>");
+					options.push("<option name='"+data.data[l].id+"'>"+data.data[l].name+"</option>");
 					$('.certificate').append(options[l])
 				}
 			}else{
@@ -1651,19 +1630,280 @@ $(document).on('click','.auntInfo',function(){
 		error: function(data) {
 			alert("网络异常");
 		}
-	});
-
-	
+	});	
 	
 });
 
+//修改阿姨信息
 
-function referPhoto(v){
-	var auntId = v;
-	$('#referphoto').click(function(){
-		var img = $('.cropped img').attr('src');
-		console.log(img)
-		
-	})
-}
+$(document).on('click','.keep-basic-btn', function(){
+	var auId = $(this).data('auid');
+	var userId = $(this).data('userid');
+	var staId = $(this).data('stuid');
+	var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/; 
+	var cardId = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+	if($('#au-name').val()== '' || $('#au-age').val() == '' || $('#au-sign').val()== '' || $('#au-native').val()== ''|| $('#au-sex').val()== ''|| $('#au-education').val()== ''|| $('#au-marriage').val()== ''|| $('#au-nation').val()== ''|| $('#au-height').val()== ''|| $('#au-weight').val()== ''|| $('#au-sigh').val()== ''|| $('#au-phone').val()== ''|| $('#au-idnumber').val()== ''|| $('#au-address').val()== ''){
+		alert('请完善信息再保存');
+		return false;
+	}else if(!myreg.test($("#au-phone").val())){
+		alert('手机号码输入格式错误！');
+		return false;
+	}else if(!cardId.test($("#au-idnumber").val())){
+		alert('身份证号码格式错误！');
+		return false;
+	}else{
+		if($('#au-sex').val() == "女" ){
+			$('#au-sex').val('0');
+		}else{
+			$('#au-sex').val('1');
+		}
+		if($('#au-marriage').val() == '未婚'){
+			$('#au-marriage').val('0');
+		}else{
+			$('#au-marriage').val('1');
+		}
+		$.ajax({
+			type:"post",
+			datatype:"json",
+			url:"updateAunt",
+			data:{
+				'id':auId,
+				'status':staId,
+				'name':$('#au-name').val(),
+				'age':$('#au-age').val(),
+				'sign':$('#au-sign').val(),
+				'native_':$('#au-native').val(),
+				'sex':$('#au-sex').val(),
+				'education':$('#au-education').val(),
+				'marriage':$('#au-marriage').val(),
+				'nation':$('#au-nation').val(),
+				'height':$('#au-height').val(),
+				'weight':$('#au-weight').val(),
+				'sigh':$('#au-sigh').val(),
+				'phone':$('#au-phone').val(),
+				'idnumber':$('#au-idnumber').val(),
+				'address':$('#au-address').val(),
+				'userId':userId
+			},
+			success:function(data){
+				if(data.code == 1){
+					alert(data.msg);
+					if($('#au-sex').val() == "0" ){
+					$('#au-sex').val('女');
+				}else{
+					$('#au-sex').val('男');
+				}
+				if($('#au-marriage').val() == '0'){
+					$('#au-marriage').val('未婚');
+				}else{
+					$('#au-marriage').val('已婚');
+		}
+					$('.keep-basic-btn').parent('.oper-info-btn').slideUp(300);
+					$('.keep-basic-btn').parents(".aunt-basic-info").find('.td-tit .red').hide();
+					var txt = $('.keep-basic-btn').parents(".aunt-basic-info").find('.td-input input');
+					var inputArr = [];
+					for(var i=0; i<txt.length; i++){
+						inputArr.push(txt.eq(i).val());
+					}
+					for(var j=0; j<inputArr.length; j++){
+						$('.keep-basic-btn').parents(".aunt-basic-info").find('.td-input').eq(j).html(inputArr[j])
+					}
+				}else{
+					alert(data.msg);
+				}
+			},
+			error:function(data){
+				alert('error')
+			}
+		});
+	}
+	
+});
 
+//修改阿姨技能
+$(document).on('click','.keep-skill-btn',function(){
+	var auntId = $(this).data('auid');
+	var lanList=[];
+	var cookList=[];
+	var skillList=[];
+	var applList=[];
+	var jobList=[];
+	var cerList=[];
+	
+	var $lan = $('.language_list span');
+	for(var i=0; i<$lan.length; i++){
+		lanList.push($lan.eq(i).attr('name'));
+	};
+	
+	var $cook = $('.cooking_list span');
+	for(var i=0; i<$cook.length; i++){
+		cookList.push($cook.eq(i).attr('name'));
+	};
+	
+	var $skill = $('.skill_list span');
+	for(var i=0; i<$skill.length; i++){
+		skillList.push($skill.eq(i).attr('name'));
+	};
+	
+	var $appl = $('.appliance_list span');
+	for(var i=0; i<$appl.length; i++){
+		applList.push($appl.eq(i).attr('name'));
+	};
+	
+	var $job = $('.job_list span');
+	for(var i=0; i<$job.length; i++){
+		jobList.push($job.eq(i).attr('name'));
+	};
+	
+	var $cer = $('.certificate_list span');
+	for(var i=0; i<$cer.length; i++){
+		cerList.push($cer.eq(i).attr('name'));
+	};
+	//数组去重
+	$.unique(lanList);
+	$.unique(cookList);
+	$.unique(skillList);
+	$.unique(applList);
+	$.unique(jobList);
+	$.unique(cerList);
+	
+	$.ajax({
+		type:"post",
+		datatype:"json",
+		url:"updateAuntSkills",
+		cache: false,
+		data:{
+			'auntid':auntId,
+			'laId':lanList,
+			'coId':cookList,
+			'skId':skillList,
+			'apId':applList,
+			'ceId':cerList,
+			'joId':jobList	
+		},
+		success:function(data){
+			if(data.code == 1){
+				alert('修改成功');
+				$('.keep-skill-btn').parent('.oper-info-btn').slideUp(300);
+				$('.keep-skill-btn').parents(".aunt-skill-info").find('.td-select').fadeOut(300);
+				$('.keep-skill-btn').parents(".aunt-skill-info").find('.td-list span').removeClass('off');
+				$('.keep-skill-btn').parents(".aunt-skill-info").find('.td-list span').removeClass('on');
+			}else{
+				alert('修改失败');
+			}
+		},
+		error:function(data){
+			alert('error')
+		}
+	});
+});
+
+//添加紧急联系人
+
+$(document).on('click','.keep-contact-btn',function(){
+	var input = $(this).parents(".aunt-contact-con").find('input');
+	var auntId = $(this).data('auid');
+	var nameList =[];
+	var relList = [];
+	var workList =[];
+	var phoneList=[];
+	
+	for(var i=0; i<$('.cnam').length; i++){
+		nameList.push($('.cnam').eq(i).val());
+	}
+	for(var i=0; i<$('.relation').length; i++){
+		relList.push($('.relation').eq(i).val());
+	}
+	for(var i=0; i<$('.workstatus').length; i++){
+		workList.push($('.workstatus').eq(i).val());
+	}
+	for(var i=0; i<$('.cphone').length; i++){
+		phoneList.push($('.cphone').eq(i).val());
+	}
+	
+	var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/; 
+	if(input.val() == ''){
+		alert('请完善信息再保存');
+	}else if(!myreg.test($(".cphone").val())){
+		alert('手机号码输入格式错误!')
+	}else{
+		$.ajax({
+		type:"post",
+		url:"addContact",
+		async:false,
+		data:{
+			'AuntId':auntId,
+			'cname':nameList,
+			'relation':relList,
+			'workstatus':workList,
+			'cphone':phoneList
+		},
+		success:function(data){
+			if(data.code == 1){
+				alert(data.msg);
+				$('.keep-contact-btn').parents(".aunt-contact-con").find('input').parents('tr').remove();
+				var tr = $("<tr>");
+				tr.append("<td class='td-tit'>姓名</td>"+
+					"<td class='td-input'>"+input.eq(0).val()+"</td>"+
+					"<td class='td-tit'>关系</td>"+
+					"<td class='td-input'>"+input.eq(1).val()+"</td>"+
+					"<td class='td-tit'>工作状况</td>"+
+					"<td class='td-input'>"+input.eq(2).val()+"</td>"+
+					"<td class='td-tit'>联系电话</td>"+
+					"<td class='td-input'>"+input.eq(3).val()+"</td>"+
+					"<td style='padding: 0; text-align: center;'><a href='javascript:;' class='delete-contact-btn iconfont icon-shanchu2'></a></td>");
+				$('.keep-contact-btn').parent('.oper-info-btn').slideUp(300);
+				$('.keep-contact-btn').parents('.aunt-contact-info').find('.aunt-contact-con tbody').append(tr);
+			}else{
+				alert(data.msg);
+			}
+		},
+		error:function(data){
+			alert("error");
+		}
+	});
+	}
+});
+
+//添加工作经历
+
+$(document).on('click','.keep-work-btn',function(){
+	var auntId = $(this).data('auid');
+	var input = $(this).parents(".aunt-work-con").find('input');
+	var text = $(this).parents(".aunt-work-con").find('textarea');
+	var timeList = [];
+	var workList = [];
+	
+	for(var i=0; i<$('.time').length; i++){
+		timeList.push($('.time').eq(i).val());
+	}
+	for(var i=0; i<$('.worker').length; i++){
+		workList.push($('.worker').eq(i).val());
+	}
+	console.log(workList);
+	
+	if(input.val() == ''){
+		alert('时间不能为空');
+	}else if(text.val() == ''){
+		alert('工作描述不能为空');
+	}else{
+		$.ajax({
+			type:'post',
+			datatype:'json',
+			url:'addWork',
+			data:{
+				'AuntId':auntId,
+				'time':timeList,
+				'work':workList
+			},
+			success:function(data){
+				if(data.code == 1){
+					alert(data.msg);
+				}
+			},
+			error:function(data){
+				alert('error');
+			}
+		});
+	}
+});

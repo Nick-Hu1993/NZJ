@@ -57,8 +57,8 @@ public interface AuntService {
 	public Object getAuntById(Long id);
 
 	/**
-	 * 5.根据状态来获取当前加盟商的所有阿姨列表
-	 * 0待岗，1上岗，-1黑名单
+	 * 5.根据状态来获取当前加盟商的所有阿姨列表 0待岗，1上岗，-1黑名单
+	 * 
 	 * @param status
 	 * @param start
 	 * @param limit
@@ -74,7 +74,7 @@ public interface AuntService {
 	 * @param a
 	 * @return
 	 */
-	public Object updateAunt (Aunt a);
+	public Object updateAunt(Aunt a);
 
 	/**
 	 * 7.修改阿姨语言
@@ -155,28 +155,33 @@ public interface AuntService {
 	 * @param url
 	 * @return
 	 */
-	public Object updateAuntPhoto(HttpServletRequest request, long AuntId,
-			@RequestParam("file") CommonsMultipartFile file)
-			throws IllegalStateException, IOException;
-	
+	public Object updateAuntPhoto(HttpServletRequest request, Long AuntId,
+			String image);
+
 	/**
 	 * 16.修改阿姨状态（0待岗， 1上岗， -1黑名单）
+	 * 
 	 * @param AuntId
 	 * @param status
 	 * @return
 	 */
-	public Object updateAuntStauts(Long AuntId,Integer status);
+	public Object updateAuntStauts(Long AuntId, Integer status);
+
 	/**
 	 * 17.根据用户id及阿姨状态遍历阿姨信息（0待岗， 1上岗， -1黑名单）
+	 * 
 	 * @param start
 	 * @param limit
 	 * @param userId
 	 * @param status
 	 * @return
 	 */
-	public Object getAuntListByIdStatus (Integer start, Integer limit, Long userId, Integer status);
+	public Object getAuntListByIdStatus(Integer start, Integer limit,
+			Long userId, Integer status);
+
 	/**
 	 * 18.修改复选框信息（1.语言，2，烹饪技能，3.基本技能、4.家用电器、5.证书、6.岗位）
+	 * 
 	 * @param auntid
 	 * @param laId
 	 * @param coId
@@ -186,5 +191,33 @@ public interface AuntService {
 	 * @param joId
 	 * @return
 	 */
-	public Object updateAuntSkills (long auntid, long[] laId, long[] coId, long[] skId,  long[] apId, long[] ceId, long[] joId);
+	public Object updateAuntSkills(Long auntid, Long[] laId, Long[] coId,
+			Long[] skId, Long[] apId, Long[] ceId, Long[] joId);
+	/**
+	 * 19.添加阿姨紧急联系人
+	 * @param c
+	 * @return
+	 */
+	public Object addContact (long AuntId, AuntContactForm c);
+	
+	/**
+	 * 20.删除阿姨的紧急联系人
+	 * @param id
+	 * @return
+	 */
+	public Object deleteContact (long id);
+	/**
+	 * 21.添加工作经历
+	 * 可批量
+	 * @param AuntId
+	 * @param w
+	 * @return
+	 */
+	public Object addWork(long AuntId, AuntWorkForm w);
+	/**
+	 * 22.删除工作经验
+	 * @param id
+	 * @return
+	 */
+	public Object deleteWork (long id); 
 }

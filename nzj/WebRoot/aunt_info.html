@@ -251,15 +251,15 @@
 								<div class="clearfix">
 									<div class="aunt-info-left">
 										<table>
-											
+												
 										</table>
 									</div>
 									<div class="aunt-info-right">
 									</div>
 								</div>
-								<div class="oper-info-btn">
-									<a href="javascript:;" class="keep-info-btn keep-basic-btn">保存</a>
-									<a href="javascript:;" class="off-info-btn">取消</a>
+								<div class="oper-info-btn basic-btn">
+									<!--<a href="javascript:;" class="keep-info-btn keep-basic-btn">保存</a>
+									<a href="javascript:;" class="off-info-btn">取消</a>-->
 								</div>
 							</div>
 
@@ -272,13 +272,12 @@
 							<div class="aunt-skill-con">
 								<div class="table-con">
 									<table>
-										
 									</table>
 								</div>
 								
-								<div class="oper-info-btn">
-									<a href="javascript:;" class="keep-info-btn keep-skill-btn">保存</a>
-									<a href="javascript:;" class="off-info-btn">取消</a>
+								<div class="oper-info-btn skill-btn">
+									<!--<a href="javascript:;" class="keep-info-btn keep-skill-btn">保存</a>
+									<a href="javascript:;" class="off-info-btn">取消</a>-->
 								</div>
 							</div>
 						</div>
@@ -293,9 +292,9 @@
 										
 									</table>
 								</div>
-								<div class="oper-info-btn">
-									<a href="javascript:;" class="keep-info-btn keep-contact-btn">保存</a>
-									<a href="javascript:;" class="off-info-btn">取消</a>
+								<div class="oper-info-btn contact-btn">
+									<!--<a href="javascript:;" class="keep-info-btn keep-contact-btn">保存</a>
+									<a href="javascript:;" class="off-info-btn">取消</a>-->
 								</div>
 							</div>
 						</div>
@@ -310,9 +309,9 @@
 										
 									</table>
 								</div>
-								<div class="oper-info-btn">
-									<a href="javascript:;" class="keep-info-btn keep-work-btn">保存</a>
-									<a href="javascript:;" class="off-info-btn">取消</a>
+								<div class="oper-info-btn work-btn">
+									<!--<a href="javascript:;" class="keep-info-btn keep-work-btn">保存</a>
+									<a href="javascript:;" class="off-info-btn">取消</a>-->
 								</div>
 							</div>
 						</div>
@@ -331,12 +330,53 @@
 		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		                <h4 class="modal-title" id="myModalLabel">上传照片</h4>
 		            </div>
-		            <div class="modal-body">
-		            	
-		            </div>
-		            <div class="modal-footer">
-		                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-		                <button type="button" id="referphoto" class="btn btn-primary">确认上传</button>
+		            <div class="modal-body clearfix">
+	            		<div class="am-modal-bd  up-frame-body clearfix">
+							<div class="am-g am-fl">
+								<div class="am-form-group am-form-file">
+								  <div class="am-fl">
+									<button type="button" class="am-btn am-btn-default am-btn-sm">选择要上传的文件</button>
+								  </div>
+								  <input type="file" id="inputImage">
+								</div>
+							</div>
+							<div class="am-g am-fl" >
+								<div class="up-pre-before up-frame-radius">
+									<img alt="" src="" id="image" >
+								</div>
+								<div class="up-pre-after up-frame-radius">
+								</div>
+							</div>
+							<div class="am-g am-fl">
+								<div class="up-control-btns">
+									<span class="am-icon-rotate-left"  onclick="rotateimgleft()"></span>
+									<span class="am-icon-rotate-right" onclick="rotateimgright()"></span>
+									<span class="am-icon-check" id="up-btn-ok" url="updateAuntPhoto"></span>
+								</div>
+							</div> 
+						</div>
+						<!--加载框-->
+						<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
+						  <div class="am-modal-dialog">
+							<div class="am-modal-hd">正在上传...</div>
+							<div class="am-modal-bd">
+							  <span class="am-icon-spinner am-icon-spin"></span>
+							</div>
+						  </div>
+						</div>
+						
+						<!--警告框-->
+						<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+						  <div class="am-modal-dialog">
+							<div class="am-modal-hd">信息</div>
+							<div class="am-modal-bd"  id="alert_content">
+									  成功了
+							</div>
+							<div class="am-modal-footer">
+							  <span class="am-modal-btn">确定</span>
+							</div>
+						  </div>
+						</div>
 		            </div>
 		        </div>
 		    </div>
@@ -344,7 +384,12 @@
 		
 		
 		<!---------------------------------------上传照片（结束）------------------------------------------------------------->
-		
+		<link rel="stylesheet" href="css/amazeui/amazeui.min.css" />
+		<link rel="stylesheet" href="css/amazeui/custom_up_img.css" />
+		<link rel="stylesheet" href="css/amazeui/amazeui.cropper.css" />
+		<script src="js/cropperjs/amazeui.min.js" charset="utf-8"></script>
+		<script src="js/cropperjs/cropper.min.js" charset="utf-8"></script>
+		<script src="js/cropperjs/custom_up_img.js" charset="utf-8"></script>
 
 		<script>
 			$(function(){

@@ -428,8 +428,8 @@ public class AuntDaoImp implements AuntDao {
 	}
 
 	@Override
-	public boolean updateAuntSkills(final long auntid, final long[] laId, final long[] coId,
-			final long[] skId, final long[] apId, final long[] ceId, final long[] joId) {
+	public boolean updateAuntSkills(final Long auntid, final Long[] laId, final Long[] coId,
+			final Long[] skId, final Long[] apId, final Long[] ceId, final Long[] joId) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
@@ -441,16 +441,16 @@ public class AuntDaoImp implements AuntDao {
 					String sql1_1 = "DELETE FROM aunt_language WHERE aunt_id = ?";
 					PreparedStatement stmt1_1 = conn.prepareStatement(sql1_1);
 					conn.setAutoCommit(false);
-					stmt1_1.setLong(1, auntid);
+					stmt1_1.setLong(1, auntid.longValue());
 					stmt1_1.addBatch();
 					stmt1_1.executeUpdate();
 					
 					String sql1 = "INSERT INTO aunt_language(language_id,aunt_id) VALUES(?,?)";
 					PreparedStatement stmt1 = conn.prepareStatement(sql1);
 					conn.setAutoCommit(false);
-					for (long  l: laId) {
-						stmt1.setLong(1, l);
-						stmt1.setLong(2, auntid);
+					for (Long  l: laId) {
+						stmt1.setLong(1, l.longValue());
+						stmt1.setLong(2, auntid.longValue());
 						stmt1.addBatch();
 					} 
 					stmt1.executeBatch();
@@ -458,16 +458,16 @@ public class AuntDaoImp implements AuntDao {
 					String sql2_1 = "DELETE FROM aunt_cooking WHERE aunt_id = ?";
 					PreparedStatement stmt2_1 = conn.prepareStatement(sql2_1);
 					conn.setAutoCommit(false);
-					stmt2_1.setLong(1, auntid);
+					stmt2_1.setLong(1, auntid.longValue());
 					stmt2_1.addBatch();
 					stmt2_1.executeUpdate();
 					
 					String sql2 = "INSERT INTO aunt_cooking(cooking_id, aunt_id) VALUES(?,?)";
 					PreparedStatement stmt2 = conn.prepareStatement(sql2);
 					conn.setAutoCommit(false);
-					for (long c : coId) {
-						stmt2.setLong(1, c);
-						stmt2.setLong(2, auntid);
+					for (Long c : coId) {
+						stmt2.setLong(1, c.longValue());
+						stmt2.setLong(2, auntid.longValue());
 						stmt2.addBatch();
 					}
 					stmt2.executeBatch();
@@ -475,16 +475,16 @@ public class AuntDaoImp implements AuntDao {
 					String sql3_1 = "DELETE FROM aunt_skill WHERE aunt_id = ?";
 					PreparedStatement stmt3_1 = conn.prepareStatement(sql3_1);
 					conn.setAutoCommit(false);
-					stmt3_1.setLong(1, auntid);
+					stmt3_1.setLong(1, auntid.longValue());
 					stmt3_1.addBatch();
 					stmt3_1.executeUpdate();
 					
 					String sql3 = "INSERT INTO aunt_skill(skill_id, aunt_id) VALUES(?,?)";
 					PreparedStatement stmt3 = conn.prepareStatement(sql3);
 					conn.setAutoCommit(false);
-					for (long k : skId) {
-						stmt3.setLong(1, k);
-						stmt3.setLong(2, auntid);
+					for (Long k : skId) {
+						stmt3.setLong(1, k.longValue());
+						stmt3.setLong(2, auntid.longValue());
 						stmt3.addBatch();
 					}
 					stmt3.executeBatch();
@@ -492,16 +492,16 @@ public class AuntDaoImp implements AuntDao {
 					String sql4_1 = "DELETE FROM aunt_appliance WHERE aunt_id = ?";
 					PreparedStatement stmt4_1 = conn.prepareStatement(sql4_1);
 					conn.setAutoCommit(false);
-					stmt4_1.setLong(1, auntid);
+					stmt4_1.setLong(1, auntid.longValue());
 					stmt4_1.addBatch();
 					stmt4_1.executeUpdate();
 					
 					String sql4 = "INSERT INTO aunt_appliance(appliance_id, aunt_id) VALUES(?,?)";
 					PreparedStatement stmt4 = conn.prepareStatement(sql4);
 					conn.setAutoCommit(false);
-					for (long p : apId) {
-						stmt4.setLong(1, p);
-						stmt4.setLong(2, auntid);
+					for (Long p : apId) {
+						stmt4.setLong(1, p.longValue());
+						stmt4.setLong(2, auntid.longValue());
 						stmt4.addBatch();
 					}
 					stmt4.executeBatch();
@@ -509,16 +509,16 @@ public class AuntDaoImp implements AuntDao {
 					String sql5_1 = "DELETE FROM aunt_certificate WHERE aunt_id = ?";
 					PreparedStatement stmt5_1 = conn.prepareStatement(sql5_1);
 					conn.setAutoCommit(false);
-					stmt5_1.setLong(1, auntid);
+					stmt5_1.setLong(1, auntid.longValue());
 					stmt5_1.addBatch();
 					stmt5_1.executeUpdate();
 					
 					String sql5 = "INSERT INTO aunt_certificate(certificate_id, aunt_id) VALUES(?,?)";
 					PreparedStatement stmt5 = conn.prepareStatement(sql5);
 					conn.setAutoCommit(false);
-					for (long i : ceId) {
-						stmt5.setLong(1, i);
-						stmt5.setLong(2, auntid);
+					for (Long i : ceId) {
+						stmt5.setLong(1, i.longValue());
+						stmt5.setLong(2, auntid.longValue());
 						stmt5.addBatch();
 					}
 					stmt5.executeBatch();
@@ -526,16 +526,16 @@ public class AuntDaoImp implements AuntDao {
 					String sql6_1 = "DELETE FROM aunt_job WHERE aunt_id = ?";
 					PreparedStatement stmt6_1 = conn.prepareStatement(sql6_1);
 					conn.setAutoCommit(false);
-					stmt6_1.setLong(1, auntid);
+					stmt6_1.setLong(1, auntid.longValue());
 					stmt6_1.addBatch();
 					stmt6_1.executeUpdate();
 					
 					String sql6 = "INSERT INTO aunt_job(job_id, aunt_id) VALUES(?,?)";
 					PreparedStatement stmt6 = conn.prepareStatement(sql6);
 					conn.setAutoCommit(false);
-					for (long b : joId) {
-						stmt6.setLong(1, b);
-						stmt6.setLong(2, auntid);
+					for (Long b : joId) {
+						stmt6.setLong(1, b.longValue());
+						stmt6.setLong(2, auntid.longValue());
 						stmt6.addBatch();
 					}
 					stmt6.executeBatch();

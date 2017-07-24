@@ -31,6 +31,9 @@
         <property name="address" type="java.lang.String">
             <column name="address" not-null="true" />
         </property>
+        <property name="photourl" type="java.lang.String">
+            <column name="photourl" />
+        </property>
         <property name="charterurl" type="java.lang.String">
             <column name="charterurl" />
         </property>

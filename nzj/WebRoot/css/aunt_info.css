@@ -127,7 +127,7 @@
 	
 }
 
-td{ text-align: left; padding-left: 30px; border-bottom:1pt #f8bbd0  dotted}
+#divFrame td,#myForm td{ text-align: left; padding-left: 30px; border-bottom:1pt #f8bbd0  dotted}
 
 table tr input[type=text]{
 	height: 20px;
@@ -309,7 +309,7 @@ table tr input[type=text]{
 #myForm table{width: 100%;}
 #myForm .aunt-info-head {background-color: #dcebf7; height: 30px;}
 #myForm .aunt-info-head h4 {float: left; width: 80%; font-size: 16px; margin: 0; line-height: 30px; text-indent: 20px; }
-#myForm .aunt-info-head .edit-info-btn{line-height: 31px; background-color: #fff; border: 1px solid #89c4f9; padding: 2px 4px; border-radius: 8px; margin-left: 110px;}
+#myForm .aunt-info-head .edit-info-btn{line-height: 31px; background-color: #fff; border: 1px solid #89c4f9; padding: 2px 4px; border-radius: 8px; margin-left: 110px; font-size: 14px;}
 #myForm .aunt-info-head .edit-info-btn:hover{background-color: #89c4f9; color: #fff;}
 .aunt-info-con,.aunt-skill-con,.aunt-contact-con,.aunt-work-info{width: 100%; border: 1px solid #dcebf7;}
 .aunt-info-con .aunt-info-left{width: 70%; float: left; }
@@ -347,4 +347,8 @@ table tr input[type=text]{
 #myForm .aunt-work-con table td.works{width: 70%;}
 #myForm .aunt-work-con table td.work-con{height: 100px;}
 #myForm .aunt-work-con table td.td-btn{width: 10%; padding: 0; text-align: center; border: 1px dotted #74bef9;}
+
+/*上传照片*/
+#filePhoto .am-modal-bd{border-bottom: none;}
+#filePhoto .modal-dialog{margin-left: 1000px; margin-top: 100px;}
 

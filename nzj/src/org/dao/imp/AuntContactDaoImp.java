@@ -14,10 +14,65 @@ import org.hibernate.Transaction;
 import org.hibernate.jdbc.Work;
 import org.model.AuntContact;
 import org.springframework.stereotype.Service;
+import org.tool.ChangeTime;
 import org.util.HibernateSessionFactory;
 
 @Service
 public class AuntContactDaoImp implements AuntContactDao {
+	
+	@Override
+	public boolean addContact(final long AuntId, final AuntContactForm c) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			session.doWork(new Work() {
+				
+				@Override
+				public void execute(Connection conn) throws SQLException {
+					String sql = "Insert into aunt_contact (cname, relation, workstatus, cphone,aunt_id) values (?, ?, ?, ?,?)";
+					PreparedStatement stmt = conn.prepareStatement(sql);
+					conn.setAutoCommit(false);
+					for (int i = 0; i < c.getCname().length; i++) {
+						stmt.setString(1,c.getCname()[i]);
+						stmt.setString(2,c.getRelation()[i]);
+						stmt.setString(3, c.getWorkstatus()[i]);
+						stmt.setString(4,c.getCphone()[i]);
+						stmt.setLong(5, AuntId);
+						stmt.addBatch();
+					}
+					stmt.executeBatch();
+				}
+			});
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public boolean deleteContact(long id) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("DELETE AuntContact WHERE id = ?");
+			query.setParameter(0, id);
+			query.executeUpdate();
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
 
 	@Override
 	public List getContactByAuntId(long auntId) {
@@ -80,5 +135,4 @@ public class AuntContactDaoImp implements AuntContactDao {
 			HibernateSessionFactory.closeSession();
 		}
 	}
-
 }

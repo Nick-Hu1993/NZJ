@@ -22,6 +22,13 @@ public interface UserDetailDao {
 	 * @return
 	 */
 	public boolean updateUserDetail(UserDetail ud);
+	/**
+	 * 3.2修改用户头像的地址
+	 * @param AuntId
+	 * @param photourl
+	 * @return
+	 */
+	public boolean updatePhoto (long userId, String photourl);
 	//-----------------------------------查-----------------------------------------
 	/**
 	 * 4.1验证用户名是否已用，null为可用，通过username获取 UserDetail
@@ -62,5 +69,4 @@ public interface UserDetailDao {
 	 * @return
 	 */
 	public long getCountBySupport (Integer support);
-	
 }

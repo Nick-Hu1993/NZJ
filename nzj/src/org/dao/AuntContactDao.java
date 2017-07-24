@@ -6,8 +6,21 @@ import org.Form.AuntContactForm;
 
 public interface AuntContactDao {
 	// -----------------------------------增---------------------------------------
-
+	/**
+	 * 1.1新增紧急联系人
+	 * 可批量
+	 * @param AuntId
+	 * @param c
+	 * @return
+	 */
+	public boolean addContact (long AuntId, AuntContactForm c); 
 	// -----------------------------------删---------------------------------------
+	/**
+	 * 2.1删除紧急联系人
+	 * @param AuntId
+	 * @return
+	 */
+	public boolean deleteContact (long id);
 
 	// -----------------------------------改---------------------------------------
 	/**

@@ -2,31 +2,17 @@ package org.Form;
 
 //用于接收前端传来的数组组装成的对象
 public class AuntContactForm implements java.io.Serializable {
-	private Long[] id;
+	private long id;
 	private String[] cname;
 	private String[] relation;
 	private String[] workstatus;
 	private String[] cphone;
-	private Long[] auntId;
+	private long[] auntId;
 	
-	public AuntContactForm() {
-	}
-
-	public AuntContactForm(Long[] id, String[] cname, String[] relation,
-			String[] workstatus, String[] cphone, Long[] auntId) {
-		super();
-		this.id = id;
-		this.cname = cname;
-		this.relation = relation;
-		this.workstatus = workstatus;
-		this.cphone = cphone;
-		this.auntId = auntId;
-	}
-	
-	public Long[] getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(Long[] id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String[] getCname() {
@@ -53,10 +39,10 @@ public class AuntContactForm implements java.io.Serializable {
 	public void setCphone(String[] cphone) {
 		this.cphone = cphone;
 	}
-	public Long[] getAuntId() {
+	public long[] getAuntId() {
 		return auntId;
 	}
-	public void setAuntId(Long[] auntId) {
+	public void setAuntId(long[] auntId) {
 		this.auntId = auntId;
 	}
 }

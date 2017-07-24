@@ -51,7 +51,10 @@
 		</mvc:interceptor>
 	</mvc:interceptors>
 
-	<mvc:annotation-driven /><!-- 启用注解驱动的指令 -->
+	<!-- 启用注解驱动的指令 -->
+	<mvc:annotation-driven />
+		
+      
 	<mvc:resources location="/fonts/**" mapping="/fonts/**"/>
 	<mvc:resources location="/css/**" mapping="/css/**"/>
 		<!-- 此行是用于防止/css/fonts 被拦截，应用在login中，.css的排除已经在web.xml中排除 -->

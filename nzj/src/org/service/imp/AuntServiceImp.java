@@ -34,6 +34,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.tool.GenerateImage;
 import org.tool.GetUserId;
 import org.tool.JsonObject;
 import org.tool.readProperties;
@@ -71,7 +72,7 @@ public class AuntServiceImp implements AuntService {
 			@RequestParam("file") CommonsMultipartFile file)
 			throws IllegalStateException, IOException {
 
-//		User u = (User) session.getAttribute("user");
+		// User u = (User) session.getAttribute("user");
 		Long userId = GetUserId.getUserId(session);
 		if (userId != null) {
 			if (aDao.getAunt(a.getIdnumber()) != null) { // 验证是否重复插入阿姨，根据身份证号判断
@@ -136,7 +137,7 @@ public class AuntServiceImp implements AuntService {
 
 	@Override
 	public Object getAuntList(HttpSession session, Integer start, Integer limit) {
-//		User u = (User) session.getAttribute("user");
+		// User u = (User) session.getAttribute("user");
 		Long userId = GetUserId.getUserId(session);
 		if (userId != null) {
 			List<VAuntId> li = aDao.getAuntList(start, limit, userId);
@@ -224,26 +225,21 @@ public class AuntServiceImp implements AuntService {
 	}
 
 	@Override
-	public Object updateAuntPhoto(HttpServletRequest request, long AuntId,
-			@RequestParam("file") CommonsMultipartFile file)
-			throws IllegalStateException, IOException {
-
-		String photoName = file.getOriginalFilename();
-
-		photoName = new Date().getTime() / 1000 + "_"
+	public Object updateAuntPhoto(HttpServletRequest request, Long AuntId,
+			String image) {
+		//获取图片base64编码
+		String imageIO = image.substring(image.indexOf("base64") + 7); 
+		//生成图片名称
+		String photoName = new Date().getTime() / 1000 + "_"
 				+ new Random().nextInt(10)
-				+ photoName.substring(photoName.indexOf("."));
+				+ "." + image.substring(image.indexOf("/") + 1, image.indexOf("/") + 4);//获取base64编码中获取的图片的后缀
 
 		String rPath = request.getSession().getServletContext()
 				.getRealPath("/"); // 项目根目录 ...\nzj\
 
-		String upDir = "upload" + File.separator + "aunt_photo";
+		String upDir = "upload" + File.separator + "aunt_photo";//项目子目录
 
 		String path = rPath + upDir; // 图片保存的完整目录
-
-		// System.out.println("保存目录目录：" + path);
-		// System.out.println("保存文件夹：" + upDir);
-		// System.out.println("上传文件名字：" + photoName);
 
 		File dir = new File(path);
 		if (!dir.exists() && !dir.isDirectory()) { // 路径不存在则创建
@@ -252,16 +248,14 @@ public class AuntServiceImp implements AuntService {
 		String fPath = path + File.separator + photoName; // 文件最终路径
 		String url = new readProperties().getP("server") + "upload/aunt_photo/"
 				+ photoName; // 保存的url
-		// System.out.println("url:" + url);
-
-		File f = new File(fPath);
-		file.transferTo(f);
-		// ------------------------图片上传完成-----------------------------
-
-		if (aphDao.updatePhotoByAuntId(AuntId, url))
-			return JsonObject.getResult(1, "修改阿姨工作经历成功", true);
+		 System.out.println("url:" + url);
+		 System.out.println(fPath);
+		// ------------------------准备工作完成-----------------------------
+		//数据库网络路径 + 文件写入 都为true时才可正确返回
+		if (aphDao.updatePhotoByAuntId(AuntId, url) && GenerateImage.GenerateImage(imageIO, fPath))
+			return JsonObject.getResult(1, "修改阿姨照片成功", true);
 		else
-			return JsonObject.getResult(0, "修改阿姨工作经历失败", false);
+			return JsonObject.getResult(0, "修改阿姨照片失败", false);
 	}
 
 	@Override
@@ -305,10 +299,11 @@ public class AuntServiceImp implements AuntService {
 	@Override
 	public Object getAuntListByStatus(HttpSession session, Integer status,
 			Integer start, Integer limit, Long userId) {
-//		User u = (User) session.getAttribute("user");
+		// User u = (User) session.getAttribute("user");
 		Long userId1 = GetUserId.getUserId(session);
 		if (userId1 != null) {
-			List<VAuntId> li = aDao.getAuntListByStatus(status, start, limit, userId1);
+			List<VAuntId> li = aDao.getAuntListByStatus(status, start, limit,
+					userId1);
 			Long count = aDao.getAuntCountByStatus(status, userId1);
 
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -322,7 +317,7 @@ public class AuntServiceImp implements AuntService {
 
 	@Override
 	public Object updateAuntStauts(Long AuntId, Integer status) {
-		if(aDao.updateAuntStatus(AuntId, status))
+		if (aDao.updateAuntStatus(AuntId, status))
 			return JsonObject.getResult(1, "修改阿姨状态成功", true);
 		else
 			return JsonObject.getResult(0, "修改阿姨状态失败", false);
@@ -332,14 +327,15 @@ public class AuntServiceImp implements AuntService {
 	public Object getAuntListByIdStatus(Integer start, Integer limit,
 			Long userId, Integer status) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("AuntList", aDao.getAuntListByStatus(status, start, limit, userId));
+		map.put("AuntList",
+				aDao.getAuntListByStatus(status, start, limit, userId));
 		map.put("count", aDao.getAuntCountByStatus(status, userId));
 		return JsonObject.getResult(1, "阿姨信息列表", map);
 	}
 
 	@Override
-	public Object updateAuntSkills(long auntid, long[] laId, long[] coId,
-			long[] skId, long[] apId, long[] ceId, long[] joId) {
+	public Object updateAuntSkills(Long auntid, Long[] laId, Long[] coId,
+			Long[] skId, Long[] apId, Long[] ceId, Long[] joId) {
 		if (aDao.updateAuntSkills(auntid, laId, coId, skId, apId, ceId, joId)) {
 			return JsonObject.getResult(1, "复选框信息修改成功", true);
 		} else {
@@ -347,4 +343,39 @@ public class AuntServiceImp implements AuntService {
 		}
 	}
 
+	@Override
+	public Object addContact(long AuntId, AuntContactForm c) {
+		if (acDao.addContact(AuntId, c)) {
+			return JsonObject.getResult(1, "紧急联系人添加成功", true);
+		} else {
+			return JsonObject.getResult(0, "紧急联系人添加失败", false);
+		}
+	}
+	
+	@Override
+	public Object deleteContact(long id) {
+		if (acDao.deleteContact(id)) {
+			return JsonObject.getResult(1, "紧急联系人删除成功", true);
+		} else {
+			return JsonObject.getResult(0, "紧急联系人删除失败", false);
+		}
+	}
+
+	@Override
+	public Object addWork(long AuntId, AuntWorkForm w) {
+		if (awDao.addWork(AuntId, w)) {
+			return JsonObject.getResult(1, "工作经历添加成功", true);
+		} else {
+			return JsonObject.getResult(0, "工作经历添加失败", false);
+		}
+	}
+
+	@Override
+	public Object deleteWork(long id) {
+		if (awDao.deleteWork(id)) {
+			return JsonObject.getResult(1, "工作经历删除成功", true);
+		} else {
+			return JsonObject.getResult(0, "工作经历删除失败", false);
+		}
+	}
 }
