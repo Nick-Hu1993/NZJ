@@ -28,7 +28,7 @@ public class SupportTrackingServiceImp implements SupportTrackingService {
 	@Override
 	public Object addSupportTracking(HttpSession session, SupportTrackingForm stf, long id) { //时间戳在dao中已经转换了
 		//获取加盟商user的id号(getUserId方法中已判定是否登录)
-		stf.setuserId(GetUserId.getUserId(session));
+		stf.setuserId(id);
 		if (udDao.getUserDetailSupport(id)) {
 			if (stDao.addSupportTracking(stf) == true) {
 				return JsonObject.getResult(1, "添加成功", true);

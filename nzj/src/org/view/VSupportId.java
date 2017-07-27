@@ -12,8 +12,10 @@ public class VSupportId implements java.io.Serializable {
 	private Long ttime;
 	private String content;
 	private Integer status;
-	private String name;
+	private Integer typeId;
 	private Long userId;
+	private Long pid;
+	private String name;
 
 	// Constructors
 
@@ -23,13 +25,15 @@ public class VSupportId implements java.io.Serializable {
 
 	/** full constructor */
 	public VSupportId(Long id, Long ttime, String content, Integer status,
-			String name, Long userId) {
+			Integer typeId, Long userId, Long pid, String name) {
 		this.id = id;
 		this.ttime = ttime;
 		this.content = content;
 		this.status = status;
-		this.name = name;
+		this.typeId = typeId;
 		this.userId = userId;
+		this.pid = pid;
+		this.name = name;
 	}
 
 	// Property accessors
@@ -66,12 +70,12 @@ public class VSupportId implements java.io.Serializable {
 		this.status = status;
 	}
 
-	public String getName() {
-		return this.name;
+	public Integer getTypeId() {
+		return this.typeId;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTypeId(Integer typeId) {
+		this.typeId = typeId;
 	}
 
 	public Long getUserId() {
@@ -80,6 +84,22 @@ public class VSupportId implements java.io.Serializable {
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+
+	public Long getPid() {
+		return this.pid;
+	}
+
+	public void setPid(Long pid) {
+		this.pid = pid;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public boolean equals(Object other) {
@@ -103,12 +123,18 @@ public class VSupportId implements java.io.Serializable {
 				&& ((this.getStatus() == castOther.getStatus()) || (this
 						.getStatus() != null && castOther.getStatus() != null && this
 						.getStatus().equals(castOther.getStatus())))
-				&& ((this.getName() == castOther.getName()) || (this.getName() != null
-						&& castOther.getName() != null && this.getName()
-						.equals(castOther.getName())))
+				&& ((this.getTypeId() == castOther.getTypeId()) || (this
+						.getTypeId() != null && castOther.getTypeId() != null && this
+						.getTypeId().equals(castOther.getTypeId())))
 				&& ((this.getUserId() == castOther.getUserId()) || (this
 						.getUserId() != null && castOther.getUserId() != null && this
-						.getUserId().equals(castOther.getUserId())));
+						.getUserId().equals(castOther.getUserId())))
+				&& ((this.getPid() == castOther.getPid()) || (this.getPid() != null
+						&& castOther.getPid() != null && this.getPid().equals(
+						castOther.getPid())))
+				&& ((this.getName() == castOther.getName()) || (this.getName() != null
+						&& castOther.getName() != null && this.getName()
+						.equals(castOther.getName())));
 	}
 
 	public int hashCode() {
@@ -122,9 +148,13 @@ public class VSupportId implements java.io.Serializable {
 		result = 37 * result
 				+ (getStatus() == null ? 0 : this.getStatus().hashCode());
 		result = 37 * result
-				+ (getName() == null ? 0 : this.getName().hashCode());
+				+ (getTypeId() == null ? 0 : this.getTypeId().hashCode());
 		result = 37 * result
 				+ (getUserId() == null ? 0 : this.getUserId().hashCode());
+		result = 37 * result
+				+ (getPid() == null ? 0 : this.getPid().hashCode());
+		result = 37 * result
+				+ (getName() == null ? 0 : this.getName().hashCode());
 		return result;
 	}
 

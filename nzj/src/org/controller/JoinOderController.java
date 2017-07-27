@@ -1,5 +1,7 @@
 package org.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.model.JoinOrders;
@@ -7,6 +9,7 @@ import org.service.JoinOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -17,8 +20,9 @@ public class JoinOderController {
 	
 	@RequestMapping("/addJoinOrder")
 	@ResponseBody
-	public Object addJoinOrder (HttpSession session, JoinOrders jo, long[] id) {
-		return joService.addJoinOrder(session, jo, id);
+	public Object addJoinOrder (HttpSession session, JoinOrders jo,
+			@RequestParam("id[]") List<Long> id) {
+		return joService.addJoinOrder(session, jo, (Long[])id.toArray(new Long[id.size()]));
 	}
 	
 	@RequestMapping("/deleteJoinOrder")

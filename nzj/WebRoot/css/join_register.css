@@ -1,0 +1,26 @@
+
+/*表格*/
+#JoinTable,#CityTable,#DistTable{width: 100%;}
+#JoinTable .dphone,#JoinTable .contact,#JoinTable .telephone{width: 10%;}
+#JoinTable .company,#JoinTable .dis_dta{width: 20%;}
+#CityTable .dis_dta a,#DistTable .dis_dta a{display: block; margin-bottom: 6px;}
+#CityTable .contact,#DistTable .contact{width: 10%;}
+#CityTable .dphone,#CityTable .telephone,#DistTable .dphone,#DistTable .telephone{width: 15%;}
+
+
+
+.order-con{padding: 10px; text-align: left;}
+.order-peo{text-align: center; display: none;}
+.order-con .order-list li{list-style: none; position: relative; padding: 5px; border: 1px solid #ddd; margin-bottom: 5px;}
+.order-con .order-list li .user-img{float: left; margin-right: 10px;}
+.order-con .order-list li .user-img img{border:1px solid #666;}
+.order-con .order-list li .user-list{float: left;}
+.order-con .order-list li .user-list h4{font-size: 14px; color: #f70c0c; padding: 0;  margin: 5px 0;}
+.order-con .order-list li .user-list div{font-weight: bold; font-size: 12px; margin-bottom: 5px;}
+.order-con .order-list li .user-list div span{ font-weight: normal;}
+.order-con .order-list li i{position: absolute; right: 4px; top: 0; font-style: normal; color: #00ba8c; font-size: 16px;}
+
+
+/*追踪标签*/
+#serveNote .type-name{margin-left: 40px; color: #03a9f3;}
+#serveNote .type-list{position: absolute; left: 20px; bottom:-34px; width: 110px;}

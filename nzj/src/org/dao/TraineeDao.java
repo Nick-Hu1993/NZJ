@@ -112,4 +112,29 @@ public interface TraineeDao {
 	 * @return
 	 */
 	public List<Integer> getTraineeStatus (long[] id);
+	/**
+	 * 4.9以是否付费和绑定账单遍历学员
+	 * bind（是否绑定账单）：
+	 * pay（是否支付学费）：
+	 * @param start
+	 * @param limit
+	 * @param bind
+	 * @param pay
+	 * @return
+	 */
+	public List<Trainee> getTraineeByBindAndPay (Integer start, Integer limit, Integer bind, Integer pay, long userId);
+	/**
+	 * 4.10配合4.9获取数量
+	 * @param bind
+	 * @param pay
+	 * @return
+	 */
+	public long getCountByBindAndPay (Integer bind, Integer pay,long userId);
+	/**
+	 * 4.11通过用户ID查询总学费
+	 * 用于数据统计
+	 * @param userId
+	 * @return
+	 */
+	public List<Trainee> getTolTuition(Long userId);
 }

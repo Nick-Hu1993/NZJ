@@ -10,6 +10,11 @@
             <column name="id" />
             <generator class="identity" />
         </id>
+        <property name="category" type="java.lang.String">
+            <column name="category" length="1" not-null="true">
+                <comment>0:保洁员，1:育儿嫂,2:保姆,3:月嫂,4:其他</comment>
+            </column>
+        </property>
         <property name="ptime" type="java.lang.Long">
             <column name="ptime" not-null="true" />
         </property>

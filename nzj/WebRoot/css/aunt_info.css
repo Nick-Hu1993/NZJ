@@ -46,11 +46,17 @@
 	height: auto;
 	
 }
+#divFrame table{
+	width: 100%;
+}
+#divFrame .table_info{
+	padding: 10px;
+	margin: 0;
+}
 
 #divFrame .aunt_basic_info{
 	width: 100%;
-	height: 720px;
-	border: 1px solid #f8bbd0;
+	border: 1px solid #dcebf7;
 }
 
 .basic_btn button{
@@ -68,7 +74,7 @@
 }
 
 #divFrame .aunt_basic_info_head {
-	background-color: #f8bbd0;
+	background-color: #dcebf7;
 	padding: 8px;
 	height: 30px;
 }
@@ -78,6 +84,8 @@
 	margin: 0px;
 	width: 60%;
 	float: left;
+	font-weight: normal;
+	line-height: 14px;
 }
 
 #divFrame .aunt_basic_info_head button {
@@ -99,7 +107,6 @@
 #divFrame .aunt_basic_info_left{
 	float: left; 
 	width: 70%; 
-	height: 700px; 
 }
 
 #divFrame.aunt_basic_info_left table{
@@ -107,19 +114,44 @@
 	width: 100%; 
 	height: 720px; 
 }
+#divFrame .aunt_basic_info_left table label{
+	width: 70px;
+	text-align: right;
+}
 
 #divFrame .aunt_basic_info_right{
 	float: right; 
 	width: 30%; 
-	height: 700px; 
 	text-align: right;
 }
 
+.aunt_photo{
+	width: 140px;
+	height: 160px;
+	background: url(../image/photo_bg.jpg) center center no-repeat;
+	margin: 10px auto 0;
+	position: relative;
+}
+.aunt_photo #auntIcon{
+	display: block;
+	width: 100%;
+	line-height: 40px;
+	text-align: center;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	font-size: 14px;
+	color: #333;
+	font-weight: bold;
+	background-color: rgba(255,255,255,.5);
+}
+
+.aunt_photo #auntIcon:focus{text-decoration: none}
 
 .aunt_img{
 	width: 140px;
 	height: 160px;
-	margin: 10px 70px 0 0;
+	/*margin: 10px 70px 0 0;*/
 }
 
 #divFrame .aunt_basic_info_left tr{
@@ -127,24 +159,39 @@
 	
 }
 
-#divFrame td,#myForm td{ text-align: left; padding-left: 30px; border-bottom:1pt #f8bbd0  dotted}
+#divFrame td,#myForm td{ text-align: left; padding-left: 30px; border-bottom:1pt #74bef9  dotted; font-size: 14px;}
 
 table tr input[type=text]{
 	height: 20px;
 	width: 120px;
 }
+.skill_info .sk-tit{
+	margin: 5px 0;
+	color: #4cacdd;
+}
+.skill_info .sk-list{
+	margin-bottom: 5px;
+	margin-right: 2px;
+}
+.skill_info .sk-list span{
+	margin: 8px;
+} 
+.skill_info .sk-list input[type=checkbox]{
+	margin: 6px 1px;
+	vertical-align: middle;
+}
 
 
 
-.contact{
+.contact,.aunt_skill_info{
 	margin-top: 15px;
 	width: 100%;
 	height: auto;
-	border: 1px solid #f8bbd0;
+	border: 1px solid #dcebf7;
 }
 
 .contact .contact_head{
-	background-color: #f8bbd0;
+	background-color: #dcebf7;
 	padding: 5px;
 	height: 30px;
 }
@@ -154,21 +201,25 @@ table tr input[type=text]{
 	margin: 0px;
 	width: 70%;
 	float: left;
+	font-weight: normal;
 }
 
-.contact .contact_head button {
-	
+.contact .contact_head button ,
+.work .work_head button
+{
 	float: right;
-	width: 50px;
-	height: 20px;
-	background: #f06292;
-	border: none;
-	outline: none;
-	border-radius: 10px;
+    background: #fff;
+    border: 1px solid #74bef9;
+    outline: none;
+    color: #0e90d2;
+    font-size: 14px;
+    border-radius: 8px;
 }
 
-.contact .contact_head button:hover {
+.contact .contact_head button:hover,
+.work .work_head button:hover {
 	color: #FFFFFF;
+	background-color: #89c4f9;
 }
 
 /*.contact_btns{
@@ -184,11 +235,11 @@ table tr input[type=text]{
 .contact_del_btn{
 	width: 20px;
 	height: 25px;
-	background:url(../image/del.png) no-repeat;
 	border: none;
 	outline: none;
 	margin-top: 3px;
 	margin-right: 30px;
+	color: #0e90d2;
 	/*border-radius: 10px;*/
 }
 
@@ -201,9 +252,9 @@ table tr input[type=text]{
 	margin: 0;
 }
 
-.contact .contact_info table{ 
+/*.contact .contact_info table{ 
 	margin: 0 0 30px 30px;
-}
+}*/
 
 .contact .contact_info table tr{ 
 	margin-top: 35px;
@@ -223,11 +274,11 @@ table tr input[type=text]{
 	margin-top: 15px;
 	width: 100%;
 	height: auto;
-	border: 1px solid #f8bbd0;
+	border: 1px solid #dcebf7;
 }
 
 .work .work_head{
-	background-color: #f8bbd0;
+	background-color: #dcebf7;
 	padding: 5px;
 	height: 30px;
 }
@@ -237,21 +288,7 @@ table tr input[type=text]{
 	margin: 0px;
 	width: 70%;
 	float: left;
-}
-
-.work .work_head button {
-	
-	float: right;
-	width: 50px;
-	height: 20px;
-	background: #f06292;
-	border: none;
-	outline: none;
-	border-radius: 10px;
-}
-
-.work .work_head button:hover {
-	color: #FFFFFF;
+	font-weight: normal;
 }
 
 /*.contact_btns{
@@ -284,9 +321,9 @@ table tr input[type=text]{
 	margin: 0;
 }
 
-.work .work_info table{ 
+/*.work .work_info table{ 
 	margin: 0 0 30px 30px;
-}
+}*/
 
 .work .work_info table tr{ 
 	margin-top: 35px;
@@ -294,13 +331,19 @@ table tr input[type=text]{
 }
 
 .work .work_info input { 
-	width: 200px;
-	height: 20px;
+	width: 240px;
+	height: 22px;
+	padding-left: 5px;
+	
 	/*margin-right: 15px;*/
 	/*outline: none;*/
 	/*background: #0066CC;*/
 	
 }
+.work_table{border: 1px solid #74bef9; margin-bottom: 4px;}
+.work_table td{border: 1px dotted #74bef9;}
+.work_table textarea{resize:none;}
+.work_table td.area-td{padding: 10px 0;}
 
 
 /*查看简历*/
@@ -321,8 +364,11 @@ table tr input[type=text]{
 .aunt-info-con .aunt-info-left table td.td-input input{text-indent: 12px;}
 .aunt-info-con .aunt-info-left table td.id-input-l input{width: 50%;}
 .aunt-info-con .aunt-info-right{float: right; width: 30%;}
-.aunt-info-right .upload-img{width: 140px; height: 180px; margin: 10px auto; border: 2px solid #ddd; background: url(../image/photo_bg.jpg) center center no-repeat; position: relative;}
-.upload-img .link-upload{position: absolute; left: 2px; bottom: -5px; width: 100%; text-align: center; line-height: 38px; background: rgba(220, 235, 247, 0.49); color: #333; font-weight: bold;}
+.aunt-info-right .upload-img{width: 140px; height: 160px; margin: 10px auto; background: url(../image/photo_bg.jpg) center center no-repeat; position: relative;}
+.upload-img img{border: 1px solid #ddd;}
+.upload-img .link-upload{display: block; position: absolute; left: 0px; bottom: 0px; width: 100%; text-align: center; line-height: 38px; background: rgba(220, 235, 247, 0.49); color: #333; font-weight: bold;}
+
+.am-dimmer.am-active{background: none;}
 
 .oper-info-btn{width: 100%; height: 40px; text-align: center; display: none;}
 .oper-info-btn a{display: inline-block; line-height: 20px; border: 1px solid #3ca1f3; padding: 2px 18px; margin: 5px 20px 0 20px;}
@@ -333,7 +379,7 @@ table tr input[type=text]{
 .aunt-skill-con table td.td-list span{margin-right: 8px;}
 .aunt-skill-con table td.td-list span i{display: none;}
 .aunt-skill-con table td.td-list span.on{display: inline-block;  background-color: #5cbff9; line-height: 20px; padding-left: 3px; padding-right: 15px; color: #fff;  position: relative;}
-.aunt-skill-con table td.td-list span.on i{display: inline-block; position: absolute; top: -6px; right: 0px; font-size: 6px; font-style: normal; cursor: pointer;}
+.aunt-skill-con table td.td-list span.on i{display: inline-block; position: absolute; top: -6px; right: 0px; font-size: 12px; font-style: normal; cursor: pointer;}
 .aunt-skill-con table td.td-select{width: 25%; display: none;}
 .aunt-skill-con table td.td-select select{width: 100px; }
 .aunt-skill-con table td.td-select .add-skill-btn{margin-left: 7px; display: inline-block; background-color: #dcebf7; line-height: 20px; padding: 0 5px; border-radius: 4px;}
@@ -342,7 +388,7 @@ table tr input[type=text]{
 
 #myForm .aunt-contact-con table td{border: 1px dotted #74bef9; width: 10%; padding: 0; text-align: center;}
 #myForm .aunt-contact-con table td input{width: 100px;}
-.aunt-work-con .table-con table{margin-bottom: 5px;}
+.aunt-work-con .table-con table{margin-bottom: 5px; border: 1px solid #74bef9;}
 #myForm .aunt-work-con table td.td-tit{width: 20%; padding: 0; text-align: center;}
 #myForm .aunt-work-con table td.works{width: 70%;}
 #myForm .aunt-work-con table td.work-con{height: 100px;}

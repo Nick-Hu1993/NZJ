@@ -26,6 +26,7 @@
 		<script src="js/default.js" type="text/javascript"></script>
 		<script src="js/main.js" type="text/javascript"></script>
 		<link href="css/home.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="css/join_register.css" />
 		<style>
 			html,
 			body {
@@ -37,74 +38,237 @@
 
 	<body>
 		<div class="mianBox">
-			<div class="mianBoxDiv" style="min-width: 1300px;">
-				<div class="leftMenuBox">
-					<div class="leftMenu">
-						<div class="joinMenuDiv">
-							<ul class="nav" id="joinList">
-								<li>
-									<a href=""><i class="fa fa-university"></i>主页面</a>
-								</li>
-								<li>
-									<a href="" target="f"><i class="fa fa-female"></i>阿姨信息</a>
-								</li>
-								<li>
-									<a href="" target="f"><i class="fa fa-user"></i>客户信息</a>
-								</li>
-								<li>
-									<a href="" target="f"><i class="fa fa-user"></i>合同追踪</a>
-								</li>
-								<li>
-									<a href="" target="f"><i class="fa fa-retweet"></i>互助中心</a>
-								</li>
-								<li>
-									<a href="" target="f"><i class="fa fa-users"></i>加盟中心</a>
-								</li>
+			<div class="mianBoxDiv">
+				<div style="width: 100%; height: 60px; font-size: 20px; font-weight:bold; text-align: left; padding-top: 15px; padding-left: 20px; border-bottom:solid 1px #DDDDDD;" class="guzhu">加盟管理
+					<button type="button" class="btn btn-info"  style="float: right; margin-right: 35px; " data-toggle='modal' data-target='#orderloyer'>生成订单</button>
+				</div>
+				
+				<ul id="myTab" class="nav nav-tabs" style="width: 100%;	height: 60px;font-size: 18px; padding: 15px; font-weight:bold; background-color: #fff;">
+					<li class="active">
+						<a href="#join" data-toggle="tab">
+							加盟商
+						</a>
+					</li>
+					<li>
+						<a href="#order" data-toggle="tab">
+							订单
+						</a>
+					</li>
+				</ul>
+				<div id="myJoinContent" class="tab-content">
+					<div class="tab-pane fade in active" id="join">
+						<div class="search_options">
+							<span  onclick="ChildByParentAndSupport(1)">已服务</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+							<span  onclick="ChildByParentAndSupport(0)">未服务</span>
+							
+						</div>
+						<div id="browser" class="tbtree" style="padding: 0 12px">
+							<div id="mainTbtable" class='uqt_detail'>
+								<table id="JoinTable" >
+								</table>
+							</div>
+							<div id="div_pager" class="page_con">
 
-								<li class="has-sub">
-									<a href="javascript:void(0);"><span>更多</span><i class="fa fa-caret-right fa-fw pull-right"></i></a>
-									<ul class="sub-menu">
-										<li>
-											<a href="" target="f">&nbsp;公告信息维护</a>
-										</li>
-										<li>
-											<a href="" target="f">&nbsp;文件更新</a>
-										</li>
-										<li>
-											<a href="" target="f">&nbsp;账户详细</a>
-										</li>
-										<li>
-											<a href="" target="f">&nbsp;订单推送</a>
-										</li>
-									</ul>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="order">
+								<iframe name="htlb" id="iframe" scrolling="no" style="width: 100%; height: 100%; position: fixed; padding-right: 30px; margin-left: -190px;" frameborder="no" border="0" src="order_push.html"></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--------------------------------查看市级（开始）-------------------------------------------------->
+		<div class="r-model">
+			<div class="model-con city-con" style="width: 800px; top: 92px;">
+				<div class="model-head">
+					<span class="close-btn close-city-btn">×</span>
+					<span class="model-tit">市级加盟信息</span>
+				</div>
+				<div class="model-main">
+					<div id="mainTbtable" class='uqt_detail'>
+						<table id="CityTable" style="background-color: #fff;">
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!--------------------------------查看市级（结束）-------------------------------------------------->
+		
+		<!--------------------------------查看区级（开始）-------------------------------------------------->
+		<div class="r-model">
+			<div class="model-con dist-con" style="width: 800px; top: 92px;">
+				<div class="model-head">
+					<span class="close-btn close-dist-btn">×</span>
+					<span class="model-tit">区域加盟信息</span>
+				</div>
+				<div class="model-main">
+					<div id="mainTbtable" class='uqt_detail'>
+						<table id="DistTable" style="background-color: #fff;" >
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!--------------------------------查看区级（结束）-------------------------------------------------->
+		
+		
+		<!--------------------------------生成订单（开始）--------------------------------------------------->
+		<div class="modal fade" id="orderloyer" tabindex="-1" role="dialog" aria-labelledby="myModLabel" aria-hidden="true" style="text-align: center;">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">生成订单</h4>
+						<span class="order-close" data-dismiss="modal">×</span>
+					</div>
+					<div class="modal-body">
+						<div class="order-con">
+							<div class="order-peo">
+								<label>姓名：</label><input type="text" style="margin-right: 50px;" />
+								<label>电话：</label><input type="text" />
+							</div>
+							<ul class="order-list">
+								<li class="clearfix">
+									<div class="user-img">
+										<img src="image/6.png" width="100" height="100" />
+									</div>
+									<div class="user-list">
+										<h4>东莞娘子军</h4>
+										<div class="uName">联系人：<span>靳小宝</span></div>
+										<div class="uTel">联系电话：<span>75584559949</span></div>
+										<div class="uAdd">地址：<span>广东省-深圳市-龙岗区坂田村34号</span></div>
+									</div>
+									<i>×</i>
 								</li>
+								<li class="clearfix">
+									<div class="user-img">
+										<img src="image/6.png" width="100" height="100" />
+									</div>
+									<div class="user-list">
+										<h4>东莞娘子军</h4>
+										<div class="uName">联系人：<span>靳小宝</span></div>
+										<div class="uTel">联系电话：<span>75584559949</span></div>
+										<div class="uAdd">地址：<span>广东省-深圳市-龙岗区坂田村34号</span></div>
+									</div>
+									<i>×</i>
+								</li>
+								<li class="clearfix">
+									<div class="user-img">
+										<img src="image/6.png" width="100" height="100" />
+									</div>
+									<div class="user-list">
+										<h4>东莞娘子军</h4>
+										<div class="uName">联系人：<span>靳小宝</span></div>
+										<div class="uTel">联系电话：<span>75584559949</span></div>
+										<div class="uAdd">地址：<span>广东省-深圳市-龙岗区坂田村34号</span></div>
+									</div>
+									<i>×</i>
+								</li>
+								<li class="clearfix">
+									<div class="user-img">
+										<img src="image/6.png" width="100" height="100" />
+									</div>
+									<div class="user-list">
+										<h4>东莞娘子军</h4>
+										<div class="uName">联系人：<span>靳小宝</span></div>
+										<div class="uTel">联系电话：<span>75584559949</span></div>
+										<div class="uAdd">地址：<span>广东省-深圳市-龙岗区坂田村34号</span></div>
+									</div>
+									<i>×</i>
+								</li>
+							</ul>
+						</div>
+						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-info">提交订单</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		<!--------------------------------生成订单（结束）--------------------------------------------------->
+		
+		<!--------------------------------服务追踪单（开始）--------------------------------------------------->
+		<div class="modal fade" id="serveNote" tabindex="-1" role="dialog" aria-labelledby="myModLabel" aria-hidden="true" style="text-align: center;">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">服务追踪</h4>
+						<span class="note-close" data-dismiss="modal">×</span>
+					</div>
+					<div class="modal-body">
+						<div class="note-input">
+							<textarea cols="70" rows="6" id="note-text" style="resize:none" placeholder="请输入不超过200字的标签信息……"></textarea>
+							<div id="note-btn" class="btn" style="border: none;outline: none;">提交</div>
+							<select class="type-list">
+								
+							</select>
+						</div>
+						<div class="notice-con">
+							<ul class="note-list" id="serve-note-list">
+								<!--<li>
+									<span class="delete-note">×</span>
+									<p class="note-time">发布时间：<span class="n-time">2017-07-06</span><span class="type-name">品牌支持</span></p>
+									<div class="note-con">
+										<i class="ico-san"></i>
+										<span class="note-txt">谁在时间啊淡饭黄齑阿双方说得太多容易掉入带入箭哈<i class="edit-note"></i></span>
+									</div>
+								</li>-->
 							</ul>
 						</div>
 					</div>
 				</div>
-				<div class="rightContentBox">
-					<!--<table width="800" border="1" cellspacing="0" cellpadding="5" style="text-align:center">
-						aa
-					</table>-->
-					<table class="joinTable">
-						<tr>
-							<td>Apple, Inc.</td>
-							<td>1 Infinite Loop Cupertino, CA 95014</td>
-						</tr>
-						<tr>
-							<td>Google, Inc.</td>
-							<td>1600 Amphitheatre Parkway Mountain View, CA 94043</td>
-						</tr>
-					</table>
-				</div>
 			</div>
 		</div>
+		<!--------------------------------服务追踪单（结束）--------------------------------------------------->
+		
+		<script>
+			$(function(){
+				$('.close-city-btn').click(function(){
+					$('.city-con').animate({'right':'-3000px'},300);
+					$('.dist-con').animate({'right':'-3000px'},300);
+				});
+				$(document).on('click','.checkCity',function(){
+					$('.city-con').animate({'right':'0'},600);
+				});
+				
+				$(document).on('click','.checkDist',function(){
+					if($('#JoinTable tr a').hasClass('checkCity')){
+						$('.city-con').animate({'right':'800px'},600);
+						$('.dist-con').animate({'right':'0'},600);
+					}else{
+						$('.dist-con').animate({'right':'0'},600);
+					}
+				});
+				
+				$('.close-dist-btn').click(function(){
+					if($('#JoinTable tr a').hasClass('checkCity')){
+						$('.dist-con').animate({'right':'-3000px'},300);
+						$('.city-con').animate({'right':'0'},600);
+					}else{
+						$('.dist-con').animate({'right':'-3000px'},300);
+					}
+				});
+				
+				
+			});
+			
+		</script>
+		
+		
+		
 		<link href="css/employer_info.css" rel="stylesheet" />
 		<script src="js/join_register.js" type="text/javascript"></script>
+		<script src="js/index.js" type="text/javascript"></script>
 		<!--<script type="text/javascript" src="js/modelBuilder.js"></script>-->
 		<link href="css/query_startic_pro.css" type="text/css" rel="Stylesheet" />
 		<link href="css/main.css" type="text/css" rel="Stylesheet" />
-		<link href="css/pact_trace.css" type="text/css" rel="Stylesheet" />
 	</body>
 
 </html>

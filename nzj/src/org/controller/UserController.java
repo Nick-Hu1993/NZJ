@@ -155,10 +155,10 @@ public class UserController {
 	
 	// -----------------------------------加盟（join）-----------------------------------------
 	
-	@RequestMapping("/getChildByParent")			
+	@RequestMapping("/getChildByParentAndSupport")			
 	@ResponseBody
-	public Object getChildByParent (HttpSession session, Integer start, Integer limit, Long[] parent) {
-		return uService.getChildByParent(session, start, limit, parent);
+	public Object getChildByParentAndSupport (HttpSession session, Integer start, Integer limit, Long[] parent, Integer support) {
+		return uService.getChildByParentAndSupport(session, start, limit, parent, support);
 	}
 	
 	@RequestMapping("/getUserDetailListBySupport")

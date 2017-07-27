@@ -9,6 +9,7 @@ public class Pact implements java.io.Serializable {
 	// Fields
 
 	private Long id;
+	private String category;
 	private Long ptime;
 	private String code;
 	private String ename;
@@ -33,10 +34,11 @@ public class Pact implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Pact(Long ptime, String code, String ename, String ephone,
-			String eaddress, String econtent, String duration, Double cost,
-			String aname, String aphone, String time, String salary,
-			Integer status, Long userId, Long employerId) {
+	public Pact(String category, Long ptime, String code, String ename,
+			String ephone, String eaddress, String econtent, String duration,
+			Double cost, String aname, String aphone, String time,
+			String salary, Integer status, Long userId, Long employerId) {
+		this.category = category;
 		this.ptime = ptime;
 		this.code = code;
 		this.ename = ename;
@@ -55,10 +57,12 @@ public class Pact implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Pact(Long ptime, String code, String ename, String ephone,
-			String eaddress, String econtent, String duration, Double cost,
-			String aname, String aphone, String time, String salary,
-			String remark, Integer status, Long userId, Long employerId) {
+	public Pact(String category, Long ptime, String code, String ename,
+			String ephone, String eaddress, String econtent, String duration,
+			Double cost, String aname, String aphone, String time,
+			String salary, String remark, Integer status, Long userId,
+			Long employerId) {
+		this.category = category;
 		this.ptime = ptime;
 		this.code = code;
 		this.ename = ename;
@@ -85,6 +89,14 @@ public class Pact implements java.io.Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getCategory() {
+		return this.category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public Long getPtime() {

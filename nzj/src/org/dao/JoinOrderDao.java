@@ -13,7 +13,7 @@ public interface JoinOrderDao {
 	 * @param id
 	 * @return
 	 */
-	public boolean addJoninOrder (JoinOrders jo, long[] id);
+	public boolean addJoninOrder (JoinOrders jo, Long[] id);
 	//-----------------------------------删--------------------------------------
 	/**
 	 * 2.1删除加盟返点订单（仅管理员）

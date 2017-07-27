@@ -49,7 +49,11 @@ body {
 }
 
 .sidebar li a {
-	color: #e0e0e0;
+	color: #969798;
+	font-size: 14px;
+}
+.sidebar li a i.iconfont{
+	font-size: 20px;
 }
 
 .sidebar li .caret {
@@ -64,11 +68,11 @@ body {
 	background-color: #c5cae9;
 	color: #F06292;
 }
-
+.sidebar .nav> li:hover,
 .sidebar .nav> li> a:hover,
 .sidebar .nav> li> a:focus {
 	background-color: #03A9F3;
-	/*color: #BBBBBB;*/
+	color: #fff;
 }
 
 .has-sub> a:hover {

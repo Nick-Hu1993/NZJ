@@ -9,10 +9,11 @@
 
 
 body {
-    background: #f8f8f8;
     font-family: 'PT Sans', Helvetica, Arial, sans-serif;
     text-align: center;
     color: #fff;
+    background: #f8f8f8 url(../../../image/login-bg.jpg)no-repeat 0 0 fixed;
+    background-size: 100% 100%;
 }
 
 .page-container {
@@ -38,7 +39,8 @@ a{
 }
 
 a:hover{
-	color: #f8bbd0;
+	/*color: #f8bbd0;*/
+	color: #377db8;
 }
 
 input {
@@ -91,11 +93,13 @@ button {
     height: 44px;
     margin-top: 25px;
     padding: 0;
-    background: #f8bbd0;
+    /*background: #f8bbd0;*/
+    background: #337ab7;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
     border-radius: 6px;
-    border: 1px solid #f8bbd0;
+    /*border: 1px solid #f8bbd0;*/
+    border: 1px solid #337ab7;
     -moz-box-shadow:
         0 15px 30px 0 rgba(255,255,255,.25) inset,
         0 2px 7px 0 rgba(0,0,0,.2);
@@ -107,13 +111,14 @@ button {
         0 2px 7px 0 rgba(0,0,0,.2);
     font-family: 'PT Sans', Helvetica, Arial, sans-serif;
     font-size: 14px;
-    font-weight: 700;
+    /*font-weight: 700;*/
     text-shadow: 0 1px 2px rgba(0,0,0,.1);
     -o-transition: all .2s;
     -moz-transition: all .2s;
     -webkit-transition: all .2s;
     -ms-transition: all .2s;
-    color: #3d3b4f;
+    /*color: #3d3b4f;*/
+    color: #fff;
 }
 
 button:hover {
@@ -212,4 +217,7 @@ button:active {
 	color: red;
 	float: left;
 }
+
+.reg{float: right; margin-top: 20px;}
+.reg a{font-size: 14px; text-decoration: none;}
 

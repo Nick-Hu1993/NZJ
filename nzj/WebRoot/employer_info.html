@@ -254,22 +254,12 @@
 								</tr>
 								<tr>
 									<td>
-										<label><em class="star">*</em>雇主id:</label>
-										<input type="text" id="ap-employerId" name="employerId" placeholder="请输入雇主ID"  />
-									</td>
-									<td>
 										<label><em class="star">*</em>雇主姓名:</label>
 										<input type="text" id="ap-ename" name="ename" placeholder="请输入真实姓名" />
 									</td>
-								</tr>
-								<tr>
 									<td>
 										<label><em class="star">*</em>雇主电话:</label>
 										<input type="text" id="ap-ephone" name="ephone"  placeholder="请输入手机号码"/>
-									</td>
-									<td>
-										<label><em class="star">*</em>雇主需求:</label>
-										<input type="text" id="ap-econtent" name="econtent" placeholder="请输入需求" />
 									</td>
 								</tr>
 								<tr>
@@ -278,8 +268,8 @@
 										<input type="text" id="ap-duration" name="duration"  placeholder="请输入签约的时长"/>
 									</td>
 									<td>
-										<label><em class="star">*</em>服务费用:</label>
-										<input type="text" id="ap-cost" name="cost"  placeholder="请输入费用"/>
+										<label><em class="star">*</em>雇主需求:</label>
+										<input type="text" id="ap-econtent" name="econtent" placeholder="请输入需求" />
 									</td>
 								</tr>
 								<tr>
@@ -288,18 +278,34 @@
 										<input type="text" id="ap-time" name="time"  placeholder="如：8:00/18:00"/>
 									</td>
 									<td>
-										<label><em class="star">*</em>服务人员姓名:</label>
-										<input type="text" id="ap-aname" name="aname"  placeholder="请输入服务人员姓名"/>
+										<label><em class="star">*</em>服务费用:</label>
+										<input type="text" id="ap-cost" name="cost"  placeholder="请输入费用"/>
 									</td>
 								</tr>
 								<tr>
 									<td>
+										<label><em class="star">*</em>服务人员姓名:</label>
+										<input type="text" id="ap-aname" name="aname"  placeholder="请输入服务人员姓名"/>
+									</td>
+									<td>
 										<label><em class="star">*</em>服务人员电话:</label>
 										<input type="text" id="ap-aphone" name="aphone" placeholder="请输入服务人员电话" />
 									</td>
+								</tr>
+								<tr>
 									<td>
 										<label><em class="star">*</em>薪资标准:</label>
 										<input type="text" id="ap-salary" name="salary" placeholder="请输入薪资标准" />
+									</td>
+									<td>
+										<label><em class="star">*</em>业务类型:</label>
+										<select class="selectval" name="category" style="width: 175px; font-size: 14px;">
+											<option value="0">保洁员</option>
+											<option value="1">育儿嫂</option>
+											<option value="2">保姆</option>
+											<option value="3">月嫂</option>
+											<option value="4">其他</option>
+										</select>
 									</td>
 								</tr>
 								<tr>
@@ -312,6 +318,12 @@
 									<td colspan="2">
 										<label class="add-remark">备注（可不填）</label>
 										<textarea id="ap-remark" name="remark" cols="100" rows="8" placeholder="请输入需要备注的信息  如：需要住家…" style="text-indent: 12px; font-size: 12px; color: #aaa; padding: 8px 0; resize:none;"></textarea>
+									</td>
+								</tr>
+								<tr>
+									<td style="visibility: hidden;">
+										<label><em class="star">*</em>雇主id:</label>
+										<input type="text" id="ap-employerId" name="employerId" placeholder="请输入雇主ID"  />
 									</td>
 								</tr>
 							</table>
@@ -386,6 +398,9 @@
 						$('.addPact').hide();
 					}
 				});
+				
+				
+				
 			});	
 		</script>
 		<script src="laydate/laydate.js"></script>

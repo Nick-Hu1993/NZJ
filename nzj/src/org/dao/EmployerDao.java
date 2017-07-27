@@ -47,6 +47,14 @@ public interface EmployerDao {
 	 * @return
 	 */
 	public boolean updateEmployerTacking (EmployerTracking et);
+	/**
+	 * 3.3修改客户的状态
+	 * status：-2黑名单 -1放弃 0新单 1已签约
+	 * @param employerId
+	 * @param status
+	 * @return
+	 */
+	public boolean updateEmployerStatus (long employerId, Integer status);
 	//-----------------------------------查--------------------------------------
 	/**
 	 * 4.1通过name&phone查找用户--防止用户录入重复

@@ -44,14 +44,14 @@ a:hover{text-decoration: none;}
     padding:4px 8px;
     margin:10px 3px;
     font-size:12px;
-    border:1px solid #FF6600;
-    background-color:#FF6600;
+    border:1px solid #41a1e6;
+    background-color:#41a1e6;
     color:#FFF;
 }
 
 #div_pager a:hover{
-    background-color:#FFEEE5;
-    border:1px solid #FF6600;
+    background-color:#dcebf7;
+    border:1px solid #41a1e6;
 }
 
 #div_pager span.normalsize{
@@ -68,7 +68,7 @@ a:hover{text-decoration: none;}
 
 /*查看合同-右侧弹窗*/
 
-.model-con{ width: 1000px;  background-color:#d8ebf5; z-index:1050; position: fixed; right: -3000px; top: 16px; bottom: 0;overflow-y: scroll; }
+.model-con{ width: 1000px;  background-color:#dcebf7; z-index:1050; position: fixed; right: -3000px; top: 16px; bottom: 0;overflow-y: scroll; }
 .r-model .model-head{padding: 0 15px; height: 45px; line-height: 45px; overflow: hidden; background-color: #fff; border-bottom: 2px solid #f1f1f1;}
 .r-model .close-btn{display: inline-block; width: 20px; height: 20px; line-height: 18px; text-align: center; color: #fff; background-color: #00c292; font-size: 18px; border-radius: 5px; cursor: pointer;}
 .model-head .model-tit{font-size: 18px; margin-left: 8px;}
@@ -90,8 +90,8 @@ a:hover{text-decoration: none;}
 .info-three .remark-info{line-height: 24px; text-indent: 50px; font-size: 12px;}
 
 /*标签*/
-#noteloyer .modal-header{position: relative;}
-#noteloyer .modal-header .note-close{position: absolute; right: 10px; top: 3px; font-size: 18px; color: #00ba8c; cursor: pointer;}
+#noteloyer .modal-header,#serveNote .modal-header{position: relative;}
+#noteloyer .modal-header .note-close,#orderloyer .modal-header .order-close,#serveNote .modal-header .note-close{position: absolute; right: 10px; top: 3px; font-size: 18px; color: #00ba8c; cursor: pointer;}
 
 
 .note-input{position: relative; margin: 10px auto;}

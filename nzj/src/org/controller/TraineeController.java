@@ -80,4 +80,11 @@ public class TraineeController {
 	public Object getAllTraineeList (Long userId, Integer start, Integer limit) {
 		return tService.getTraineeListById(userId, start, limit);
 	}
+	
+	@RequestMapping("/getTraineeByBindAndPay")
+	@ResponseBody
+	public Object getTraineeByBindAndPay(HttpSession session, Integer start, Integer limit,
+			Integer bind, Integer pay) {
+		return tService.getTraineeByBindAndPay(session, start, limit, bind, pay);
+	}
 }

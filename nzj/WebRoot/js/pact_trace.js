@@ -79,7 +79,6 @@ function addJoin_trace() {
 		} else if(!/^[0-9]*$/.test($("#aphone").val())) {
 			alert("阿姨联系电话格式错误");
 		} else {
-		alert("abc");
 			var formData = new FormData(document.getElementById("addjoinTraceForm"));
 			$.ajax({
 				type: "post",
@@ -185,7 +184,7 @@ function lookjoinTrace(id){
 				tr +="<tr><td class='tit'>上班时间</td><td>"+data.data.Pact.time+"</td><td class='tit'>服务人员姓名</td><td>"+data.data.Pact.aname+"</td></tr>"
 				tr +="<tr><td class='tit'>服务人员电话</td><td>"+data.data.Pact.aphone+"</td><td class='tit'>薪资标准</td><td>"+data.data.Pact.salary+"</td></tr>"
 				tr +="<tr><td class='tit'>雇主地址</td><td colspan='3'>"+data.data.Pact.eaddress+"</td></tr>"
-				tr +="<tr><td class='tit'>备注</td><td colspan='3'>"+data.data.Pact.remark+"</td></tr>"
+				tr +="<tr><td class='tit'>备注</td><td colspan='3' style=' height:85px; vertical-align:top;'>"+data.data.Pact.remark+"</td></tr>"
 				tr +="</tbody>"
 				$('.pact-info-list').html(tr);
 			}else{
@@ -209,7 +208,9 @@ $(document).on('click','.pact-note',function(){
 		url:"getPactTrackingList",
 		async:false,
 		data:{
-			'packId':id
+			'packId':id,
+			'start': 0,
+			'limit': 4
 		},
 		success:function(data){
 			if(data.code == 1) {
@@ -546,7 +547,7 @@ var builderUQTQueryMsg = function(UQTQueryMsg) {
 			+"<td class='match_type'>" + listAphone + "</td>" 
 			+"<td class='eng_name'>" + changeTime(listTime) + "</td>" 
 			+"<td class='dis_dta'>" 
-			+"<a class='editOp pact-note' href=''  data-toggle='modal' data-target='#noteloyer' data-pactid='"+listId+"' >标签</a>"
+			+"<a class='editOp pact-note' href=''  data-toggle='modal' data-target='#noteloyer' data-pactid='"+listId+"' >合同追踪</a>"
 			+"<a class='editOp lookpact1' href=''  data-toggle='modal' onclick='lookjoinTrace("+listId+")' >查看合同</a>"
 			+"<a class='editOp' href='' data-toggle='modal' data-target='#modjoinTrace' onclick='updateJointrace("+JSON.stringify(eachData)+")'>修改</a>" 
 			+"<a class='editOp' href='javascript:void(0);' onclick='deleteJointrace(" + listId + ")'>删除</a>" 
@@ -832,9 +833,9 @@ var kkpager = {
 
 		var gopage_info = '';
 		if(this.isGoPage) {
-			gopage_info = '&nbsp;<span class="normalsize" >转到</span><span id="go_page_wrap" style="display:inline-block;width:44px;height:18px;border:1px solid #DFDFDF;margin:0px 1px;padding:0px;position:relative;left:0px;top:5px;">' +
-				'<input type="button" id="btn_go" onclick="kkpager.gopage(this);" style="width:44px;height:20px;line-height:20px;padding:0px;font-family:arial,宋体,sans-serif;text-align:center;border:0px;background-color:#0063DC;color:#FFF;position:absolute;left:0px;top:-1px;display:none;" value="确定" />' +
-				'<input type="text" id="btn_go_input" onfocus="kkpager.focus_gopage()" onkeypress="if(event.keyCode<48 || event.keyCode>57)return false;" onblur="kkpager.blur_gopage()" style="width:42px;height:23px;text-align:center;border:0px;position:absolute;left:0px;top:0px;outline:none;" value="' + this.pno + '" /></span><span class="normalsize" >页</span>';
+			gopage_info = '&nbsp;<span class="normalsize" >转到</span><span id="go_page_wrap" style="display:inline-block;width:44px;height:22px;border:1px solid #DFDFDF;margin:0px 1px;padding:0px;position:relative;left:0px;top:5px;">' +
+				'<input type="button" id="btn_go" onclick="kkpager.gopage(this);" style="width:44px;height:22px;line-height:22px;padding:0px;font-family:arial,宋体,sans-serif;text-align:center;border:0px;background-color:#41a1e6;color:#FFF;position:absolute;left:0px;top:-1px;display:none;" value="确定" />' +
+				'<input type="text" id="btn_go_input" onfocus="kkpager.focus_gopage()" onkeypress="if(event.keyCode<48 || event.keyCode>57)return false;" onblur="kkpager.blur_gopage()" style="width:42px;height:20px;text-align:center;border:0px;position:absolute;left:0px;top:0px;outline:none;" value="' + this.pno + '" /></span><span class="normalsize" >页</span>';
 		}
 
 		//分页处理

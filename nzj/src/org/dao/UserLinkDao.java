@@ -22,5 +22,20 @@ public interface UserLinkDao {
 	 * @param parent
 	 * @return
 	 */
-	public List<VUser> getChildByParent (Integer start, Integer limit, Long[] parent);
+	public List<VUser> getChildByParentAndSupport (Integer start, Integer limit, Long[] parent, Integer support);
+	/**
+	 * 4.3通过当前用户的id查询其子级节点的数量，配合4.2
+	 * @param parent
+	 * @param support
+	 * @return
+	 */
+	public long getCountByParentAndSupport (Long[] parent, Integer support);
+	/**
+	 * 4.4通过父级用户查询子级用户
+	 * 用于数据统计
+	 * @param parent
+	 * @return
+	 */
+	public List<Long> getChildListByParent(Long parent);
+
 }

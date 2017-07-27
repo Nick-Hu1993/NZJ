@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.dao.JoinOrderDao;
+import org.dao.UserDao;
 import org.model.JoinOrders;
 import org.service.JoinOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +21,19 @@ import org.view.VJoinUserdetail;
 public class JoinOrderServiceImp implements JoinOrderService {
 	@Autowired
 	private JoinOrderDao joDao;
+	
+	@Autowired UserDao uDao;
 
 	@Override
-	public Object addJoinOrder(HttpSession session, JoinOrders jo, long[] id) {
+	public Object addJoinOrder(HttpSession session, JoinOrders jo, Long[] id) {
 		//必须先登录
 		long userid = GetUserId.getUserId(session);
 		//订单所属的id号传入
 		jo.setUserId(userid);
 		jo.setStatus(0);
 		jo.setTime(Long.parseLong(ChangeTime.timeStamp()));
+		jo.setPerparer(uDao.getUserById(userid).getCompany());
+		jo.setPhone(uDao.getUserById(userid).getPhone().toString());
 		if (joDao.addJoninOrder(jo, id)) {
 			return JsonObject.getResult(1, "添加成功", true);
 		} else {

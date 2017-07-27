@@ -53,6 +53,12 @@ public class EmployerController {
 	public Object getEmployerListByIdStatus (Integer start, Integer limit, Long userId,	Integer status) {
 		return eService.getEmployerListByIdStatus(start, limit, userId, status);
 	}
+	
+	@RequestMapping("/updateEmployerStatus")
+	@ResponseBody
+	public Object updateStatus (long employerId, Integer status) {
+		return eService.updateEmployerStatus(employerId, status);
+	}
 	/*****************************************EmployerTracking客户追踪*****************************************************/
 	
 	@RequestMapping("/addEmployerTracking")

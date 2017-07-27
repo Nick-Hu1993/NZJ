@@ -276,4 +276,16 @@ public class TraineeServiceImp implements TraineeService {
 			return JsonObject.getResult(1, "所有学员", map);
 	}
 
+	@Override
+	public Object getTraineeByBindAndPay(HttpSession session ,Integer start, Integer limit,
+			Integer bind, Integer pay) {
+		if (tDao.getTraineeByBindAndPay(start, limit, bind, pay,GetUserId.getUserId(session)) != null) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("TraineeList", tDao.getTraineeByBindAndPay(start, limit, bind, pay,GetUserId.getUserId(session)));
+			return JsonObject.getResult(1, "学员列表", map);
+		} else {
+			return JsonObject.getResult(0, "学员列表", false);
+		}
+	}
+
 }

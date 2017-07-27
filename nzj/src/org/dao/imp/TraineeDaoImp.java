@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.dao.TraineeDao;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.model.Trainee;
@@ -328,6 +329,88 @@ public class TraineeDaoImp implements TraineeDao {
 		}
 	}
 
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Trainee> getTraineeByBindAndPay(Integer start, Integer limit,
+			Integer bind, Integer pay, long userId) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("FROM Trainee t WHERE t.bind = ? AND t.pay = ? AND t.userId = ? ORDER BY t.id");
+			query.setParameter(0, bind);
+			query.setParameter(1, pay);
+			query.setParameter(2, userId);
+			if (start == null) {
+				start = 0;
+			}
+			query.setFirstResult(start);
+			if (limit == null) {
+				limit = 15;
+			}
+			query.setMaxResults(limit);
+			List<Trainee> li = query.list();
+			ts.commit();
+			return li;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public long getCountByBindAndPay(Integer bind, Integer pay, long userId) {
+		// TODO Auto-generated method stub
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("SELECT COUNT(*) WHERE t.bind = ? AND t.pay = ? AND t.userId = ?");
+			query.setParameter(0, bind);
+			query.setParameter(1, pay);
+			query.setParameter(2, userId);
+			query.setMaxResults(1);
+			long count = (Long)query.uniqueResult();
+			ts.commit();
+			return count;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return -1;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	/**
+	 * 通过用户ID查询总学费
+	 * @param userId
+	 * @return
+	 */
+	@Override
+	public List<Trainee> getTolTuition(Long userId){
+		try {
+         	List<Trainee> traineeList = new ArrayList<Trainee>();
+             Session session = HibernateSessionFactory.getSession();
+             Transaction ts = session.beginTransaction();
+             SQLQuery query = session
+                     .createSQLQuery("select sum(tuition) as tuition from trainee where user_id=?");
+             query.setParameter(0, userId);
+             traineeList = query.list();
+             ts.commit();
+             return traineeList;
+         } catch (Exception e) {
+             // TODO: handle exception
+             e.printStackTrace();
+             return null;
+         } finally {
+             HibernateSessionFactory.closeSession();
+         }
+	}
+	
 //	@Override
 //	public boolean getOrderTrainee(Long trainee_id) {
 //		try {

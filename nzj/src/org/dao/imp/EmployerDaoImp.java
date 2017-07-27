@@ -142,6 +142,27 @@ public class EmployerDaoImp implements EmployerDao {
 	}
 	
 	@Override
+	public boolean updateEmployerStatus (long employerId, Integer status) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("UPDATE Employer e SET e.status = ? WHERE e.id = ?");
+			query.setParameter(0, status);
+			query.setParameter(1, employerId);
+			query.executeUpdate();
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+	
+	@Override
 	public boolean updateEmployerTacking (EmployerTracking et) {
 		try {
 			Session session = HibernateSessionFactory.getSession();

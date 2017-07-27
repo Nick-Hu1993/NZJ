@@ -155,4 +155,13 @@ public class EmployerServiceImp implements EmployerService {
 		map.put("count", eDao.getEmployerCountByIdStatus(userId, status));
 		return JsonObject.getResult(1, "雇主列表", map);
 	}
+
+	@Override
+	public Object updateEmployerStatus(long employerId, Integer status) {
+		if (eDao.updateEmployerStatus(employerId, status)) {
+			return JsonObject.getResult(1, "状态修改成功", true);
+		} else {
+			return JsonObject.getResult(0, "状态修改失败", false);
+		}
+	}
 }

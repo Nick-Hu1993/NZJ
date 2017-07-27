@@ -12,7 +12,7 @@ public interface JoinOrderService {
 	 * @param jo
 	 * @return
 	 */
-	public Object addJoinOrder (HttpSession session, JoinOrders jo, long[] id);
+	public Object addJoinOrder (HttpSession session, JoinOrders jo, Long[] id);
 	/**
 	 * 2.删除加盟返点订单（仅管理员）
 	 * 连带订单中间表中的订单与用户关系一同删除

@@ -56,7 +56,7 @@ $(function() {
 	});
 
 	//修改语言
-	$('#modLanguage').click(function() {
+/*	$('#modLanguage').click(function() {
 		var appform = document.getElementById('divFrame');
 		var lanItems = document.getElementsByName("languageId");
 		var lan = [];
@@ -89,7 +89,7 @@ $(function() {
 				alert("error");
 			}
 		});
-	});
+	});*/
 
 	//获取烹饪技能
 	$.ajax({
@@ -117,7 +117,7 @@ $(function() {
 	});
 
 	//修改烹饪技能
-	$('#modCooking').click(function() {
+/*	$('#modCooking').click(function() {
 		var appform = document.getElementById('divFrame');
 		var cookingItems = document.getElementsByName("cookingId");
 		var cooking = [];
@@ -150,7 +150,7 @@ $(function() {
 				alert("error");
 			}
 		});
-	});
+	});*/
 
 	//获取基本技能
 	$.ajax({
@@ -178,7 +178,7 @@ $(function() {
 	});
 
 	//修改基本技能
-	$('#modSkill').click(function() {
+/*	$('#modSkill').click(function() {
 		var appform = document.getElementById('divFrame');
 		var skillItems = document.getElementsByName("skillId");
 		var skill = [];
@@ -211,7 +211,7 @@ $(function() {
 				alert("error");
 			}
 		});
-	});
+	});*/
 
 	//获取家用电器
 	$.ajax({
@@ -239,7 +239,7 @@ $(function() {
 	});
 
 	//修改家用电器
-	$('#modAppliance').click(function() {
+/*	$('#modAppliance').click(function() {
 		var appform = document.getElementById('divFrame');
 		var applianceItems = document.getElementsByName("applianceId");
 		var appliance = [];
@@ -272,7 +272,7 @@ $(function() {
 				alert("error");
 			}
 		});
-	});
+	});*/
 
 	//获取岗位
 	$.ajax({
@@ -300,7 +300,7 @@ $(function() {
 	});
 
 	//修改岗位
-	$('#modJob').click(function() {
+/*	$('#modJob').click(function() {
 		var appform = document.getElementById('divFrame');
 		var jobItems = document.getElementsByName("jobId");
 		var job = [];
@@ -333,7 +333,7 @@ $(function() {
 				alert("error");
 			}
 		});
-	});
+	});*/
 
 	//获取提供证件
 	$.ajax({
@@ -361,7 +361,7 @@ $(function() {
 	});
 
 	//修改提供证件
-	$('#modCertificate').click(function() {
+/*	$('#modCertificate').click(function() {
 		var appform = document.getElementById('divFrame');
 		var certificateItems = document.getElementsByName("certificateId");
 		var certificate = [];
@@ -394,7 +394,7 @@ $(function() {
 				alert("error");
 			}
 		});
-	});
+	});*/
 
 	//获取紧急联系人
 	var val_contact;
@@ -1249,9 +1249,9 @@ var kkpager = {
 
 		var gopage_info = '';
 		if(this.isGoPage) {
-			gopage_info = '&nbsp;<span class="normalsize" >转到</span><span id="go_page_wrap" style="display:inline-block;width:44px;height:18px;border:1px solid #DFDFDF;margin:0px 1px;padding:0px;position:relative;left:0px;top:5px;">' +
-				'<input type="button" id="btn_go" onclick="kkpager.gopage(this);" style="width:44px;height:20px;line-height:20px;padding:0px;font-family:arial,宋体,sans-serif;text-align:center;border:0px;background-color:#0063DC;color:#FFF;position:absolute;left:0px;top:-1px;display:none;" value="确定" />' +
-				'<input type="text" id="btn_go_input" onfocus="kkpager.focus_gopage()" onkeypress="if(event.keyCode<48 || event.keyCode>57)return false;" onblur="kkpager.blur_gopage()" style="width:42px;height:23px;text-align:center;border:0px;position:absolute;left:0px;top:0px;outline:none;" value="' + this.pno + '" /></span><span class="normalsize" >页</span>';
+			gopage_info = '&nbsp;<span class="normalsize" >转到</span><span id="go_page_wrap" style="display:inline-block;width:44px;height:22px;border:1px solid #DFDFDF;margin:0px 1px;padding:0px;position:relative;left:0px;top:5px;">' +
+				'<input type="button" id="btn_go" onclick="kkpager.gopage(this);" style="width:44px;height:22px;line-height:22px;padding:0px;font-family:arial,宋体,sans-serif;text-align:center;border:0px;background-color:#41a1e6;color:#FFF;position:absolute;left:0px;top:-1px;display:none;" value="确定" />' +
+				'<input type="text" id="btn_go_input" onfocus="kkpager.focus_gopage()" onkeypress="if(event.keyCode<48 || event.keyCode>57)return false;" onblur="kkpager.blur_gopage()" style="width:42px;height:20px;text-align:center;border:0px;position:absolute;left:0px;top:0px;outline:none;" value="' + this.pno + '" /></span><span class="normalsize" >页</span>';
 		}
 
 		//分页处理
@@ -1374,6 +1374,7 @@ $(document).on('click','.auntInfo',function(){
 			'id':auntId
 		},
 		success:function(data){
+			console.log(data);
 			if(data.data.sex == 0 && data.data.marriage ==0){
 				data.data.sex='女';
 				data.data.marriage ='未婚';
@@ -1462,7 +1463,7 @@ $(document).on('click','.auntInfo',function(){
 				
 				contact +="<tbody>"
 				for(var t=0; t<data.data.contact.length; t++){
-					contact +="<tr><td class='td-tit'>姓名</td><td>"+data.data.contact[t].cname+"</td><td class='td-tit'>关系</td><td>"+data.data.contact[t].relation+"</td><td class='td-tit'>工作状况</td><td>"+data.data.contact[t].workstatus+"</td><td class='td-tit'>联系电话</td><td>"+data.data.contact[t].cphone+"</td><td style='padding: 0; text-align: center;'><a href='javascript:;' class='delete-contact-btn iconfont icon-shanchu2'></a></td></tr>"
+					contact +="<tr><td class='td-tit'>姓名</td><td>"+data.data.contact[t].cname+"</td><td class='td-tit'>关系</td><td>"+data.data.contact[t].relation+"</td><td class='td-tit'>工作状况</td><td>"+data.data.contact[t].workstatus+"</td><td class='td-tit'>联系电话</td><td>"+data.data.contact[t].cphone+"</td><td style='padding: 0; text-align: center;'><a href='javascript:;' class='delete-contact-btn iconfont icon-shanchu2' data-cid='"+data.data.contact[t].id+"'></a></td></tr>"
 				}
 				contact +="</tbody>"
 				$('.aunt-contact-info .aunt-contact-con table').html(contact);
@@ -1471,15 +1472,16 @@ $(document).on('click','.auntInfo',function(){
 				$('.contact-btn').html(contact_btn);
 				
 				/*工作经历*/
-				work +="<tbody>"
-				work +=""
-				for (var w = 0; w<data.data.work.length; w++) {
-					work +="<tr><td class='td-tit'>起止时间</td><td class='works'>"+data.data.work[w].time+"</td><td rowspan='2' class='td-btn'><a href='javascript:;' class='delete-work-btn iconfont icon-shanchu2'></a></td></tr>"
-					work +="<tr><td class='td-tit'>主要工作</td><td class='works work-con'>"+data.data.work[w].work+"</td></tr>"
-				}
-				work +="</tbody>"
 				
-				$('.aunt-work-info .aunt-work-con table').html(work);
+				for (var w = 0; w<data.data.work.length; w++) {
+					work +="<table><tbody>"
+					work +="<tr><td class='td-tit'>起止时间</td><td class='works'>"+data.data.work[w].time+"</td><td rowspan='2' class='td-btn'><a href='javascript:;' class='delete-work-btn iconfont icon-shanchu2' data-wid='"+data.data.work[w].id+"'></a></td></tr>"
+					work +="<tr><td class='td-tit'>主要工作</td><td class='works work-con'>"+data.data.work[w].work+"</td></tr>"
+					work +="</tbody></table>"
+				}
+				
+				
+				$('.aunt-work-con .table-con').html(work);
 				var work_btn ="<a href='javascript:;' class='keep-info-btn keep-work-btn' data-stuid='"+status+"' data-userid='"+data.data.userId+"' data-auid='"+data.data.id+"'>保存</a><a href='javascript:;' class='off-info-btn'>取消</a>"
 				$('.work-btn').html(work_btn);
 					
@@ -1865,6 +1867,30 @@ $(document).on('click','.keep-contact-btn',function(){
 	}
 });
 
+//删除紧急联系人
+
+$(document).on('click','.delete-contact-btn',function(){
+	var cId = $(this).data('cid');
+	$.ajax({
+		type:"post",
+		url:"deleteContact",
+		async:false,
+		data:{'id':cId},
+		success:function(data){
+			if(data.code == 1){
+				alert(data.msg);
+			}else{
+				alert(data.msg);
+			}
+		},
+		error:function(data){
+			alert("error");
+		}
+	});
+});
+
+
+
 //添加工作经历
 
 $(document).on('click','.keep-work-btn',function(){
@@ -1880,7 +1906,6 @@ $(document).on('click','.keep-work-btn',function(){
 	for(var i=0; i<$('.worker').length; i++){
 		workList.push($('.worker').eq(i).val());
 	}
-	console.log(workList);
 	
 	if(input.val() == ''){
 		alert('时间不能为空');
@@ -1899,6 +1924,17 @@ $(document).on('click','.keep-work-btn',function(){
 			success:function(data){
 				if(data.code == 1){
 					alert(data.msg);
+					$('.keep-work-btn').parents(".aunt-work-info").find('textarea').parents('table').remove();
+					var table =$("<table>");
+					table.append("<tbody><tr>"+
+							"<td class='td-tit'>起止时间</td><td class='works' style='padding-left:3px;'>"+input.val()+"</td>"+
+							"<td rowspan='2' class='td-btn'><a href='javascript:;' class='delete-work-btn iconfont icon-shanchu2'></a></td></tr>"+
+							"<tr><td class='td-tit'>主要工作</td>"+
+							"<td class='works work-con' style='padding-left:3px;'>"+text.val()+"</td></tr></tbody>");
+							$('.aunt-work-con .table-con').append(table);
+					$('.keep-work-btn').parent('.oper-info-btn').slideUp(300);
+				}else{
+					alert(data.msg);
 				}
 			},
 			error:function(data){
@@ -1906,4 +1942,26 @@ $(document).on('click','.keep-work-btn',function(){
 			}
 		});
 	}
+});
+
+//删除工作经历
+
+$(document).on('click','.delete-work-btn',function(){
+	var wId = $(this).data('wid');
+	$.ajax({
+		type:"post",
+		url:"deleteWork",
+		async:false,
+		data:{'id':wId},
+		success:function(data){
+			if(data.code == 1){
+				alert(data.msg);
+			}else{
+				alert(data.msg);
+			}
+		},
+		error:function(data){
+			alert("error");
+		}
+	});
 });

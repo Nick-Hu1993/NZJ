@@ -141,7 +141,7 @@ public interface UserService {
 	 * @param id
 	 * @return
 	 */
-	public Object getChildByParent (HttpSession session, Integer start, Integer limit, Long[] parent);
+	public Object getChildByParentAndSupport (HttpSession session, Integer start, Integer limit, Long[] parent, Integer support);
 	/**
 	 * 16.管理员登录
 	 * ps：总部的员工亦可登录

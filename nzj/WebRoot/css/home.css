@@ -265,7 +265,7 @@ tr:hover {
 	/*position: relative;*/
 }
 
-.noticeTs {
+/*.noticeTs {
 	/*width:180px; 
 	height:200px; */
 	font-size: 18px;
@@ -274,7 +274,7 @@ tr:hover {
 	/*padding: 50px;*/
 	color: #909090;
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-}
+}*/
 
 .notice_name {
 	overflow: hidden;
@@ -640,7 +640,7 @@ display:inline-block;
 .nav-tabs a.icon-stu{background: url(../image/icon/stu.png)3px 10px no-repeat;}
 
 .tab-content{width: 100%; height: 100%; }
-.tab-pane{padding: 20px 100px 30px 10px; height: 100%; text-align: center; overflow-y:scroll}
+#myTabContent .tab-pane{padding: 20px 100px 30px 10px; height: 100%; text-align: center; overflow-y:scroll}
 .pane-item{width: 100%; margin: 20px;}
 .item-left{float: left; height: 100px; width: 8%;}
 .item-left img{width: 50px; height: 50px; border-radius: 50%;}

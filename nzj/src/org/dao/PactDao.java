@@ -141,4 +141,16 @@ public interface PactDao {
 	 * @return
 	 */
 	public Pact getPactById (long id);
+	/**
+	 * 4.11通过用户ID查询总金额
+	 * @param id
+	 * @return
+	 */
+	public List<Pact> getGuestAmount(long userId);
+	/**
+	 * 4.12通过用户ID查询各服务人群的总金额
+	 * @param userId
+	 * @return
+	 */
+	public List<Pact> findTolCostByUserId(Long userId);
 }

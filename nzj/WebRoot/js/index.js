@@ -162,7 +162,7 @@ $(document).on('click','.add-work-btn',function(){
 	$(this).parents(".aunt-work-info").find('.oper-info-btn').slideDown(300);
 	var table =$("<table>");
 	table.append("<tbody><tr>"+
-			"<td class='td-tit'>起止时间</td><td class='works' style='padding-left:3px;'><input type='text' class='time' style='width:200px;'/></td>"+
+			"<td class='td-tit'>起止时间</td><td class='works' style='padding-left:3px;'><input type='text' class='time' style='width:200px;' placeholder='年-月-日  至 年-月-日'/></td>"+
 			"<td rowspan='2' class='td-btn'><a href='javascript:;' class='delete-work-btn iconfont icon-shanchu2'></a></td></tr>"+
 			"<tr><td class='td-tit'>主要工作</td>"+
 			"<td class='works work-con' style='padding-left:3px;'><textarea class='worker' cols='100' rows='3' style='resize:none;' ></textarea></td></tr></tbody>");
@@ -173,11 +173,10 @@ $(document).on('click','.add-work-btn',function(){
 /*点击删除按钮*/
 $(document).on('click','.delete-work-btn',function(){
 	$(this).parents('table').remove();
-	
 });
 
 /*点击保存按钮*/
-$(document).on('click','.keep-work-btn',function(){
+/*$(document).on('click','.keep-work-btn',function(){
 	var input = $(this).parents(".aunt-work-con").find('input');
 	var text = $(this).parents(".aunt-work-con").find('textarea');
 	if(input.val() == '' || text.val() == ''){
@@ -194,7 +193,7 @@ $(document).on('click','.keep-work-btn',function(){
 		$(this).parent('.oper-info-btn').slideUp(300);
 	}
 	
-});
+});*/
 
 /*点击取消按钮*/
 $(document).on('click','.off-info-btn',function(){

@@ -654,7 +654,7 @@ var builderUQTQueryMsg = function(UQTQueryMsg) {
 			"<td class='query_pro' title=" + changeTime(time) + ">" + changeTime(time) + "</td>" +
 			"<td class='dis_dta'>" +
 //			"<a class='editOp' href=''  data-toggle='modal' data-target='#modemployer' onclick='modEmployer(" + JSON.stringify(eachData) + ")'>雇主追踪</a>" +
-			"<a class='editOp addNote' href=''  data-toggle='modal' data-target='#noteloyer' data-noteid='"+id+"'>标签</a>" +
+			"<a class='editOp addNote' href=''  data-toggle='modal' data-target='#noteloyer' data-noteid='"+id+"'>客户追踪</a>" +
 			"<a class='editOp' href=''  data-toggle='modal' data-target='#modemployer' onclick='modEmployer(" + JSON.stringify(eachData) + ")'>修改</a>" +
 			"<a class='editOp addPact' href=''  data-toggle='modal' data-target='#addpactloyer' onclick='Addpack(" + JSON.stringify(eachData) + ")' >添加合同</a>" +
 			"<a class='editOp lookpact' href=''  data-toggle='modal' onclick='Lookpact(" + JSON.stringify(eachData) + ")'>查看合同</a>" +
@@ -910,9 +910,9 @@ var kkpager = {
 
 		var gopage_info = '';
 		if(this.isGoPage) {
-			gopage_info = '&nbsp;<span class="normalsize" >转到</span><span id="go_page_wrap" style="display:inline-block;width:44px;height:18px;border:1px solid #DFDFDF;margin:0px 1px;padding:0px;position:relative;left:0px;top:5px;">' +
-				'<input type="button" id="btn_go" onclick="kkpager.gopage(this);" style="width:44px;height:20px;line-height:20px;padding:0px;font-family:arial,宋体,sans-serif;text-align:center;border:0px;background-color:#0063DC;color:#FFF;position:absolute;left:0px;top:-1px;display:none;" value="确定" />' +
-				'<input type="text" id="btn_go_input" onfocus="kkpager.focus_gopage()" onkeypress="if(event.keyCode<48 || event.keyCode>57)return false;" onblur="kkpager.blur_gopage()" style="width:42px;height:23px;text-align:center;border:0px;position:absolute;left:0px;top:0px;outline:none;" value="' + this.pno + '" /></span><span class="normalsize" >页</span>';
+			gopage_info = '&nbsp;<span class="normalsize" >转到</span><span id="go_page_wrap" style="display:inline-block;width:44px;height:22px;border:1px solid #DFDFDF;margin:0px 1px;padding:0px;position:relative;left:0px;top:5px;">' +
+				'<input type="button" id="btn_go" onclick="kkpager.gopage(this);" style="width:44px;height:22px;line-height:22px;padding:0px;font-family:arial,宋体,sans-serif;text-align:center;border:0px;background-color:#41a1e6;color:#FFF;position:absolute;left:0px;top:-1px;display:none;" value="确定" />' +
+				'<input type="text" id="btn_go_input" onfocus="kkpager.focus_gopage()" onkeypress="if(event.keyCode<48 || event.keyCode>57)return false;" onblur="kkpager.blur_gopage()" style="width:42px;height:20px;text-align:center;border:0px;position:absolute;left:0px;top:0px;outline:none;" value="' + this.pno + '" /></span><span class="normalsize" >页</span>';
 		}
 
 		//分页处理

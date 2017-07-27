@@ -82,7 +82,7 @@
 					</div>
 					<div class="modal-body">
 						<form id="divFrame" name="divFrame">
-							<div class="aunt_basic_info">
+							<div class="aunt_basic_info clearfix">
 								<div class="aunt_basic_info_head">
 									<h4 align="left">基本信息(必填)</h4>
 								</div>
@@ -113,14 +113,13 @@
 												<input type="radio" name="sex" value="0" checked/>女
 											</td>
 											<td>
-												<span class="red">*</span><label/>学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;历:&nbsp;&nbsp;</label><input type="text" name="education" />
-
+												<span class="red">*</span><label/>婚姻状况:&nbsp;&nbsp;</label><input type="radio" name="marriage" value="1" />已婚
+												<input type="radio" name="marriage" value="0" checked/>未婚
 											</td>
 										</tr>
 										<tr>
 											<td class="style1">
-												<span class="red">*</span><label/>婚姻状况:&nbsp;&nbsp;</label><input type="radio" name="marriage" value="1" />已婚
-												<input type="radio" name="marriage" value="0" checked/>未婚
+												<span class="red">*</span><label/>学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;历:&nbsp;&nbsp;</label><input type="text" name="education" />
 											</td>
 											<td>
 												<span class="red">*</span><label>民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族:&nbsp;&nbsp;</label><input type="text" name="nation" />
@@ -153,38 +152,52 @@
 
 											</td>
 										</tr>
-										<tr>
-											<td colspan="2" id="tdLanguages">
-											</td>
-										</tr>
-										<tr>
-											<td colspan="2" id="tdCookingId">
-											</td>
-										</tr>
-										<tr>
-											<td colspan="2" id="tdSkillId">
-											</td>
-										</tr>
-										<tr>
-											<td colspan="2" id="tdApplianceId">
-											</td>
-										</tr>
-										<tr>
-											<td colspan="2" id="tdJobId">
-											</td>
-										</tr>
-										<tr>
-											<td colspan="2" id="tdCertificateId">
-											</td>
-										</tr>
 									</table>
 								</div>
 								<div class="aunt_basic_info_right">
-									<img alt="" src="image/u196.png" class="aunt_img" id="xmTanImg" />
+									<div class="aunt_photo">
+										<img alt="" src="" class="aunt_img" id="xmTanImg" />
+										<a href="javascript:;" id="auntIcon" onclick="onUpdateIcon()"></a>
+									</div>
 									<div id="xmTanDiv"></div>
 									<input type="file" id="auntFileImg" name="file" class="aunt_img_btn" accept="image/*" style="display: none;" />
-									<button type="button" class="btn btn-info" id="auntIcon" style="margin: 10px 85px 0 0;" onclick="onUpdateIcon()">上传照片</button>
+									
 									<!--<button type="button" class="btn btn-info" id="modIcon" style="margin: 10px 85px 0 0;" onclick="modIcon()">修改照片</button>-->
+								</div>
+							</div>
+							<div class="aunt_skill_info">
+								<div class="aunt_basic_info_head">
+									<h4 align="left">技能专长(必填)</h4>
+								</div>
+								<div class="skill_info table_info">
+									<table>
+										<tbody>
+											<tr>
+												<td colspan="2" id="tdLanguages">
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2" id="tdCookingId">
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2" id="tdSkillId">
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2" id="tdApplianceId">
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2" id="tdJobId">
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2" id="tdCertificateId">
+												</td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
 							</div>
 							<!--
@@ -195,9 +208,9 @@
 							<div class="contact">
 								<div class="contact_head">
 									<h4 align="left">紧急联系人</h4>
-									<button type="button" onclick="add_contact()">添加</button>
+									<button type="button" onclick="add_contact()"><i class="iconfont icon-add" style="font-weight: bold;"></i>添加</button>
 								</div>
-								<div class="contact_info">
+								<div class="contact_info table_info">
 									<table id="contact_table" class="contact_table">
 
 									</table>
@@ -211,12 +224,15 @@
 							<div class="work">
 								<div class="work_head">
 									<h4 align="left">工作经历</h4>
-									<button type="button" onclick="add_work()">添加</button>
+									<button type="button" onclick="add_work()"><i class="iconfont icon-add" style="font-weight: bold;"></i>添加</button>
 								</div>
-								<div class="work_info">
-									<table id="work_table" class="work_table">
+								<div class="work_info table_info">
+									<div class="work_info_table">
+										
+									</div>
+									<!--<table id="work_table" class="work_table">
 
-									</table>
+									</table>-->
 								</div>
 							</div>
 							<input type="reset" name="reset" style="display: none;" />
@@ -305,9 +321,7 @@
 							</div>
 							<div class="aunt-work-con">
 								<div class="table-con">
-									<table>
-										
-									</table>
+									
 								</div>
 								<div class="oper-info-btn work-btn">
 									<!--<a href="javascript:;" class="keep-info-btn keep-work-btn">保存</a>

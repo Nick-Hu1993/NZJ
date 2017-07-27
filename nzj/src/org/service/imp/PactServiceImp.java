@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.Form.PactTrackingForm;
+import org.dao.EmployerDao;
 import org.dao.PactDao;
 import org.model.Employer;
 import org.model.Pact;
@@ -26,6 +27,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class PactServiceImp implements PactService {
 	@Autowired
 	private PactDao pDao;
+	
+	@Autowired
+	private EmployerDao eDao;
 
 	@Override
 	public Object addPact(HttpSession session, Pact e, String eTime) {
@@ -42,7 +46,7 @@ public class PactServiceImp implements PactService {
 			e.setUserId(userId);
 			e.setPtime(Long.parseLong(ChangeTime.date2TimeStamp(eTime,
 					"yyyy-MM-dd")));
-			if(pDao.addPact(e)!=-1){
+			if(pDao.addPact(e)!=-1 && eDao.updateEmployerStatus(e.getEmployerId(), 1)){
 				return JsonObject.getResult(1, "添加合同成功", true);
 			}else
 				return JsonObject.getResult(-1, "添加合同失败", false);

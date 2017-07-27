@@ -35,14 +35,13 @@
 				<span onclick="PactListByStatus(0)">正常</span>&nbsp;&nbsp;|&nbsp;&nbsp;
 				<span onclick="PactListByStatus(-1)">暂停</span>&nbsp;&nbsp;|&nbsp;&nbsp;
 				<span onclick="PactListByStatus(-2)">退单</span>
-				<button type="button" style="margin: 0 25px 0 0; float: right;" onclick="addJoin_trace()" class="btn btn-info" data-toggle='modal' data-target='#addjoinTrace'>添加合同</button>
 			</div>
 			<!--			<div style="background: #FFE69F; width: 80%; height: 80%; margin: 0 auto;">a</div>-->
 			<!--<div class="add_employer"></div>-->
 			<div id="browser" class="tbtree" style="text-align: center; padding: 0 30px 30px 30px;">
 
 				<div id="mainTbtable" class='uqt_detail'>
-					<table id="UQT_detailTable" class="">
+					<table id="UQT_detailTable">
 					</table>
 				</div>
 
@@ -60,7 +59,7 @@
 					<div class="modal-header" style="text-align: center; font-weight:bold;">
 						<h4 class="modal-title" id="addjoinTraceLabel">添加合同信息</h4>
 					</div>
-					<div class="modal-body">
+					<div class="modal-body" id="add-pact-table">
 						<form role="form" id="addjoinTraceForm">
 							<table>
 								<th colspan="2">
@@ -128,8 +127,8 @@
 								</tr>
 								<tr>
 									<td colspan="2">
-										<label>备注(可为空)</label>
-										<textarea class="form-control" rows="4" cols="20" name="remark" id="remark"></textarea>
+										<label class="add-remark">备注(可为空)</label>
+										<textarea class="form-control" cols="100" rows="8" name="remark" id="remark" style="text-indent: 12px; font-size: 12px; color: #aaa; padding: 8px 0; resize:none; width: 78%;"></textarea>
 									</td>
 								</tr>
 							</table>
@@ -155,7 +154,7 @@
 					<div class="modal-header" style="text-align: center; font-weight:bold;">
 						<h4 class="modal-title" id="modjoinTraceLabel">修改合同信息</h4>
 					</div>
-					<div class="modal-body">
+					<div class="modal-body" id="add-pact-table">
 						<form role="form" id="modjoinTraceForm">
 							<input type="text" name="id" id="id" style="display: none;">
 							<input type="text" name="userId" id="userId" style="display: none;">
@@ -226,8 +225,8 @@
 								</tr>
 								<tr>
 									<td colspan="2">
-										<label>备注</label>
-										<textarea class="form-control" rows="4" cols="20" name="remark" class="remark"></textarea>
+										<label class="add-remark">备注</label>
+										<textarea class="form-control" cols="100" rows="8" name="remark" class="remark" style="text-indent: 12px; font-size: 12px; color: #aaa; padding: 8px 0; resize:none; width: 78%;"></textarea>
 									</td>
 								</tr>
 							</table>

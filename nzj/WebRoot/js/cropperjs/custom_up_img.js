@@ -1,5 +1,4 @@
 function referPhoto(v){
-	console.log(v)
 	'use strict';
     // 初始化
     var $image = $('#image');
@@ -74,36 +73,45 @@ function referPhoto(v){
     		return false;
     	}
     	
-    	$modal.modal();
     	
+    	$modal.modal();
     	var url=$(this).attr("url");
     	var canvas=$("#image").cropper('getCroppedCanvas');
-    	var data=canvas.toDataURL(); //转成base64
+    	var $data=canvas.toDataURL(); //转成base64
         $.ajax( {  
                 url:url,  
                 dataType:'json',  
                 type: "POST",  
                 data: {
                 	'AuntId':v,
-                	"image":data.toString()
+                	"image":$data.toString()
                 	},
                 success: function(data){
                 	$modal.modal('close');
                 	set_alert_info("头像上传成功");
                 	$modal_alert.modal();
-                	if(data.result=="ok"){
-                		$(".upload-img img").attr("src",data.file);
+                	if(data.code==1){
+                		$(".upload-img img").attr("src",$data);
                 	}
                 },
                 error: function(){
                 	$modal.modal('close');
-                	set_alert_info("上传文件失败了！");
+                	set_alert_info("头像失败了！");
                 	$modal_alert.modal(); 
                 }  
          });  
     	
     });
+    
 };
+
+$(function(){
+	
+	$(document).on('click','.am-dimmer',function(){
+    	$('#filePhoto').fadeOut();
+    	$('.modal-backdrop').fadeOut();
+    });
+});
 
 function rotateimgright() {
 $("#image").cropper('rotate', 90);

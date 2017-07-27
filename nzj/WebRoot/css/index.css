@@ -8,3 +8,13 @@
 .nav-list .nav-down{display: none; position: absolute; z-index: 9; top: 50px; width: 100%; min-width: 135px; background-color: #fff; border: 1px solid #ddd; text-align: center; margin-top: -1px; padding-top: 10px; padding-bottom: 10px;}
 .nav-list .nav-down a{display: block; padding: 10px 20px; color: #333;}
 .nav-list .nav-down a:hover{color: #59a8ff; text-decoration: none;}
+
+/*侧边栏*/
+.nav .sub-nav li a:focus{text-decoration: none}
+.nav>li{position: relative;}
+.nav .sub-nav{position: absolute; top: 0; left: 70px; background-color: #03A9F3; padding: 8px 0; display: none;}
+.nav .sub-nav li {width: 120px; text-align: center;}
+.nav .sub-nav li a{display: block; line-height: 45px; width: 100%; color: #fff;}
+.nav .sub-nav li a:hover{text-decoration: none; background-color: #2dbcfc;}
+
+.nav>li:hover .sub-nav{display: block;}

@@ -380,4 +380,44 @@ public class PactDaoImp implements PactDao {
 			HibernateSessionFactory.closeSession();
 		}
 	}
+
+	@Override
+	public List<Pact> getGuestAmount(long userId) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			Query query = session.createSQLQuery("select monthno as monthNo,ifnull(m.cost,0.0) as guestAmount from past_12_month_view "+
+					"left join (select yearmonthno,sum(cost) as cost from (select DATE_FORMAT(FROM_UNIXTIME "+
+					"(ptime),'%Y-%m') as yearmonthno,cost from pact where user_id=?) as ti group by yearmonthno) m on "+
+					"monthno=m.yearmonthno order by monthNo");
+			query.setParameter(0, userId);
+			List<Pact> pactList = query.list();
+			ts.commit();
+			return pactList;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+	
+	public List<Pact> findTolCostByUserId(Long userId){
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			Query query = session.createSQLQuery("select category,sum(cost) from pact where user_id=? group by category");
+			query.setParameter(0, userId);
+			List<Pact> pactList = query.list();
+			ts.commit();
+			return pactList;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
 }

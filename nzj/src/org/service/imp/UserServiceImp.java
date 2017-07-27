@@ -401,12 +401,14 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public Object getChildByParent(HttpSession session,Integer start, Integer limit, Long[] parent) {
+	public Object getChildByParentAndSupport (HttpSession session,Integer start, Integer limit, Long[] parent, Integer support) {
 		Map<String, Object> map = new HashMap<>();
 		/*1.当前登录者为user下的staff
 		long uId = new GetUserId().getUserId(session);*/
-		List<VUser> li = ulDao.getChildByParent(start, limit, parent);
+		List<VUser> li = ulDao.getChildByParentAndSupport(start, limit, parent, support);
+		long count = ulDao.getCountByParentAndSupport(parent, support);
 		map.put("UserlList", li);
+		map.put("count", count);
 		return JsonObject.getResult(1, "用户列表", map);
 	}
 

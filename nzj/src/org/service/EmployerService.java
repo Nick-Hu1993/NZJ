@@ -81,4 +81,12 @@ public interface EmployerService {
 	 * @return
 	 */
 	public Object getEmployerListByIdStatus (Integer start, Integer limit,Long userId, Integer status);
+	/**
+	 * 11.改变雇主的状态
+	 * status：-2黑名单 -1放弃 0新单 1已签约
+	 * @param employerId
+	 * @param status
+	 * @return
+	 */
+	public Object updateEmployerStatus (long employerId, Integer status);
 }

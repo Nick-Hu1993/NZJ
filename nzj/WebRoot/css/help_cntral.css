@@ -77,3 +77,17 @@ form label{
 	background: #F1F2F8;
 	border: 0px;
 }
+
+.share-content .addShare-btn{float: right;
+    margin-right: 30px;
+    font-size: 14px;
+    color: #fff;
+    padding: 0 10px;
+    line-height: 30px;
+    background-color: #41a1e6;
+    border-radius: 6px;
+}
+.share-tab>li>a{font-size: 16px; color: #333;}
+.share-content>a{font-size: 14px; color: #333; line-height: 20px;}
+.share-content>a:focus{text-decoration: none; color: #2fa0ec; border-bottom: 2px solid #2fa0ec; padding-bottom: 5px; outline: none;}
+.share-content>a:hover{color: #2fa0ec;}

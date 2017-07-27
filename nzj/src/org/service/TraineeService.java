@@ -1,6 +1,8 @@
 package org.service;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -79,5 +81,16 @@ public interface TraineeService {
 	 * @return
 	 */
 	public Object getTraineeListById (Long userId, Integer start, Integer limit);
+	/**
+	 * 9.以是否付费和绑定账单遍历学员
+	 * bind（是否绑定账单）：
+	 * pay（是否支付学费）：
+	 * @param start
+	 * @param limit
+	 * @param bind
+	 * @param pay
+	 * @return
+	 */
+	public Object getTraineeByBindAndPay(HttpSession session, Integer start, Integer limit, Integer bind, Integer pay);
 	
 }

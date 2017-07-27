@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class JoinOrderDaoImp implements JoinOrderDao {
 
 	@Override
-	public boolean addJoninOrder(JoinOrders jo, final long[] id) {
+	public boolean addJoninOrder(JoinOrders jo, final Long[] id) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
@@ -35,7 +35,7 @@ public class JoinOrderDaoImp implements JoinOrderDao {
 					conn.setAutoCommit(false);
 					for (int i = 0; i < id.length; i++) {
 						stmt.setLong(1, joId);
-						stmt.setLong(2, id[i]);
+						stmt.setLong(2, id[i].longValue());
 						stmt.addBatch();
 					}
 					stmt.executeBatch();
