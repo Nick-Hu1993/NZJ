@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dao.TraineeDao;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -11,6 +12,8 @@ import org.hibernate.Transaction;
 import org.model.Trainee;
 import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class TraineeDaoImp implements TraineeDao {
@@ -93,14 +96,14 @@ public class TraineeDaoImp implements TraineeDao {
 
 	@Override
 	//学员的id本就是自增长的，无需输入userId
-	public boolean upadteTraineebind (long[] id, Integer bind) {
+	public boolean upadteTraineebind (Long[] id, Integer bind) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 			
 			Query query = session.createQuery("UPDATE Trainee t SET t.bind = ? WHERE t.id = ?");
 			query.setParameter(0, bind);
-			for (long i: id) {
+			for (Long i: id) {
 				query.setParameter(1, i);
 			}
 			query.executeUpdate();
@@ -307,14 +310,14 @@ public class TraineeDaoImp implements TraineeDao {
 	}
 
 	@Override
-	public List<Integer> getTraineeStatus (long[] id) {
+	public List<Integer> getTraineeStatus (Long[] id) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 			List<Integer> li = new ArrayList<>();
 			Query query = session.createQuery("SELECT t.bind FROM Trainee t WHERE t.id = ?");
 			
-			for (long l : id) {
+			for (Long l : id) {
 				query.setParameter(0, l);
 			Integer bind = (Integer)query.uniqueResult();
 			li.add(bind);
@@ -368,7 +371,7 @@ public class TraineeDaoImp implements TraineeDao {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 			
-			Query query = session.createQuery("SELECT COUNT(*) WHERE t.bind = ? AND t.pay = ? AND t.userId = ?");
+			Query query = session.createQuery("SELECT COUNT(*) FROM Trainee t WHERE t.bind = ? AND t.pay = ? AND t.userId = ?");
 			query.setParameter(0, bind);
 			query.setParameter(1, pay);
 			query.setParameter(2, userId);
@@ -409,6 +412,27 @@ public class TraineeDaoImp implements TraineeDao {
          } finally {
              HibernateSessionFactory.closeSession();
          }
+	}
+
+	@Override
+	public List<Trainee> getTraineeListByTraineeId(Long[] TraineeId) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			SQLQuery sqlQuery = session.createSQLQuery("SELECT * From trainee t WHERE t.id = :TraineeId");
+			sqlQuery.setParameterList("TraineeId", TraineeId, Hibernate.LONG);
+			sqlQuery.addEntity(Trainee.class);
+			List<Trainee> li = sqlQuery.list();
+			ts.commit();
+			return li;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
 	}
 	
 //	@Override

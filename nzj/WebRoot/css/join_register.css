@@ -9,6 +9,7 @@
 
 
 
+/*生成订单*/
 .order-con{padding: 10px; text-align: left;}
 .order-peo{text-align: center; display: none;}
 .order-con .order-list li{list-style: none; position: relative; padding: 5px; border: 1px solid #ddd; margin-bottom: 5px;}
@@ -18,9 +19,14 @@
 .order-con .order-list li .user-list h4{font-size: 14px; color: #f70c0c; padding: 0;  margin: 5px 0;}
 .order-con .order-list li .user-list div{font-weight: bold; font-size: 12px; margin-bottom: 5px;}
 .order-con .order-list li .user-list div span{ font-weight: normal;}
-.order-con .order-list li i{position: absolute; right: 4px; top: 0; font-style: normal; color: #00ba8c; font-size: 16px;}
+.order-con .order-list li i{position: absolute; right: 4px; top: 0; font-style: normal; color: #00ba8c; font-size: 16px; cursor: pointer;}
+
 
 
 /*追踪标签*/
 #serveNote .type-name{margin-left: 40px; color: #03a9f3;}
 #serveNote .type-list{position: absolute; left: 20px; bottom:-34px; width: 110px;}
+
+
+/*查看详情*/
+#checkJoiner .pact-info{display: block;}

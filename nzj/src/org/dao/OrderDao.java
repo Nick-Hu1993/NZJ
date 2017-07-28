@@ -14,7 +14,7 @@ public interface OrderDao {
 	 * @param o
 	 * @return
 	 */
-	public boolean addOrder(Orders o, long[] id, AmountRecord ad);
+	public boolean addOrder(Orders o, Long[] id, AmountRecord ad);
 	/**
 	 * 1.2添加订单（线下支付方式）
 	 * 于1.1区别在于本接口无需生成消费记录支付
@@ -22,14 +22,14 @@ public interface OrderDao {
 	 * @param id
 	 * @return
 	 */
-	public boolean addOrderByOfflion (Orders o, long[] id);
+	public boolean addOrderByOfflion (Orders o, Long[] id);
 	//-----------------------------------删---------------------------------------
 	/**
 	 * 2.1删除订单（可批量）
 	 * @param id
 	 * @return
 	 */
-	public boolean deletOrder (long[] id);
+	public boolean deletOrder (Long[] id);
 	//-----------------------------------改---------------------------------------
 	/**
 	 * 3.1修改订单

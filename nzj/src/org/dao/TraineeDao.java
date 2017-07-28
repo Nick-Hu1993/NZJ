@@ -40,7 +40,7 @@ public interface TraineeDao {
 	 * @param bind
 	 * @return
 	 */
-	public boolean upadteTraineebind (long[] id, Integer bind);
+	public boolean upadteTraineebind (Long[] id, Integer bind);
 	//-----------------------------------查---------------------------------------	
 	/**
 	 * 4.1根据学员缴费状态遍历学员
@@ -111,7 +111,7 @@ public interface TraineeDao {
 	 * @param id
 	 * @return
 	 */
-	public List<Integer> getTraineeStatus (long[] id);
+	public List<Integer> getTraineeStatus (Long[] id);
 	/**
 	 * 4.9以是否付费和绑定账单遍历学员
 	 * bind（是否绑定账单）：
@@ -137,4 +137,10 @@ public interface TraineeDao {
 	 * @return
 	 */
 	public List<Trainee> getTolTuition(Long userId);
+	/**
+	 * 4.12根据学员id的数组获取学员信息
+	 * @param TraineeId
+	 * @return
+	 */
+	public List<Trainee> getTraineeListByTraineeId (Long[] TraineeId);
 }

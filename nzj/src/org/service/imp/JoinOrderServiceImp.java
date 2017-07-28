@@ -25,10 +25,11 @@ public class JoinOrderServiceImp implements JoinOrderService {
 	@Autowired UserDao uDao;
 
 	@Override
-	public Object addJoinOrder(HttpSession session, JoinOrders jo, Long[] id) {
+	public Object addJoinOrder(HttpSession session, Long[] id) {
 		//必须先登录
 		long userid = GetUserId.getUserId(session);
 		//订单所属的id号传入
+		JoinOrders jo = new JoinOrders();
 		jo.setUserId(userid);
 		jo.setStatus(0);
 		jo.setTime(Long.parseLong(ChangeTime.timeStamp()));

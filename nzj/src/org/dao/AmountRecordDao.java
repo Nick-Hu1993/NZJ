@@ -2,6 +2,7 @@ package org.dao;
 
 import java.util.List;
 
+import org.model.Amount;
 import org.model.AmountRecord;
 
 public interface AmountRecordDao {
@@ -26,4 +27,10 @@ public interface AmountRecordDao {
 	 * @return
 	 */
 	public long getCount (long id);
+	/**
+	 * 4.3查询当前登录者的账户余额
+	 * @param userId
+	 * @return
+	 */
+	public Amount getAmountByUserId (long userId);
 }

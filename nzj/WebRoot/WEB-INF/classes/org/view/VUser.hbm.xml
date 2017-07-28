@@ -13,14 +13,20 @@
             <key-property name="phone" type="java.lang.Long">
                 <column name="phone" />
             </key-property>
+            <key-property name="clock" type="java.lang.Long">
+                <column name="clock" />
+            </key-property>
             <key-property name="time" type="java.lang.String">
-                <column name="time" length="24" />
+                <column name="time" length="10" />
             </key-property>
             <key-property name="rank" type="java.lang.Integer">
                 <column name="rank" />
             </key-property>
             <key-property name="ack" type="java.lang.Integer">
                 <column name="ack" />
+            </key-property>
+            <key-property name="did" type="java.lang.Long">
+                <column name="did" />
             </key-property>
             <key-property name="username" type="java.lang.String">
                 <column name="username" />
@@ -40,20 +46,17 @@
             <key-property name="address" type="java.lang.String">
                 <column name="address" />
             </key-property>
+            <key-property name="photourl" type="java.lang.String">
+                <column name="photourl" />
+            </key-property>
             <key-property name="charterurl" type="java.lang.String">
                 <column name="charterurl" />
             </key-property>
             <key-property name="idcardurl" type="java.lang.String">
                 <column name="idcardurl" />
             </key-property>
-            <key-property name="did" type="java.lang.Long">
-                <column name="did" />
-            </key-property>
             <key-property name="support" type="java.lang.Integer">
                 <column name="support" />
-            </key-property>
-            <key-property name="clock" type="java.lang.Long">
-                <column name="clock" />
             </key-property>
         </composite-id>
     </class>

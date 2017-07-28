@@ -14,7 +14,7 @@ public interface UserDetailDao {
 	 */
 	public long addUserDetail(UserDetail ud);
 	//-----------------------------------删-----------------------------------------
-	
+
 	//-----------------------------------改-----------------------------------------
 	/**
 	 * 3.1修改用户详细信息，不允许修改username
@@ -29,6 +29,14 @@ public interface UserDetailDao {
 	 * @return
 	 */
 	public boolean updatePhoto (long userId, String photourl);
+	/**
+	 * 3.3修改用户的服务状态
+	 * support：0未服务 1已服务
+	 * @param userId
+	 * @param support
+	 * @return
+	 */
+	public boolean updateSupport (long userId, Integer support);
 	//-----------------------------------查-----------------------------------------
 	/**
 	 * 4.1验证用户名是否已用，null为可用，通过username获取 UserDetail
@@ -69,4 +77,10 @@ public interface UserDetailDao {
 	 * @return
 	 */
 	public long getCountBySupport (Integer support);
+	/**
+	 * 4.7跟根据用户id列表，获取用户详情
+	 * @param id
+	 * @return
+	 */
+	public List<VUser> getUserDetailListById (Long id[]);
 }

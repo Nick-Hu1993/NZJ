@@ -3,7 +3,9 @@ package org.dao.imp;
 import java.util.List;
 
 import org.dao.UserDetailDao;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.model.UserDetail;
@@ -54,13 +56,34 @@ public class UserDetailDaoImp implements UserDetailDao {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 			
-			Query query = session.createQuery("UPDATE UserDetail ud SET ud.phonturl = ? WHERE ud.userId = ?");
+			Query query = session.createQuery("UPDATE UserDetail ud SET ud.photourl = ? WHERE ud.userId = ?");
 			query.setParameter(0, photourl);
 			query.setParameter(1, userId);
 			query.executeUpdate();
 			ts.commit();
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+	
+	@Override
+	public boolean updateSupport (long userId, Integer support){
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("UPDATE UserDetail ud SET ud.support = ? WHERE ud.userId = ?");
+			query.setParameter(0, support);
+			query.setParameter(1, userId);
+			query.executeUpdate();
+			ts.commit();
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
 			e.printStackTrace();
 			return false;
 		} finally {
@@ -192,6 +215,28 @@ public class UserDetailDaoImp implements UserDetailDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return -1;
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+	}
+
+	@Override
+	public List<VUser> getUserDetailListById(Long[] id) {
+		// TODO Auto-generated method stub
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			SQLQuery sqlQuery = session.createSQLQuery("SELECT * FROM v_user vu WHERE vu.id = :id");
+			sqlQuery.setParameterList("id", id, Hibernate.LONG);
+			sqlQuery.addEntity(VUser.class);
+			List<VUser> li = sqlQuery.list();
+			ts.commit();
+			return li;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
 		} finally {
 			HibernateSessionFactory.closeSession();
 		}

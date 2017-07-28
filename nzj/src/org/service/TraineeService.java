@@ -93,4 +93,10 @@ public interface TraineeService {
 	 */
 	public Object getTraineeByBindAndPay(HttpSession session, Integer start, Integer limit, Integer bind, Integer pay);
 	
+	/**
+	 * 10.以学员id的数组获取学员的信息
+	 * @param TraineeId
+	 * @return
+	 */
+	public Object getTraineeListByTraineeId (Long[] TraineeId);
 }

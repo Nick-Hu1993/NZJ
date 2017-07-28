@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Controller
 public class JoinOderController {
 	
@@ -20,9 +23,10 @@ public class JoinOderController {
 	
 	@RequestMapping("/addJoinOrder")
 	@ResponseBody
-	public Object addJoinOrder (HttpSession session, JoinOrders jo,
-			@RequestParam("id[]") List<Long> id) {
-		return joService.addJoinOrder(session, jo, (Long[])id.toArray(new Long[id.size()]));
+	public Object addJoinOrder (HttpSession session,
+			@RequestParam("id[]") List<Long> id) throws JsonProcessingException {
+			System.out.println(new ObjectMapper().writeValueAsString(id));
+		return joService.addJoinOrder(session,(Long[])id.toArray(new Long[id.size()]));
 	}
 	
 	@RequestMapping("/deleteJoinOrder")

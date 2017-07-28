@@ -28,7 +28,7 @@
 		<style>
 			
 			.order-con .pact-info{ text-align: left;}
-			.info-two ul li{float: none;}
+			.order-con .info-two ul li{float: none;}
 		</style>
 	</head>
 	<body style="background-color: #fff; height: 100%;">
@@ -51,13 +51,13 @@
 		
 		<!---------------------查看订单详情（开始）-------------------------------------->
 		<div class="r-model">
-			<div class="model-con order-con" style="width: 800px; top: 0;">
+			<div class="model-con order-con" style="width: 800px; ttop: -4px; height: 780px;">
 				<div class="model-head">
 					<span class="close-btn close-order-btn">×</span>
 					<span class="model-tit">订单详情</span>
 				</div>
 				<div class="model-main">
-					<div class="pact-list">
+					<!--<div class="pact-list">
 						<div class="info-t">
 							<span class="info-tit">订单</span>
 							<a href="javascript:;" class="btnj">展开</a>
@@ -84,33 +84,37 @@
 								</ul>
 							</div>
 						</div>
-					</div>
+					</div>-->
 				</div>
 				
 			</div>
 		</div>
 		
 		<!---------------------查看订单详情（结束）-------------------------------------->
-		
 		<script>
 			$(function(){
-					$('.close-order-btn').click(function(){
-						$('.order-con').animate({'right':'-3000px'},300);
-					});
-					$(document).on('click','.checkOrder',function(){
-						$('.order-con').animate({'right':'0'},600);
-					});
 				
-					$(document).on('click','.btnj',function(){
-						$(this).toggleClass('on');
-						if($(this).hasClass('on')){
-							$(this).html("收起");
-							$(this).parents('.pact-list').find('.pact-info').slideDown(300);
-						}else{
-							$(this).parents('.pact-list').find('.pact-info').slideUp(300);
-								$(this).html("展开");
-						}
-					});
+				/*$(document).on('click','.checkOrder',function(){
+					$('.order-con',parent.document).animate({'right':'0'},300);
+				});*/
+				$(document).on('click','.checkOrder',function(){
+					$('.order-con').animate({'right':'0'},500);
+				});
+				
+				$('.close-order-btn').click(function(){
+					$('.order-con').animate({'right':'-3000px'},500);
+				});
+				
+				$(document).on('click','.btnj',function(){
+					$(this).toggleClass('on');
+					if($(this).hasClass('on')){
+						$(this).html("收起");
+						$(this).parents('.pact-list').find('.pact-info').slideDown(500);
+					}else{
+						$(this).parents('.pact-list').find('.pact-info').slideUp(500);
+							$(this).html("展开");
+					}
+				});
 			});
 		</script>
 		

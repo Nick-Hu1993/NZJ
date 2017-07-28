@@ -21,4 +21,11 @@ public interface AmountRecordService {
 	 * @return
 	 */
 	public Object getAmountRcordById (HttpSession session, Integer start, Integer limit);
+	/**
+	 * 3.查询当前登录者的账户余额
+	 * @param session
+	 * @param userId
+	 * @return
+	 */
+	public Object getBalanceByUserId (HttpSession session);
 }

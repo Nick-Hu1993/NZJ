@@ -176,4 +176,25 @@ public interface UserService {
 	 * @return
 	 */
 	public Object getUserDetailById(Long userId);
+	/**
+	 * 21.跟根据用户id列表，获取用户详情
+	 * @param id
+	 * @return
+	 */
+	public Object getUserDetailListById(Long[] id);
+	/**
+	 * 22.修改用户的头像
+	 * @param userId
+	 * @param photourl
+	 * @return
+	 */
+	public Object updateUserPhoto(HttpServletRequest request, long userId, String image);
+	/**
+	 * 23.修改用户服务状态
+	 * suppor：0未服务 1已服务
+	 * @param userId
+	 * @param support
+	 * @return
+	 */
+	public Object updateSupport (long userId, Integer support);
 }

@@ -36,12 +36,15 @@ public class OrderServiceImp implements OrderService {
 
 	@Autowired
 	private AmountDao aDao;
+	
+	@Autowired
+	private UserDao uDao;
 
 	// @Autowired
 	// private PriceDao pDao;
 
 	@Override
-	public Object addOrder(HttpSession session, Orders o, long[] TraineeId) {
+	public Object addOrder(HttpSession session,Orders o, Long[] TraineeId) {
 		Long userId = GetUserId.getUserId(session);
 		if (userId == null) {
 			return JsonObject.getResult(-999, "请先登录", false);
@@ -61,6 +64,10 @@ public class OrderServiceImp implements OrderService {
 			// o.setTotal(pDao.getPrice(userId) * d);
 			// 获取订单生成时间
 			o.setTime(Long.parseLong(ChangeTime.timeStamp()));
+			//自动填写填表人
+			o.setPreparer(uDao.getUserById(userId).getCompany());
+			//自动填写联系人号码
+			o.setPhone(uDao.getUserById(userId).getPhone().toString());
 			// 设置订单所属于哪个用户
 			o.setUserId(userId);
 			// 将被添加进订单的学员的bind值设置成1：已绑定订单
@@ -96,7 +103,7 @@ public class OrderServiceImp implements OrderService {
 	}
 
 	@Override
-	public Object deleteOrder(long[] id) {
+	public Object deleteOrder(Long[] id) {
 		// 订单删除后绑定状态初始化0（未绑定）
 		tDao.upadteTraineebind(id, 0);
 		if (oDao.deletOrder(id)) {

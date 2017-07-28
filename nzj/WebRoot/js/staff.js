@@ -196,7 +196,7 @@ function refreshData(pageSize, pageNo) {
 var builderUQTQueryMsg = function(UQTQueryMsg) {
 	var UQT_detailTable = $('#UQT_detailTable');
 	UQT_detailTable.empty();
-	var th = '<tr><th class="chi_name" scope="col">姓名</th><th scope="col"  class="chi_name">账号</th><th class="match_type" scope="col">密码</th><th class="match_type" scope="col">地址</th><th class="match_type" scope="col">职位</th><th scope="col"  class="dis_dta">操作</th><th class="dis_hidden" style="display: none">隐藏属性</th></tr>';
+	var th = '<tr><th class="chi_name" scope="col">姓名</th><th scope="col"  class="chi_name">账号</th><th class="match_type" scope="col">住址</th><th class="match_type" scope="col">职位</th><th scope="col"  class="dis_dta">操作</th><th class="dis_hidden" style="display: none">隐藏属性</th></tr>';
 
 	UQT_detailTable.append(th);
 	var tr;
@@ -216,27 +216,165 @@ var builderUQTQueryMsg = function(UQTQueryMsg) {
 		var u = '';
 		u += "<td class='chi_name'>" + name + "</td>" +
 			"<td class='chi_name'>" + phone + "</td>" +
-			"<td class='match_type'>" + password + "</td>" +
 			"<td class='match_type'>" + address + "</td>" +
 			"<td class='match_type'>" + job + "</td>" +
-			"<td class='dis_dta'>"
+			"<td class='dis_dta'>"+
 //		if(indexState == 0) {
 //			u += "<a class='editOp' href='' data-toggle='modal' data-target='#modjoinTrace' onclick='updateJointrace(" + JSON.stringify(eachData) + ")'>待处理</a>"
 //		} else {
 //			u += "<a class='editOp' href='' data-toggle='modal' data-target='#modjoinTrace' onclick='updateJointrace(" + JSON.stringify(eachData) + ")'>已完成</a>"
 //		}
 		//			+"<a class='editOp' href='' data-toggle='modal' data-target='#modjoinTrace' onclick='updateJointrace("+JSON.stringify(eachData)+")'>已处理</a>" 
-					+"<a class='editOp' href='javascript:void(0);' onclick='deleteJointrace(" + listId + ")'>删除</a>" 
-		+
-		"</td>" +
-		"<td class='dis_hidden' style='display: none'>"
-
-		+
+					"<a class='editOp ' href='javascript:void(0);' onclick='deleteJointrace(" + listId + ")'>删除</a>"+
+		"<a class='editOp' href='javascript:void(0);' data-toggle='modal' data-target='#modYgPassword' onclick='resetStffPassword(" + listId + ")'>重置密码</a>"+
+//		"<a class='editOp' href='javascript:void(0);' data-toggle='modal' data-target='#ModYg'>修改信息</a>"+
 		"</td>"
 		tr.append(u);
 		UQT_detailTable.append(tr);
 	});
+};
+
+
+
+$(function(){
+	//添加员工
+	$('#add_staff_btn').click(function(){
+		var formData = new FormData(document.getElementById("StaffForm"));
+		$.ajax({
+			type: "post",
+			url: 'addStaff',
+			data: formData,
+			async: false,
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function(data) {
+				if(data.code == 1){
+					alert(data.msg);
+					$('#addStaff').modal('hide');
+					location.reload();
+				}else if(data.code == 0){
+					alert(data.msg);
+				}else if(data.code == -1){
+					alert(data.msg);
+				}else if(data.code == -2){
+					alert(data.msg);
+				}else if(data.code == -3){
+					alert(data.msg);
+				}else if(data.code == -4){
+					alert(data.msg);
+				}
+			},
+			error: function(data) {
+				alert("error");
+			}
+		});
+	});
+	
+
+
+});
+
+//删除员工
+
+function deleteJointrace(v){
+	$.ajax({
+		type:"post",
+		url:"deleteStaff",
+		async:false,
+		data:{
+			'id':v
+		},
+		success:function(data){
+			if(data.code == 1){
+				alert(data.msg);
+				location.reload();
+			}else{
+				alert(data.msg);
+				
+			}
+		},
+		error:function(data){
+			alert("error");
+		}
+	});
+};
+
+//修改员工密码
+function resetStffPassword(v){
+	$('#btn_ygpas_mod').click(function(){
+		var new_password = $('#yg_nPwd').val();
+		if($("#yg_nPwd").val() == '' || $("#yg_nPwds").val() == '') {
+			alert("请完善信息！");
+		} else if($("#yg_nPwd").val() != $("#yg_nPwds").val()) {
+			alert("输入密码不一致！");
+		} else {
+			$.ajax({
+				type: "post",
+				url: "ResetStffPassword",
+				data: {
+					'sid': v,
+					'nPwd': new_password
+				},
+				async: false,
+				cache: false,
+				success: function(data) {
+					 if(data.code == 1) {
+						alert(data.msg);
+						$('#modYgPassword').modal('hide');
+					}else {
+						alert(data.msg);
+					}
+				},
+				error: function(data) {
+					alert("error");
+				}
+			});
+		};
+	});
+	
 }
+
+
+
+if(typeof FileReader == 'undefined') {
+	document.getElementById("xmTanDiv").InnerHTML = "<h1>当前浏览器不支持上传照片</h1>";
+	//使选择控件不可操作
+	document.getElementById("xdaTanFileImg").setAttribute("disabled", "disabled");
+}
+
+//选择图片，马上预览
+function onUpdateIcon() {
+	var fileObj = document.getElementById("staffFileImg");
+	fileObj.onchange = function(obj) {
+		var file = fileObj.files[0];
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			var img = document.getElementById("xmTanImg");
+			img.src = e.target.result;
+			//上传阿姨照片
+			if($('#staffIcon').html() == '上传照片') {
+				var self = this;
+				var appform = document.getElementById('StaffForm');
+				var fileObj = document.getElementById("staffFileImg").files[0];
+				var formData = new FormData();
+//				formData.append('AuntId', appform.id.value);
+				formData.append('file', fileObj);
+				if(!self.appUploadXHR) {
+					self.appUploadXHR = null;
+				}
+				self.appUploadXHR = new XMLHttpRequest();
+				self.appUploadXHR.open("POST", "updateStaffPhotourl");
+				self.appUploadXHR.send(formData);
+			};
+			//或者 img.src = this.result;  //e.target == this
+		}
+		reader.readAsDataURL(file)
+	}
+	fileObj.click();
+};
+
+
 
 /**
  *选择左侧checkbox

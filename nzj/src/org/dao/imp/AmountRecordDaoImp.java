@@ -6,6 +6,7 @@ import org.dao.AmountRecordDao;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.model.Amount;
 import org.model.AmountRecord;
 import org.springframework.stereotype.Service;
 import org.util.HibernateSessionFactory;
@@ -72,6 +73,27 @@ public class AmountRecordDaoImp implements AmountRecordDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return -1;
+		}
+	}
+
+	@Override
+	public Amount getAmountByUserId(long userId) {
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Transaction ts = session.beginTransaction();
+			
+			Query query = session.createQuery("FROM Amount a WHERE a.userId = ?");
+			query.setParameter(0, userId);
+			query.setMaxResults(1);
+			Amount a = (Amount)query.uniqueResult();
+			ts.commit();
+			return a;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateSessionFactory.closeSession();
 		}
 	}
 }

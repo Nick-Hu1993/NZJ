@@ -1,5 +1,7 @@
 package org.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -73,6 +75,13 @@ public class UserController {
 	public Object updateUserPassword(HttpSession session, String oPwd,
 			String nPwd) throws Exception {
 		return uService.updateUserPassword(session, oPwd, nPwd);
+	}
+	
+	@RequestMapping("/updateUserPhoto")
+	@ResponseBody
+	public Object updateUserPhoto(HttpServletRequest request, long userId,
+			String image) {
+		return uService.updateUserPhoto(request, userId, image);
 	}
 
 	@RequestMapping("/ackUser")
@@ -153,6 +162,17 @@ public class UserController {
 		return uService.getUserDetailById(userid);
 	}
 	
+	@RequestMapping("/getUserDetailListById")
+	@ResponseBody
+	public Object getUserDetailListById(@RequestParam("id[]") List<Long> id) {
+		return uService.getUserDetailListById((Long[])id.toArray(new Long[id.size()]));
+	}
+	
+	@RequestMapping("/updateUserSupport")
+	@ResponseBody
+	public Object updateUserSupport(long userId, Integer support) {
+		return uService.updateSupport(userId, support);
+	}
 	// -----------------------------------加盟（join）-----------------------------------------
 	
 	@RequestMapping("/getChildByParentAndSupport")			

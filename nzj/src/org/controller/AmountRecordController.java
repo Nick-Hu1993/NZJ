@@ -25,4 +25,10 @@ public class AmountRecordController {
 	public Object getAmountRecordById (HttpSession session, Integer start, Integer limit) {
 		return arService.getAmountRcordById(session, start, limit);
 	}
+	
+	@RequestMapping("/getBalanceByUserId")
+	@ResponseBody
+	public Object getBalanceByUserId(HttpSession session) {
+		return arService.getBalanceByUserId(session);
+	}
 }

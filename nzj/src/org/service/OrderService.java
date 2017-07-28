@@ -14,7 +14,7 @@ public interface OrderService {
 	 * @param o
 	 * @return
 	 */
-	public Object addOrder(HttpSession session,Orders o, long[] TraineeId );
+	public Object addOrder(HttpSession session,Orders o, Long[] TraineeId );
 	/**
 	 * 2.删除订单（仅管理员）
 	 * 连带中间关系表一同删除
@@ -22,7 +22,7 @@ public interface OrderService {
 	 * @param id
 	 * @return
 	 */
-	public Object deleteOrder (long[] id);
+	public Object deleteOrder (Long[] id);
 	/**
 	 * 3.修改订单内容（仅管理员）
 	 * @param o

@@ -46,5 +46,16 @@ public class AmountRecordServiceImp implements AmountRecordService {
 			return JsonObject.getResult(-999, "请先登录才可查看", false);
 		}
 	}
+
+	@Override
+	public Object getBalanceByUserId(HttpSession session) {
+		if (arDao.getAmountByUserId(GetUserId.getUserId(session)) != null) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("balance", arDao.getAmountByUserId(GetUserId.getUserId(session)).getBalance());
+			return JsonObject.getResult(1, "账户余额", map);
+		} else {
+			return JsonObject.getResult(0, "未开账户/账户余额查询失败", false);
+		}
+	}
 	
 }

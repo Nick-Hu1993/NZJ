@@ -1,143 +1,3 @@
-//$(function() {
-//	//一级菜单
-//	$.ajax({
-//		type: "post",
-//		url: mainUrl + "getChildByParent",
-//		dataType: "json",
-//		async: false,
-//		cache: false,
-//		data: {
-//			'parent': getCookie('sessionId'),
-//			'start': 0,
-//			'limit': 15
-//		},
-//		success: function(data) {
-//			if(data.code == 1) {
-//				var List = '';
-//				List += "<li class='listTitle'>加盟商列表</li>"
-//				for(var i = 0; i < data.data.UserlList.length; i++) {
-//					List += '<li class="has-sub">'
-//					List += '<a href="javascript:void(0);"><span>' + data.data.UserlList[i].id.company + '</span><label>' + data.data.UserlList[i].id.id + '</label><i class="fa fa-caret-right fa-fw pull-right"></i></a>'
-//					List += '<ul class="sub-menu">'
-//					List += '</ul>'
-//					List += '</li>'
-//				}
-//				$('#joinList').html(List);
-//				//								alert(data.data.UserlList.length);
-//			} else if(data.code == -999) {
-//				if(confirm("用户登录已失效，是否重新登录？")) {
-//					window.parent.location.href = "login.html";
-//				}
-//			} else {
-//				alert(data.msg);
-//			}
-//
-//		},
-//		error: function(jqXHR) {
-//			alert("网络异常");
-//		}
-//	});
-//	//二级菜单
-//	$(".has-sub>a").click(function() {
-//		$(this).parent().siblings().find(".sub-menu").slideUp();
-//		$(this).parent().find(".sub-menu").slideToggle();
-//		$.ajax({
-//			type: "post",
-//			url: mainUrl + "getChildByParent",
-//			dataType: "json",
-//			async: false,
-//			cache: false,
-//			data: {
-//				'parent': $(this).find("label").html(),
-//				'start': 0,
-//				'limit': 15
-//			},
-//			success: function(data) {
-//				if(data.code == 1) {
-//					var List = '';
-//					//				List += "<li class='listTitle'>加盟商列表</li>"
-//					for(var i = 0; i < data.data.UserlList.length; i++) {
-//						List += '<li class="has-sub-erji">'
-//						List += '<a href="javascript:void(0);"><span>' + data.data.UserlList[i].id.company + '</span><label>' + data.data.UserlList[i].id.id + '</label><i class="fa fa-caret-right fa-fw pull-right"></i></a>'
-//						List += '<ul class="sub-menu-sanji">'
-//						List += '</ul>'
-//						List += '</li>'
-//					}
-//					$('.sub-menu').html(List);
-//					//								alert(data.data.UserlList.length);
-//				} else if(data.code == -999) {
-//					if(confirm("用户登录已失效，是否重新登录？")) {
-//						window.parent.location.href = "login.html";
-//					}
-//				} else {
-//					alert(data.msg);
-//				}
-//
-//			},
-//			error: function(jqXHR) {
-//				alert("网络异常");
-//			}
-//		});
-//		//三级菜单
-//		$(".has-sub-erji>a").click(function() {
-//			$(this).parent().siblings().find(".sub-menu-sanji").slideUp();
-//			$(this).parent().find(".sub-menu-sanji").slideToggle();
-//			$.ajax({
-//				type: "post",
-//				url: mainUrl + "getChildByParent",
-//				dataType: "json",
-//				async: false,
-//				cache: false,
-//				data: {
-//					'parent': $(this).find("label").html(),
-//					'start': 0,
-//					'limit': 15
-//				},
-//				success: function(data) {
-//					if(data.code == 1) {
-//						if(data.data.UserlList.length == 0) {
-//							$(".has-sub-erji>a>i").hide();
-//						} else {
-//							var List = '';
-//							for(var i = 0; i < data.data.UserlList.length; i++) {
-////								joinInfo(JSON.stringify(data.data.UserlList[i].id));
-////								alert(JSON.stringify(data.data.UserlList[i].id));
-//                              abc = data.data.UserlList[i].id;
-//								List += '<li class="has-sub-sanji" style="padding-left: 30px;">'
-//								List += '<a href="javascript:void(0);"><span>' + data.data.UserlList[i].id.company + '</span><label>' + data.data.UserlList[i].id.id + '</label><span class="threeIfon">'+data.data.UserlList[i].id+'</span></a>'
-//								List += '</li>'
-//							}
-//							$('.sub-menu-sanji').html(List);
-//						};
-//
-//					} else if(data.code == -999) {
-//						if(confirm("用户登录已失效，是否重新登录？")) {
-//							window.parent.location.href = "login.html";
-//						}
-//					} else {
-//						alert(data.msg);
-//					}
-//
-//				},
-//				error: function(jqXHR) {
-//					alert("网络异常");
-//				}
-//			});
-//			$(".has-sub-sanji>a").click(function() {
-////				var threeIfon = $(this).find(".threeIfon").html();
-//				alert("a:"+JSON.stringify(abc.phone));
-////				joinInfo(JSON.stringify(threeIfon));
-//			});
-//		});
-//	});
-//
-//});
-//
-//function joinInfo(v){
-//	var threeIfon = JSON.parse(v);
-//	alert('a------------'+threeIfon.phone);
-//};
-
 
 //获取当前时间
 function p(s) {
@@ -237,7 +97,6 @@ var getJsonArrayByPageSize = function(pageSize, pageNo) {
 				'parent':getCookie('sessionId')
 			},
 			success: function(data) {
-				console.log(data)
 				if(data.code == 1) {
 					json = data.data.UserlList;
 					total = data.data.count
@@ -329,20 +188,20 @@ var builderUQTQueryMsg = function(UQTQueryMsg) {
 		var rank =eachData.id.rank;
 		
 		if(rank == 2){
-			tr.append("<td class='hide-check'><input type='checkbox' class='check_a' /></td>"+
+			tr.append("<td class='hide-check'><input type='checkbox' data-checks='"+JSON.stringify(eachData)+"' value='"+id+"' class='check_a' /></td>"+
 		"<td>"+company+"</td><td>"+dphone+"</td>"+
 		"<td>"+contact+"</td><td>"+telephone+"</td><td>"+address+"</td>"+
 		"<td class='dis_dta'>"+
-		"<a href='javascript:;' class='C_details'>详细信息</a>"+
+		"<a href='javascript:void(0);' class='C_details' data-toggle='modal' data-target='#checkJoiner' data-joinerid='"+id+"'>详细信息</a>"+
 		"<a class='checkCity' href='javascipt:;' data-cityid='"+id+"' data-csupport='"+support+"' >查看市级</a>"+
-		"<a href='javascript:;' class='serve-note' data-toggle='modal' data-target='#serveNote' data-arr='"+JSON.stringify(eachData)+"'>服务追踪</a>"+
-		"<a href='javascript:;' class='z-serve' >转为已服务</a></td>");
+		"<a href='javascript:void(0);' class='serve-note' data-toggle='modal' data-target='#serveNote' data-arr='"+JSON.stringify(eachData)+"'>服务追踪</a>"+
+		"<a href='javascript:void(0);' data-serveid='"+id+"' class='z-serve' >转为已服务</a></td>");
 		}else if(rank == 3){
-			tr.append("<td class='hide-check'><input type='checkbox' class='check_a' /></td>"+
-		"<td>"+company+"</td><td>"+dphone+"</td><td>"+contact+"</td><td>"+telephone+"</td><td>"+address+"</td><td class='dis_dta'><a href='javascript:;' class='C_details'>详细信息</a><a data-distid='"+data.data.UserlList[i].id.id+"' data-dsupport='"+data.data.UserlList[i].id.support+"' class='checkDist' href='javascipt:;' >查看区级</a><a href='javascript:;' class='serve-note' data-toggle='modal' data-target='#serveNote' data-arr='"+JSON.stringify(eachData)+"'>服务追踪</a><a href='javascript:;' class='z-serve' >转为已服务</a></td>");
+			tr.append("<td class='hide-check'><input type='checkbox' data-checks='"+JSON.stringify(eachData)+"' value='"+id+"' class='check_a' /></td>"+
+		"<td>"+company+"</td><td>"+dphone+"</td><td>"+contact+"</td><td>"+telephone+"</td><td>"+address+"</td><td class='dis_dta'><a href='javascript:void(0);' class='C_details' data-toggle='modal' data-target='#checkJoiner' data-joinerid='"+id+"'>详细信息</a><a data-distid='"+data.data.UserlList[i].id.id+"' data-dsupport='"+data.data.UserlList[i].id.support+"' class='checkDist' href='javascipt:;' >查看区级</a><a href='javascript:void(0);' class='serve-note' data-toggle='modal' data-target='#serveNote' data-arr='"+JSON.stringify(eachData)+"'>服务追踪</a><a href='javascript:void(0);' data-serveid='"+id+"' class='z-serve' >转为已服务</a></td>");
 		}else if(rank == 4){
-			tr.append("<td class='hide-check'><input type='checkbox' class='check_a' /></td>"+
-		"<td>"+company+"</td><td>"+dphone+"</td><td>"+contact+"</td><td>"+telephone+"</td><td>"+address+"</td><td class='dis_dta'><a href='javascript:;' class='C_details'>详细信息</a><a href='javascript:;' class='serve-note' data-toggle='modal' data-target='#serveNote' data-arr='"+JSON.stringify(eachData)+"'>服务追踪</a><a href='javascript:;' class='z-serve' >转为已服务</a></td>");
+			tr.append("<td class='hide-check'><input type='checkbox' data-checks='"+JSON.stringify(eachData)+"' value='"+id+"' class='check_a' /></td>"+
+		"<td>"+company+"</td><td>"+dphone+"</td><td>"+contact+"</td><td>"+telephone+"</td><td>"+address+"</td><td class='dis_dta'><a href='javascript:void(0);' class='C_details'  data-toggle='modal' data-target='#checkJoiner'data-joinerid='"+id+"'>详细信息</a><a href='javascript:void(0);' class='serve-note' data-toggle='modal' data-target='#serveNote' data-arr='"+JSON.stringify(eachData)+"'>服务追踪</a><a href='javascript:void(0);' data-serveid='"+id+"' class='z-serve' >转为已服务</a></td>");
 		}
 			 
 		Join_Table.append(tr);
@@ -370,20 +229,21 @@ $(document).on('click','.checkCity',function(){
 		data:{
 			'start': 0,
 			'limit': 15,
-			'support': 0,
+			'support': support,
 			'parent':cityId
 		},
 		success:function(data){
 			if(data.code == 1){
+				
 				tr +='<tr><th class="hide-check" style="width: 60px;"><input type="checkbox" class="check_all" /></th><th scope="col" class="company" >公司名称</th><th class="dphone" scope="col">公司座机</th><th scope="col" class="contact" >联系人</th><th scope="col" class="telephone" >联系手机</th><th scope="col"  class="address">地址</th><th scope="col"  class="dis_dta">操作</th></tr>';
 				for(var i=0; i<data.data.UserlList.length; i++){
-					tr +="<tr><td class='hide-check'><input type='checkbox' /></td>"
+					tr +="<tr><td class='hide-check'><input type='checkbox' data-checks='"+JSON.stringify(data.data.UserlList[i])+"' value='"+data.data.UserlList[i].id.id+"' class='check_a'/></td>"
 					tr +="<td>"+data.data.UserlList[i].id.company+"</td>"
 					tr +="<td>"+data.data.UserlList[i].id.dphone+"</td>"
 					tr +="<td>"+data.data.UserlList[i].id.contact+"</td>"
 					tr +="<td>"+data.data.UserlList[i].id.telephone+"</td>"
 					tr +="<td>"+data.data.UserlList[i].id.address+"</td>"
-					tr +="<td class='dis_dta'><a href='javascript:;' class='C_details'>详细信息</a><a data-distid='"+data.data.UserlList[i].id.id+"' data-dsupport='"+data.data.UserlList[i].id.support+"' class='checkDist' href='javascipt:;' >查看区级</a><a href='javascript:;' class='serve-note' data-toggle='modal' data-target='#serveNote' data-arr='"+JSON.stringify(data.data.UserlList[i])+"'>服务追踪</a><a href='javascript:;' class='z-serve' >转为已服务</a></td></tr>"
+					tr +="<td class='dis_dta'><a href='javascript:void(0);' class='C_details' data-toggle='modal' data-target='#checkJoiner' data-joinerid='"+data.data.UserlList[i].id.id+"'>详细信息</a><a data-distid='"+data.data.UserlList[i].id.id+"' data-dsupport='"+data.data.UserlList[i].id.support+"' class='checkDist' href='javascipt:;' >查看区级</a><a href='javascript:void(0);' class='serve-note' data-toggle='modal' data-target='#serveNote' data-arr='"+JSON.stringify(data.data.UserlList[i])+"'>服务追踪</a><a href='javascript:void(0);' data-serveid='"+data.data.UserlList[i].id.id+"' class='z-serve' >转为已服务</a></td></tr>"
 				}
 				$('#CityTable').html(tr);
 				
@@ -413,20 +273,20 @@ $(document).on('click','.checkDist',function(){
 		data:{
 			'start': 0,
 			'limit': 15,
-			'support': 0,
+			'support': support,
 			'parent':distId
 		},
 		success:function(data){
 			if(data.code == 1){
 				tr +='<tr><th class="hide-check" style="width: 60px;"><input type="checkbox" class="check_all" /></th><th scope="col" class="company" >公司名称</th><th class="dphone" scope="col">公司座机</th><th scope="col" class="contact" >联系人</th><th scope="col" class="telephone" >联系手机</th><th scope="col"  class="address">地址</th><th scope="col"  class="dis_dta">操作</th></tr>';
 				for(var i=0; i<data.data.UserlList.length; i++){
-					tr +="<tr><td class='hide-check'><input type='checkbox' /></td>"
+					tr +="<tr><td class='hide-check'><input type='checkbox' data-checks='"+JSON.stringify(data.data.UserlList[i])+"'  value='"+data.data.UserlList[i].id.id+"' class='check_a'/></td>"
 					tr +="<td>"+data.data.UserlList[i].id.company+"</td>"
 					tr +="<td>"+data.data.UserlList[i].id.dphone+"</td>"
 					tr +="<td>"+data.data.UserlList[i].id.contact+"</td>"
 					tr +="<td>"+data.data.UserlList[i].id.telephone+"</td>"
 					tr +="<td>"+data.data.UserlList[i].id.address+"</td>"
-					tr +="<td class='dis_dta'><a href='javascript:;' class='C_details'>详细信息</a><a href='javascript:;'  class='serve-note' data-toggle='modal' data-target='#serveNote' data-arr='"+JSON.stringify(data.data.UserlList[i])+"'>服务追踪</a><a href='javascript:;' class='z-serve' >转为已服务</a></td></tr>"
+					tr +="<td class='dis_dta'><a href='javascript:void(0);' class='C_details' data-toggle='modal' data-target='#checkJoiner' data-joinerid='"+data.data.UserlList[i].id.id+"'>详细信息</a><a href='javascript:void(0);'  class='serve-note' data-toggle='modal' data-target='#serveNote' data-arr='"+JSON.stringify(data.data.UserlList[i])+"'>服务追踪</a><a href='javascript:void(0);' data-serveid='"+data.data.UserlList[i].id.id+"' class='z-serve' >转为已服务</a></td></tr>"
 				}
 				$('#DistTable').html(tr);
 				if(support == 1){
@@ -442,9 +302,43 @@ $(document).on('click','.checkDist',function(){
 });
 
 
+//查看加盟商详情
+$(document).on('click','.C_details',function(){
+	var joinerId = $(this).data('joinerid');
+	$.ajax({
+		type:"post",
+		url:"getUserDetailById",
+		async:false,
+		data:{
+			'userid':joinerId
+		},
+		success:function(data){
+			if(data.code == 1){
+				var div = '';
+				div +="<div class='info-one'><ul class='clearfix'>"
+				div +="<li style='width: 100%;'>用户名：<span class='normal'>"+data.data.UserDetail.username+"</span></li>"
+				div +="<li>公司名称：<span class='normal'>"+data.data.UserDetail.company+"</span></li>"
+				div +="<li>公司座机：<span class='normal'>"+data.data.UserDetail.dphone+"</span></li>"
+				div +="<li>联系人：<span class='normal'>"+data.data.UserDetail.contact+"</span></li>"
+				div +="<li>联系电话：<span class='normal'>"+data.data.UserDetail.telephone+"</span></li>"
+				div +="<li style='width: 100%;'>地址：<span class='normal'>"+data.data.UserDetail.address+"</span></li></ul></div>"
+				div +="<div class='info-two'><ul class='clearfix' style='border: none;'>"
+				div +="<li>身份证件照<img src='"+data.data.UserDetail.idcardurl+"' width='243px' height='153px' style='border: 1px solid #999; display: block;'/></li>"
+				div +="<li>营业执照<img src='"+data.data.UserDetail.charterurl+"'  width='300px' height='425px' style='border: 1px solid #999; display: block;'/></li></ul></div>"
+				
+				$('#checkJoiner .pact-info').html(div)
+			}
+			
+		},
+		error:function(data){
+			alert("error");
+		}
+	});
+});
+
+
 
 //获取服务追踪标签
-
 $(document).on('click','.serve-note',function(){
 	//获取服务类型
 	var option ='';
@@ -502,7 +396,7 @@ $(document).on('click','.serve-note',function(){
 
 //添加服务追踪标签
 
-	$('#note-btn').one('click',function(){
+	$('#note-btn').off().on('click',function(){
 		var typeId = $('.type-list option:selected').val();
 		var typeTxt = $('.type-list option:selected').text();
 		if($('#note-text').val() == ''){
@@ -529,7 +423,7 @@ $(document).on('click','.serve-note',function(){
 						li +="<p class='note-time'>发布时间：<span class='n-time'>"+now+"</span><span class='type-name'>"+typeTxt+"</span></p>"
 						li +="<div class='note-con'><i class='ico-san'></i><span class='note-txt'><span class='notetxt'>"+$('#note-text').val()+"</span><i class='edit-note'></i></span></div>"
 						li +="</li>"
-						$('#pact-note-list').append(li);
+						$('#serve-note-list').prepend(li);
 						$('#note-text').val("");
 					}else{
 						alert(data.msg);
@@ -548,7 +442,6 @@ $(document).on('click','.serve-note',function(){
 
 //修改标签
 function EditServenote(v){
-	console.log(v)
 	$(document).on('blur','.edit-input',function(){
 		$.ajax({
 			type:"post",
@@ -575,6 +468,7 @@ function EditServenote(v){
 	});
 }
 
+//删除标签
 function Deleteservenote(id){
 	$.ajax({
 		type: "post",
@@ -594,9 +488,105 @@ function Deleteservenote(id){
 		}
 	});
 	
-}
+};
 
 
+//全选&全不选
+
+$(document).on('click','.check_all',function(){
+	if(this.checked){
+	$(this).parents('table').find('.check_a').prop("checked", true);
+	}else{
+		$(this).parents('table').find('.check_a').prop("checked", false);
+	}
+});
+
+//生成订单
+
+$('#build_order').click(function(){
+	$('.order-con').empty();
+	var check = $('.table-check').find(".check_a:checked");
+	var li = '';
+	var cArr = [];
+	for(var i=0; i<check.length; i++){
+		cArr.push(check.eq(i).data('checks'));
+	}
+	if(cArr.length == 0){
+		$('.order-con').html("<div style='text-align:center; color:red;'>至少选择一项再生成订单</div>");
+	}else{
+		li +="<ul class='order-list'>"
+		for(var i=0; i<cArr.length; i++){
+			li +="<li class='clearfix order_list' data-listid='"+cArr[i].id.id+"'><div class='user-img'><img src='"+cArr[i].id.photourl+"' width='100' height='100' /></div>"
+			li +="<div class='user-list'><h4>"+cArr[i].id.company+"</h4><div class='uName'>联系人：<span>"+cArr[i].id.contact+"</span></div>"
+			li +="<div class='uTel'>联系电话：<span>"+cArr[i].id.telephone+"</span></div>"
+			li +="<div class='uAdd'>地址：<span>"+cArr[i].id.address+"</span></div>"
+			li +="</div><i class='remove-order'>×</i></li>"
+		}
+		li +="</ul>"
+		
+		$('.order-con').html(li);
+		
+	}
+});
+
+//删除订单选项
+
+$(document).on('click','.remove-order',function(){
+	$(this).parents('.order_list').remove();
+});
+
+//提交订单
+
+$('#place_order').click(function(){
+	var list = $(this).parents('#orderloyer').find('.order-list li');
+	var lArr = [];
+	for(var i=0; i<list.length; i++){
+		lArr.push(list.eq(i).data("listid"));
+	}
+	$.ajax({
+		type:"post",
+		url:"addJoinOrder",
+		async:false,
+		data:{
+			'id':lArr
+		},
+		success:function(data){
+			if(data.code == 1){
+				alert(data.msg);
+			}else{
+				alert(data.msg);
+			}
+		},
+		error:function(data){
+			alert("error");
+		}
+	});
+	
+});
+
+//转为已服务操作
+$(document).on('click','.z-serve',function(){
+	var serveId = $(this).data('serveid');
+	$.ajax({
+		type:"post",
+		url:"updateUserSupport",
+		async:false,
+		data:{
+			'userId':serveId,
+			'support':1
+		},
+		success:function(data){
+			if(data.code == 1){
+				alert(data.msg);
+			}else{
+				alert(data.msg);
+			}
+		},
+		error:function(data){
+			alert("error");
+		}
+	});
+});
 
 
 

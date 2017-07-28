@@ -22,7 +22,7 @@ import sun.net.www.content.text.plain;
 public class OrderDaoImp implements OrderDao {
 
 	@Override
-	public boolean addOrder(final Orders o, final long[] TraineeId, final AmountRecord ad) {
+	public boolean addOrder(final Orders o, final Long[] TraineeId, final AmountRecord ad) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
@@ -35,7 +35,7 @@ public class OrderDaoImp implements OrderDao {
 					String sql = "INSERT INTO order_trainee (order_id, trainee_id) value (?, ?)";
 					PreparedStatement stmt = conn.prepareStatement(sql);
 					conn.setAutoCommit(false);
-					for (long i : TraineeId) {
+					for (Long i : TraineeId) {
 						System.out.println(i);
 						stmt.setLong(1, orderId);
 						stmt.setLong(2, i);
@@ -68,7 +68,7 @@ public class OrderDaoImp implements OrderDao {
 	}
 
 	@Override
-	public boolean addOrderByOfflion(Orders o, final long[] id) {
+	public boolean addOrderByOfflion(Orders o, final Long[] id) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
@@ -81,7 +81,7 @@ public class OrderDaoImp implements OrderDao {
 					String sql = "INSERT INTO order_trainee (order_id, trainee_id) value (?, ?)";
 					PreparedStatement stmt = conn.prepareStatement(sql);
 					conn.setAutoCommit(false);
-					for (long i : id) {
+					for (Long i : id) {
 						stmt.setLong(1, orderId);
 						stmt.setLong(2, i);
 						stmt.addBatch();
@@ -102,12 +102,12 @@ public class OrderDaoImp implements OrderDao {
 	}
 
 	@Override
-	public boolean deletOrder(final long[] id) {
+	public boolean deletOrder(final Long[] id) {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction ts = session.beginTransaction();
 
-			for (long idList : id) {
+			for (Long idList : id) {
 				Orders o = (Orders) session.load(Orders.class, idList);
 				if (o != null) {
 					session.delete(o);

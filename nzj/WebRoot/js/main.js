@@ -40,6 +40,8 @@ function check_login() {
 	});
 };
 
+
+
 //根据ajax请求返回的code来提示用户是否登录
 function main_code(c, m) {
 	if(c == -999) {

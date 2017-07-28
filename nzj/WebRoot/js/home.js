@@ -133,7 +133,7 @@ $(document).ready(function() {
 					firstnews +="</h3>"
 					firstnews +="<p class='news-intro'>"+data.data.result[0].digest+"</p>"
 					firstnews +="</div>"
-				for(var i = 0; i < data.data.result.length; i++) {
+				for(var i = 1; i < data.data.result.length; i++) {
 					var a = data.data.result[i].url;
 					newsList += "<li>"
 					newsList += "<a href='" + data.data.result[i].url + "'>"+ data.data.result[i].title + "</a>"

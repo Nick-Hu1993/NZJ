@@ -129,4 +129,5 @@ public interface StaffService {
 	 * @return
 	 */
 	public Object ResetStffPassword (Long sid, String nPwd); 
+	
 }

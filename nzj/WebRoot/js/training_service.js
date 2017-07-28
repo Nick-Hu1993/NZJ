@@ -1,30 +1,9 @@
 
-//获取当前时间
-function p(s) {
-    return s < 10 ? '0' + s: s;
-}
-
-var myDate = new Date();
-//获取当前年
-var year=myDate.getFullYear();
-//获取当前月
-var month=myDate.getMonth()+1;
-//获取当前日
-var date=myDate.getDate(); 
-/*var h=myDate.getHours();       //获取当前小时数(0-23)
-var m=myDate.getMinutes();     //获取当前分钟数(0-59)
-var s=myDate.getSeconds(); */ 
-
-var now=year+'-'+p(month)+"-"+p(date);
-
-
-
-
 var json = null;
 var total = null;
 var pageSize = 20;
 var pageNo = 1;
-var indexState = 0;
+var indexState = 1;
 
 
 //加载默认列表
@@ -46,7 +25,8 @@ $(function() {
 
 });
 //切换状态
-function JoinOrderByStatus(v) {
+function TraineeByBindAndPay(v) {
+	
 	indexState = v;
 	builderUQTQueryMsg(getJsonArrayByPageSize(pageSize, pageNo));
 	var totalPage = getTotllePage(pageSize);
@@ -83,21 +63,23 @@ var getTotllePage = function(pageSize) {
 	 * @returns {*}
 	 */
 var getJsonArrayByPageSize = function(pageSize, pageNo) {
-	if(indexState == 0) { //审核中
+	var payId = $('.pay-list').find('option:selected').val();
+	if(indexState == 1) { //已申请
 		$.ajax({
 			type: "post",
-			url: "getJoinOrderByStatus",
+			url: "getTraineeByBindAndPay",
 			dataType: "json",
 			async: false,
 			cache: false,
 			data: {
 				'start': (pageNo - 1) * pageSize,
 				'limit': pageSize,
-				'status':0
+				'bind': 1,
+				'pay':payId
 			},
 			success: function(data) {
 				if(data.code == 1) {
-					json = data.data.JoinOrders;
+					json = data.data.TraineeList;
 					total = data.data.count
 				} else {
 					alert(data.msg);
@@ -107,45 +89,22 @@ var getJsonArrayByPageSize = function(pageSize, pageNo) {
 				alert("网络异常");
 			}
 		})
-	} else if(indexState == -1) { //驳回
+	} else if(indexState == 0) { //未申请
 		$.ajax({
 			type: "post",
-			url: "getJoinOrderByStatus",
+			url: "getTraineeByBindAndPay",
 			dataType: "json",
 			async: false,
 			cache: false,
 			data: {
 				'start': (pageNo - 1) * pageSize,
 				'limit': pageSize,
-				'status':-1
+				'bind': 0,
+				'pay':payId
 			},
 			success: function(data) {
 				if(data.code == 1) {
-					json = data.data.JoinOrders;
-					total = data.data.count;
-				} else {
-					alert(data.msg);
-				}
-			},
-			error: function(data) {
-				alert("网络异常");
-			}
-		})
-	}else if(indexState == -2) { //完成
-		$.ajax({
-			type: "post",
-			url: "getJoinOrderByStatus",
-			dataType: "json",
-			async: false,
-			cache: false,
-			data: {
-				'start': (pageNo - 1) * pageSize,
-				'limit': pageSize,
-				'status':-2
-			},
-			success: function(data) {
-				if(data.code == 1) {
-					json = data.data.JoinOrders;
+					json = data.data.TraineeList;
 					total = data.data.count;
 				} else {
 					alert(data.msg);
@@ -191,63 +150,42 @@ function refreshData(pageSize, pageNo) {
  * 构建表格数据
  */
 var builderUQTQueryMsg = function(UQTQueryMsg) {
-	var Order_Table = $('#OrderTable');
-	Order_Table.empty();
+	var Stu_Table = $('#StuTable');
+	Stu_Table.empty();
 
-	var th = "<tr><th class='perparer'>公司名称</th><th class='phone'>联系电话</th><th class='time'>提交时间</th><th class='dis_dta'>操作</th></tr>";
+	var th = '<tr><th class="hide-check" style="width: 60px;"><input type="checkbox" class="check_all" /></th><th scope="col" class="name" style="width:15%">姓名</th><th class="sex" scope="col" style="width:15%">性别</th><th scope="col" class="idnumber" >身份证号码</th><th scope="col"  class="address">地址</th><th scope="col"  class="dis_dta" style="width:20%">操作</th></tr>';
 
-	Order_Table.append(th);
+	Stu_Table.append(th);
 	var tr;
 	$.each(UQTQueryMsg, function(i, eachData) {
-		var id = eachData.id;
-		var perparer = eachData.perparer;
-		var phone = eachData.phone;
-		var time = eachData.time;
+		console.log(eachData);
 		tr = $('<tr>');
-		tr.append("<td>"+perparer+"</td><td>"+phone+"</td><td>"+changeTime(time)+"</td><td class='dis_dta'><a class='checkOrder' href='javascript:;'onclick='checkOrder("+id+")' data-orderid='"+id+"'>订单详情</a></td>"); 
-		Order_Table.append(tr);
+		var id = eachData.id;
+		var name = eachData.name;
+		var sex = eachData.sex;
+		var idnumber = eachData.idnumber;
+		var address = eachData.address;
+		var bind = eachData.bind;
+		if(sex == 1){
+			sex="男"
+		}else{
+			sex="女"
+		}
+		
+		tr.append("<td class='hide-check'><input type='checkbox'   /></td><td>"+name+"</td><td>"+sex+"</td><td>"+idnumber+"</td><td>"+address+"</td><td class='dis_dta '><a href='javascript:;'>查看信息</a><a href='javascript:;'>修改信息</a><a href='javascript:;'>删除</a></td>");
+			 
+		Stu_Table.append(tr);
+		if(bind == 1){
+			$('.hide-check').hide();
+		}
 	
 	});
 };
 
 
-//查看订单详情
 
-$(document).on('click','.checkOrder',function(){
-	var orderId = $(this).data('orderid');
-	
-	$.ajax({
-		type:"post",
-		url:"getJoinOrderDetailByJoinorderid",
-		async:false,
-		data:{
-			'start':0,
-			'limit':5,
-			'joinorderid':orderId
-		},
-		success:function(data){
-			if(data.code == 1){
-				var aDiv = '';
-				for(var i=0; i<data.data.JoinUserDetail.length; i++){
-					aDiv +="<div class='pact-list'><div class='info-t'><span class='info-tit'>"+data.data.JoinUserDetail[i].id.company+"订单</span><a href='javascript:;' class='btnj'>展开</a></div>"
-					aDiv +="<div class='pact-info'>"
-					aDiv +="<div class='info-one'>"
-					aDiv +="<ul class='clearfix'><li style='width: 100%;'>用户名：<span class='normal'>"+data.data.JoinUserDetail[i].id.username+"</span></li>"
-					aDiv +="<li>公司名称：<span class='normal'>"+data.data.JoinUserDetail[i].id.company+"</span></li>"
-					aDiv +="<li>公司座机：<span class='normal'>"+data.data.JoinUserDetail[i].id.dphone+"8</span></li>"
-					aDiv +="<li>联系人：<span class='normal'>"+data.data.JoinUserDetail[i].id.contact+"</span></li>"
-					aDiv +="<li>联系电话：<span class='normal'>"+data.data.JoinUserDetail[i].id.telephone+"</span></li>"
-					aDiv +="<li style='width: 100%;'>地址：<span class='normal'>"+data.data.JoinUserDetail[i].id.address+"</span></li></ul></div>"
-					aDiv +="<div class='info-two'><ul>"
-					aDiv +="<li>身份证件照<img src='"+data.data.JoinUserDetail[i].id.idcardurl+"' width='243px' height='153px' style='border: 1px solid #999; display: block;'/></li>"
-					aDiv +="<li>营业执照<img src='"+data.data.JoinUserDetail[i].id.charterurl+"' width='300px' height='425px' style='border: 1px solid #999; display: block;'/></li></ul></div></div></div>"
-				}
-				$('.order-con .model-main').html(aDiv);
-				
-			}
-		}
-	});
-});
+
+
 
 
 

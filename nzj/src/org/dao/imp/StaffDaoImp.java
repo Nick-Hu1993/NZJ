@@ -308,7 +308,7 @@ public class StaffDaoImp implements StaffDao {
 			HibernateSessionFactory.closeSession();
 		}
 	}
-
+	
 	@Override
 	public String getStaffPhotourlById(long id) {
 		try {

@@ -27,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.tool.GenerateImage;
 import org.tool.GetUserId;
 import org.tool.JsonObject;
 import org.tool.SendPost;
@@ -48,7 +49,7 @@ public class UserServiceImp implements UserService {
 	private UserLinkDao ulDao;
 	@Autowired
 	private UserCheckDao ucDao;
-	
+
 	@Autowired
 	private StaffDao sDao;
 
@@ -292,7 +293,7 @@ public class UserServiceImp implements UserService {
 	@Override
 	public Object getUser(HttpSession session) {
 		User u = (User) session.getAttribute("user");
-		Staff s = (Staff)session.getAttribute("staff");
+		Staff s = (Staff) session.getAttribute("staff");
 		if (u != null) {
 			VUserId v = uDao.getUserById(u.getId());
 			return JsonObject.getResult(1, "获取当前用户信息", v);
@@ -401,11 +402,14 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public Object getChildByParentAndSupport (HttpSession session,Integer start, Integer limit, Long[] parent, Integer support) {
+	public Object getChildByParentAndSupport(HttpSession session,
+			Integer start, Integer limit, Long[] parent, Integer support) {
 		Map<String, Object> map = new HashMap<>();
-		/*1.当前登录者为user下的staff
-		long uId = new GetUserId().getUserId(session);*/
-		List<VUser> li = ulDao.getChildByParentAndSupport(start, limit, parent, support);
+		/*
+		 * 1.当前登录者为user下的staff long uId = new GetUserId().getUserId(session);
+		 */
+		List<VUser> li = ulDao.getChildByParentAndSupport(start, limit, parent,
+				support);
 		long count = ulDao.getCountByParentAndSupport(parent, support);
 		map.put("UserlList", li);
 		map.put("count", count);
@@ -438,7 +442,7 @@ public class UserServiceImp implements UserService {
 	public Object getUserListByRank(Integer start, Integer limit, Integer rank) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("UserList", uDao.getUserListByRank(start, limit, rank));
-		map.put("count",uDao.getRankCount(rank));
+		map.put("count", uDao.getRankCount(rank));
 		return JsonObject.getResult(1, "用户列表", map);
 	}
 
@@ -446,7 +450,8 @@ public class UserServiceImp implements UserService {
 	public Object getUserDetailListBySupport(Integer start, Integer limit,
 			Integer support) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userdetailList", udDao.getUserDetailListBySupport(start, limit, support));
+		map.put("userdetailList",
+				udDao.getUserDetailListBySupport(start, limit, support));
 		map.put("count", udDao.getCountBySupport(support));
 		return JsonObject.getResult(1, "用户列表", map);
 	}
@@ -459,6 +464,65 @@ public class UserServiceImp implements UserService {
 			return JsonObject.getResult(1, "用户详情", map);
 		} else {
 			return JsonObject.getResult(0, "用户详情获取失败", false);
+		}
+	}
+
+	@Override
+	public Object getUserDetailListById(Long[] id) {
+		if (udDao.getUserDetailListById(id) != null) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("UserDetailList", udDao.getUserDetailListById(id));
+			return JsonObject.getResult(1, "用户详情列表", map);
+		} else {
+			return JsonObject.getResult(0, "用户详情列表获取失败", false);
+		}
+	}
+
+	@Override
+	public Object updateUserPhoto(HttpServletRequest request, long userId,
+			String image) {
+		// 获取图片base64编码
+		String imageIO = image.substring(image.indexOf("base64") + 7);
+		// 生成图片名称
+		String photoName = new Date().getTime()
+				/ 1000
+				+ "_"
+				+ new Random().nextInt(10)
+				+ "."
+				+ image.substring(image.indexOf("/") + 1,
+						image.indexOf("/") + 4);// 获取base64编码中获取的图片的后缀
+
+		String rPath = request.getSession().getServletContext()
+				.getRealPath("/"); // 项目根目录 ...\nzj\
+
+		String upDir = "upload" + File.separator + "user_photo";// 项目子目录
+
+		String path = rPath + upDir; // 图片保存的完整目录
+
+		File dir = new File(path);
+		if (!dir.exists() && !dir.isDirectory()) { // 路径不存在则创建
+			dir.mkdirs();
+		}
+		String fPath = path + File.separator + photoName; // 文件最终路径
+		String url = new readProperties().getP("server") + "upload/user_photo/"
+				+ photoName; // 保存的url
+		System.out.println("url:" + url);
+		System.out.println(fPath);
+		// ------------------------准备工作完成-----------------------------
+		// 数据库网络路径 + 文件写入 都为true时才可正确返回
+		if (udDao.updatePhoto(userId, url)
+				&& GenerateImage.GenerateImage(imageIO, fPath))
+			return JsonObject.getResult(1, "修改用户头像成功", true);
+		else
+			return JsonObject.getResult(0, "修改用户头像失败", false);
+	}
+
+	@Override
+	public Object updateSupport(long userId, Integer support) {
+		if (udDao.updateSupport(userId, support)) {
+			return JsonObject.getResult(1, "服务状态修改成功", true);
+		} else {
+			return JsonObject.getResult(0, "服务状态修改失败", false);
 		}
 	}
 }
